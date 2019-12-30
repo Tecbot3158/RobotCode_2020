@@ -18,5 +18,14 @@
     <orderEntry type="library" name="Gradle: edu.wpi.first.hal:hal-java:2019.4.1" level="project" />
     <orderEntry type="library" name="Gradle: com.ctre.phoenix:api-java:5.14.1" level="project" />
     <orderEntry type="library" name="Gradle: com.ctre.phoenix:wpiapi-java:5.14.1" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/17.0.0/annotations-17.0.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -7,20 +7,38 @@
 
 package frc.robot;
 
-/**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
- */
-public class RobotMap {
-  // For example to map the left and right motors, you could define the
-  // following variables to use with your drivetrain subsystem.
-  // public static int leftMotor = 1;
-  // public static int rightMotor = 2;
+import frc.robot.resources.RobotConfigurator;
+import frc.robot.resources.TecbotSpeedController.TypeOfMotor;
 
-  // If you are using multiple modules, make sure to define both the port
-  // number and the module. For example you with a rangefinder:
-  // public static int rangefinderPort = 1;
-  // public static int rangefinderModule = 1;
+
+public class RobotMap {
+
+    public static int[] leftChassisPorts = {0,1,2};
+    public static int[] rightChassisPorts = {0,1,2};
+
+    public static TypeOfMotor[] leftChassisMotorTypes = {TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX ,TypeOfMotor.TALON_SRX};
+    public static TypeOfMotor[] rightChassisMotorTypes = {TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX ,TypeOfMotor.TALON_SRX};
+
+    /*
+    * If encoder is connected to speed controller,
+    * indicate the speed controller port here, and put encoder ports in
+    * config not set
+     */
+    public static int leftChassisMotorWithEncoder = RobotConfigurator.CONFIG_NOT_SET;
+    public static int rightChassisMotorWithEncoder = RobotConfigurator.CONFIG_NOT_SET;
+
+    /*
+     * If encoder is connected to RoboRIO,
+     * indicate the port here, and put encoder motor ports in
+     * config not set
+     */
+    public static int[] leftChassisEncoderPorts = {RobotConfigurator.CONFIG_NOT_SET, RobotConfigurator.CONFIG_NOT_SET};
+    public static int[] rightChassisEncoderPorts = {RobotConfigurator.CONFIG_NOT_SET, RobotConfigurator.CONFIG_NOT_SET};
+
+    public static int transmission_port_1;
+    public static int transmission_port_2;
+
+    public static int[] wheelSolenoidPorts = {0,1};
+    public static int middleWheelPort = 0;
+    public static TypeOfMotor middleWheelMotorType = TypeOfMotor.TALON_SRX;
 }
