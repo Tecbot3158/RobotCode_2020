@@ -34,6 +34,14 @@ public class RobotMap {
      */
     public static int[] leftChassisEncoderPorts = {RobotConfigurator.CONFIG_NOT_SET, RobotConfigurator.CONFIG_NOT_SET};
     public static int[] rightChassisEncoderPorts = {RobotConfigurator.CONFIG_NOT_SET, RobotConfigurator.CONFIG_NOT_SET};
+    public static int[] middleWheelEncoderPorts = {RobotConfigurator.CONFIG_NOT_SET, RobotConfigurator.CONFIG_NOT_SET};
+
+    /*
+     * If any of the motors of the chassis must be inverted,
+     * indicate the port(s) in these arrays.
+     */
+    public static int[] leftChassisInvertedMotors;
+    public static int[] rightChassisInvertedMotors;
 
     public static int transmission_port_1;
     public static int transmission_port_2;

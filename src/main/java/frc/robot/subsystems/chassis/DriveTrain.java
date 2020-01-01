@@ -44,7 +44,7 @@ public class DriveTrain extends Subsystem {
     boolean arrivedToThePosition = false;
     double target, diffPos, diffAng;
 
-    TecbotEncoder leftEncoder, rightEncoder;
+    TecbotEncoder leftEncoder, rightEncoder, wheelEncoder;
 
     // Mecanum and Swerve move require the robot to stay in the same angle (unless turning) so hasSetAngle
     // checks if the angle has been set.
@@ -70,8 +70,8 @@ public class DriveTrain extends Subsystem {
 
         middle = new TecbotSpeedController(RobotMap.middleWheelPort, RobotMap.middleWheelMotorType);
 
-        leftMotors = new ArrayList<TecbotSpeedController>();
-        rightMotors = new ArrayList<TecbotSpeedController>();
+        leftMotors = new ArrayList<>();
+        rightMotors = new ArrayList<>();
 
         if (RobotMap.leftChassisPorts.length != RobotMap.rightChassisPorts.length)
             DriverStation.reportError("More motors in one side.", true);
@@ -85,16 +85,25 @@ public class DriveTrain extends Subsystem {
             leftMotors.add(new TecbotSpeedController(RobotMap.leftChassisPorts[i], RobotMap.leftChassisMotorTypes[i]));
             if (i == RobotMap.leftChassisMotorWithEncoder)
                 leftEncoderMotor = leftMotors.get(i);
+            for (int port: RobotMap.leftChassisInvertedMotors){
+                if(port == RobotMap.leftChassisPorts[i])
+                    leftMotors.get(i).setInverted(true);
+            }
         }
         for (int i = 0; i < RobotMap.rightChassisPorts.length; i++) {
-            leftMotors.add(new TecbotSpeedController(RobotMap.rightChassisPorts[i], RobotMap.rightChassisMotorTypes[i]));
+            rightMotors.add(new TecbotSpeedController(RobotMap.rightChassisPorts[i], RobotMap.rightChassisMotorTypes[i]));
             if (i == RobotMap.rightChassisMotorWithEncoder)
                 rightEncoderMotor = rightMotors.get(i);
+            for (int port: RobotMap.rightChassisInvertedMotors){
+                if(port == RobotMap.rightChassisPorts[i])
+                    rightMotors.get(i).setInverted(true);
+            }
         }
 
 
         leftEncoder = RobotConfigurator.buildEncoder(leftEncoderMotor, RobotMap.leftChassisEncoderPorts[0], RobotMap.leftChassisEncoderPorts[1]);
         rightEncoder = RobotConfigurator.buildEncoder(rightEncoderMotor, RobotMap.rightChassisEncoderPorts[0], RobotMap.rightChassisEncoderPorts[1]);
+        wheelEncoder = RobotConfigurator.buildEncoder(middle, RobotMap.middleWheelEncoderPorts[0], RobotMap.middleWheelEncoderPorts[0]);
 
         switch (leftMotors.size()) {
             case 1:
@@ -194,7 +203,7 @@ public class DriveTrain extends Subsystem {
     }
 
     public void stop() {
-        drive.arcadeDrive(0, 0);
+        frankieDrive(0,0,0);
     }
 
     /**
@@ -304,8 +313,11 @@ public class DriveTrain extends Subsystem {
     public void swerveMove(double x, double y, double turn) {
         // The angle relative to the field given by the x and the y
         double absoluteAngle = 0;
-        if (y != 0)
+        if (y != 0) {
             absoluteAngle = java.lang.Math.toDegrees(java.lang.Math.atan(x / y));
+            if(x > 0) absoluteAngle = 90;
+            if(x < 0) absoluteAngle = -90;
+        }
         if (y < 0) {
             if (x < 0) {
                 absoluteAngle -= 180;
@@ -412,11 +424,18 @@ public class DriveTrain extends Subsystem {
         return rightEncoder.getRaw();
     }
 
+    public double getMiddlePosition(){
+        return wheelEncoder.getRaw();
+    }
+
     public TecbotEncoder getLeftEncoder() {
         return leftEncoder;
     }
     public TecbotEncoder getRightEncoder() {
         return rightEncoder;
+    }
+    public TecbotEncoder getWheelEncoder(){
+        return wheelEncoder;
     }
 
     @Override
