@@ -13,16 +13,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.drive.RobotDriveBase;
 
 /**
- * A class for driving differential drive/skid-steer drive platforms such as the Kit of Parts drive
- * base, "tank drive", or West Coast Drive.
+ * A class for driving differential drive/skid-steer drive platforms such as the
+ * Kit of Parts drive base, "tank drive", or West Coast Drive.
  *
- * <p>These drive bases typically have drop-center / skid-steer with two or more wheels per side
- * (e.g., 6WD or 8WD). This class takes a SpeedController per side. For four and
- * six motor drivetrains, construct and pass in {@link SpeedControllerGroup}
- * instances as follows.
+ * <p>
+ * These drive bases typically have drop-center / skid-steer with two or more
+ * wheels per side (e.g., 6WD or 8WD). This class takes a SpeedController per
+ * side. For four and six motor drivetrains, construct and pass in
+ * {@link SpeedControllerGroup} instances as follows.
  *
- * <p>Four motor drivetrain:
- * <pre><code>
+ * <p>
+ * Four motor drivetrain:
+ * 
+ * <pre>
+ * <code>
  * public class Robot {
  *   Spark m_frontLeft = new Spark(1);
  *   Spark m_rearLeft = new Spark(2);
@@ -34,10 +38,14 @@ import edu.wpi.first.wpilibj.drive.RobotDriveBase;
  *
  *   DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
  * }
- * </code></pre>
+ * </code>
+ * </pre>
  *
- * <p>Six motor drivetrain:
- * <pre><code>
+ * <p>
+ * Six motor drivetrain:
+ * 
+ * <pre>
+ * <code>
  * public class Robot {
  *   Spark m_frontLeft = new Spark(1);
  *   Spark m_midLeft = new Spark(2);
@@ -51,11 +59,16 @@ import edu.wpi.first.wpilibj.drive.RobotDriveBase;
  *
  *   DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
  * }
- * </code></pre>
+ * </code>
+ * </pre>
  *
- * <p>A differential drive robot has left and right wheels separated by an arbitrary width.
+ * <p>
+ * A differential drive robot has left and right wheels separated by an
+ * arbitrary width.
  *
- * <p>Drive base diagram:
+ * <p>
+ * Drive base diagram:
+ * 
  * <pre>
  * |_______|
  * | |   | |
@@ -64,30 +77,39 @@ import edu.wpi.first.wpilibj.drive.RobotDriveBase;
  * |       |
  * </pre>
  *
- * <p>Each drive() function provides different inverse kinematic relations for a differential drive
- * robot. Motor outputs for the right side are negated, so motor direction inversion by the user is
- * usually unnecessary.
+ * <p>
+ * Each drive() function provides different inverse kinematic relations for a
+ * differential drive robot. Motor outputs for the right side are negated, so
+ * motor direction inversion by the user is usually unnecessary.
  *
- * <p>This library uses the NED axes convention (North-East-Down as external reference in the world
- * frame): http://www.nuclearprojects.com/ins/images/axis_big.png.
+ * <p>
+ * This library uses the NED axes convention (North-East-Down as external
+ * reference in the world frame):
+ * http://www.nuclearprojects.com/ins/images/axis_big.png.
  *
- * <p>The positive X axis points ahead, the positive Y axis points right, and the positive Z axis
- * points down. Rotations follow the right-hand rule, so clockwise rotation around the Z axis is
- * positive.
+ * <p>
+ * The positive X axis points ahead, the positive Y axis points right, and the
+ * positive Z axis points down. Rotations follow the right-hand rule, so
+ * clockwise rotation around the Z axis is positive.
  *
- * <p>Inputs smaller then {@value RobotDriveBase#kDefaultDeadband} will
- * be set to 0, and larger values will be scaled so that the full range is still used. This
- * deadband value can be changed with {@link #setDeadband}.
+ * <p>
+ * Inputs smaller then {@value RobotDriveBase#kDefaultDeadband} will be set to
+ * 0, and larger values will be scaled so that the full range is still used.
+ * This deadband value can be changed with {@link #setDeadband}.
  *
- * <p>RobotDrive porting guide:
- * <br>{@link #tankDrive(double, double)} is equivalent to
- * {@link edu.wpi.first.wpilibj.RobotDrive#tankDrive(double, double)} if a deadband of 0 is used.
- * <br>{@link #arcadeDrive(double, double)} is equivalent to
- * {@link edu.wpi.first.wpilibj.RobotDrive#arcadeDrive(double, double)} if a deadband of 0 is used
- * and the the rotation input is inverted eg arcadeDrive(y, -rotation)
- * <br>{@link #curvatureDrive(double, double, boolean)} is similar in concept to
- * {@link edu.wpi.first.wpilibj.RobotDrive#drive(double, double)} with the addition of a quick turn
- * mode. However, it is not designed to give exactly the same response.
+ * <p>
+ * RobotDrive porting guide: <br>
+ * {@link #tankDrive(double, double)} is equivalent to
+ * {@link edu.wpi.first.wpilibj.RobotDrive#tankDrive(double, double)} if a
+ * deadband of 0 is used. <br>
+ * {@link #arcadeDrive(double, double)} is equivalent to
+ * {@link edu.wpi.first.wpilibj.RobotDrive#arcadeDrive(double, double)} if a
+ * deadband of 0 is used and the the rotation input is inverted eg
+ * arcadeDrive(y, -rotation) <br>
+ * {@link #curvatureDrive(double, double, boolean)} is similar in concept to
+ * {@link edu.wpi.first.wpilibj.RobotDrive#drive(double, double)} with the
+ * addition of a quick turn mode. However, it is not designed to give exactly
+ * the same response.
  */
 public class DifferentialDrive extends RobotDriveBase {
   public static final double kDefaultQuickStopThreshold = 0.2;
@@ -111,8 +133,9 @@ public class DifferentialDrive extends RobotDriveBase {
   /**
    * Construct a DifferentialDrive.
    *
-   * <p>To pass multiple motors per side, use a {@link SpeedControllerGroup}. If a motor needs to be
-   * inverted, do so before passing it in.
+   * <p>
+   * To pass multiple motors per side, use a {@link SpeedControllerGroup}. If a
+   * motor needs to be inverted, do so before passing it in.
    */
 
   public DifferentialDrive(TecbotSpeedController frontLeftMotor, TecbotSpeedController frontRightMotor) {
@@ -129,7 +152,8 @@ public class DifferentialDrive extends RobotDriveBase {
     setName("DifferentialDrive", instances);
   }
 
-  public DifferentialDrive(TecbotSpeedController frontLeftMotor, TecbotSpeedController frontRightMotor, TecbotSpeedController rearLeftMotor, TecbotSpeedController rearRightMotor) {
+  public DifferentialDrive(TecbotSpeedController frontLeftMotor, TecbotSpeedController frontRightMotor,
+      TecbotSpeedController rearLeftMotor, TecbotSpeedController rearRightMotor) {
     verify(frontLeftMotor, frontRightMotor, rearLeftMotor, rearRightMotor);
     m_frontLeftMotor = frontLeftMotor;
     m_frontRightMotor = frontRightMotor;
@@ -145,7 +169,9 @@ public class DifferentialDrive extends RobotDriveBase {
     setName("DifferentialDrive", instances);
   }
 
-  public DifferentialDrive(TecbotSpeedController frontLeftMotor, TecbotSpeedController frontRightMotor, TecbotSpeedController middleLeftMotor, TecbotSpeedController middleRightMotor, TecbotSpeedController rearLeftMotor, TecbotSpeedController rearRightMotor) {
+  public DifferentialDrive(TecbotSpeedController frontLeftMotor, TecbotSpeedController frontRightMotor,
+      TecbotSpeedController middleLeftMotor, TecbotSpeedController middleRightMotor,
+      TecbotSpeedController rearLeftMotor, TecbotSpeedController rearRightMotor) {
     verify(frontLeftMotor, frontRightMotor, middleLeftMotor, middleRightMotor, rearLeftMotor, rearRightMotor);
     m_frontLeftMotor = frontLeftMotor;
     m_frontRightMotor = frontRightMotor;
@@ -164,100 +190,106 @@ public class DifferentialDrive extends RobotDriveBase {
   }
 
   /**
-   * Verifies that all motors are nonnull, throwing a NullPointerException if any of them are.
-   * The exception's error message will specify all null motors, e.g. {@code
-   * NullPointerException("leftMotor, rightMotor")}, to give as much information as possible to
-   * the programmer.
+   * Verifies that all motors are nonnull, throwing a NullPointerException if any
+   * of them are. The exception's error message will specify all null motors, e.g.
+   * {@code
+   * NullPointerException("leftMotor, rightMotor")}, to give as much information
+   * as possible to the programmer.
    *
    * @throws NullPointerException if any of the given motors are null
    */
 
-  private void verify(TecbotSpeedController frontLeftMotor, TecbotSpeedController frontRightMotor){
-      if (frontLeftMotor != null && frontRightMotor != null) {
-          return;
-      }
-      StringJoiner joiner = new StringJoiner(", ");
-      if (frontLeftMotor == null){
-          joiner.add("frontLeftMotor");
-      }
-      if (frontRightMotor == null) {
-          joiner.add("frontRightMotor");
-      }
-      throw new NullPointerException(joiner.toString());
+  private void verify(TecbotSpeedController frontLeftMotor, TecbotSpeedController frontRightMotor) {
+    if (frontLeftMotor != null && frontRightMotor != null) {
+      return;
+    }
+    StringJoiner joiner = new StringJoiner(", ");
+    if (frontLeftMotor == null) {
+      joiner.add("frontLeftMotor");
+    }
+    if (frontRightMotor == null) {
+      joiner.add("frontRightMotor");
+    }
+    throw new NullPointerException(joiner.toString());
   }
 
-  private void verify(TecbotSpeedController frontLeftMotor, TecbotSpeedController frontRightMotor, TecbotSpeedController rearLeftMotor, TecbotSpeedController rearRightMotor){
-      if (frontLeftMotor != null && frontRightMotor != null && rearLeftMotor != null && rearRightMotor != null) {
-          return;
-      }
-      StringJoiner joiner = new StringJoiner(", ");
-      if (frontLeftMotor == null){
-          joiner.add("frontLeftMotor");
-      }
-      if (frontRightMotor == null) {
-          joiner.add("frontRightMotor");
-      }
-      if(rearLeftMotor == null){
-          joiner.add("rearLeftMotor");
-      }
-      if(rearRightMotor == null){
-          joiner.add("rearRightMotor");
-      }
-      throw new NullPointerException(joiner.toString());
+  private void verify(TecbotSpeedController frontLeftMotor, TecbotSpeedController frontRightMotor,
+      TecbotSpeedController rearLeftMotor, TecbotSpeedController rearRightMotor) {
+    if (frontLeftMotor != null && frontRightMotor != null && rearLeftMotor != null && rearRightMotor != null) {
+      return;
+    }
+    StringJoiner joiner = new StringJoiner(", ");
+    if (frontLeftMotor == null) {
+      joiner.add("frontLeftMotor");
+    }
+    if (frontRightMotor == null) {
+      joiner.add("frontRightMotor");
+    }
+    if (rearLeftMotor == null) {
+      joiner.add("rearLeftMotor");
+    }
+    if (rearRightMotor == null) {
+      joiner.add("rearRightMotor");
+    }
+    throw new NullPointerException(joiner.toString());
   }
 
-  private void verify(TecbotSpeedController frontLeftMotor, TecbotSpeedController frontRightMotor, TecbotSpeedController middleLeftMotor, TecbotSpeedController middleRightMotor, TecbotSpeedController rearLeftMotor, TecbotSpeedController rearRightMotor){
-      if (frontLeftMotor != null && frontRightMotor != null && rearLeftMotor != null && rearRightMotor != null && middleLeftMotor != null && middleRightMotor != null) {
-          return;
-      }
-      StringJoiner joiner = new StringJoiner(", ");
-      if (frontLeftMotor == null){
-          joiner.add("frontLeftMotor");
-      }
-      if (frontRightMotor == null) {
-          joiner.add("frontRightMotor");
-      }
-      if (middleLeftMotor == null){
-          joiner.add("middleLeftMotor");
-      }
-      if (middleRightMotor == null){
-          joiner.add("middleRightMotor");
-      }
-      if(rearLeftMotor == null){
-          joiner.add("rearLeftMotor");
-      }
-      if(rearRightMotor == null){
-          joiner.add("rearRightMotor");
-      }
-      throw new NullPointerException(joiner.toString());
+  private void verify(TecbotSpeedController frontLeftMotor, TecbotSpeedController frontRightMotor,
+      TecbotSpeedController middleLeftMotor, TecbotSpeedController middleRightMotor,
+      TecbotSpeedController rearLeftMotor, TecbotSpeedController rearRightMotor) {
+    if (frontLeftMotor != null && frontRightMotor != null && rearLeftMotor != null && rearRightMotor != null
+        && middleLeftMotor != null && middleRightMotor != null) {
+      return;
+    }
+    StringJoiner joiner = new StringJoiner(", ");
+    if (frontLeftMotor == null) {
+      joiner.add("frontLeftMotor");
+    }
+    if (frontRightMotor == null) {
+      joiner.add("frontRightMotor");
+    }
+    if (middleLeftMotor == null) {
+      joiner.add("middleLeftMotor");
+    }
+    if (middleRightMotor == null) {
+      joiner.add("middleRightMotor");
+    }
+    if (rearLeftMotor == null) {
+      joiner.add("rearLeftMotor");
+    }
+    if (rearRightMotor == null) {
+      joiner.add("rearRightMotor");
+    }
+    throw new NullPointerException(joiner.toString());
   }
 
   /**
-   * Arcade drive method for differential drive platform.
-   * The calculated values will be squared to decrease sensitivity at low speeds.
+   * Arcade drive method for differential drive platform. The calculated values
+   * will be squared to decrease sensitivity at low speeds.
    *
-   * @param xSpeed    The robot's speed along the X axis [-1.0..1.0]. Forward is positive.
-   * @param zRotation The robot's rotation rate around the Z axis [-1.0..1.0]. Clockwise is
+   * @param xSpeed    The robot's speed along the X axis [-1.0..1.0]. Forward is
    *                  positive.
+   * @param zRotation The robot's rotation rate around the Z axis [-1.0..1.0].
+   *                  Clockwise is positive.
    */
-  
-   public void arcadeDrive(double xSpeed, double zRotation) {
+
+  public void arcadeDrive(double xSpeed, double zRotation) {
     arcadeDrive(xSpeed, zRotation, true);
   }
 
   /**
    * Arcade drive method for differential drive platform.
    *
-   * @param xSpeed        The robot's speed along the X axis [-1.0..1.0]. Forward is positive.
-   * @param zRotation     The robot's rotation rate around the Z axis [-1.0..1.0]. Clockwise is
-   *                      positive.
+   * @param xSpeed       The robot's speed along the X axis [-1.0..1.0]. Forward
+   *                     is positive.
+   * @param zRotation    The robot's rotation rate around the Z axis [-1.0..1.0].
+   *                     Clockwise is positive.
    * @param squareInputs If set, decreases the input sensitivity at low speeds.
    */
 
   public void arcadeDrive(double xSpeed, double zRotation, boolean squareInputs) {
     if (!m_reported) {
-      HAL.report(tResourceType.kResourceType_RobotDrive, 2,
-                 tInstances.kRobotDrive2_DifferentialArcade);
+      HAL.report(tResourceType.kResourceType_RobotDrive, 2, tInstances.kRobotDrive2_DifferentialArcade);
       m_reported = true;
     }
 
@@ -270,14 +302,14 @@ public class DifferentialDrive extends RobotDriveBase {
     // Square the inputs (while preserving the sign) to increase fine control
     // while permitting full power.
     if (squareInputs) {
-      xSpeed = Math.copySign(xSpeed * xSpeed, xSpeed);
-      zRotation = Math.copySign(zRotation * zRotation, zRotation);
+      xSpeed = java.lang.Math.copySign(xSpeed * xSpeed, xSpeed);
+      zRotation = java.lang.Math.copySign(zRotation * zRotation, zRotation);
     }
 
     double leftMotorOutput;
     double rightMotorOutput;
 
-    double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
+    double maxInput = java.lang.Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
 
     if (xSpeed >= 0.0) {
       // First quadrant, else second quadrant
@@ -299,17 +331,17 @@ public class DifferentialDrive extends RobotDriveBase {
       }
     }
 
-    if(m_frontLeftMotor != null)    
+    if (m_frontLeftMotor != null)
       m_frontLeftMotor.set(limit(leftMotorOutput) * m_maxOutput);
-    if(m_middleLeftMotor != null)
+    if (m_middleLeftMotor != null)
       m_middleLeftMotor.set(limit(leftMotorOutput) * m_maxOutput);
-    if(m_rearLeftMotor != null)
+    if (m_rearLeftMotor != null)
       m_rearLeftMotor.set(limit(leftMotorOutput) * m_maxOutput);
-    if(m_frontRightMotor != null)
+    if (m_frontRightMotor != null)
       m_frontRightMotor.set(limit(rightMotorOutput) * m_maxOutput * m_rightSideInvertMultiplier);
-    if(m_middleRightMotor != null)
+    if (m_middleRightMotor != null)
       m_middleRightMotor.set(limit(rightMotorOutput) * m_maxOutput * m_rightSideInvertMultiplier);
-    if(m_rearRightMotor != null)
+    if (m_rearRightMotor != null)
       m_rearRightMotor.set(limit(rightMotorOutput) * m_maxOutput * m_rightSideInvertMultiplier);
     feed();
   }
@@ -317,22 +349,23 @@ public class DifferentialDrive extends RobotDriveBase {
   /**
    * Curvature drive method for differential drive platform.
    *
-   * <p>The rotation argument controls the curvature of the robot's path rather than its rate of
-   * heading change. This makes the robot more controllable at high speeds. Also handles the
-   * robot's quick turn functionality - "quick turn" overrides constant-curvature turning for
-   * turn-in-place maneuvers.
+   * <p>
+   * The rotation argument controls the curvature of the robot's path rather than
+   * its rate of heading change. This makes the robot more controllable at high
+   * speeds. Also handles the robot's quick turn functionality - "quick turn"
+   * overrides constant-curvature turning for turn-in-place maneuvers.
    *
-   * @param xSpeed      The robot's speed along the X axis [-1.0..1.0]. Forward is positive.
-   * @param zRotation   The robot's rotation rate around the Z axis [-1.0..1.0]. Clockwise is
+   * @param xSpeed      The robot's speed along the X axis [-1.0..1.0]. Forward is
    *                    positive.
+   * @param zRotation   The robot's rotation rate around the Z axis [-1.0..1.0].
+   *                    Clockwise is positive.
    * @param isQuickTurn If set, overrides constant-curvature turning for
    *                    turn-in-place maneuvers.
    */
-  
+
   public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn) {
     if (!m_reported) {
-      HAL.report(tResourceType.kResourceType_RobotDrive, 2,
-                 tInstances.kRobotDrive2_DifferentialCurvature);
+      HAL.report(tResourceType.kResourceType_RobotDrive, 2, tInstances.kRobotDrive2_DifferentialCurvature);
       m_reported = true;
     }
 
@@ -392,29 +425,29 @@ public class DifferentialDrive extends RobotDriveBase {
       rightMotorOutput /= maxMagnitude;
     }
 
-    if(m_frontLeftMotor != null)
+    if (m_frontLeftMotor != null)
       m_frontLeftMotor.set(leftMotorOutput * m_maxOutput);
-    if(m_middleLeftMotor != null)
+    if (m_middleLeftMotor != null)
       m_middleLeftMotor.set(leftMotorOutput * m_maxOutput);
-    if(m_rearLeftMotor != null)
+    if (m_rearLeftMotor != null)
       m_rearLeftMotor.set(leftMotorOutput * m_maxOutput);
-    if(m_frontRightMotor != null)
+    if (m_frontRightMotor != null)
       m_frontRightMotor.set(rightMotorOutput * m_maxOutput * m_rightSideInvertMultiplier);
-    if(m_middleRightMotor != null)
+    if (m_middleRightMotor != null)
       m_middleRightMotor.set(rightMotorOutput * m_maxOutput * m_rightSideInvertMultiplier);
-    if(m_rearRightMotor != null)
+    if (m_rearRightMotor != null)
       m_rearRightMotor.set(rightMotorOutput * m_maxOutput * m_rightSideInvertMultiplier);
     feed();
   }
 
   /**
-   * Tank drive method for differential drive platform.
-   * The calculated values will be squared to decrease sensitivity at low speeds.
+   * Tank drive method for differential drive platform. The calculated values will
+   * be squared to decrease sensitivity at low speeds.
    *
-   * @param leftSpeed  The robot's left side speed along the X axis [-1.0..1.0]. Forward is
-   *                   positive.
-   * @param rightSpeed The robot's right side speed along the X axis [-1.0..1.0]. Forward is
-   *                   positive.
+   * @param leftSpeed  The robot's left side speed along the X axis [-1.0..1.0].
+   *                   Forward is positive.
+   * @param rightSpeed The robot's right side speed along the X axis [-1.0..1.0].
+   *                   Forward is positive.
    */
   public void tankDrive(double leftSpeed, double rightSpeed) {
     tankDrive(leftSpeed, rightSpeed, true);
@@ -423,16 +456,15 @@ public class DifferentialDrive extends RobotDriveBase {
   /**
    * Tank drive method for differential drive platform.
    *
-   * @param leftSpeed     The robot left side's speed along the X axis [-1.0..1.0]. Forward is
-   *                      positive.
-   * @param rightSpeed    The robot right side's speed along the X axis [-1.0..1.0]. Forward is
-   *                      positive.
+   * @param leftSpeed    The robot left side's speed along the X axis [-1.0..1.0].
+   *                     Forward is positive.
+   * @param rightSpeed   The robot right side's speed along the X axis
+   *                     [-1.0..1.0]. Forward is positive.
    * @param squareInputs If set, decreases the input sensitivity at low speeds.
    */
   public void tankDrive(double leftSpeed, double rightSpeed, boolean squareInputs) {
     if (!m_reported) {
-      HAL.report(tResourceType.kResourceType_RobotDrive, 2,
-                 tInstances.kRobotDrive2_DifferentialTank);
+      HAL.report(tResourceType.kResourceType_RobotDrive, 2, tInstances.kRobotDrive2_DifferentialTank);
       m_reported = true;
     }
 
@@ -445,20 +477,20 @@ public class DifferentialDrive extends RobotDriveBase {
     // Square the inputs (while preserving the sign) to increase fine control
     // while permitting full power.
     if (squareInputs) {
-      leftSpeed = Math.copySign(leftSpeed * leftSpeed, leftSpeed);
-      rightSpeed = Math.copySign(rightSpeed * rightSpeed, rightSpeed);
+      leftSpeed = java.lang.Math.copySign(leftSpeed * leftSpeed, leftSpeed);
+      rightSpeed = java.lang.Math.copySign(rightSpeed * rightSpeed, rightSpeed);
     }
-    if(m_frontLeftMotor != null)
+    if (m_frontLeftMotor != null)
       m_frontLeftMotor.set(leftSpeed * m_maxOutput);
-    if(m_middleLeftMotor != null)
+    if (m_middleLeftMotor != null)
       m_middleLeftMotor.set(leftSpeed * m_maxOutput);
-    if(m_rearLeftMotor != null)
+    if (m_rearLeftMotor != null)
       m_rearLeftMotor.set(leftSpeed * m_maxOutput);
-    if(m_frontRightMotor != null)
+    if (m_frontRightMotor != null)
       m_frontRightMotor.set(rightSpeed * m_maxOutput * m_rightSideInvertMultiplier);
-    if(m_middleRightMotor != null)
+    if (m_middleRightMotor != null)
       m_middleRightMotor.set(rightSpeed * m_maxOutput * m_rightSideInvertMultiplier);
-    if(m_rearRightMotor != null)
+    if (m_rearRightMotor != null)
       m_rearRightMotor.set(rightSpeed * m_maxOutput * m_rightSideInvertMultiplier);
 
     feed();
@@ -467,15 +499,19 @@ public class DifferentialDrive extends RobotDriveBase {
   /**
    * Sets the QuickStop speed threshold in curvature drive.
    *
-   * <p>QuickStop compensates for the robot's moment of inertia when stopping after a QuickTurn.
+   * <p>
+   * QuickStop compensates for the robot's moment of inertia when stopping after a
+   * QuickTurn.
    *
-   * <p>While QuickTurn is enabled, the QuickStop accumulator takes on the rotation rate value
-   * outputted by the low-pass filter when the robot's speed along the X axis is below the
-   * threshold. When QuickTurn is disabled, the accumulator's value is applied against the computed
-   * angular power request to slow the robot's rotation.
+   * <p>
+   * While QuickTurn is enabled, the QuickStop accumulator takes on the rotation
+   * rate value outputted by the low-pass filter when the robot's speed along the
+   * X axis is below the threshold. When QuickTurn is disabled, the accumulator's
+   * value is applied against the computed angular power request to slow the
+   * robot's rotation.
    *
-   * @param threshold X speed below which quick stop accumulator will receive rotation rate values
-   *                  [0..1.0].
+   * @param threshold X speed below which quick stop accumulator will receive
+   *                  rotation rate values [0..1.0].
    */
   public void setQuickStopThreshold(double threshold) {
     m_quickStopThreshold = threshold;
@@ -484,19 +520,21 @@ public class DifferentialDrive extends RobotDriveBase {
   /**
    * Sets the low-pass filter gain for QuickStop in curvature drive.
    *
-   * <p>The low-pass filter filters incoming rotation rate commands to smooth out high frequency
-   * changes.
+   * <p>
+   * The low-pass filter filters incoming rotation rate commands to smooth out
+   * high frequency changes.
    *
-   * @param alpha Low-pass filter gain [0.0..2.0]. Smaller values result in slower output changes.
-   *              Values between 1.0 and 2.0 result in output oscillation. Values below 0.0 and
-   *              above 2.0 are unstable.
+   * @param alpha Low-pass filter gain [0.0..2.0]. Smaller values result in slower
+   *              output changes. Values between 1.0 and 2.0 result in output
+   *              oscillation. Values below 0.0 and above 2.0 are unstable.
    */
   public void setQuickStopAlpha(double alpha) {
     m_quickStopAlpha = alpha;
   }
 
   /**
-   * Gets if the power sent to the right side of the drivetrain is multipled by -1.
+   * Gets if the power sent to the right side of the drivetrain is multipled by
+   * -1.
    *
    * @return true if the right side is inverted
    */
@@ -505,7 +543,8 @@ public class DifferentialDrive extends RobotDriveBase {
   }
 
   /**
-   * Sets if the power sent to the right side of the drivetrain should be multipled by -1.
+   * Sets if the power sent to the right side of the drivetrain should be
+   * multipled by -1.
    *
    * @param rightSideInverted true if right side power should be multipled by -1
    */
@@ -515,17 +554,17 @@ public class DifferentialDrive extends RobotDriveBase {
 
   @Override
   public void stopMotor() {
-    if(m_frontLeftMotor != null)
+    if (m_frontLeftMotor != null)
       m_frontLeftMotor.stopMotor();
-    if(m_middleLeftMotor != null)
+    if (m_middleLeftMotor != null)
       m_middleLeftMotor.stopMotor();
-    if(m_rearLeftMotor != null)
+    if (m_rearLeftMotor != null)
       m_rearLeftMotor.stopMotor();
-    if(m_frontRightMotor != null)
+    if (m_frontRightMotor != null)
       m_frontRightMotor.stopMotor();
-    if(m_middleRightMotor != null)
+    if (m_middleRightMotor != null)
       m_middleRightMotor.stopMotor();
-    if(m_rearRightMotor != null)
+    if (m_rearRightMotor != null)
       m_rearRightMotor.stopMotor();
     feed();
   }
@@ -543,15 +582,11 @@ public class DifferentialDrive extends RobotDriveBase {
     builder.addDoubleProperty("Front Left Motor Speed", m_frontLeftMotor::get, m_frontLeftMotor::set);
     builder.addDoubleProperty("Middle Left Motor Speed", m_middleLeftMotor::get, m_middleLeftMotor::set);
     builder.addDoubleProperty("Rear Left Motor Speed", m_rearLeftMotor::get, m_rearRightMotor::set);
-    builder.addDoubleProperty(
-        "Front Right Motor Speed",
-        () -> m_frontRightMotor.get() * m_rightSideInvertMultiplier,
+    builder.addDoubleProperty("Front Right Motor Speed", () -> m_frontRightMotor.get() * m_rightSideInvertMultiplier,
         x -> m_frontRightMotor.set(x * m_rightSideInvertMultiplier));
-    builder.addDoubleProperty("Middle Right Motor Speed", 
-        () -> m_middleRightMotor.get() * m_rightSideInvertMultiplier, 
+    builder.addDoubleProperty("Middle Right Motor Speed", () -> m_middleRightMotor.get() * m_rightSideInvertMultiplier,
         x -> m_middleRightMotor.set(x * m_rightSideInvertMultiplier));
-    builder.addDoubleProperty("Rear Right Motor Speed", 
-        () -> m_rearRightMotor.get() * m_rightSideInvertMultiplier, 
+    builder.addDoubleProperty("Rear Right Motor Speed", () -> m_rearRightMotor.get() * m_rightSideInvertMultiplier,
         x -> m_rearRightMotor.set(x * m_rightSideInvertMultiplier));
   }
 }

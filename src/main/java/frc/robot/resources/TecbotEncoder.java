@@ -10,11 +10,7 @@
 
 /*----------------------------------------------------------------------------*/
 
-
-
 package frc.robot.resources;
-
-
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
@@ -28,17 +24,13 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 
-
-
 /**
-
+ * 
  * Add your docs here.
-
+ * 
  */
 
 public class TecbotEncoder implements CounterBase, PIDSource {
-
-
 
     private Encoder encoder;
 
@@ -46,48 +38,39 @@ public class TecbotEncoder implements CounterBase, PIDSource {
 
     private double talonDistancePerPulse = 1;
 
-
     private PIDSourceType m_pidSource;
 
-    public TecbotEncoder(Encoder encoder){
+    public TecbotEncoder(Encoder encoder) {
 
         this.encoder = encoder;
 
     }
 
-
-
-    public TecbotEncoder(TecbotSpeedController talonEncoder){
+    public TecbotEncoder(TecbotSpeedController talonEncoder) {
 
         this.talonEncoder = talonEncoder;
         this.doDefaultSRXConfig();
     }
 
-
-
-    public TecbotEncoder(DigitalSource a, DigitalSource b){
+    public TecbotEncoder(DigitalSource a, DigitalSource b) {
 
         this.encoder = new Encoder(a, b);
 
     }
 
-
-
-    public TecbotEncoder(int a, int b){
+    public TecbotEncoder(int a, int b) {
 
         this.encoder = new Encoder(a, b);
 
     }
 
+    public void setDistancePerPulse(double distancePerPulse) {
 
-
-    public void setDistancePerPulse(double distancePerPulse){
-
-        if(encoder != null){
+        if (encoder != null) {
 
             encoder.setDistancePerPulse(distancePerPulse);
 
-        }else if(talonEncoder != null){
+        } else if (talonEncoder != null) {
 
             talonDistancePerPulse = distancePerPulse;
 
@@ -95,19 +78,17 @@ public class TecbotEncoder implements CounterBase, PIDSource {
 
     }
 
+    public double getDistance() {
 
-
-    public double getDistance(){
-
-        if(encoder != null){
+        if (encoder != null) {
 
             return encoder.getDistance();
 
         }
 
-        if(talonEncoder != null){
+        if (talonEncoder != null) {
 
-            return talonEncoder.getEncPosition()*talonDistancePerPulse;
+            return talonEncoder.getEncPosition() * talonDistancePerPulse;
 
         }
 
@@ -117,16 +98,15 @@ public class TecbotEncoder implements CounterBase, PIDSource {
 
     }
 
+    public double getRate() {
 
-    public double getRate(){
-
-        if(encoder != null){
+        if (encoder != null) {
 
             return encoder.getRate();
 
         }
 
-        if(talonEncoder != null){
+        if (talonEncoder != null) {
             DriverStation.reportWarning("Theres no talon srx encoder with that ability... yet", true);
 
             return 0;
@@ -139,15 +119,15 @@ public class TecbotEncoder implements CounterBase, PIDSource {
 
     }
 
-    public int getRaw(){
+    public int getRaw() {
 
-        if(encoder != null){
+        if (encoder != null) {
 
             return encoder.getRaw();
 
         }
 
-        if(talonEncoder != null){
+        if (talonEncoder != null) {
 
             return talonEncoder.getEncPosition();
 
@@ -159,16 +139,17 @@ public class TecbotEncoder implements CounterBase, PIDSource {
 
     }
 
-    public void setEncoderPosition(int value){
+    public void setEncoderPosition(int value) {
         talonEncoder.setEncoderPosition(0);
     }
-    public void resetEncoder(){
 
-        if( encoder != null){
+    public void resetEncoder() {
+
+        if (encoder != null) {
             encoder.reset();
         }
 
-        if(talonEncoder != null){
+        if (talonEncoder != null) {
 
             this.setEncoderPosition(0);
         }
@@ -177,7 +158,7 @@ public class TecbotEncoder implements CounterBase, PIDSource {
     @Override
     public void setPIDSourceType(PIDSourceType pidSource) {
         m_pidSource = pidSource;
-        if( encoder != null){
+        if (encoder != null) {
             encoder.setPIDSourceType(m_pidSource);
         }
     }
@@ -190,20 +171,19 @@ public class TecbotEncoder implements CounterBase, PIDSource {
     @Override
     public double pidGet() {
 
-
         switch (m_pidSource) {
-            case kDisplacement:
-                return getDistance();
-            case kRate:
-                return getRate();
-            default:
-                return 0.0;
+        case kDisplacement:
+            return getDistance();
+        case kRate:
+            return getRate();
+        default:
+            return 0.0;
         }
     }
 
     @Override
     public int get() {
-        if( encoder != null)
+        if (encoder != null)
             return encoder.get();
 
         return 0;
@@ -216,7 +196,7 @@ public class TecbotEncoder implements CounterBase, PIDSource {
 
     @Override
     public double getPeriod() {
-        if( encoder != null)
+        if (encoder != null)
             return encoder.getPeriod();
 
         return 0;
@@ -224,14 +204,14 @@ public class TecbotEncoder implements CounterBase, PIDSource {
 
     @Override
     public void setMaxPeriod(double maxPeriod) {
-        if( encoder != null)
+        if (encoder != null)
             encoder.setMaxPeriod(maxPeriod);
 
     }
 
     @Override
     public boolean getStopped() {
-        if( encoder != null)
+        if (encoder != null)
             return encoder.getStopped();
 
         return false;
@@ -239,15 +219,15 @@ public class TecbotEncoder implements CounterBase, PIDSource {
 
     @Override
     public boolean getDirection() {
-        if( encoder != null)
+        if (encoder != null)
             return encoder.getDirection();
 
         return false;
     }
 
-    public void doDefaultSRXConfig(){
+    public void doDefaultSRXConfig() {
         talonEncoder.getTalonSRX().configFactoryDefault();
-        talonEncoder.getTalonSRX().setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0,1);
+        talonEncoder.getTalonSRX().setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1);
         talonEncoder.getTalonSRX().configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
 
     }

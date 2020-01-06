@@ -96,7 +96,7 @@ public class SplineGenerator {
 	public static double angleFromDerivate(Derivative derivative, double xPos) {
 		double pendienteActual = (derivative.squareX * xPos * xPos) + (derivative.x * xPos) + derivative.indep;
 		System.out.println("m: " + pendienteActual);
-		return  (Math.atan(pendienteActual) * 360 / (2 * Math.PI));
+		return  Math.toDegrees(Math.atan(1/pendienteActual));
 	}
 
 

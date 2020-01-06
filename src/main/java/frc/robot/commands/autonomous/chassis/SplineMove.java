@@ -325,17 +325,22 @@ public class SplineMove extends Command {
                 distanceToICC = ((leftSpeed + rightSpeed) / (rightSpeed - leftSpeed));
                 //Calculates de xPos based on the ICC and the delta angle
                 xPos -= (distanceToICC * (Math.cos(Math.toRadians(lastAngle)) - Math.cos(Math.toRadians(currentAngle)))) / 2;
+                System.out.println("ICC" + distanceToICC);
             } else {
                 // If going straight, ICC becomes infinite, meaning the robot is moving in a straight line
                 // Basic trigonometry will be applied in that case
                 xPos += Math.cos(Math.toRadians(currentAngle)) * deltaDistanceLeft;
             }
 
-            System.out.println("ICC" + distanceToICC);
             System.out.println("xPos " + xPos);
         }else {
             double averageY = (deltaDistanceLeft + deltaDistanceRight) / 2;
-            xPos += Math.hypot(deltaMiddleWheel, averageY);
+            double totalDistance = Math.hypot(deltaMiddleWheel, averageY);
+            // The angle at which the robot moved, relative to the robot
+            double relativeAngle = Math.atan(deltaMiddleWheel/averageY);
+            // The angle at which the robot moved, relative to the field
+            double absoluteAngle = relativeAngle + Math.toRadians(Robot.tecbotgyro.getYaw());
+            xPos+= Math.sin(absoluteAngle) * totalDistance;
         }
         //If finished
         if (xPos >= x2) {
@@ -355,11 +360,8 @@ public class SplineMove extends Command {
         } else {
             System.out.println("finished");
         }
-        // Since our math's 0 is actually robot's 90 degrees, we must convert it
-        // To convert it, we must subtract 90 and multiply it by -1, however, when going left, the angle
-        // Must be the exact opposite, so no multiplication by -1
-        nextAngle -= 90;
-        nextAngle *= goingLeft ? 1 : -1;
+
+        nextAngle *= goingLeft ? -1 : 1;
 
         deltaAngle =  (nextAngle - Robot.tecbotgyro.getYaw());
         System.out.println("Target angle " + nextAngle);
@@ -401,7 +403,10 @@ public class SplineMove extends Command {
                 deltaFinalAngle = -deltaFinalAngle + 360;
             }
             double turn = deltaFinalAngle * TecbotConstants.SPLINE_TURN_CORRECTION;
-            Robot.driveTrain.driveToAngle(nextAngle, power,turn);
+            // The X and Y relative to the field based on the angle
+            double fieldX = Math.sin(Math.toRadians(nextAngle));
+            double fieldY = Math.cos(Math.toRadians(nextAngle));
+            Robot.driveTrain.swerveMove(fieldX,fieldY, turn);
         }
 
         System.out.println("clamped value"+ axis);
@@ -410,7 +415,7 @@ public class SplineMove extends Command {
         lastLeftCount = Robot.driveTrain.getLeftPosition();
         lastRightCount = Robot.driveTrain.getRightPosition();
         lastMiddleCount = Robot.driveTrain.getMiddlePosition();
-        
+
         // For some reason that I don't really understand, when going right (normal spline)
         // Last angle must be inverted in order to work.
         lastAngle = goingLeft ? 1 : -1 * Robot.tecbotgyro.getYaw();

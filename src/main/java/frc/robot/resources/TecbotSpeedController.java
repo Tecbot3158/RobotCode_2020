@@ -23,9 +23,10 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -37,7 +38,7 @@ public class TecbotSpeedController {
 
 	public enum TypeOfMotor {
 
-		TALON_SRX, PWM_TALON_SRX, VICTOR, SPARK, JAGUAR, VICTOR_SPX, PWM_VICTOR_SPX
+		TALON_SRX, PWM_TALON_SRX, VICTOR, SPARK, ,CAN_SPARK_BRUSHLESS ,CAN_SPARK_BRUSHED, JAGUAR, VICTOR_SPX, PWM_VICTOR_SPX
 
 	}
 
@@ -56,6 +57,7 @@ public class TecbotSpeedController {
 	public TecbotSpeedController(int port, TypeOfMotor m) {
 
 		motorToUse = m;
+
 
 		switch (motorToUse) {
 
@@ -102,7 +104,16 @@ public class TecbotSpeedController {
 				frcMotor = new PWMVictorSPX(port);
 
 				break;
+			case CAN_SPARK_BRUSHLESS:
 
+				frcMotor = new CANSparkMax(port, CANSparkMaxLowLevel.MotorType.kBrushless);
+
+				break;
+			case CAN_SPARK_BRUSHED:
+
+				frcMotor = new CANSparkMax(port, CANSparkMaxLowLevel.MotorType.kBrushed);
+
+				break;
 			default:
 
 				DriverStation.reportError("That type of motor doesn't exist!", true);
@@ -114,265 +125,44 @@ public class TecbotSpeedController {
 	public void set(double speed) {
 		speed *= inverted ? -1 : 1;
 
-		switch (motorToUse) {
+		if(phoenixMotor != null) phoenixMotor.set(ControlMode.PercentOutput, speed);
+		if(frcMotor != null) frcMotor.set( speed);
 
-			case TALON_SRX:
-				//SmartDashboard.putNumber("Motor " + this, phoenixMotor.getMotorOutputPercent());
-				phoenixMotor.set(ControlMode.PercentOutput, speed);
-
-				break;
-
-			case PWM_TALON_SRX:
-
-				frcMotor.set(speed);
-
-				break;
-
-			case VICTOR:
-
-				frcMotor.set(speed);
-
-				break;
-
-			case SPARK:
-
-				frcMotor.set(speed);
-
-				break;
-
-			case JAGUAR:
-
-				frcMotor.set(speed);
-
-				break;
-
-			case VICTOR_SPX:
-
-				phoenixMotor.set(ControlMode.PercentOutput, speed);
-
-				break;
-
-			case PWM_VICTOR_SPX:
-
-				frcMotor.set(speed);
-
-				break;
-
-			default:
-
-				DriverStation.reportError("That type of motor doesn't exist!", true);
-
-		}
-
+		if(phoenixMotor == null && frcMotor == null)
+			DriverStation.reportError("That type of motor doesn't exist!", true);
 	}
 
 	public int getEncPosition() {
 
-		switch (motorToUse) {
-
-			case TALON_SRX:
-
-				return phoenixMotor.getSelectedSensorPosition(0);
-
-			case PWM_TALON_SRX:
-
-				DriverStation.reportWarning("That is not a Talon SRX!", true);
-
-				return 0;
-
-			case VICTOR:
-
-				DriverStation.reportWarning("That is not a Talon SRX!", true);
-
-				return 0;
-
-			case SPARK:
-
-				DriverStation.reportWarning("That is not a Talon SRX!", true);
-
-				return 0;
-
-			case JAGUAR:
-
-				DriverStation.reportWarning("That is not a Talon SRX!", true);
-
-				return 0;
-
-			case VICTOR_SPX:
-
-				DriverStation.reportWarning("That is not a Talon SRX!", true);
-
-				return 0;
-
-			case PWM_VICTOR_SPX:
-
-				DriverStation.reportWarning("That is not a Talon SRX!", true);
-
-				return 0;
-
-			default:
-
-				DriverStation.reportError("That type of motor doesn't exist!", true);
-
-				return 0;
-
-		}
+		if(motorToUse ==  TypeOfMotor.TALON_SRX)
+			return phoenixMotor.getSelectedSensorPosition(0);
+		else
+			DriverStation.reportWarning("That is not a Talon SRX!", true);
+		return 0;
 
 	}
 
 	public void stopMotor() {
 
-		switch (motorToUse) {
-
-			case TALON_SRX:
-
-				phoenixMotor.set(ControlMode.PercentOutput, 0);
-
-				break;
-
-			case PWM_TALON_SRX:
-
-				frcMotor.stopMotor();
-
-				break;
-
-			case VICTOR:
-
-				frcMotor.stopMotor();
-
-				break;
-
-			case SPARK:
-
-				frcMotor.stopMotor();
-
-				break;
-
-			case JAGUAR:
-
-				frcMotor.stopMotor();
-
-				break;
-
-			case VICTOR_SPX:
-
-				phoenixMotor.set(ControlMode.PercentOutput, 0);
-
-				break;
-
-			case PWM_VICTOR_SPX:
-
-				frcMotor.stopMotor();
-
-				break;
-
-
-
-			default:
-
-				DriverStation.reportError("That type of motor doesn't exist!", true);
-
-				break;
-
-		}
+		if(frcMotor != null) frcMotor.stopMotor();
+		if(phoenixMotor != null) phoenixMotor.set(ControlMode.PercentOutput,0);
 
 	}
 
 	public double get() {
 
-		switch (motorToUse) {
-
-			case TALON_SRX:
-
-				return phoenixMotor.getMotorOutputPercent();
-
-			case PWM_TALON_SRX:
-
-				return frcMotor.get();
-
-			case VICTOR:
-
-				return frcMotor.get();
-
-			case SPARK:
-
-				return frcMotor.get();
-
-			case JAGUAR:
-
-				return frcMotor.get();
-
-			case VICTOR_SPX:
-
-				return phoenixMotor.getMotorOutputPercent();
-
-			case PWM_VICTOR_SPX:
-
-				return frcMotor.get();
-
-			default:
-
-				DriverStation.reportError("That type of motor doesn't exist!", true);
-
-				return 0.0;
-
-		}
+		if(phoenixMotor != null) return phoenixMotor.getMotorOutputPercent();
+		if(frcMotor != null) return frcMotor.get();
+		else
+			DriverStation.reportError("Null motor", true);
+		return 0;
 
 	}
 
 	public void setEncoderPosition(int value) {
 
-		switch (motorToUse) {
-
-			case TALON_SRX:
-
-				phoenixMotor.setSelectedSensorPosition(value);
-
-				break;
-
-			case PWM_TALON_SRX:
-
-				DriverStation.reportWarning("That is not a Talon SRX!", true);
-
-				break;
-
-			case VICTOR:
-
-				DriverStation.reportWarning("That is not a Talon SRX!", true);
-
-				break;
-
-			case SPARK:
-
-				DriverStation.reportWarning("That is not a Talon SRX!", true);
-
-				break;
-
-			case JAGUAR:
-
-				DriverStation.reportWarning("That is not a Talon SRX!", true);
-
-				break;
-
-			case VICTOR_SPX:
-
-				DriverStation.reportWarning("That is not a Talon SRX!", true);
-
-				break;
-
-			case PWM_VICTOR_SPX:
-
-				DriverStation.reportWarning("That is not a Talon SRX!", true);
-
-				break;
-
-			default:
-
-				DriverStation.reportError("That type of motor doesn't exist!", true);
-
-				break;
-
-		}
+		if(motorToUse == TypeOfMotor.TALON_SRX) phoenixMotor.setSelectedSensorPosition(value);
+		else DriverStation.reportWarning("Not a talonSRX, sensor position not updated", false);
 
 	}
 
