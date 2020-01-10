@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="949072d3-dce5-4aef-b375-67da39b05f9d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Alex.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Alex.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/frc/robot/resources/TecbotSpeedController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/robot/resources/TecbotSpeedController.java" afterDir="false" />
-    </list>
+    <list default="true" id="949072d3-dce5-4aef-b375-67da39b05f9d" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,7 +168,7 @@
       <workItem from="1578350087150" duration="2805000" />
       <workItem from="1578352959613" duration="137000" />
       <workItem from="1578429465031" duration="197000" />
-      <workItem from="1578682556175" duration="530000" />
+      <workItem from="1578682556175" duration="1138000" />
     </task>
     <servers />
   </component>
