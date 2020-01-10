@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="949072d3-dce5-4aef-b375-67da39b05f9d" name="Default Changelist" comment="" />
+    <list default="true" id="ac917a04-bcb7-4465-b11a-99da1f4b3453" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,75 +16,24 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
-        <task path="$PROJECT_DIR$">
-          <activation />
-        </task>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="RobotCode_2020" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="RobotCode_2020" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="RobotCode_2020" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="RobotCode_2020" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="embeddedtools" type="c8890929:TasksNode$1" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
       </state>
     </system>
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="FRC Subsystem" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1VYHpDDip6uZnTPHpDwHGbuUnWm" />
+  <component name="ProjectId" id="1WDbSENLoDshXsupMYQk68ZpLND" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
-    <property name="Downloaded.Files.Path.Enabled" value="false" />
-    <property name="Repository.Attach.Annotations" value="false" />
-    <property name="Repository.Attach.JavaDocs" value="false" />
-    <property name="Repository.Attach.Sources" value="false" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="create.test.in.the.same.root" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../GitHub/FrankieDrive/build.gradle" />
-    <property name="show.unlinked.gradle.project.popup" value="true" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="frc.robot.commands.autonomous.chassis" />
-      <recent name="frc.robot.resources" />
-      <recent name="frc.robot" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Alex\Documents\FRC\Workspace\RobotCode_2020\src\main\java\frc\robot" />
-      <recent name="C:\Users\Alex\Documents\FRC\Workspace\RobotCode_2020\src\main\java\frc\robot\commands\chassis" />
-      <recent name="C:\Users\Alex\Documents\FRC\Workspace\RobotCode_2020\src\main\java\frc\robot\commands\chassis\wheel" />
-    </key>
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -98,77 +47,17 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.RobotCode_2020 [build]">
-    <configuration name="RobotCode_2020 [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="build" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="RobotCode_2020 [deploy]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="deploy" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Gradle.RobotCode_2020 [build]" />
-        <item itemvalue="Gradle.RobotCode_2020 [deploy]" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="949072d3-dce5-4aef-b375-67da39b05f9d" name="Default Changelist" comment="" />
-      <created>1577423288462</created>
+      <changelist id="8c613a34-1456-4895-8ae4-9f7d7c53edc8" name="Default Changelist" comment="" />
+      <created>1578687109138</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1577423288462</updated>
-      <workItem from="1577423290236" duration="183000" />
-      <workItem from="1577423484311" duration="4439000" />
-      <workItem from="1577726256916" duration="8581000" />
-      <workItem from="1577824903760" duration="16094000" />
-      <workItem from="1577917897726" duration="1260000" />
-      <workItem from="1577991393233" duration="595000" />
-      <workItem from="1578267005888" duration="597000" />
-      <workItem from="1578342157165" duration="1135000" />
-      <workItem from="1578344025845" duration="176000" />
-      <workItem from="1578344879065" duration="659000" />
-      <workItem from="1578345660031" duration="1117000" />
-      <workItem from="1578350087150" duration="2805000" />
-      <workItem from="1578352959613" duration="137000" />
-      <workItem from="1578429465031" duration="197000" />
-      <workItem from="1578682556175" duration="1138000" />
+      <updated>1578687109138</updated>
+      <workItem from="1578687111030" duration="108000" />
     </task>
     <servers />
   </component>
@@ -180,9 +69,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
