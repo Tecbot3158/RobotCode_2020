@@ -21,6 +21,7 @@
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.10.0" level="project" />
     <orderEntry type="library" name="Gradle: com.ctre.phoenix:api-java:5.17.3" level="project" />
     <orderEntry type="library" name="Gradle: com.ctre.phoenix:wpiapi-java:5.17.3" level="project" />
+    <orderEntry type="library" name="Gradle: com.revrobotics.frc:SparkMax-java:1.5.1" level="project" />
     <orderEntry type="library" name="Gradle: edu.wpi.first.wpilibNewCommands:wpilibNewCommands-java:2020.1.2" level="project" />
     <orderEntry type="library" name="Gradle: junit:junit:4.12" level="project" />
     <orderEntry type="library" name="Gradle: org.ejml:ejml-fdense:0.38" level="project" />

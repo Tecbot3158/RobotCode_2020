@@ -9,23 +9,22 @@ package frc.robot.subsystems.chassis;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.resources.*;
 import frc.robot.resources.Math;
+import frc.robot.resources.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DriveTrain extends Subsystem {
+public class DriveTrain extends SubsystemBase {
 
     // Motors
     List<TecbotSpeedController> leftMotors;
     List<TecbotSpeedController> rightMotors;
     TecbotSpeedController middle;
-    DifferentialDrive drive;
 
     DoubleSolenoid wheelSolenoid;
 
@@ -114,21 +113,7 @@ public class DriveTrain extends Subsystem {
         wheelEncoder = RobotConfigurator.buildEncoder(middle, RobotMap.middleWheelEncoderPorts[0],
                 RobotMap.middleWheelEncoderPorts[0]);
 
-        switch (leftMotors.size()) {
-        case 1:
-            drive = new DifferentialDrive(leftMotors.get(0), rightMotors.get(0));
-            break;
-        case 2:
-            drive = new DifferentialDrive(leftMotors.get(0), rightMotors.get(0), leftMotors.get(1), rightMotors.get(1));
-            break;
-        case 3:
-            drive = new DifferentialDrive(leftMotors.get(0), rightMotors.get(0), leftMotors.get(1), rightMotors.get(1),
-                    leftMotors.get(2), rightMotors.get(2));
-            break;
-        default:
-            DriverStation.reportError("Could not instantiate differential drive", true);
-            break;
-        }
+
 
     }
 
@@ -182,11 +167,13 @@ public class DriveTrain extends Subsystem {
         driveSide(Side.RIGHT, rightPower);
     }
 
-    public void drive(double axis, double rotationAngle) {
-        if (reverse)
-            drive.arcadeDrive(-axis, rotationAngle);
-        else
-            drive.arcadeDrive(axis, rotationAngle);
+    public void drive(double turn, double speed) {
+        turn *= reverse ? -1 : 1;
+
+        double leftPower = (turn + speed);
+        double rightPower = -turn + speed;
+
+        tankDrive(leftPower,rightPower);
     }
 
     public boolean turn(double target, double maxPower) {
@@ -464,7 +451,4 @@ public class DriveTrain extends Subsystem {
         return wheelEncoder;
     }
 
-    @Override
-    public void initDefaultCommand() {
-    }
 }
