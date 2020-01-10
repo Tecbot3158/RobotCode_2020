@@ -136,8 +136,10 @@ public class TecbotSpeedController {
 
 		if(motorToUse ==  TypeOfMotor.TALON_SRX)
 			return phoenixMotor.getSelectedSensorPosition(0);
-		else
-			DriverStation.reportWarning("That is not a Talon SRX!", true);
+		else if(motorToUse == TypeOfMotor.CAN_SPARK_BRUSHLESS){
+			return (int) ((CANSparkMax)frcMotor).getEncoder().getPosition();
+		}else
+			DriverStation.reportWarning("That is not a Talon SRX nor a Spark Max!", true);
 		return 0;
 
 	}
