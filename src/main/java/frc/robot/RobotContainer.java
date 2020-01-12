@@ -12,8 +12,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.resources.TecbotSensors;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.chassis.DriveTrain;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -27,6 +29,9 @@ public class RobotContainer {
 
     private final ExampleCommand m_defaultCommand = new ExampleCommand(m_exampleSubsystem);
 
+
+    public static DriveTrain driveTrain;
+    public static OI oi;
     SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 
@@ -39,6 +44,9 @@ public class RobotContainer {
 
         // Configure the button bindings
         configureButtonBindings();
+        TecbotSensors.initializeAllSensors();
+        driveTrain = new DriveTrain();
+        oi = new OI();
     }
 
     /**
@@ -48,6 +56,7 @@ public class RobotContainer {
      * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
+        oi.configureButtonBindings();
     }
 
 
@@ -60,4 +69,13 @@ public class RobotContainer {
         // An ExampleCommand will run in autonomous
         return m_chooser.getSelected();
     }
+
+    public static DriveTrain getDriveTrain(){
+        return driveTrain;
+    }
+
+    public static OI getOI(){
+        return oi;
+    }
+
 }

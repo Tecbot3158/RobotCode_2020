@@ -1,4 +1,4 @@
-package frc.robot;
+package frc.robot.resources;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -70,8 +70,8 @@ public class Navx {
          curr_world_linear_accel_y = getWorldLinearAccelY();
          currentJerkY = curr_world_linear_accel_y - last_world_linear_accel_y;
          last_world_linear_accel_y = curr_world_linear_accel_y;
-         if ( ( Math.abs(currentJerkX) > kCollisionThreshold_DeltaG ) ||
-              ( Math.abs(currentJerkY) > kCollisionThreshold_DeltaG) ) {
+         if ( ( java.lang.Math.abs(currentJerkX) > kCollisionThreshold_DeltaG ) ||
+              ( java.lang.Math.abs(currentJerkY) > kCollisionThreshold_DeltaG) ) {
              collisionDetected = true;
              System.out.println("Collision detected");
          }

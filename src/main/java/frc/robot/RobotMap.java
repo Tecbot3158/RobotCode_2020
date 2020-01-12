@@ -40,11 +40,10 @@ public class RobotMap {
      * If any of the motors of the chassis must be inverted,
      * indicate the port(s) in these arrays.
      */
-    public static int[] leftChassisInvertedMotors;
-    public static int[] rightChassisInvertedMotors;
+    public static int[] leftChassisInvertedMotors = {};
+    public static int[] rightChassisInvertedMotors = {};
 
-    public static int transmission_port_1;
-    public static int transmission_port_2;
+    public static int transmissionPorts[] = {0,1};
 
     public static int[] wheelSolenoidPorts = {0,1};
     public static int middleWheelPort = 0;

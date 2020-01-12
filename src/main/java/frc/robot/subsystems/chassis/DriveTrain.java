@@ -69,7 +69,7 @@ public class DriveTrain extends SubsystemBase {
 
     public DriveTrain() {
 
-        transmission = new DoubleSolenoid(RobotMap.transmission_port_1, RobotMap.transmission_port_2);
+        transmission = new DoubleSolenoid(RobotMap.transmissionPorts[0], RobotMap.transmissionPorts[1]);
         wheelSolenoid = new DoubleSolenoid(RobotMap.wheelSolenoidPorts[0], RobotMap.wheelSolenoidPorts[1]);
 
         middle = new TecbotSpeedController(RobotMap.middleWheelPort, RobotMap.middleWheelMotorType);
@@ -129,13 +129,13 @@ public class DriveTrain extends SubsystemBase {
 
         switch (currentDrivingMode) {
         case Default:
-            frankieDrive(x, y, middleWheel);
+            frankieDrive(x,reverse?-1:1 *  y, middleWheel);
             break;
         case Pivot:
-            pivot(x, y);
+            pivot(x, reverse?-1:1 * y);
             break;
         case Mecanum:
-            mecanumDrive(x, y, turn);
+            mecanumDrive(reverse?-1:1 * x, reverse?-1:1 * y, turn);
             break;
         case Swerve:
             swerveMove(x, y, turn);
@@ -168,7 +168,6 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void drive(double turn, double speed) {
-        turn *= reverse ? -1 : 1;
 
         double leftPower = (turn + speed);
         double rightPower = -turn + speed;
@@ -180,7 +179,7 @@ public class DriveTrain extends SubsystemBase {
 
         maxPower = Math.clamp(maxPower, 0, 1);
 
-        double diffAngle = Robot.tecbotgyro.getYaw() - target;
+        double diffAngle = TecbotSensors.getYaw() - target;
 
         double turnPower = Math.clamp((diffAngle / TecbotConstants.CHASSIS_TURN_MAX_DISTANCE), -maxPower, maxPower);
 
@@ -259,7 +258,7 @@ public class DriveTrain extends SubsystemBase {
     public void mecanumDrive(double x, double y, double turn) {
 
         if (!hasSetAngle) {
-            startingAngle = Robot.tecbotgyro.getYaw();
+            startingAngle = TecbotSensors.getYaw();
             hasSetAngle = true;
 
             // This condition will happen once every time the robot enters mecanum drive.
@@ -268,9 +267,9 @@ public class DriveTrain extends SubsystemBase {
             setWheelState(false);
         }
         if (turn >= .1 || turn <= -.1)
-            startingAngle = Robot.tecbotgyro.getYaw();
+            startingAngle = TecbotSensors.getYaw();
 
-        double deltaAngle = Robot.tecbotgyro.getYaw() - startingAngle;
+        double deltaAngle = TecbotSensors.getYaw() - startingAngle;
 
         // Prevents robot from turning in the incorrect direction
         if (deltaAngle > 180) {
@@ -333,7 +332,7 @@ public class DriveTrain extends SubsystemBase {
             }
         }
         // The angle at which the robot will move, considering its rotation.
-        double relativeAngle = absoluteAngle - Robot.tecbotgyro.getYaw();
+        double relativeAngle = absoluteAngle - TecbotSensors.getYaw();
         // The max power that will be given to the motors.
         double speed = java.lang.Math.sqrt((x * x) + (y * y));
 
