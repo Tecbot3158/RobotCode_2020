@@ -8,6 +8,7 @@
 package frc.robot;
 
 import frc.robot.resources.RobotConfigurator;
+import frc.robot.resources.TecbotSpeedController;
 import frc.robot.resources.TecbotSpeedController.TypeOfMotor;
 
 
@@ -43,9 +44,20 @@ public class RobotMap {
     public static int[] leftChassisInvertedMotors = {};
     public static int[] rightChassisInvertedMotors = {};
 
-    public static int transmissionPorts[] = {0,1};
+    public static int[] transmissionPorts = {0,1};
 
     public static int[] wheelSolenoidPorts = {0,1};
     public static int middleWheelPort = 0;
     public static TypeOfMotor middleWheelMotorType = TypeOfMotor.TALON_SRX;
+
+    //ALEX CLIMBER EDITS
+    public static int[] pulleyPorts = { 0, 1 };
+    public static int[] winchPorts = { 7, 8, 9, 10 };
+    public static int[] gearShifterPneumatics = { 4, 5 };
+    public static TecbotSpeedController.TypeOfMotor[] typesOfMotors = { TecbotSpeedController.TypeOfMotor.TALON_SRX };
+    public static int[] invertedPulleyMotors = { 0, 0 };
+    public static int[] invertedWinchMotors = { 0, 0, 0, 0 };
+    public static int[] encoderPorts = { RobotConfigurator.CONFIG_NOT_SET, 1 };
+    public static int motorWithEncoderPort = 0;
+
 }
