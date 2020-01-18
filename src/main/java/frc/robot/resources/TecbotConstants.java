@@ -36,4 +36,8 @@ public class TecbotConstants {
 	// This one works only for the middle wheel
 	public static double K_MIDDLE_WHEEL_ENCODER_TO_METERS = (1/K_MIDDLE_WHEEL_TIC_PER_REVOLUTION) * K_MIDDLE_WHEEL_TIC_PER_REVOLUTION * Math.PI;
 
+	public static double TRANSPORTATION_SYSTEM_POWER = 0.2;
+	public static double ANGLE_CLOSE_DEFLECTOR = 0;
+	public static double ANGLE_MEDIA_DEFLECTOR = 90;
+	public static double ANGLE_OPEN_DEFLECTOR = 180;
 }
