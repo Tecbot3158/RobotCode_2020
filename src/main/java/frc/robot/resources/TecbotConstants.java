@@ -33,7 +33,15 @@ public class TecbotConstants {
 	// Encoder to meters = 1/tickPerRevolution * wheelDiam * Pi
 	// This one works only for the side wheels
 	public static double K_CHASSIS_ENCODER_TO_METERS = (1/K_CHASSIS_TIC_PER_REVOLUTION) * K_CHASSIS_WHEEL_DIAMETER * Math.PI;
-	// This one works only for the middle wheel
+	/**
+	 * This one works only for the middle wheel
+	 * 
+	 */
 	public static double K_MIDDLE_WHEEL_ENCODER_TO_METERS = (1/K_MIDDLE_WHEEL_TIC_PER_REVOLUTION) * K_MIDDLE_WHEEL_TIC_PER_REVOLUTION * Math.PI;
+    
+	public static final double TRENCH_SHOOTING_SPEED = 0 ;
+	public static final double INITIATION_LINE_SHOOTING_SPEED = 0;
+	public static final double LOADING_BAY_SHOOTING_SPEED = 0;
+
 
 }

@@ -48,4 +48,9 @@ public class RobotMap {
     public static int[] wheelSolenoidPorts = {0,1};
     public static int middleWheelPort = 0;
     public static TypeOfMotor middleWheelMotorType = TypeOfMotor.TALON_SRX;
+
+    public static final TypeOfMotor [] SHOOTER_TYPE_OF_MOTORS= {TypeOfMotor.TALON_SRX,TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX };
+    public static final int[] SHOOTER_MOTOR_PORTS = { 0, 1, 2, 3 };
+    public static final int SERVO = 0;
+
 }
