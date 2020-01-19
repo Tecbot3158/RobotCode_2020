@@ -16,6 +16,7 @@ import frc.robot.resources.TecbotSensors;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.chassis.DriveTrain;
+import frc.robot.subsystems.shooter.Shooter;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -32,6 +33,7 @@ public class RobotContainer {
 
     public static DriveTrain driveTrain;
     public static OI oi;
+    public static Shooter shooter;
     SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 
@@ -47,6 +49,7 @@ public class RobotContainer {
         TecbotSensors.initializeAllSensors();
         driveTrain = new DriveTrain();
         oi = new OI();
+        shooter = new Shooter();
     }
 
     /**
@@ -78,4 +81,8 @@ public class RobotContainer {
         return oi;
     }
 
+    public static Shooter getShooter() {
+        return shooter;
+
+    }
 }
