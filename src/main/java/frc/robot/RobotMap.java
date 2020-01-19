@@ -1,4 +1,4 @@
-/*----------------------------------------------------------------------------*/
+//*----------------------------------------------------------------------------*/
 /* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
@@ -51,6 +51,7 @@ public class RobotMap {
 
     public static final TypeOfMotor [] SHOOTER_TYPE_OF_MOTORS= {TypeOfMotor.TALON_SRX,TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX };
     public static final int[] SHOOTER_MOTOR_PORTS = { 0, 1, 2, 3 };
-    public static final int SERVO = 0;
+    public static final int ANGLER = 0;
+    public static double MANUALSHOOT = 0.6;
 
 }
