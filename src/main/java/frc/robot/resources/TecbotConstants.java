@@ -39,9 +39,13 @@ public class TecbotConstants {
 	 */
 	public static double K_MIDDLE_WHEEL_ENCODER_TO_METERS = (1/K_MIDDLE_WHEEL_TIC_PER_REVOLUTION) * K_MIDDLE_WHEEL_TIC_PER_REVOLUTION * Math.PI;
     
-	public static final double TRENCH_SHOOTING_SPEED = 0 ;
+	public static final double TRENCH_SHOOTING_SPEED = 0;
 	public static final double INITIATION_LINE_SHOOTING_SPEED = 0;
 	public static final double LOADING_BAY_SHOOTING_SPEED = 0;
+
+	public static final double TRENCH_SHOOTING_ANGLE = 0;
+	public static final double INITIATION_LINE_SHOOTING_ANGLE = 0;
+	public static final double LOADING_BAY_SHOOTING_ANGLE = 0;
 
 
 }
