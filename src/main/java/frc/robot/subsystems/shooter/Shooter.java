@@ -22,12 +22,13 @@ public class Shooter extends PIDSubsystem {
   boolean loadingBayShoot = false;
   boolean trenchShoot = false;
   boolean initiationLineShoot = false;
+  double speed;
 
 
   /**
    * Creates a new Shooter.
    */
-  public Shooter() {
+  public Shooter() { 
     super(
         // The PIDController used by the subsystem
         new PIDController(0, 0, 0));
@@ -51,9 +52,14 @@ public class Shooter extends PIDSubsystem {
     // Return the process variable measurement here
     return 0;
   }
+  public void shoot(){
+    for(TecbotSpeedController motor : shooterMotors){
+      motor.set(speed);
+    }
+  }
 
   public void setShootingSpeed(ShooterPosition position){
-    double speed = 0;
+    
     switch (position){
       case TRENCH : 
         speed = TecbotConstants.TRENCH_SHOOTING_SPEED ;
@@ -71,10 +77,8 @@ public class Shooter extends PIDSubsystem {
       default :
         speed = 0;
     }
-    for (TecbotSpeedController motor : shooterMotors){
-      motor.set(speed);
-
-    }
+  
+    
   }
 
   public enum ShooterPosition{
