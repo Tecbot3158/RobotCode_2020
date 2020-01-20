@@ -10,16 +10,23 @@ package frc.robot.subsystems.shooter;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.RobotMap;
 import frc.robot.resources.TecbotConstants;
+import frc.robot.resources.TecbotEncoder;
 import frc.robot.resources.TecbotSpeedController;
 
 public class Shooter extends PIDSubsystem {
-  List <TecbotSpeedController> shooterMotors;
+  List <TecbotSpeedController> shooterleftMotors; 
+  List <TecbotSpeedController> shooterrightMotors;
   Servo Angler; 
+  TecbotEncoder shooterEncoder;
+  
 
   boolean loadingBayShoot = false;
   boolean trenchShoot = false;
@@ -37,11 +44,18 @@ public class Shooter extends PIDSubsystem {
         new PIDController(0, 0, 0));
 
         
-    shooterMotors = new ArrayList<>();
-    for(int i = 0; i < RobotMap.SHOOTER_MOTOR_PORTS.length; i ++ ){
-      shooterMotors.add(new TecbotSpeedController(RobotMap.SHOOTER_MOTOR_PORTS[i], RobotMap.SHOOTER_TYPE_OF_MOTORS[i]));//el valor de i es igualado al número de los puertos en los parámetros, entonces entre las llaves  va aumentando el valor del puerto correspondiendo al avance en los parámetros 
+    shooterleftMotors = new ArrayList<>();
+    for(int i = 0; i < RobotMap.SHOOTER_LEFT_MOTOR_PORTS.length; i ++){
+      shooterleftMotors.add(new TecbotSpeedController(RobotMap.SHOOTER_LEFT_MOTOR_PORTS[i], RobotMap.SHOOTER_TYPE_OF_MOTORS[i]));//el valor de i es igualado al número de los puertos en los parámetros, entonces entre las llaves  va aumentando el valor del puerto correspondiendo al avance en los parámetros 
     }
-    Angler = new Servo(RobotMap.ANGLER);
+    for (int i = 0; i < RobotMap.SHOOTER_RIGHT_MOTOR_PORTS.length; i++) {
+    shooterrightMotors.add(new TecbotSpeedController(RobotMap.SHOOTER_RIGHT_MOTOR_PORTS[i], RobotMap.SHOOTER_TYPE_OF_MOTORS[i]));
+    shooterrightMotors.get(i).setInverted(true);
+  }
+
+    Angler = new Servo(RobotMap.ANGLERPORT);
+    shooterEncoder = new TecbotEncoder(RobotMap.SHOOTERENCODER_PORT[0], RobotMap.SHOOTERENCODER_PORT[1]);
+  
   }
     
   
@@ -57,8 +71,12 @@ public class Shooter extends PIDSubsystem {
     return 0;
   }
   public void shoot(){
-    for(TecbotSpeedController motors : shooterMotors){
-      motors.set(speed);
+    for(TecbotSpeedController leftmotors : shooterleftMotors){
+      leftmotors.set(speed);
+      for(TecbotSpeedController rightmotors : shooterrightMotors) {
+        rightmotors.set(speed);
+      }
+      shooterEncoder.getRate();
     }
   }
 
@@ -113,9 +131,13 @@ public void setAnglerDegrees(ShooterPosition position) {
 }
 
 public void setManualShooter(double manualspeed) {
-  for(TecbotSpeedController motors : shooterMotors){
-    motors.set(manualspeed);
+  for(TecbotSpeedController leftmanualmotors : shooterleftMotors){
+    leftmanualmotors.set(manualspeed);
   }
+  for(TecbotSpeedController rightmanualmotors : shooterrightMotors) {
+    rightmanualmotors.set(manualspeed);
+  }
+
 
 }
 
@@ -129,7 +151,9 @@ public void setManualAngler(double lt, double rt){
   Angler.set(manualangle);
 }
 
-
+public void setshooterEncoder() {
+  SmartDashboard.putNumber("ShooterEncoderRate", shooterEncoder.getRate());
+}
   public enum ShooterPosition{
     TRENCH, 
     LOADING_BAY,
