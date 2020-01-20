@@ -10,6 +10,7 @@ package frc.robot.subsystems.shooter;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -100,8 +101,7 @@ public class Shooter extends PIDSubsystem {
         speed = TecbotConstants.INITIATION_LINE_SHOOTING_SPEED;
       
       default :
-        speed = 0;
-    }
+      DriverStation.reportError("The set speed isn´t possible", true);    }
   
     
   }
@@ -124,6 +124,9 @@ public void setAnglerDegrees(ShooterPosition position) {
 
   case INITIATION_LINE :
   angle = TecbotConstants.INITIATION_LINE_SHOOTING_ANGLE;
+
+    default :
+      DriverStation.reportError("The set angle isn´t possible", true);
   
   }
 
