@@ -50,8 +50,10 @@ public class RobotMap {
     public static TypeOfMotor middleWheelMotorType = TypeOfMotor.TALON_SRX;
 
     public static final TypeOfMotor [] SHOOTER_TYPE_OF_MOTORS= {TypeOfMotor.TALON_SRX,TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX };
-    public static final int[] SHOOTER_MOTOR_PORTS = { 0, 1, 2, 3 };
-    public static final int ANGLER = 0;
-    public static double MANUALSHOOT = 0.6;
+    public static final int [] SHOOTER_LEFT_MOTOR_PORTS = {0, 1};
+    public static final int [] SHOOTER_RIGHT_MOTOR_PORTS = {2,3};
+    public static final int [] SHOOTERENCODER_PORT = {0,1};
+    public static final int ANGLERPORT = 0;
+    public static double MANUALSHOOT = 0.4;
 
 }
