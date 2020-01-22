@@ -74,11 +74,10 @@ public class Shooter extends PIDSubsystem {
   public void shoot(){
     for(TecbotSpeedController leftmotors : shooterleftMotors){
       leftmotors.set(speed);
+    }
       for(TecbotSpeedController rightmotors : shooterrightMotors) {
         rightmotors.set(speed);
       }
-      shooterEncoder.getRate();
-    }
   }
 
 
@@ -139,6 +138,8 @@ public void setManualShooter(double manualspeed) {
   }
   for(TecbotSpeedController rightmanualmotors : shooterrightMotors) {
     rightmanualmotors.set(manualspeed);
+    SmartDashboard.putNumber("ShooterEncoderRate", shooterEncoder.getRate());
+
   }
 
 
@@ -154,9 +155,6 @@ public void setManualAngler(double lt, double rt){
   Angler.set(manualangle);
 }
 
-public void setshooterEncoder() {
-  SmartDashboard.putNumber("ShooterEncoderRate", shooterEncoder.getRate());
-}
   public enum ShooterPosition{
     TRENCH, 
     LOADING_BAY,
