@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ac917a04-bcb7-4465-b11a-99da1f4b3453" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/frc/robot/subsystems/lifter/Lifter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/robot/subsystems/lifter/Lifter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,6 +131,9 @@
       <workItem from="1579613208925" duration="400000" />
       <workItem from="1579621039113" duration="29000" />
       <workItem from="1579653424351" duration="723000" />
+      <workItem from="1579654161555" duration="108000" />
+      <workItem from="1579654278088" duration="408000" />
+      <workItem from="1579703502059" duration="903000" />
     </task>
     <servers />
   </component>
@@ -155,18 +159,18 @@
     </ignored-roots>
   </component>
   <component name="WindowStateProjectService">
-    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1579579074876">
+    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1579654254688">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1579579074876" />
-    <state x="277" y="74" key="SettingsEditor" timestamp="1579653625199">
+    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1579654254688" />
+    <state x="316" y="74" key="SettingsEditor" timestamp="1579654520584">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="277" y="74" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1579653625199" />
-    <state x="465" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1579653424796">
+    <state x="316" y="74" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1579654520584" />
+    <state x="465" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1579703511429">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="465" y="256" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1579653424796" />
+    <state x="465" y="256" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1579703511429" />
     <state x="425" y="197" key="run.anything.popup" timestamp="1579377952239">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

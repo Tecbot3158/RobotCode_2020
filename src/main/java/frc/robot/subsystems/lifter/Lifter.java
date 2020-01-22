@@ -40,19 +40,6 @@ public class Lifter extends SubsystemBase {
         DoubleSolenoid gearShifter = new DoubleSolenoid(RobotMap.gearShifterPneumatics[0],
                 RobotMap.gearShifterPneumatics[1]);
     }
-
-    public void liftHook(double d) {// pulley 2
-        for (TecbotSpeedController motor : pulleyMotors) {
-            motor.set(d);
-        }
-    }
-
-    public void reelLine(double d) {// winch 4
-        for (TecbotSpeedController motor : winchMotors) {
-            motor.set(d);
-        }
-    }
-
     public void shiftGearsToggle() {
         if (gearShifter.get() == Value.kForward)
             gearShifter.set(Value.kReverse);
@@ -69,7 +56,7 @@ public class Lifter extends SubsystemBase {
         pulleyMotors.get(1).set(leftPulley);
     }
 
-    /**7
+    /**
      *
      * @param winchPower power for lifting hook
      * @param pulleyPower power for reeling
