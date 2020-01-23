@@ -19,9 +19,6 @@ public class RobotMap {
     public static TypeOfMotor[] leftChassisMotorTypes = {TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX ,TypeOfMotor.TALON_SRX};
     public static TypeOfMotor[] rightChassisMotorTypes = {TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX ,TypeOfMotor.TALON_SRX};
 
-    public static final TypeOfMotor[] TRANSPORTATION_SYSTEM_TYPE_OF_MOTORS= {TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX};
-    public static final int [] TRANSPORTATION_SYSTEM_MOTOR_PORTS = {0,1,2,3};
-    public static final int SERVO_DEFLECTOR = 4; 
     
     /*
      * If encoder is connected to speed controller,
@@ -52,4 +49,8 @@ public class RobotMap {
     public static int[] wheelSolenoidPorts = {0,1};
     public static int middleWheelPort = 0;
     public static TypeOfMotor middleWheelMotorType = TypeOfMotor.TALON_SRX;
+
+    public static final TypeOfMotor[] TRANSPORTATION_SYSTEM_TYPE_OF_MOTORS= {TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX};
+    public static final int [] TRANSPORTATION_SYSTEM_MOTOR_PORTS = {3,4,5,6};
+    public static final int [] DEFLECTOR_SOLENOID = {6, 7};
 }

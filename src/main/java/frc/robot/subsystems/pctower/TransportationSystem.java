@@ -10,7 +10,8 @@ package frc.robot.subsystems.pctower;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 import frc.robot.resources.TecbotConstants;
@@ -18,13 +19,14 @@ import frc.robot.resources.TecbotSpeedController;
 
 
 public class TransportationSystem extends SubsystemBase {
-    Servo servoDeflector;
+    DoubleSolenoid solenoidDeflector; 
+    //Servo servoDeflector;
     List <TecbotSpeedController> transportationSystemMotors;
   /**
    * Creates a new Subsystem.
    */
   public TransportationSystem() {
-      servoDeflector = new Servo(RobotMap.SERVO_DEFLECTOR);
+      solenoidDeflector = new DoubleSolenoid (RobotMap.DEFLECTOR_SOLENOID[0], RobotMap.DEFLECTOR_SOLENOID[1]);
       transportationSystemMotors = new ArrayList<>();
       for (int i = 0; i < RobotMap.TRANSPORTATION_SYSTEM_MOTOR_PORTS.length; i ++){
         transportationSystemMotors.add(new TecbotSpeedController(RobotMap.TRANSPORTATION_SYSTEM_MOTOR_PORTS[i], RobotMap.TRANSPORTATION_SYSTEM_TYPE_OF_MOTORS[i])); 
@@ -51,15 +53,11 @@ public class TransportationSystem extends SubsystemBase {
   }   
 
   public void closeDeflector(){
-    servoDeflector.setAngle(TecbotConstants.ANGLE_CLOSE_DEFLECTOR);
-  }
-
-  public void mediaDeflector(){
-    servoDeflector.setAngle(TecbotConstants.ANGLE_MEDIA_DEFLECTOR);
+    solenoidDeflector.set(Value.kReverse);
   }
 
   public void openDeflector(){
-    servoDeflector.setAngle(TecbotConstants.ANGLE_OPEN_DEFLECTOR);
+    solenoidDeflector.set(Value.kForward);
 }
 
   @Override
