@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: edu.wpi.first.wpilibj:wpilibj-java:2020.2.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first.wpilibj/wpilibj-java/2020.2.2/54642b06b7c0e36c296e6e92fd6879b36ab85326/wpilibj-java-2020.2.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.wpi.first.wpilibj/wpilibj-java/2020.2.2/8dee1e19d0f236bf459bd77de457069acdbf7cd/wpilibj-java-2020.2.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

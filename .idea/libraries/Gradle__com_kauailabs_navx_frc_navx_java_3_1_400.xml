@@ -2,6 +2,7 @@
   <library name="Gradle: com.kauailabs.navx.frc:navx-java:3.1.400">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.kauailabs.navx.frc/navx-java/3.1.400/3e28451a07aff388f6e3e77429e2ec61502b0201/navx-java-3.1.400.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../Public/wpilib/2020/maven/com/kauailabs/navx/frc/navx-java/3.1.400/navx-java-3.1.400.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
