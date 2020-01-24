@@ -91,7 +91,7 @@ public class Shooter extends PIDSubsystem {
     
     switch (position){
       case TRENCH : 
-        speed = TecbotConstants.TRENCH_SHOOTING_SPEED ;;;;;;;;
+        speed = TecbotConstants.TRENCH_SHOOTING_SPEED ;
         
         break;
       
