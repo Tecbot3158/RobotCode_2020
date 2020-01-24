@@ -13,11 +13,11 @@ import frc.robot.resources.TecbotSpeedController.TypeOfMotor;
 
 public class RobotMap {
 
-    public static int[] leftChassisPorts = {0,1,2};
-    public static int[] rightChassisPorts = {0,1,2};
+    public static int[] leftChassisPorts = {2,3};
+    public static int[] rightChassisPorts = {0,1};
 
-    public static TypeOfMotor[] leftChassisMotorTypes = {TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX ,TypeOfMotor.TALON_SRX};
-    public static TypeOfMotor[] rightChassisMotorTypes = {TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX ,TypeOfMotor.TALON_SRX};
+    public static TypeOfMotor[] leftChassisMotorTypes = {TypeOfMotor.PWM_TALON_SRX,TypeOfMotor.SPARK};
+    public static TypeOfMotor[] rightChassisMotorTypes = {TypeOfMotor.PWM_TALON_SRX,TypeOfMotor.PWM_TALON_SRX};
 
     /*
      * If encoder is connected to speed controller,
@@ -45,7 +45,7 @@ public class RobotMap {
 
     public static int transmissionPorts[] = {0,1};
 
-    public static int[] wheelSolenoidPorts = {0,1};
+    public static int[] wheelSolenoidPorts = {2,3};
     public static int middleWheelPort = 0;
     public static TypeOfMotor middleWheelMotorType = TypeOfMotor.TALON_SRX;
 }

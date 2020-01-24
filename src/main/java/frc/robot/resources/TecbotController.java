@@ -102,7 +102,7 @@ public class TecbotController {
 
     private Joystick pilot;
     TypeOfController controllerType;
-    JoystickButton[] buttons;
+    List<JoystickButton> buttons;
     private double offset = 0.1;
 
     private enum TypeOfController {
@@ -128,13 +128,15 @@ public class TecbotController {
     public TecbotController(int port) {
         pilot = new Joystick(port);
 
-        controllerType = null;
+        buttons = new ArrayList<>();
+        controllerType = TypeOfController.PS4;
         if (pilot.getName().toLowerCase().contains("wireless controller")) controllerType = TypeOfController.PS4;
         if (pilot.getName().toLowerCase().contains("xbox")) controllerType = TypeOfController.XBOX;
 
         if (pilot.getName() == null) DriverStation.reportWarning("Joystick not found (Tecbot Controller)", false);
-        if (controllerType != null) setButtons();
-        else DriverStation.reportWarning("Controller not identified, some methods will return 0.", false);
+        if (controllerType == null)
+            DriverStation.reportWarning("Controller not identified, some methods will return 0.", false);
+        setButtons();
 
     }
 
@@ -333,7 +335,7 @@ public class TecbotController {
                 }
                 break;
         }
-                buttons = (JoystickButton[]) bs.toArray();
+                buttons = bs;
     }
 
 
@@ -379,7 +381,7 @@ public class TecbotController {
                 DriverStation.reportError("That's a problem.", false);
                 break;
         }
-        return buttons[index];
+        return buttons.get(index);
 
     }
 

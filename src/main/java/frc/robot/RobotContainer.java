@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.chassis.DefaultDrive;
 import frc.robot.resources.TecbotSensors;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -42,11 +44,12 @@ public class RobotContainer {
         m_chooser.setDefaultOption("Default auto", m_defaultCommand);
         SmartDashboard.putData("Auto Mode", m_chooser);
 
-        // Configure the button bindings
-        configureButtonBindings();
-        TecbotSensors.initializeAllSensors();
         driveTrain = new DriveTrain();
+        CommandScheduler.getInstance().setDefaultCommand(driveTrain, new DefaultDrive());
+        // Configure the button bindings
+        TecbotSensors.initializeAllSensors();
         oi = new OI();
+        configureButtonBindings();
     }
 
     /**

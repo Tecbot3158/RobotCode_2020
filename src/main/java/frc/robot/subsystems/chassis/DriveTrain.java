@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.resources.Math;
 import frc.robot.resources.*;
@@ -66,6 +65,8 @@ public class DriveTrain extends SubsystemBase {
     public enum Side {
         RIGHT, LEFT;
     }
+
+    public double pidTarget;
 
     public DriveTrain() {
 
@@ -338,6 +339,33 @@ public class DriveTrain extends SubsystemBase {
 
         driveToAngle(relativeAngle, speed, turn);
 
+    }
+
+    public void useOutput(double output){
+        for(TecbotSpeedController motor : leftMotors){
+            motor.set(output);
+        }
+        for(TecbotSpeedController motor : rightMotors){
+            motor.set(output);
+        }
+    }
+    public void useOutput(double output, double angle){
+        double deltaAngle = angle - TecbotSensors.getYaw();
+        double correction = deltaAngle * TecbotConstants.TURN_CORRECTION;
+
+        for(TecbotSpeedController motor : leftMotors){
+            motor.set(output + correction);
+        }
+        for(TecbotSpeedController motor : rightMotors){
+            motor.set(output - correction);
+        }
+
+    }
+    public void setPIDTarget(double target){
+        pidTarget = target;
+    }
+    public double getPIDTarget(){
+        return pidTarget;
     }
 
     public void setMecanumDrive(boolean state) {

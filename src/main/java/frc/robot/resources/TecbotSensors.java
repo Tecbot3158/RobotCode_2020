@@ -22,4 +22,8 @@ public class TecbotSensors {
         return tecbotGyro.getYaw();
     }
 
+    public static TecbotEncoder getRightEncoder(){
+        return new TecbotEncoder(2,2);
+    }
+
 }
