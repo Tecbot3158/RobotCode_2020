@@ -14,13 +14,13 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 import frc.robot.resources.TecbotSpeedController;
+import frc.robot.subsystems.SharedMotors;
 
 public class Lifter extends SubsystemBase {
     /**
      * Creates a new Lifter.
      */
     List<TecbotSpeedController> winchMotors;
-    List<TecbotSpeedController> pulleyMotors;
     DoubleSolenoid gearShifter;
     int encoderMotor = -1;
 
@@ -31,16 +31,10 @@ public class Lifter extends SubsystemBase {
                 winchMotors.get(i).setInverted(true);
             }
         }
-        for (int i = 0; i < RobotMap.pulleyPorts.length; i++) {
-            pulleyMotors.add(new TecbotSpeedController(RobotMap.pulleyPorts[i], RobotMap.typesOfMotors[0]));
-            if (RobotMap.pulleyPorts[i] == RobotMap.invertedPulleyMotors[i]) {
-                pulleyMotors.get(i).setInverted(true);
-            }
-        }
-        DoubleSolenoid gearShifter = new DoubleSolenoid(RobotMap.gearShifterPneumatics[0],
-                RobotMap.gearShifterPneumatics[1]);
+        gearShifter = new DoubleSolenoid(RobotMap.gearShifterPneumatics[0], RobotMap.gearShifterPneumatics[1]);
     }
-    public void shiftGearsToggle() {
+
+    public void disengageGearsToggle() {
         if (gearShifter.get() == Value.kForward)
             gearShifter.set(Value.kReverse);
         else
@@ -48,29 +42,19 @@ public class Lifter extends SubsystemBase {
     }
 
     public void manualLifter(double rightWinch, double leftWinch, double rightPulley, double leftPulley) {
+        SharedMotors.setAll(rightPulley, leftPulley);
         winchMotors.get(0).set(rightWinch);
-        winchMotors.get(1).set(rightWinch);
-        winchMotors.get(2).set(leftWinch);
-        winchMotors.get(3).set(leftWinch);
-        pulleyMotors.get(0).set(rightPulley);
-        pulleyMotors.get(1).set(leftPulley);
+        winchMotors.get(1).set(leftWinch);
     }
 
-    /**
-     *
-     * @param winchPower power for lifting hook
-     * @param pulleyPower power for reeling
-     */
-    public void liftCommand(double winchPower, double pulleyPower) {
-        //lift
-        if (winchPower != 0) {
-            for (TecbotSpeedController motor : pulleyMotors) {
-                motor.set(pulleyPower);
-            }
-        }
-        //reel
+    public void liftCommand(double winchPower, double pulleyPowerRight, double pulleyPowerLeft) {
+        //lift hook
         for (TecbotSpeedController motor : winchMotors) {
             motor.set(winchPower);
+        }
+        //reel, cannot do this if input is negative
+        if (pulleyPowerRight >= 0 && pulleyPowerLeft >= 0) {
+            SharedMotors.setAll(pulleyPowerRight, pulleyPowerLeft);
         }
     }
 

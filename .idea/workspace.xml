@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ac917a04-bcb7-4465-b11a-99da1f4b3453" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/frc/robot/subsystems/SharedMotors.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/frc/robot/RobotContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/robot/RobotContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/frc/robot/RobotMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/robot/RobotMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/frc/robot/commands/lifter/LifterCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/robot/commands/lifter/LifterCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/frc/robot/commands/lifter/ShiftGears.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/robot/commands/lifter/DisengageGears.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/frc/robot/subsystems/lifter/Lifter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/robot/subsystems/lifter/Lifter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,11 +38,11 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="FRC PID_Subsystem" />
         <option value="FRC Subsystem" />
-        <option value="FRC Command" />
         <option value="FRC Instant_Command" />
+        <option value="FRC Command" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -57,8 +62,14 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Frankie" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Java" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
     <property name="show.unlinked.gradle.project.popup" value="true" />
   </component>
   <component name="RecentsManager">
@@ -134,6 +145,11 @@
       <workItem from="1579654161555" duration="108000" />
       <workItem from="1579654278088" duration="408000" />
       <workItem from="1579703502059" duration="903000" />
+      <workItem from="1579735536199" duration="50000" />
+      <workItem from="1579735605831" duration="410000" />
+      <workItem from="1579736042051" duration="1282000" />
+      <workItem from="1579820566034" duration="9265000" />
+      <workItem from="1579830367772" duration="103000" />
     </task>
     <servers />
   </component>
@@ -163,14 +179,18 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1579654254688" />
-    <state x="316" y="74" key="SettingsEditor" timestamp="1579654520584">
+    <state x="316" y="74" key="SettingsEditor" timestamp="1579828356949">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="316" y="74" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1579654520584" />
-    <state x="465" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1579703511429">
+    <state x="316" y="74" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1579828356949" />
+    <state x="465" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1579830436731">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="465" y="256" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1579703511429" />
+    <state x="465" y="256" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1579830436731" />
+    <state x="463" y="37" width="738" height="789" key="find.popup" timestamp="1579825351488">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="463" y="37" width="738" height="789" key="find.popup/0.0.1536.864@0.0.1536.864" timestamp="1579825351488" />
     <state x="425" y="197" key="run.anything.popup" timestamp="1579377952239">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

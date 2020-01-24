@@ -15,6 +15,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.resources.TecbotSensors;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.SharedMotors;
 import frc.robot.subsystems.chassis.DriveTrain;
 
 /**
@@ -45,6 +46,7 @@ public class RobotContainer {
         // Configure the button bindings
         configureButtonBindings();
         TecbotSensors.initializeAllSensors();
+        SharedMotors.initializeSharedMotors();
         driveTrain = new DriveTrain();
         oi = new OI();
     }
@@ -70,11 +72,11 @@ public class RobotContainer {
         return m_chooser.getSelected();
     }
 
-    public static DriveTrain getDriveTrain(){
+    public static DriveTrain getDriveTrain() {
         return driveTrain;
     }
 
-    public static OI getOI(){
+    public static OI getOI() {
         return oi;
     }
 

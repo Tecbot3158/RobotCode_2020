@@ -13,10 +13,10 @@ import frc.robot.subsystems.lifter.Lifter;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class ShiftGears extends InstantCommand {
+public class DisengageGears extends InstantCommand {
     private final Lifter m_lifter;
 
-    public ShiftGears(Lifter lifter) {
+    public DisengageGears(Lifter lifter) {
         m_lifter = lifter;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(m_lifter);
@@ -25,6 +25,6 @@ public class ShiftGears extends InstantCommand {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        m_lifter.shiftGearsToggle();
+        m_lifter.disengageGearsToggle();
     }
 }
