@@ -23,8 +23,8 @@ import frc.robot.resources.TecbotEncoder;
 import frc.robot.resources.TecbotSpeedController;
 
 public class Shooter extends PIDSubsystem {
-  List <TecbotSpeedController> shooterleftMotors; 
-  List <TecbotSpeedController> shooterrightMotors;
+  List <TecbotSpeedController> shooterLeftMotors; 
+  List <TecbotSpeedController> shooterRightMotors;
   Servo Angler; 
   TecbotEncoder shooterEncoder;
   
@@ -45,22 +45,26 @@ public class Shooter extends PIDSubsystem {
         new PIDController(0, 0, 0));
 
         
-    shooterleftMotors = new ArrayList<>();
+    shooterLeftMotors = new ArrayList<>();
     for(int i = 0; i < RobotMap.SHOOTER_LEFT_MOTOR_PORTS.length; i ++){
-      shooterleftMotors.add(new TecbotSpeedController(RobotMap.SHOOTER_LEFT_MOTOR_PORTS[i], RobotMap.SHOOTER_TYPE_OF_MOTORS[i]));//el valor de i es igualado al número de los puertos en los parámetros, entonces entre las llaves  va aumentando el valor del puerto correspondiendo al avance en los parámetros 
+      shooterLeftMotors.add(new TecbotSpeedController(RobotMap.SHOOTER_LEFT_MOTOR_PORTS[i], RobotMap.SHOOTER_TYPE_OF_MOTORS[i]));//el valor de i es igualado al número de los puertos en los parámetros, entonces entre las llaves  va aumentando el valor del puerto correspondiendo al avance en los parámetros 
+      for (int ports : RobotMap.SHOOTER_LEFT_INVERTED_MOTOR_PORTS ){
+        if(ports == RobotMap.SHOOTER_LEFT_MOTOR_PORTS[i])
+          shooterLeftMotors.get(i).setInverted(true);
+      }
     }
     for (int i = 0; i < RobotMap.SHOOTER_RIGHT_MOTOR_PORTS.length; i++) {
-    shooterrightMotors.add(new TecbotSpeedController(RobotMap.SHOOTER_RIGHT_MOTOR_PORTS[i], RobotMap.SHOOTER_TYPE_OF_MOTORS[i]));
-    shooterrightMotors.get(i).setInverted(true);
+    shooterRightMotors.add(new TecbotSpeedController(RobotMap.SHOOTER_RIGHT_MOTOR_PORTS[i], RobotMap.SHOOTER_TYPE_OF_MOTORS[i]));
+    for (int ports : RobotMap.SHOOTER_RIGHT_INVERTED_MOTOR_PORTS ){
+      if(ports == RobotMap.SHOOTER_RIGHT_MOTOR_PORTS[i])
+        shooterRightMotors.get(i).setInverted(true);
   }
 
     Angler = new Servo(RobotMap.ANGLERPORT);
     shooterEncoder = new TecbotEncoder(RobotMap.SHOOTERENCODER_PORT[0], RobotMap.SHOOTERENCODER_PORT[1]);
+}
   
   }
-    
-  
-
   @Override
   public void useOutput(double output, double setpoint) {
     // Use the output here
@@ -72,10 +76,10 @@ public class Shooter extends PIDSubsystem {
     return 0;
   }
   public void shoot(){
-    for(TecbotSpeedController leftmotors : shooterleftMotors){
+    for(TecbotSpeedController leftmotors : shooterLeftMotors){
       leftmotors.set(speed);
-    }
-      for(TecbotSpeedController rightmotors : shooterrightMotors) {
+    } 
+      for(TecbotSpeedController rightmotors : shooterRightMotors) {
         rightmotors.set(speed);
       }
   }
@@ -87,7 +91,7 @@ public class Shooter extends PIDSubsystem {
     
     switch (position){
       case TRENCH : 
-        speed = TecbotConstants.TRENCH_SHOOTING_SPEED ;
+        speed = TecbotConstants.TRENCH_SHOOTING_SPEED ;;;;;;;;
         
         break;
       
@@ -133,16 +137,14 @@ public void setAnglerDegrees(ShooterPosition position) {
 }
 
 public void setManualShooter(double manualspeed) {
-  for(TecbotSpeedController leftmanualmotors : shooterleftMotors){
+  for(TecbotSpeedController leftmanualmotors : shooterLeftMotors){
     leftmanualmotors.set(manualspeed);
   }
-  for(TecbotSpeedController rightmanualmotors : shooterrightMotors) {
+  for(TecbotSpeedController rightmanualmotors : shooterRightMotors) {
     rightmanualmotors.set(manualspeed);
     SmartDashboard.putNumber("ShooterEncoderRate", shooterEncoder.getRate());
 
   }
-
-
 }
 
 /**
