@@ -50,6 +50,8 @@ public class RobotContainer {
         driveTrain = new DriveTrain();
         oi = new OI();
         shooter = new Shooter();
+        
+
     }
 
     /**
@@ -83,6 +85,7 @@ public class RobotContainer {
 
     public static Shooter getShooter() {
         return shooter;
-
     }
+    
+    
 }

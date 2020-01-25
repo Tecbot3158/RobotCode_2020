@@ -8,7 +8,7 @@
 package frc.robot;
 
  
-import frc.robot.commands.shooter.ManualShoot;
+
 import frc.robot.resources.TecbotController;
 
 /**
@@ -22,7 +22,7 @@ public class OI {
     public void configureButtonBindings(){
 
         pilot = new TecbotController(0);
-        pilot.whenPressed(TecbotController.ButtonType.A, new ManualShoot());
+        
 
     }
 

@@ -10,6 +10,7 @@ package frc.robot.subsystems.shooter;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -19,14 +20,17 @@ import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.RobotMap;
 import frc.robot.resources.TecbotConstants;
 import frc.robot.resources.TecbotEncoder;
+import frc.robot.resources.TecbotSharedMotors;
 import frc.robot.resources.TecbotSpeedController;
+import jdk.nashorn.api.tree.ReturnTree;
 
 public class Shooter extends PIDSubsystem {
-  List <TecbotSpeedController> shooterleftMotors; 
-  List <TecbotSpeedController> shooterrightMotors;
-  Servo Angler; 
+
+
+  Servo Angler;
+
+
   TecbotEncoder shooterEncoder;
-  
 
   boolean loadingBayShoot = false;
   boolean trenchShoot = false;
@@ -34,73 +38,67 @@ public class Shooter extends PIDSubsystem {
   double speed;
   double angle;
 
-
   /**
    * Creates a new Shooter.
    */
-  public Shooter() { 
+  public Shooter() {
     super(
         // The PIDController used by the subsystem
         new PIDController(0, 0, 0));
+    TecbotSharedMotors.initializeSharedMotors();
 
-        
-    shooterleftMotors = new ArrayList<>();
-    for(int i = 0; i < RobotMap.SHOOTER_LEFT_MOTOR_PORTS.length; i ++){
-      shooterleftMotors.add(new TecbotSpeedController(RobotMap.SHOOTER_LEFT_MOTOR_PORTS[i], RobotMap.SHOOTER_TYPE_OF_MOTORS[i]));//el valor de i es igualado al número de los puertos en los parámetros, entonces entre las llaves  va aumentando el valor del puerto correspondiendo al avance en los parámetros 
-    }
-    for (int i = 0; i < RobotMap.SHOOTER_RIGHT_MOTOR_PORTS.length; i++) {
-    shooterrightMotors.add(new TecbotSpeedController(RobotMap.SHOOTER_RIGHT_MOTOR_PORTS[i], RobotMap.SHOOTER_TYPE_OF_MOTORS[i]));
-    shooterrightMotors.get(i).setInverted(true);
+
   }
 
-    Angler = new Servo(RobotMap.ANGLERPORT);
-    shooterEncoder = new TecbotEncoder(RobotMap.SHOOTERENCODER_PORT[0], RobotMap.SHOOTERENCODER_PORT[1]);
-  
-  }
-    
-  
+
 
   @Override
   public void useOutput(double output, double setpoint) {
     // Use the output here
+
   }
 
   @Override
   public double getMeasurement() {
     // Return the process variable measurement here
-    return 0;
+    return shooterEncoder.getRaw();
   }
-  public void shoot(){
-    for(TecbotSpeedController leftmotors : shooterleftMotors){
-      leftmotors.set(speed);
-      for(TecbotSpeedController rightmotors : shooterrightMotors) {
-        rightmotors.set(speed);
-      }
-      shooterEncoder.getRate();
-    }
+
+
+  /**
+   * Returns the Shooter_PID_Target
+   */
+  
+
+  public void useOutput(double output) {
+    
+    TecbotSharedMotors.setAll(output, output);
   }
+
+  
+  
 
 
   
 
-  public void setShootingSpeed(ShooterPosition position){
+  public double getShootingSpeed(ShooterPosition position){
     
     switch (position){
       case TRENCH : 
-        speed = TecbotConstants.TRENCH_SHOOTING_SPEED ;
+        return TecbotConstants.TRENCH_SHOOTING_SPEED ;
         
-        break;
+        
       
       case LOADING_BAY:
-        speed = TecbotConstants.LOADING_BAY_SHOOTING_SPEED;
+        return TecbotConstants.LOADING_BAY_SHOOTING_SPEED;
 
-        break;
+        
       
       case INITIATION_LINE: 
-        speed = TecbotConstants.INITIATION_LINE_SHOOTING_SPEED;
+        return  TecbotConstants.INITIATION_LINE_SHOOTING_SPEED;
       
       default :
-        speed = 0;
+        return 0;
     }
   
     
@@ -109,37 +107,35 @@ public void setAngler() {
   Angler.setAngle(angle);
 }
 
-public void setAnglerDegrees(ShooterPosition position) {
+public double getAnglerDegrees(ShooterPosition position) {
   switch(position){
   case TRENCH : 
-  angle = TecbotConstants.TRENCH_SHOOTING_ANGLE;
+  return TecbotConstants.TRENCH_SHOOTING_ANGLE;
 
-  break;
+  
 
   case LOADING_BAY : 
 
-  angle = TecbotConstants.LOADING_BAY_SHOOTING_ANGLE;
+  return TecbotConstants.LOADING_BAY_SHOOTING_ANGLE;
 
-  break;
+ 
 
   case INITIATION_LINE :
+
   angle = TecbotConstants.INITIATION_LINE_SHOOTING_ANGLE;
+
+  
+  return TecbotConstants.INITIATION_LINE_SHOOTING_ANGLE;
+
+  default: 
+  
+  return 0;
   
   }
 
   
 }
 
-public void setManualShooter(double manualspeed) {
-  for(TecbotSpeedController leftmanualmotors : shooterleftMotors){
-    leftmanualmotors.set(manualspeed);
-  }
-  for(TecbotSpeedController rightmanualmotors : shooterrightMotors) {
-    rightmanualmotors.set(manualspeed);
-  }
-
-
-}
 
 /**
  * sets the angler manually with the triggers
@@ -151,14 +147,16 @@ public void setManualAngler(double lt, double rt){
   Angler.set(manualangle);
 }
 
-public void setshooterEncoder() {
-  SmartDashboard.putNumber("ShooterEncoderRate", shooterEncoder.getRate());
-}
-  public enum ShooterPosition{
+
+  
+public enum ShooterPosition{
+
+  
     TRENCH, 
     LOADING_BAY,
     INITIATION_LINE
   }
+  
   
   
   

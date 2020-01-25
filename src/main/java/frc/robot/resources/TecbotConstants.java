@@ -47,5 +47,10 @@ public class TecbotConstants {
 	public static final double INITIATION_LINE_SHOOTING_ANGLE = 0;
 	public static final double LOADING_BAY_SHOOTING_ANGLE = 0;
 
+	public static double MANUALSHOOT = 0.4;
+
+	public static final double K_SHOOTER_P = 0;
+	public static final double K_SHOOTER_I = 0; 
+	public static final double K_SHOOTER_D = 0;
 
 }
