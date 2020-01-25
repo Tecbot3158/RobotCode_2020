@@ -49,7 +49,7 @@ public class RobotMap {
     public static int middleWheelPort = 0;
     public static TypeOfMotor middleWheelMotorType = TypeOfMotor.TALON_SRX;
 
-<<<<<<< HEAD
+
     public static final TypeOfMotor [] SHOOTERCLIMBER_TYPE_OF_MOTORS= {TypeOfMotor.TALON_SRX};
     
     public static int[] shooterClimberPortsLeft = {7, 8};
@@ -57,7 +57,7 @@ public class RobotMap {
     public static int[] invertedLeftShooterClimberMotors = {0, 0};
     public static int[] invertedRightShooterClimberMotors = {0, 0};
     public static int shooterClimberMotorWithEncoder = 0;
-=======
+
     public static final TypeOfMotor [] SHOOTER_TYPE_OF_MOTORS= {TypeOfMotor.TALON_SRX,TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX };
     public static final int [] SHOOTER_LEFT_MOTOR_PORTS = {7,8};
     public static final int [] SHOOTER_RIGHT_MOTOR_PORTS = {9,10};
@@ -66,7 +66,6 @@ public class RobotMap {
     public static final int [] SHOOTER_LEFT_INVERTED_MOTOR_PORTS = {};
     public static final int [] SHOOTER_RIGHT_INVERTED_MOTOR_PORTS = {};
 
->>>>>>> 5f53229b591949e547c60be388d5ea562cfee634
     public static final int ANGLERPORT = 0;
 
     
