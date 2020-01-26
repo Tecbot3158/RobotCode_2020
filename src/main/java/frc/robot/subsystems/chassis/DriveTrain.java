@@ -19,11 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DriveTrain extends SubsystemBase {
-
     // Motors
     List<TecbotSpeedController> leftMotors;
     List<TecbotSpeedController> rightMotors;
-    TecbotSpeedController middle;
+    public static TecbotSpeedController middle;
 
     DoubleSolenoid wheelSolenoid;
 
@@ -44,6 +43,7 @@ public class DriveTrain extends SubsystemBase {
 
     TecbotEncoder leftEncoder, rightEncoder, wheelEncoder;
 
+
     // Mecanum and Swerve move require the robot to stay in the same angle (unless
     // turning) so hasSetAngle
     // checks if the angle has been set.
@@ -55,6 +55,9 @@ public class DriveTrain extends SubsystemBase {
     public enum DrivingMode {
         Default, Pivot, Mecanum, Swerve
     };
+
+    public static TecbotSpeedController leftEncoderMotor = null;
+    public static TecbotSpeedController rightEncoderMotor = null;
 
     private DrivingMode currentDrivingMode = DrivingMode.Default;
 
@@ -84,8 +87,7 @@ public class DriveTrain extends SubsystemBase {
                 || RobotMap.rightChassisPorts.length != RobotMap.rightChassisMotorTypes.length)
             DriverStation.reportError("More ports that motor types", true);
 
-        TecbotSpeedController leftEncoderMotor = null;
-        TecbotSpeedController rightEncoderMotor = null;
+
 
         for (int i = 0; i < RobotMap.leftChassisPorts.length; i++) {
             leftMotors.add(new TecbotSpeedController(RobotMap.leftChassisPorts[i], RobotMap.leftChassisMotorTypes[i]));
@@ -107,12 +109,7 @@ public class DriveTrain extends SubsystemBase {
             }
         }
 
-        leftEncoder = RobotConfigurator.buildEncoder(leftEncoderMotor, RobotMap.leftChassisEncoderPorts[0],
-                RobotMap.leftChassisEncoderPorts[1]);
-        rightEncoder = RobotConfigurator.buildEncoder(rightEncoderMotor, RobotMap.rightChassisEncoderPorts[0],
-                RobotMap.rightChassisEncoderPorts[1]);
-        wheelEncoder = RobotConfigurator.buildEncoder(middle, RobotMap.middleWheelEncoderPorts[0],
-                RobotMap.middleWheelEncoderPorts[0]);
+
 
 
 
@@ -454,28 +451,16 @@ public class DriveTrain extends SubsystemBase {
         SmartDashboard.putNumber("Front Right DriveTrain Motoro", rightEncoder.getRaw());
     }
 
-    public double getLeftPosition() {
-        return leftEncoder.getRaw();
+    public static TecbotSpeedController getRightEncoderMotor(){
+        return rightEncoderMotor;
     }
 
-    public double getRightPosition() {
-        return rightEncoder.getRaw();
+    public static TecbotSpeedController getLeftEncoderMotor(){
+        return leftEncoderMotor;
     }
 
-    public double getMiddlePosition() {
-        return wheelEncoder.getRaw();
-    }
-
-    public TecbotEncoder getLeftEncoder() {
-        return leftEncoder;
-    }
-
-    public TecbotEncoder getRightEncoder() {
-        return rightEncoder;
-    }
-
-    public TecbotEncoder getWheelEncoder() {
-        return wheelEncoder;
+    public static TecbotSpeedController getMiddleWheelMotor(){
+        return middle;
     }
 
 }

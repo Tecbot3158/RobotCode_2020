@@ -48,7 +48,6 @@ public class RobotContainer {
         CommandScheduler.getInstance().setDefaultCommand(driveTrain, new DefaultDrive());
         // Configure the button bindings
         TecbotSensors.initializeAllSensors();
-        oi = new OI();
         configureButtonBindings();
     }
 
