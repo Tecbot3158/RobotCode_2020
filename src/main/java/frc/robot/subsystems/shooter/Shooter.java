@@ -7,22 +7,16 @@
 
 package frc.robot.subsystems.shooter;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.RobotMap;
 import frc.robot.resources.TecbotConstants;
 import frc.robot.resources.TecbotEncoder;
 import frc.robot.resources.TecbotSharedMotors;
-import frc.robot.resources.TecbotSpeedController;
-import jdk.nashorn.api.tree.ReturnTree;
+
+
 
 public class Shooter extends PIDSubsystem {
 
@@ -46,6 +40,7 @@ public class Shooter extends PIDSubsystem {
         // The PIDController used by the subsystem
         new PIDController(0, 0, 0));
     TecbotSharedMotors.initializeSharedMotors();
+    shooterEncoder = new TecbotEncoder(RobotMap.SHOOTERENCODER_PORT[0], RobotMap.SHOOTERENCODER_PORT[1]);
 
 
   }
