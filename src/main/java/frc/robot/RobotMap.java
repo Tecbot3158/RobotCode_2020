@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.resources.RobotConfigurator;
 import frc.robot.resources.TecbotSpeedController;
 import frc.robot.resources.TecbotSpeedController.TypeOfMotor;
@@ -65,4 +66,9 @@ public class RobotMap {
     public static int[] gearShifterPneumatics = {4, 5};
     public static TecbotSpeedController.TypeOfMotor[] typesOfMotors = {TecbotSpeedController.TypeOfMotor.TALON_SRX};
 
+    public static SequentialCommandGroup FRONT_INTAKE_AND_TRANSPORT_ONLY = new FRON_INTAKE_AND_TRANSPORT_ONLY();
+
+    private static class FRON_INTAKE_AND_TRANSPORT_ONLY extends SequentialCommandGroup {
+        //TEST
+    }
 }
