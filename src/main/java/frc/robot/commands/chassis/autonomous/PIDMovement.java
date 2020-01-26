@@ -13,6 +13,8 @@ import frc.robot.RobotContainer;
 import frc.robot.resources.TecbotConstants;
 import frc.robot.resources.TecbotSensors;
 
+import static frc.robot.resources.TecbotSensors.SubsystemType.RIGHT_CHASSIS;
+
 public class PIDMovement extends PIDCommand {
     /**
      * Creates a new PID_Command.
@@ -22,7 +24,7 @@ public class PIDMovement extends PIDCommand {
                 // The controller that the command will use
                 new PIDController(TecbotConstants.K_STRAIGHT_P, TecbotConstants.K_STRAIGHT_I, TecbotConstants.K_STRAIGHT_D),
                 // This should return the measurement
-                () -> TecbotSensors.getRightEncoder().getRaw(),
+                () -> TecbotSensors.getEncoderRaw(RIGHT_CHASSIS),
                 // This should return the setpoint (can also be a constant)
                 () -> RobotContainer.getDriveTrain().getPIDTarget(),
                 // This uses the output
