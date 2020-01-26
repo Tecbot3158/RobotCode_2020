@@ -9,7 +9,9 @@ package frc.robot.subsystems.chassis;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 import frc.robot.resources.Math;
@@ -18,7 +20,7 @@ import frc.robot.resources.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DriveTrain extends SubsystemBase {
+public class DriveTrain extends PIDSubsystem {
     // Motors
     List<TecbotSpeedController> leftMotors;
     List<TecbotSpeedController> rightMotors;
@@ -28,6 +30,8 @@ public class DriveTrain extends SubsystemBase {
 
     DoubleSolenoid transmission;
     boolean transmissionOn = false;
+
+
 
     public enum TransmissionMode {
         torque, speed
@@ -66,9 +70,11 @@ public class DriveTrain extends SubsystemBase {
         RIGHT, LEFT;
     }
 
-    public double pidTarget;
+    // The desired angle when using straight PID
+    public double pidAngleTarget = 0;
 
     public DriveTrain() {
+        super(new PIDController(TecbotConstants.K_STRAIGHT_P,TecbotConstants.K_STRAIGHT_I,TecbotConstants.K_STRAIGHT_D));
 
         transmission = new DoubleSolenoid(RobotMap.transmissionPorts[0], RobotMap.transmissionPorts[1]);
         wheelSolenoid = new DoubleSolenoid(RobotMap.wheelSolenoidPorts[0], RobotMap.wheelSolenoidPorts[1]);
@@ -192,6 +198,17 @@ public class DriveTrain extends SubsystemBase {
         }
         return false;
     }
+
+    @Override
+    protected void useOutput(double output, double setpoint) {
+        drive(pidAngleTarget * TecbotConstants.TURN_CORRECTION,output);
+    }
+
+    @Override
+    protected double getMeasurement() {
+        return 0;
+    }
+
 
     public void stop() {
         frankieDrive(0, 0, 0);
@@ -335,32 +352,8 @@ public class DriveTrain extends SubsystemBase {
 
     }
 
-    public void useOutput(double output){
-        for(TecbotSpeedController motor : leftMotors){
-            motor.set(output);
-        }
-        for(TecbotSpeedController motor : rightMotors){
-            motor.set(output);
-        }
-    }
-    public void useOutput(double output, double angle){
-        double deltaAngle = angle - TecbotSensors.getYaw();
-        double correction = deltaAngle * TecbotConstants.TURN_CORRECTION;
 
-        for(TecbotSpeedController motor : leftMotors){
-            motor.set(output + correction);
-        }
-        for(TecbotSpeedController motor : rightMotors){
-            motor.set(output - correction);
-        }
 
-    }
-    public void setPIDTarget(double target){
-        pidTarget = target;
-    }
-    public double getPIDTarget(){
-        return pidTarget;
-    }
 
     public void setMecanumDrive(boolean state) {
         if (state)
