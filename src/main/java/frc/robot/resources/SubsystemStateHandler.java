@@ -7,13 +7,13 @@
 
 package frc.robot.resources;
 
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.*;
 
 public class SubsystemStateHandler extends SubsystemBase {
 
 
+    SequentialCommandGroup currentCommand;
 
     /**
      * The SubsystemStateHandler manages all the Tecbot
@@ -21,8 +21,13 @@ public class SubsystemStateHandler extends SubsystemBase {
      * Robot Command State is running.
      */
     public SubsystemStateHandler() {
-        SequentialCommandGroup command = RobotCurrentStateCommand.FRONT_INTAKE_AND_TRANSPORT_ONLY.command;
-        CommandScheduler.getInstance().schedule(true,command);
+        currentCommand = RobotCurrentStateCommand.ALL_SYSTEMS_OFF.getCommand();
+    }
+
+    public void setCurrentCommand(RobotCurrentStateCommand stateCommand) {
+        if (!currentCommand.isFinished()) CommandScheduler.getInstance().cancel(currentCommand);
+        currentCommand = stateCommand.getCommand();
+        CommandScheduler.getInstance().schedule(true, currentCommand);
     }
 
     @Override

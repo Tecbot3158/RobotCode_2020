@@ -42,4 +42,6 @@ public enum Element {
     public static Element valueOfAtomicWeight(float weight) {
         return BY_ATOMIC_WEIGHT.get(weight);
     }
+
+
 }

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ac917a04-bcb7-4465-b11a-99da1f4b3453" name="Default Changelist" comment="Test for referencing command inside enums!">
-      <change afterPath="$PROJECT_DIR$/src/main/java/frc/robot/resources/Element.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/frc/robot/resources/RobotCurrentStateCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/frc/robot/resources/SubsystemStateHandler.java" afterDir="false" />
+    <list default="true" id="ac917a04-bcb7-4465-b11a-99da1f4b3453" name="Default Changelist" comment="RobotCurrentStateCommand finished, as well as SubsystemStateHandler.">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/frc/robot/RobotMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/robot/RobotMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/frc/robot/resources/Element.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/robot/resources/Element.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/frc/robot/resources/RobotCurrentStateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/robot/resources/RobotCurrentStateCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/frc/robot/resources/SubsystemStateHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/robot/resources/SubsystemStateHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +79,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
     <property name="show.unlinked.gradle.project.popup" value="true" />
   </component>
   <component name="RecentsManager">
@@ -159,8 +160,18 @@
       <workItem from="1579736042051" duration="1282000" />
       <workItem from="1579820566034" duration="9265000" />
       <workItem from="1579830367772" duration="103000" />
-      <workItem from="1580008264993" duration="1819000" />
+      <workItem from="1580008264993" duration="4232000" />
+      <workItem from="1580049701852" duration="2853000" />
+      <workItem from="1580063203401" duration="6198000" />
     </task>
+    <task id="LOCAL-00001" summary="Test for referencing command inside enums!">
+      <created>1580011364793</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1580011364793</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,37 +195,51 @@
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
     <MESSAGE value="Test for referencing command inside enums!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test for referencing command inside enums!" />
+    <MESSAGE value="RobotCurrentStateCommand finished, as well as SubsystemStateHandler." />
+    <option name="LAST_COMMIT_MESSAGE" value="RobotCurrentStateCommand finished, as well as SubsystemStateHandler." />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2118" y="157" key="CommitChangelistDialog2" timestamp="1580011327620">
+    <state x="2272" y="395" width="706" height="292" key="#com.intellij.codeInsight.template.impl.EditVariableDialog" timestamp="1580068963347">
       <screen x="1920" y="157" width="1360" height="768" />
     </state>
-    <state x="2118" y="157" key="CommitChangelistDialog2/0.272.1280.448/1920.157.1360.768@1920.157.1360.768" timestamp="1580011327620" />
+    <state x="2272" y="395" width="706" height="292" key="#com.intellij.codeInsight.template.impl.EditVariableDialog/0.0.1280.720/1920.157.1360.768@1920.157.1360.768" timestamp="1580068963347" />
+    <state x="2118" y="157" key="CommitChangelistDialog2" timestamp="1580070282273">
+      <screen x="1920" y="157" width="1360" height="768" />
+    </state>
+    <state x="2118" y="157" key="CommitChangelistDialog2/0.0.1280.720/1920.157.1360.768@1920.157.1360.768" timestamp="1580070282273" />
+    <state x="2118" y="157" key="CommitChangelistDialog2/0.272.1280.448/1920.157.1360.768@1920.157.1360.768" timestamp="1580011363849" />
     <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1579654254688">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1579654254688" />
-    <state x="316" y="74" key="SettingsEditor" timestamp="1579828356949">
-      <screen x="0" y="0" width="1536" height="864" />
+    <state x="1996" y="157" width="1284" height="768" key="SettingsEditor" timestamp="1580069034359">
+      <screen x="1920" y="157" width="1360" height="768" />
     </state>
+    <state x="1996" y="157" width="1284" height="768" key="SettingsEditor/0.0.1280.720/1920.157.1360.768@1920.157.1360.768" timestamp="1580069034359" />
     <state x="316" y="74" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1579828356949" />
-    <state x="388" y="213" key="com.intellij.ide.util.TipDialog" timestamp="1580008356956">
-      <screen x="0" y="0" width="1280" height="720" />
+    <state x="2192" y="263" key="Vcs.Push.Dialog.v2" timestamp="1580011386251">
+      <screen x="1920" y="157" width="1360" height="768" />
+    </state>
+    <state x="2192" y="263" key="Vcs.Push.Dialog.v2/0.272.1280.448/1920.157.1360.768@1920.157.1360.768" timestamp="1580011386251" />
+    <state x="2333" y="352" key="com.intellij.ide.util.TipDialog" timestamp="1580064087072">
+      <screen x="1920" y="157" width="1360" height="768" />
     </state>
     <state x="388" y="213" key="com.intellij.ide.util.TipDialog/0.0.1280.720/1920.157.1360.768@0.0.1280.720" timestamp="1580008356956" />
+    <state x="2333" y="352" key="com.intellij.ide.util.TipDialog/0.0.1280.720/1920.157.1360.768@1920.157.1360.768" timestamp="1580064087072" />
     <state x="465" y="256" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1579830436731" />
     <state x="463" y="37" width="738" height="789" key="find.popup" timestamp="1579825351488">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="463" y="37" width="738" height="789" key="find.popup/0.0.1536.864@0.0.1536.864" timestamp="1579825351488" />
-    <state x="425" y="197" key="run.anything.popup" timestamp="1579377952239">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="425" y="197" key="run.anything.popup/0.0.1536.864@0.0.1536.864" timestamp="1579377952239" />
-    <state x="2263" y="246" width="672" height="678" key="search.everywhere.popup" timestamp="1580010818645">
+    <state x="2296" y="332" width="672" height="677" key="run.anything.popup" timestamp="1580050018229">
       <screen x="1920" y="157" width="1360" height="768" />
     </state>
+    <state x="2296" y="332" width="672" height="677" key="run.anything.popup/0.0.1280.720/1920.157.1360.768@1920.157.1360.768" timestamp="1580050018229" />
+    <state x="425" y="197" key="run.anything.popup/0.0.1536.864@0.0.1536.864" timestamp="1579377952239" />
+    <state x="2263" y="246" width="672" height="678" key="search.everywhere.popup" timestamp="1580049983732">
+      <screen x="1920" y="157" width="1360" height="768" />
+    </state>
+    <state x="2263" y="246" width="672" height="678" key="search.everywhere.popup/0.0.1280.720/1920.157.1360.768@1920.157.1360.768" timestamp="1580049983732" />
     <state x="2263" y="246" width="672" height="678" key="search.everywhere.popup/0.272.1280.448/1920.157.1360.768@1920.157.1360.768" timestamp="1580010818645" />
   </component>
 </project>
