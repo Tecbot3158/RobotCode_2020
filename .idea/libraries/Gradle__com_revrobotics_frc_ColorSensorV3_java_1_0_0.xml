@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.revrobotics.frc:ColorSensorV3-java:1.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.revrobotics.frc/ColorSensorV3-java/1.0.0/3ea4580f92de323f30e734ac16698f6e33bf238f/ColorSensorV3-java-1.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.revrobotics.frc/ColorSensorV3-java/1.0.0/365dd0bcbfe51969d39e1c6947f2f1e2e8ed89cc/ColorSensorV3-java-1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
