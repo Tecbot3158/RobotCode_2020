@@ -41,9 +41,6 @@ public class DriveTrain extends SubsystemBase {
     boolean arrivedToThePosition = false;
     double target, diffPos, diffAng;
 
-    TecbotEncoder leftEncoder, rightEncoder, wheelEncoder;
-
-
     // Mecanum and Swerve move require the robot to stay in the same angle (unless
     // turning) so hasSetAngle
     // checks if the angle has been set.
@@ -444,11 +441,6 @@ public class DriveTrain extends SubsystemBase {
 
     public boolean getOrientation() {
         return reverse;
-    }
-
-    public void printEncValues() {
-        SmartDashboard.putNumber("Front Left DriveTrain Motor", leftEncoder.getRaw());
-        SmartDashboard.putNumber("Front Right DriveTrain Motoro", rightEncoder.getRaw());
     }
 
     public static TecbotSpeedController getRightEncoderMotor(){

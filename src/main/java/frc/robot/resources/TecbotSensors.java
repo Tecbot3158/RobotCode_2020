@@ -17,7 +17,7 @@ public class TecbotSensors {
         rightChassisEncoder = RobotConfigurator.buildEncoder(DriveTrain.getRightEncoderMotor(), RobotMap.rightChassisEncoderPorts[0],
                 RobotMap.rightChassisEncoderPorts[1]);
         middleChassisEncoder = RobotConfigurator.buildEncoder(DriveTrain.getMiddleWheelMotor(), RobotMap.middleWheelEncoderPorts[0],
-                RobotMap.middleWheelEncoderPorts[0]);
+                RobotMap.middleWheelEncoderPorts[1]);
 
     }
 
