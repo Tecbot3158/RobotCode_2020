@@ -1,5 +1,10 @@
 package frc.robot.resources;
 
+import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorMatchResult;
+import com.revrobotics.ColorSensorV3;
+import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.chassis.DriveTrain;
 
@@ -9,15 +14,33 @@ public class TecbotSensors {
 
     public static TecbotEncoder leftChassisEncoder, rightChassisEncoder, middleChassisEncoder;
 
+    //Color sensors
+
+    public static ColorSensorV3 colorSensorV3;
+    public static ColorMatch colorMatcher;
+    public static final I2C.Port i2cPort = I2C.Port.kOnboard;
+    public final static Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+    public final static Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
+    public final static Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
+    public final static Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+
     public static void initializeAllSensors(){
 
         tecbotGyro = new Navx();
+
         leftChassisEncoder = RobotConfigurator.buildEncoder(DriveTrain.getLeftEncoderMotor(), RobotMap.leftChassisEncoderPorts[0],
                 RobotMap.leftChassisEncoderPorts[1]);
         rightChassisEncoder = RobotConfigurator.buildEncoder(DriveTrain.getRightEncoderMotor(), RobotMap.rightChassisEncoderPorts[0],
                 RobotMap.rightChassisEncoderPorts[1]);
         middleChassisEncoder = RobotConfigurator.buildEncoder(DriveTrain.getMiddleWheelMotor(), RobotMap.middleWheelEncoderPorts[0],
                 RobotMap.middleWheelEncoderPorts[1]);
+
+        TecbotSensors.colorSensorV3 = new ColorSensorV3(i2cPort);
+        TecbotSensors.colorMatcher = new ColorMatch();
+        colorMatcher.addColorMatch(kBlueTarget);
+        colorMatcher.addColorMatch(kGreenTarget);
+        colorMatcher.addColorMatch(kRedTarget);
+        colorMatcher.addColorMatch(kYellowTarget);
 
     }
 
@@ -33,6 +56,25 @@ public class TecbotSensors {
         return tecbotGyro.getYaw();
     }
 
+    public static String getColor() {
+        final ColorMatchResult match = colorMatcher.matchClosestColor(colorSensorV3.getColor());
+
+        if (match.color == kBlueTarget) {
+            return "Blue";
+        } else if (match.color == kRedTarget) {
+            return "Red";
+        } else if (match.color == kGreenTarget) {
+            return "Green";
+        } else if (match.color == kYellowTarget) {
+            return "Yellow";
+        } else {
+            return "Unknown";
+        }
+    }
+
+    /**
+     * @return Raw value form selectd encoder
+     */
     public static double getEncoderRaw(SubsystemType subsystem){
         switch (subsystem){
             case RIGHT_CHASSIS:

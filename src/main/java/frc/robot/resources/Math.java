@@ -17,6 +17,26 @@ public class Math {
         return java.lang.Math.abs(a);
     }
 
+    /**
+     *
+     * @param r Red value in a range from 0-1
+     * @param g Green value in a range from 0-1
+     * @param b Blue value in a range from 0-1
+     * @return Array with three values: Hue, Saturation, and Value
+     */
+
+    public static double[] RGBtoHSV(double r, double g, double b) {
+        double[] hsv = { 0f, 0f, 0f };
+        double minRGB = Math.min(r, Math.min(g, b));
+        double maxRGB = Math.max(r, Math.max(g, b));
+
+        double d = (r == minRGB) ? g - b : ((b == minRGB) ? r - g : b - r);
+        double h = (r == minRGB) ? 3 : ((b == minRGB) ? 1 : 5);
+        hsv[0] = 60 * (h - d / (maxRGB - minRGB));
+        hsv[1] = (maxRGB - minRGB) / maxRGB;
+        hsv[2] = maxRGB;
+        return hsv;
+    }
     public static double deadZone(double input, double tolerance){
         if(abs(input) < tolerance){
             return 0;
