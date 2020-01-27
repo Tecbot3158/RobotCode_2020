@@ -26,10 +26,14 @@ public class SubsystemStateHandler extends SubsystemBase {
     public void setCurrentCommand(RobotCurrentStateCommand stateCommand) {
         if (!currentCommand.getCommand().isFinished()) {
             CommandScheduler.getInstance().cancel(currentCommand.getCommand());
+
             currentCommand.addToCancelVariable();
             currentCommand.sendCommandData(true,true);
 
         }
+        //this line was written mainly because of this:
+        //https://docs.wpilib.org/en/latest/docs/software/commandbased/command-groups.html
+        CommandGroupBase.clearGroupedCommand(currentCommand.getCommand());
         currentCommand = stateCommand;
         CommandScheduler.getInstance().schedule(true, currentCommand.getCommand());
         currentCommand.addToScheduleVariable();
