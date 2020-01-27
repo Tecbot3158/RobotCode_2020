@@ -14,16 +14,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * An example command that uses an example subsystem.
  */
-public class Forward extends CommandBase {
+public class OffTransportationSystem extends CommandBase {
 
-    public Forward() {
+    public OffTransportationSystem() {
         addRequirements(RobotContainer.transportationSystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      RobotContainer.transportationSystem.forward();
+      RobotContainer.transportationSystem.off();
 
   }
 

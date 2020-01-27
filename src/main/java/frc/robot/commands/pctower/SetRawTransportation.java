@@ -14,16 +14,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * An example command that uses an example subsystem.
  */
-public class Reverse extends CommandBase {
-
-    public Reverse() {
+public class SetRawTransportation extends CommandBase {
+  double speed= 0 ;
+    public SetRawTransportation(double speed) {
         addRequirements(RobotContainer.transportationSystem);
+        this.speed= speed;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      RobotContainer.transportationSystem.reverse();
+    RobotContainer.transportationSystem.setRaw(speed);
 
   }
 

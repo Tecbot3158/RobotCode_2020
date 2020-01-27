@@ -14,16 +14,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * An example command that uses an example subsystem.
  */
-public class StopDeflector extends CommandBase {
+public class MoveForwardTransportationSystem extends CommandBase {
 
-    public StopDeflector() {
+    public MoveForwardTransportationSystem() {
         addRequirements(RobotContainer.transportationSystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      RobotContainer.transportationSystem.closeDeflector();
+      RobotContainer.transportationSystem.forward();
 
   }
 

@@ -14,22 +14,23 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * An example command that uses an example subsystem.
  */
-public class SetRawAxis extends CommandBase {
+public class OpenDeflectorTransportationSystem extends CommandBase {
 
-    public SetRawAxis() {
+    public OpenDeflectorTransportationSystem() {
         addRequirements(RobotContainer.transportationSystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.transportationSystem.setRaw(0.2);
+      RobotContainer.transportationSystem.openDeflector();
 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
   }
 
   // Called once the command ends or is interrupted.
