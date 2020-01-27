@@ -20,7 +20,7 @@ import frc.robot.resources.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DriveTrain extends PIDSubsystem {
+public class DriveTrain extends SubsystemBase {
     // Motors
     List<TecbotSpeedController> leftMotors;
     List<TecbotSpeedController> rightMotors;
@@ -74,7 +74,6 @@ public class DriveTrain extends PIDSubsystem {
     public double pidAngleTarget = 0;
 
     public DriveTrain() {
-        super(new PIDController(TecbotConstants.K_STRAIGHT_P,TecbotConstants.K_STRAIGHT_I,TecbotConstants.K_STRAIGHT_D));
 
         transmission = new DoubleSolenoid(RobotMap.transmissionPorts[0], RobotMap.transmissionPorts[1]);
         wheelSolenoid = new DoubleSolenoid(RobotMap.wheelSolenoidPorts[0], RobotMap.wheelSolenoidPorts[1]);
@@ -198,17 +197,6 @@ public class DriveTrain extends PIDSubsystem {
         }
         return false;
     }
-
-    @Override
-    protected void useOutput(double output, double setpoint) {
-        drive(pidAngleTarget * TecbotConstants.TURN_CORRECTION,output);
-    }
-
-    @Override
-    protected double getMeasurement() {
-        return 0;
-    }
-
 
     public void stop() {
         frankieDrive(0, 0, 0);
