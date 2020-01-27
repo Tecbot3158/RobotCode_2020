@@ -14,9 +14,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * An example command that uses an example subsystem.
  */
-public class SetRawTransportation extends CommandBase {
+public class SetRawTransportationSystem extends CommandBase {
   double speed= 0 ;
-    public SetRawTransportation(double speed) {
+    public SetRawTransportationSystem(double speed) {
         addRequirements(RobotContainer.transportationSystem);
         this.speed= speed;
   }
