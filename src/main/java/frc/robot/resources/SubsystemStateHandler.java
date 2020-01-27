@@ -11,13 +11,11 @@ import edu.wpi.first.wpilibj2.command.*;
 
 public class SubsystemStateHandler extends SubsystemBase {
 
-
     RobotCurrentStateCommand currentCommand;
 
     /**
-     * The SubsystemStateHandler manages all the Tecbot
-     * Robot Subsystems, as well as controlling which possible
-     * Robot Command State is running.
+     * The SubsystemStateHandler manages all the Tecbot Robot Subsystems, as well as
+     * controlling which possible Robot Command State is running.
      */
     public SubsystemStateHandler() {
         currentCommand = RobotCurrentStateCommand.ALL_SYSTEMS_OFF;
@@ -28,22 +26,21 @@ public class SubsystemStateHandler extends SubsystemBase {
             CommandScheduler.getInstance().cancel(currentCommand.getCommand());
 
             currentCommand.addToCancelVariable();
-            currentCommand.sendCommandData(true,true);
+            currentCommand.sendCommandData(true, true);
 
         }
-        //this line was written mainly because of this:
-        //https://docs.wpilib.org/en/latest/docs/software/commandbased/command-groups.html
+        // this line was written because of this:
+        // https://docs.wpilib.org/en/latest/docs/software/commandbased/command-groups.html
         CommandGroupBase.clearGroupedCommand(currentCommand.getCommand());
         currentCommand = stateCommand;
         CommandScheduler.getInstance().schedule(true, currentCommand.getCommand());
         currentCommand.addToScheduleVariable();
-        currentCommand.sendCommandData(true,true);
+        currentCommand.sendCommandData(true, true);
     }
 
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
     }
-
 
 }

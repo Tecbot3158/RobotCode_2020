@@ -2,3 +2,6 @@
 /.idea/**
 /.vscode/**
 /build/**
+/bin/**
+.classpath
+.project
