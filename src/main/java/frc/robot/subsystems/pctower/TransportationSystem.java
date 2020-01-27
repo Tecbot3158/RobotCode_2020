@@ -33,6 +33,13 @@ public class TransportationSystem extends SubsystemBase {
       //El valor de i es igualado al número de los puertos
       }
   }
+  
+  public void setRaw(double speed){
+    for(TecbotSpeedController motor : transportationSystemMotors){ //for te ayuda a acceder a los elementos por cada uno y no a la lista completa
+      motor.set(speed);
+    }
+  }
+
 
   public void forward(){
     for(TecbotSpeedController motor : transportationSystemMotors){ //for te ayuda a acceder a los elementos por cada uno y no a la lista completa
