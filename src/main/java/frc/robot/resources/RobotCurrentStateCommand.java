@@ -1,73 +1,218 @@
 package frc.robot.resources;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.RobotMap;
+import frc.robot.commands.robotStates.TestGroupParallelCommand;
 
 /**
  * This enum contains a set of every {@link SequentialCommandGroup} which could be a possible
  * usable state for the robot.
  */
 public enum RobotCurrentStateCommand {
-    ALL_SYSTEMS_OFF(RobotMap.GROUP_COMMAND_ALL_SYSTEMS_OFF),
-    FRONT_INTAKE_AND_TRANSPORT_ONLY(RobotMap.GROUP_COMMAND_FRONT_INTAKE_AND_TRANSPORT_ONLY),
-    REAR_INTAKE_AND_TRANSPORT_ONLY(RobotMap.GROUP_COMMAND_FRONT_INTAKE_AND_TRANSPORT_ONLY);
+    ALL_SYSTEMS_OFF(RobotStateCommands.GROUP_COMMAND_ALL_SYSTEMS_OFF, "ASO"),
+    FRONT_INTAKE_AND_TRANSPORT_ONLY(RobotStateCommands.GROUP_COMMAND_FRONT_INTAKE_AND_TRANSPORT_ONLY, "FI_TO_NS"),
+    REAR_INTAKE_AND_TRANSPORT_ONLY(RobotStateCommands.GROUP_COMMAND_REAR_INTAKE_AND_TRANSPORT_ONLY, "RI_TO_NS");
 
 
-    public SequentialCommandGroup command;
-    static int globalCommandsCountCalls = 0;
-    int commandCountCalls = 0;
+    public ParallelCommandGroup command;
 
-    RobotCurrentStateCommand(SequentialCommandGroup commandGroup) {
+    String id;
+
+    int schedulesCount = 0;
+    int cancellationCount = 0;
+
+    static int globalSchedulesCount = 0;
+    static int globalCancellationCount = 0;
+
+    RobotCurrentStateCommand(ParallelCommandGroup commandGroup, String id) {
         this.command = commandGroup;
+        this.id = id;
     }
 
     /**
-     * @return {@link SequentialCommandGroup} command from its enum element.
+     * @return {@link ParallelCommandGroup} command from its enum element.
      */
-    SequentialCommandGroup getCommand() {
-        globalCommandsCountCalls++;
-        commandCountCalls++;
+    public ParallelCommandGroup getCommand() {
         return this.command;
     }
 
     /**
-     * this will send the following data to the <i>SmartDashboard</i>
-     * <ul>
-     *     <li>{COMMAND_NAME} + RUN - <strong>boolean</strong> - true if commandStillRunning</li>
-     *     <li>{COMMAND_NAME} + count - <strong>integer</strong> - amount of times this command has been called to do something.
-     *     Either cancelling it or starting it.</li>
-     *     <li>{COMMAND_NAME} + gCount - <strong>integer</strong> - amount of times <strong>ALL</strong> commands
-     *     in the {@link RobotCurrentStateCommand} enum has been called. Either cancelling or starting it.</li>
-     * </ul>
+     * Adds 1 to {@link #schedulesCount} and {@link #globalSchedulesCount}
      */
-    void setCommandData() {
-        SmartDashboard.putBoolean(this.toString() + "RUN", !this.command.isFinished());
-        SmartDashboard.putNumber(this.toString() + "COUNT", this.commandCountCalls);
-        SmartDashboard.putNumber(this.toString() + "GCOUNT", globalCommandsCountCalls);
+    void addToScheduleVariable() {
+        this.getCommand().schedule();
+        this.schedulesCount++;
+        globalSchedulesCount++;
     }
 
     /**
-     * this will send the following data to the <i>{@link SmartDashboard}</i>. <strong>With this method
-     * you can customize which data is sent by setting the three parameters to true or false.</strong>
-     * <ul>
-     *     <li>{COMMAND_NAME} + RUN - <strong>boolean</strong> - true if commandStillRunning</li>
-     *     <li>{COMMAND_NAME} + count - <strong>integer</strong> - amount of times this command has been called to do something.
-     *     Either cancelling it or starting it.</li>
-     *     <li>{COMMAND_NAME} + gCount - <strong>integer</strong> - amount of times <strong>ALL</strong> commands
-     *     in the {@link RobotCurrentStateCommand} enum has been called. Either cancelling or starting it.</li>
-     * </ul>
-     *
-     * @param run   If true, a boolean will be sent to the {@link SmartDashboard} to inform whether the
-     *              command is still running or not.
-     * @param count If true, an integer will be sent to the {@link SmartDashboard}, informing of the
-     *              amount of times this command has been called.
-     * @param gCount If true, an integer will be sent to the {@link SmartDashboard} to inform the
-     *               amount of times <strong>ALL commands have been called.</strong>
+     * Adds 1 to {@link #cancellationCount} and {@link #globalCancellationCount}
      */
-    void setCommandData(boolean run, boolean count, boolean gCount) {
-        SmartDashboard.putBoolean(this.toString() + "RUN", !this.command.isFinished());
-        SmartDashboard.putNumber(this.toString() + "COUNT", this.commandCountCalls);
-        SmartDashboard.putNumber(this.toString() + "GCOUNT", globalCommandsCountCalls);
+    void addToCancelVariable() {
+        //this.getCommand().cancel();
+        this.cancellationCount++;
+        globalCancellationCount++;
     }
+
+
+    /**
+     * @param self   If true, sends everything about that command: run state (e.g. true if running, false if finished),
+     *               schedules count (the amount of times that {@link #addToScheduleVariable()} has been called,
+     *               cancellation count (the amount of times that {@link #addToCancelVariable()} has been called.
+     * @param global If true, sends everything in global terms: global schedule count and cancellation count.
+     */
+    void sendCommandData(boolean self, boolean global) {
+        if (global) {
+            SmartDashboard.putNumber("GSCHEDULE", globalSchedulesCount);
+            SmartDashboard.putNumber("GCANCEL", globalCancellationCount);
+        }
+        if (self) {
+            SmartDashboard.putBoolean(this.toString() + "RUN", !this.command.isFinished());
+            SmartDashboard.putNumber(this.id + "-SCH", schedulesCount);
+            SmartDashboard.putNumber(this.id + "-CLS", cancellationCount);
+        }
+    }
+}
+
+class RobotStateCommands {
+
+    /**
+     * <h3><strong>ALL SYSTEMS OFF</strong></h3>
+     * <ul>
+     *
+     * <li>Intakes:
+     * <ul>
+     * <li>Front intake on off mode, pneumatics off</li>
+     * <li>Rear intake on off mode, pneumatics off</li>
+     * </ul></li>
+     *
+     * <li>Power Cell Transportation System
+     * <ul><li>Off mode, deflector off</li></ul>
+     * </li>
+     *
+     * <li>Powercell shooter:
+     * <ul><li>On position #OFF</li></ul>
+     * </li>
+     *
+     * </ul>
+     */
+    public static ParallelCommandGroup GROUP_COMMAND_ALL_SYSTEMS_OFF = new TestGroupParallelCommand();
+
+    /**
+     * <h3><strong>TRANSPORT active  when Power Cell present in Front INTAKE</strong></h3>
+     * <ul>
+     *
+     * <li>Intakes:
+     * <ul>
+     * <li>Front intake on intake mode, pneumatics on</li>
+     * <li>Rear intake on off mode, pneumatics off</li>
+     * </ul></li>
+     *
+     * <li>Power Cell Transportation System
+     * <ul><li>Forward mode, deflector on</li></ul>
+     * </li>
+     *
+     * <li>Powercell shooter:
+     * <ul><li>off</li></ul>
+     * </li>
+     *
+     * </ul>
+     */
+    public static ParallelCommandGroup GROUP_COMMAND_FRONT_INTAKE_AND_TRANSPORT_ONLY = new TestGroupParallelCommand();
+
+
+    /**
+     * <h3><strong>TRANSPORT active when Power Cell present in Rear INTAKE</strong></h3>
+     * <ul>
+     *
+     * <li>Intakes:
+     * <ul>
+     * <li>Front intake on off mode, pneumatics off</li>
+     * <li>Rear intake on intake mode, pneumatics on</li>
+     * </ul></li>
+     *
+     * <li>Power Cell Transportation System
+     * <ul><li>Forward mode, deflector on</li></ul>
+     * </li>
+     *
+     * <li>Powercell shooter:
+     * <ul><li>On position #OFF</li></ul>
+     * </li>
+     *
+     * </ul>
+     */
+    public static ParallelCommandGroup GROUP_COMMAND_REAR_INTAKE_AND_TRANSPORT_ONLY = new TestGroupParallelCommand();
+
+
+    /**
+     * <h3><strong>INTAKE GOTO BOTTOM PORT</strong></h3>
+     * <ul>
+     *
+     * <li>Intakes:
+     * <ul>
+     * <li>Front intake on shooter mode, pneumatics off</li>
+     * <li>Rear intake on intake mode, pneumatics on</li>
+     * </ul></li>
+     *
+     * <li>Power Cell Transportation System
+     * <ul><li>Forward mode, deflector on</li></ul>
+     * </li>
+     *
+     * <li>Powercell shooter:
+     * <ul><li>On position #OFF</li></ul>
+     * </li>
+     *
+     * </ul>
+     */
+    public static ParallelCommandGroup GROUP_COMMAND_INTAKE_GOTO_BOTTOM_PORT = new TestGroupParallelCommand();
+
+
+    /**
+     * <h3><strong>INTAKE FEEDER AND TRANSPORT</strong></h3>
+     * <ul>
+     *
+     * <li>Intakes:
+     * <ul>
+     * <li>Front intake on intake mode, pneumatics off</li>
+     * <li>Rear intake on off mode, pneumatics off</li>
+     * </ul></li>
+     *
+     * <li>Power Cell Transportation System
+     * <ul><li>Forward mode, deflector ON</li></ul>
+     * </li>
+     *
+     * <li>Powercell shooter:
+     * <ul><li>On position #OFF</li></ul>
+     * </li>
+     *
+     * </ul>
+     */
+    public static ParallelCommandGroup GROUP_COMMAND_INTAKE_FEEDER_AND_TRANSPORT = new TestGroupParallelCommand();
+
+
+    /**
+     * <h3><strong>SHOOT AND TRANSPORT</strong></h3>
+     * <ul>
+     *
+     * <li>Intakes:
+     * <ul>
+     * <li>Front intake on off mode, pneumatics off</li>
+     * <li>Rear intake on off mode, pneumatics off</li>
+     * </ul></li>
+     *
+     * <li>Power Cell Transportation System
+     * <ul><li>Forward mode, deflector off</li></ul>
+     * </li>
+     *
+     * <li>Powercell shooter:
+     * <ul><li>On position #</li></ul>
+     * </li>
+     *
+     * </ul>
+     */
+    public static ParallelCommandGroup GROUP_COMMAND_SHOOT_AND_TRANSPORT = new TestGroupParallelCommand();
+
+
 }
