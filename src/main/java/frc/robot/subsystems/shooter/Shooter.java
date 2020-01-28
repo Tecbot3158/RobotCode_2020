@@ -25,13 +25,10 @@ import frc.robot.resources.TecbotSpeedController;
 public class Shooter extends PIDSubsystem {
   List <TecbotSpeedController> shooterLeftMotors; 
   List <TecbotSpeedController> shooterRightMotors;
-  Servo Angler; 
+  Servo anglerServo; 
   TecbotEncoder shooterEncoder;
   
 
-  boolean loadingBayShoot = false;
-  boolean trenchShoot = false;
-  boolean initiationLineShoot = false;
   double speed;
   double angle;
 
@@ -60,7 +57,7 @@ public class Shooter extends PIDSubsystem {
         shooterRightMotors.get(i).setInverted(true);
   }
 
-    Angler = new Servo(RobotMap.ANGLERPORT);
+    anglerServo = new Servo(RobotMap.ANGLERPORT);
     shooterEncoder = new TecbotEncoder(RobotMap.SHOOTERENCODER_PORT[0], RobotMap.SHOOTERENCODER_PORT[1]);
 }
   
@@ -82,9 +79,9 @@ public class Shooter extends PIDSubsystem {
       for(TecbotSpeedController rightmotors : shooterRightMotors) {
         rightmotors.set(speed);
       }
+
+    anglerServo.set(angle);
   }
-
-
   
 
   public void setShootingSpeed(ShooterPosition position){
@@ -95,21 +92,30 @@ public class Shooter extends PIDSubsystem {
         
         break;
       
-      case LOADING_BAY:
-        speed = TecbotConstants.LOADING_BAY_SHOOTING_SPEED;
+      case TARGET_ZONE:
+        speed = TecbotConstants.TARGET_ZONE_SHOOTING_SPEED; 
 
         break;
       
       case INITIATION_LINE: 
         speed = TecbotConstants.INITIATION_LINE_SHOOTING_SPEED;
+        
+        break;
+
+      case OFF: 
+        speed = TecbotConstants.SHOOTER_OFF;
+
+        break;
       
       default :
       DriverStation.reportError("The set speed isn´t possible", true);    }
+
+
   
     
   }
 public void setAngler() {
-  Angler.setAngle(angle);
+  anglerServo.setAngle(angle);
 }
 
 public void setAnglerDegrees(ShooterPosition position) {
@@ -119,14 +125,19 @@ public void setAnglerDegrees(ShooterPosition position) {
 
   break;
 
-  case LOADING_BAY : 
+  case TARGET_ZONE : 
 
-  angle = TecbotConstants.LOADING_BAY_SHOOTING_ANGLE;
+  angle = TecbotConstants.TARGET_ZONE_SHOOTING_ANGLE;
 
   break;
 
   case INITIATION_LINE :
   angle = TecbotConstants.INITIATION_LINE_SHOOTING_ANGLE;
+  break;
+
+  case OFF:
+  angle = TecbotConstants.SHOOTER_OFF_ANGLE;
+  break;
 
     default :
       DriverStation.reportError("The set angle isn´t possible", true);
@@ -154,13 +165,14 @@ public void setManualShooter(double manualspeed) {
  */
 public void setManualAngler(double lt, double rt){
   double manualangle = -lt + rt;
-  Angler.set(manualangle);
+  anglerServo.set(manualangle);
 }
 
   public enum ShooterPosition{
     TRENCH, 
-    LOADING_BAY,
-    INITIATION_LINE
+    TARGET_ZONE,
+    INITIATION_LINE, 
+    OFF
   }
   
   

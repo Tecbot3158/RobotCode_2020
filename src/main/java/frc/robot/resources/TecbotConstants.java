@@ -41,11 +41,13 @@ public class TecbotConstants {
     
 	public static final double TRENCH_SHOOTING_SPEED = 0;
 	public static final double INITIATION_LINE_SHOOTING_SPEED = 0;
-	public static final double LOADING_BAY_SHOOTING_SPEED = 0;
+	public static final double TARGET_ZONE_SHOOTING_SPEED = 0;
+	public static final double SHOOTER_OFF = 0; 
 
 	public static final double TRENCH_SHOOTING_ANGLE = 0;
 	public static final double INITIATION_LINE_SHOOTING_ANGLE = 0;
-	public static final double LOADING_BAY_SHOOTING_ANGLE = 0;
+	public static final double TARGET_ZONE_SHOOTING_ANGLE = 0;
+	public static final double SHOOTER_OFF_ANGLE = 0;
 
 
 }

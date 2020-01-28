@@ -28,12 +28,10 @@ public class ManualShoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.getShooter().setManualAngler
-    (RobotContainer.getOI().getPilot().getRawAxis(4), 
-    RobotContainer.getOI().getPilot().getRawAxis(5));
+    RobotContainer.getShooter().setManualAngler (RobotContainer.getOI().getPilot().getRawAxis(4),RobotContainer.getOI().getPilot().getRawAxis(5));
 
     RobotContainer.getShooter().setManualShooter(RobotMap.MANUALSHOOT);
-  
+        
   }
 
   // Called once the command ends or is interrupted.
