@@ -10,9 +10,8 @@ package frc.robot.subsystems.intake;
 import java.util.ArrayList;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import edu.wpi.first.wpilibj.Solenoid;
-
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.RobotMap;
 import frc.robot.resources.*;
 
@@ -21,8 +20,8 @@ public class Intake extends SubsystemBase {
   ArrayList<TecbotSpeedController> frontMotors;
   ArrayList<TecbotSpeedController> rearMotors;
 
-  ArrayList<Solenoid> frontSolenoids;
-  ArrayList<Solenoid> backSolenoids;
+  ArrayList<DoubleSolenoid> frontSolenoids;
+  ArrayList<DoubleSolenoid> backSolenoids;
 
   /**
    * Creates a new Intake.
@@ -39,9 +38,9 @@ public class Intake extends SubsystemBase {
       rearMotors.get(i).setInverted(RobotMap.backIntakeMotorDirection[i]);
     }
 
-    frontSolenoids.add(new Solenoid(RobotMap.frontsolenoids[0], RobotMap.frontsolenoids[1]));
+    frontSolenoids.add(new DoubleSolenoid(RobotMap.frontsolenoids[0], RobotMap.frontsolenoids[1]));
 
-    backSolenoids.add(new Solenoid(RobotMap.backsolenoids[2], RobotMap.backsolenoids[3]));
+    backSolenoids.add(new DoubleSolenoid(RobotMap.backsolenoids[2], RobotMap.backsolenoids[3]));
   }
 
   /* Front Intake */
@@ -84,13 +83,13 @@ public class Intake extends SubsystemBase {
     }
   }
 
-  public void setRawFrontIntake() {
+  public void setRawFrontIntake(double speed) {
     for (TecbotSpeedController m : frontMotors) {
       m.set(speed);
     }
   }
 
-  public void setRawRearIntake() {
+  public void setRawRearIntake(double speed) {
     for (TecbotSpeedController m : rearMotors) {
       m.set(speed);
     }
@@ -98,11 +97,29 @@ public class Intake extends SubsystemBase {
 
   /* Front Solenoids */
 
-  public void onFrontSolenoids (){
-    for (Solenoid m: frontSolenoids){
-      m.set(boolean true);
+  public void onFrontSolenoids() {
+    for (DoubleSolenoid m : frontSolenoids) {
+      m.set(Value.kForward);
     }
-  
+  }
+
+  public void offFrontSolenoids() {
+    for (DoubleSolenoid m : frontSolenoids) {
+      m.set(Value.kReverse);
+    }
+  }
+  /* Rear Solenoids */
+
+  public void onRearSolenoids() {
+    for (DoubleSolenoid m : frontSolenoids) {
+      m.set(Value.kForward);
+    }
+  }
+
+  public void offRearSolenoids() {
+    for (DoubleSolenoid m : frontSolenoids) {
+      m.set(Value.kReverse);
+    }
   }
 
   @Override

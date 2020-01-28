@@ -18,12 +18,15 @@ import frc.robot.resources.TecbotSensors;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.chassis.DriveTrain;
+import frc.robot.subsystems.intake.ControlPanel;
+import frc.robot.subsystems.intake.Intake;
 
 /**
- * This class is where the bulk of the robot should be declared.  Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
- * (including subsystems, commands, and button mappings) should be declared here.
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a "declarative" paradigm, very little robot logic should
+ * actually be handled in the {@link Robot} periodic methods (other than the
+ * scheduler calls). Instead, the structure of the robot (including subsystems,
+ * commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
@@ -31,14 +34,15 @@ public class RobotContainer {
 
     private final ExampleCommand m_defaultCommand = new ExampleCommand(m_exampleSubsystem);
 
+    public static Intake intake;
+    public static ControlPanel controlPanel;
 
     public static DriveTrain driveTrain;
     public static OI oi;
     SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-
     /**
-     * The container for the robot.  Contains subsystems, OI devices, and commands.
+     * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
         m_chooser.setDefaultOption("Default auto", m_defaultCommand);
@@ -46,21 +50,24 @@ public class RobotContainer {
 
         driveTrain = new DriveTrain();
         CommandScheduler.getInstance().setDefaultCommand(driveTrain, new DefaultDrive());
+
+        intake = new Intake();
+
         // Configure the button bindings
         TecbotSensors.initializeAllSensors();
         configureButtonBindings();
+
     }
 
     /**
-     * Use this method to define your button->command mappings.  Buttons can be created by
-     * instantiating a {@link GenericHID} or one of its subclasses ({@link
-     * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
-     * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+     * Use this method to define your button->command mappings. Buttons can be
+     * created by instantiating a {@link GenericHID} or one of its subclasses
+     * ({@link edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then
+     * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
         oi.configureButtonBindings();
     }
-
 
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -72,12 +79,20 @@ public class RobotContainer {
         return m_chooser.getSelected();
     }
 
-    public static DriveTrain getDriveTrain(){
+    public static DriveTrain getDriveTrain() {
         return driveTrain;
     }
 
-    public static OI getOI(){
+    public static OI getOI() {
         return oi;
+    }
+
+    public static Intake getIntake() {
+        return intake;
+    }
+
+    public static ControlPanel controlPanel() {
+        return controlPanel;
     }
 
 }
