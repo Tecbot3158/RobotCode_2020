@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import frc.robot.RobotMap;
 import frc.robot.resources.TecbotSpeedController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SharedMotors {
@@ -10,14 +11,16 @@ public class SharedMotors {
     private int encoderMotor = RobotMap.shooterClimberMotorWithEncoder;
 
     public static void initializeSharedMotors() {
+        rightSharedMotors = new ArrayList<>();
+        leftSharedMotors = new ArrayList<>();
         for (int i = 0; i < RobotMap.shooterClimberPortsRight.length; i++) {
-            rightSharedMotors.add(new TecbotSpeedController(RobotMap.shooterClimberPortsRight[i], RobotMap.typesOfMotors[0]));
+            rightSharedMotors.add(new TecbotSpeedController(RobotMap.shooterClimberPortsRight[i], RobotMap.sharedRightMotorsTypes[i]));
             if (RobotMap.shooterClimberPortsRight[i] == RobotMap.invertedLeftShooterClimberMotors[i]) {
                 rightSharedMotors.get(i).setInverted(true);
             }
         }
         for (int i = 0; i < RobotMap.shooterClimberPortsLeft.length; i++) {
-            leftSharedMotors.add(new TecbotSpeedController(RobotMap.shooterClimberPortsLeft[i], RobotMap.typesOfMotors[0]));
+            leftSharedMotors.add(new TecbotSpeedController(RobotMap.shooterClimberPortsLeft[i], RobotMap.sharedLeftMotorsTypes[i]));
             if (RobotMap.shooterClimberPortsLeft[i] == RobotMap.invertedRightShooterClimberMotors[i]) {
                 leftSharedMotors.get(i).setInverted(true);
             }

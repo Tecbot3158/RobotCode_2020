@@ -56,6 +56,8 @@ public class RobotMap {
     public static int[] invertedLeftShooterClimberMotors = {0, 0};
     public static int[] invertedRightShooterClimberMotors = {0, 0};
     public static int shooterClimberMotorWithEncoder = 0;
+    public static TecbotSpeedController.TypeOfMotor[] sharedRightMotorsTypes = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
+    public static TecbotSpeedController.TypeOfMotor[] sharedLeftMotorsTypes = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
     public static int[] encoderPorts = {RobotConfigurator.CONFIG_NOT_SET, RobotConfigurator.CONFIG_NOT_SET};
 
     //Climber values
@@ -63,6 +65,6 @@ public class RobotMap {
     public static int[] winchPorts = {12, 13};
     public static int[] invertedWinchMotors = {0, 0};
     public static int[] gearShifterPneumatics = {4, 5};
-    public static TecbotSpeedController.TypeOfMotor[] typesOfMotors = {TecbotSpeedController.TypeOfMotor.TALON_SRX};
+    public static TecbotSpeedController.TypeOfMotor[] winchTypesOfMotors = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
 
 }

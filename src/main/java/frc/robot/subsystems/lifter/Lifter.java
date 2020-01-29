@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems.lifter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -25,8 +26,9 @@ public class Lifter extends SubsystemBase {
     int encoderMotor = -1;
 
     public Lifter() {
+        winchMotors = new ArrayList<>();
         for (int i = 0; i < RobotMap.winchPorts.length; i++) {
-            winchMotors.add(new TecbotSpeedController(RobotMap.winchPorts[i], RobotMap.typesOfMotors[0]));
+            winchMotors.add(new TecbotSpeedController(RobotMap.winchPorts[i], RobotMap.winchTypesOfMotors[i]));
             if (RobotMap.winchPorts[i] == RobotMap.invertedWinchMotors[i]) {
                 winchMotors.get(i).setInverted(true);
             }
