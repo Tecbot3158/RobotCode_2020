@@ -17,6 +17,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SharedMotors;
 import frc.robot.subsystems.chassis.DriveTrain;
+import frc.robot.subsystems.climber.Climber;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -33,6 +34,7 @@ public class RobotContainer {
 
     public static DriveTrain driveTrain;
     public static OI oi;
+    public static Climber climber;
     SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 
@@ -49,6 +51,7 @@ public class RobotContainer {
         SharedMotors.initializeSharedMotors();
         driveTrain = new DriveTrain();
         oi = new OI();
+        climber = new Climber();
     }
 
     /**

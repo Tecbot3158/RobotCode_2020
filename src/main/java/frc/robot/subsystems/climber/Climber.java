@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems.lifter;
+package frc.robot.subsystems.climber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +17,15 @@ import frc.robot.RobotMap;
 import frc.robot.resources.TecbotSpeedController;
 import frc.robot.subsystems.SharedMotors;
 
-public class Lifter extends SubsystemBase {
+public class Climber extends SubsystemBase {
     /**
-     * Creates a new Lifter.
+     * Creates a new Climber.
      */
     List<TecbotSpeedController> winchMotors;
     DoubleSolenoid gearDisengager;
     int encoderMotor = -1;
 
-    public Lifter() {
+    public Climber() {
         winchMotors = new ArrayList<>();
         for (int i = 0; i < RobotMap.WINCH_PORTS.length; i++) {
             winchMotors.add(new TecbotSpeedController(RobotMap.WINCH_PORTS[i], RobotMap.WINCH_MOTOR_TYPES[i]));
@@ -44,17 +44,19 @@ public class Lifter extends SubsystemBase {
             gearDisengager.set(Value.kForward);
     }
 
-    public void manualLifter(double rightWinch, double leftWinch, double rightPulley, double leftPulley) {
-        SharedMotors.setAll(rightPulley, leftPulley);
-        winchMotors.get(0).set(rightWinch);
-        winchMotors.get(1).set(leftWinch);
-    }
-
-    public void liftCommand(double winchPower, double pulleyPowerRight, double pulleyPowerLeft) {
+    public void winchCommand(double winchPower) {
         //lift hook
         for (TecbotSpeedController motor : winchMotors) {
             motor.set(winchPower);
         }
+    }
+
+    /**
+     *
+     * @param pulleyPowerRight  Requires double for right pulley ports
+     * @param pulleyPowerLeft   Requires double for left pulley ports
+     */
+    public void pulleyCommand(double pulleyPowerRight, double pulleyPowerLeft) {
         //reel, cannot do this if input is negative
         if (pulleyPowerRight >= 0 && pulleyPowerLeft >= 0) {
             SharedMotors.setAll(pulleyPowerRight, pulleyPowerLeft);

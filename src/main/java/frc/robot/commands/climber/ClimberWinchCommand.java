@@ -5,22 +5,24 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.lifter;
+package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.lifter.Lifter;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.climber.Climber;
 
-public class LifterCommand extends CommandBase {
+public class ClimberWinchCommand extends CommandBase {
     /**
-     * Creates a new LifterCommand.
+     * Creates a new ClimberCommand.
      */
 
-    private final Lifter m_lifter;
+    private final Climber m_climber = RobotContainer.climber;
+    private double winchPower;
 
-    public LifterCommand(Lifter lifter) {
-        m_lifter = lifter;
+    public ClimberWinchCommand(double power) {
+        winchPower = power;
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_lifter);
+        addRequirements(m_climber);
     }
 
     // Called when the command is initially scheduled.
@@ -31,7 +33,7 @@ public class LifterCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_lifter.liftCommand(0, 0, 0);
+        m_climber.winchCommand(winchPower);
     }
 
     // Called once the command ends or is interrupted.

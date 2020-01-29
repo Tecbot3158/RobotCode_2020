@@ -5,26 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.lifter;
+package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.lifter.Lifter;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.climber.Climber;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class DisengageGears extends InstantCommand {
-    private final Lifter m_lifter;
+public class DisengageGearsToggle extends InstantCommand {
 
-    public DisengageGears(Lifter lifter) {
-        m_lifter = lifter;
+    private final Climber m_climber = RobotContainer.climber;
+
+    public DisengageGearsToggle() {
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_lifter);
+        addRequirements(m_climber);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        m_lifter.gearDisengagerToggle();
+        m_climber.gearDisengagerToggle();
     }
 }
