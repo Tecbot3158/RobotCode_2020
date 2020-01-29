@@ -52,7 +52,7 @@ public class RobotMap {
     public static final TypeOfMotor [] SHOOTER_TYPE_OF_MOTORS= {TypeOfMotor.TALON_SRX,TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX };
     public static final int [] SHOOTER_LEFT_MOTOR_PORTS = {7,8};
     public static final int [] SHOOTER_RIGHT_MOTOR_PORTS = {9,10};
-    public static final int [] SHOOTERENCODER_PORT = {0,1};
+    public static final int [] SHOOTER_ENCODER_PORT = {0,1};
 
     public static final int [] SHOOTER_LEFT_INVERTED_MOTOR_PORTS = {};
     public static final int [] SHOOTER_RIGHT_INVERTED_MOTOR_PORTS = {};

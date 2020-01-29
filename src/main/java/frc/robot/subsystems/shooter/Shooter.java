@@ -55,7 +55,7 @@ public class Shooter extends PIDSubsystem {
     }
   }
 anglerServo = new Servo(RobotMap.ANGLER_PORT);
-shooterEncoder = new TecbotEncoder(RobotMap.SHOOTERENCODER_PORT[0], RobotMap.SHOOTERENCODER_PORT[1]);
+shooterEncoder = new TecbotEncoder(RobotMap.SHOOTER_ENCODER_PORT[0], RobotMap.SHOOTER_ENCODER_PORT[1]);
   
   }
   @Override
