@@ -8,6 +8,7 @@
 package frc.robot.commands.intakes.frontIntakes;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.RobotContainer;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -20,5 +21,6 @@ public class OffFrontIntake extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    RobotContainer.getIntake().offFrontIntake();
   }
 }

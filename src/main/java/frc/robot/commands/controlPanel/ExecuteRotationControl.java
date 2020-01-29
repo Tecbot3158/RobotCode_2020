@@ -1,3 +1,4 @@
+
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -9,11 +10,11 @@ package frc.robot.commands.controlPanel;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class Rotation extends CommandBase {
+public class ExecuteRotationControl extends CommandBase {
   /**
    * Creates a new Rotation.
    */
-  public Rotation() {
+  public ExecuteRotationControl() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
