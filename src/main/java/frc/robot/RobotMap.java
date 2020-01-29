@@ -57,7 +57,7 @@ public class RobotMap {
     public static final int [] SHOOTER_LEFT_INVERTED_MOTOR_PORTS = {};
     public static final int [] SHOOTER_RIGHT_INVERTED_MOTOR_PORTS = {};
 
-    public static final int ANGLERPORT = 0;
+    public static final int ANGLER_PORT = 0;
     public static double MANUALSHOOT = 0.4;
 
 }

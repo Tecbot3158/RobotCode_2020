@@ -52,22 +52,22 @@ public class Shooter extends PIDSubsystem {
     for (int ports : RobotMap.SHOOTER_RIGHT_INVERTED_MOTOR_PORTS ){
       if(ports == RobotMap.SHOOTER_RIGHT_MOTOR_PORTS[i])
         shooterRightMotors.get(i).setInverted(true);
+    }
   }
-
-    anglerServo = new Servo(RobotMap.ANGLERPORT);
-    shooterEncoder = new TecbotEncoder(RobotMap.SHOOTERENCODER_PORT[0], RobotMap.SHOOTERENCODER_PORT[1]);
-}
+anglerServo = new Servo(RobotMap.ANGLER_PORT);
+shooterEncoder = new TecbotEncoder(RobotMap.SHOOTERENCODER_PORT[0], RobotMap.SHOOTERENCODER_PORT[1]);
   
   }
   @Override
   public void useOutput(double output, double setpoint) {
     // Use the output here
-  }
+  } //tengo que poner que setee el output del pid 
 
   @Override
   public double getMeasurement() {
     // Return the process variable measurement here
     return 0;
+    //obtiene el rate del encoder 
   }
   public void shoot(){
     for(TecbotSpeedController leftmotors : shooterLeftMotors){
@@ -86,6 +86,7 @@ public class Shooter extends PIDSubsystem {
     switch (position){
       case TRENCH : 
         speed = TecbotConstants.TRENCH_SHOOTING_SPEED ;
+        this.setSetpoint(speed);
         
         break;
       
