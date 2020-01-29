@@ -71,11 +71,11 @@ shooterEncoder = new TecbotEncoder(RobotMap.SHOOTER_ENCODER_PORT[0], RobotMap.SH
     //obtiene el rate del encoder 
   }
   public void shoot(){
-    for(TecbotSpeedController leftmotors : shooterLeftMotors){
-      leftmotors.set(speed);
+    for(TecbotSpeedController leftMotors : shooterLeftMotors){
+      leftMotors.set(speed);
     } 
-    for(TecbotSpeedController rightmotors : shooterRightMotors) {
-     rightmotors.set(speed);
+    for(TecbotSpeedController rightMotors : shooterRightMotors) {
+     rightMotors.set(speed);
       }
 
     anglerServo.set(angle);
@@ -142,12 +142,12 @@ public void setAnglerDegrees(ShooterPosition position) {
   
 }
 
-public void setManualShooter(double manualspeed) {
-  for(TecbotSpeedController leftmanualmotors : shooterLeftMotors){
-    leftmanualmotors.set(manualspeed);
+public void setManualShooter(double manualSpeed) {
+  for(TecbotSpeedController leftManualMotors : shooterLeftMotors){
+    leftManualMotors.set(manualSpeed);
   }
-  for(TecbotSpeedController rightmanualmotors : shooterRightMotors) {
-    rightmanualmotors.set(manualspeed);
+  for(TecbotSpeedController rightManualMotors : shooterRightMotors) {
+    rightManualMotors.set(manualSpeed);
     SmartDashboard.putNumber("ShooterEncoderRate", shooterEncoder.getRate());
 
   }
@@ -159,8 +159,8 @@ public void setManualShooter(double manualspeed) {
  * @param rt Right Trigger
  */
 public void setManualAngler(double lt, double rt){
-  double manualangle = -lt + rt;
-  anglerServo.set(manualangle);
+  double manualAngle = -lt + rt;
+  anglerServo.set(manualAngle);
 }
 
   public enum ShooterPosition{
