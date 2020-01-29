@@ -36,8 +36,9 @@ public class Shooter extends PIDSubsystem {
   public Shooter() { 
     super(
         // The PIDController used by the subsystem
-        new PIDController(0, 0, 0));
-
+        new PIDController(TecbotConstants.K_SHOOTER_P, TecbotConstants.K_SHOOTER_I,
+            TecbotConstants.K_SHOOTER_D));
+        //need to commit it 
         
     shooterLeftMotors = new ArrayList<>();
     for(int i = 0; i < RobotMap.SHOOTER_LEFT_MOTOR_PORTS.length; i ++){
@@ -105,17 +106,12 @@ shooterEncoder = new TecbotEncoder(RobotMap.SHOOTER_ENCODER_PORT[0], RobotMap.SH
       case OFF: 
         speed = TecbotConstants.SHOOTER_OFF;
         this.setSetpoint(speed);
-        
+
         break;
       
       default :
-      DriverStation.reportError("The set speed isn´t possible", true);    }
-
-    
+      DriverStation.reportError("The set speed isn´t possible", true);    } 
   }
-public void setAngler() {
-  anglerServo.setAngle(angle);
-}
 
 public void setAnglerDegrees(ShooterPosition position) {
   switch(position){
