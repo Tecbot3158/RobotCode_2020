@@ -91,15 +91,21 @@ shooterEncoder = new TecbotEncoder(RobotMap.SHOOTER_ENCODER_PORT[0], RobotMap.SH
         break;
       
       case TARGET_ZONE:
-        speed = TecbotConstants.TARGET_ZONE_SHOOTING_SPEED; 
+        speed = TecbotConstants.TARGET_ZONE_SHOOTING_SPEED;
+        this.setSetpoint(speed);
+
         break;
       
       case INITIATION_LINE: 
         speed = TecbotConstants.INITIATION_LINE_SHOOTING_SPEED;
+        this.setSetpoint(speed);
+
         break;
 
       case OFF: 
         speed = TecbotConstants.SHOOTER_OFF;
+        this.setSetpoint(speed);
+        
         break;
       
       default :
