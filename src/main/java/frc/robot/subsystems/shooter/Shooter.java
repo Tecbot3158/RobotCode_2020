@@ -38,7 +38,7 @@ public class Shooter extends PIDSubsystem {
         // The PIDController used by the subsystem
         new PIDController(TecbotConstants.K_SHOOTER_P, TecbotConstants.K_SHOOTER_I,
             TecbotConstants.K_SHOOTER_D));
-        //need to commit it 
+        
         
     shooterLeftMotors = new ArrayList<>();
     for(int i = 0; i < RobotMap.SHOOTER_LEFT_MOTOR_PORTS.length; i ++){
