@@ -60,11 +60,11 @@ public class TransportationSystem extends SubsystemBase {
   }   
 
   public void closeDeflector(){
-    solenoidDeflector.set(Value.kReverse);
+    solenoidDeflector.set(Value.kForward);
   }
 
   public void openDeflector(){
-    solenoidDeflector.set(Value.kForward);
+    solenoidDeflector.set(Value.kReverse);
 }
 
   @Override
