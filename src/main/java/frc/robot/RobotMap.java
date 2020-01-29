@@ -50,21 +50,29 @@ public class RobotMap {
     public static int middleWheelPort = 0;
     public static TypeOfMotor middleWheelMotorType = TypeOfMotor.TALON_SRX;
 
-    //Shared motor values
-    public static int[] shooterClimberPortsLeft = {7, 8};
-    public static int[] shooterClimberPortsRight = {9, 10};
-    public static int[] invertedLeftShooterClimberMotors = {0, 0};
-    public static int[] invertedRightShooterClimberMotors = {0, 0};
-    public static int shooterClimberMotorWithEncoder = 0;
-    public static TecbotSpeedController.TypeOfMotor[] sharedRightMotorsTypes = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
-    public static TecbotSpeedController.TypeOfMotor[] sharedLeftMotorsTypes = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
-    public static int[] encoderPorts = {RobotConfigurator.CONFIG_NOT_SET, RobotConfigurator.CONFIG_NOT_SET};
+    /**
+     * SHARED MOTORS STARTS
+     */
+    public static int[] SHARED_MOTORS_LEFT_PORTS = {7, 8};
+    public static int[] SHARED_MOTORS_RIGHT_PORTS = {9, 10};
+    public static int[] INVERTED_SHARED_MOTORS_LEFT = {0, 0};
+    public static int[] INVERTED_SHARED_MOTORS_RIGHT = {0, 0};
+    public static int SHARED_RIGHT_MOTOR_WITH_ENCODER = 0;
+    public static int SHARED_LEFT_MOTOR_WITH_ENCODER = 0;
+    public static TecbotSpeedController.TypeOfMotor[] SHARED_RIGHT_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
+    public static TecbotSpeedController.TypeOfMotor[] SHARED_LEFT_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
+    /**
+     * SHARED MOTORS ENDS
 
-    //Climber values
+     * CLIMBER STARTS
+     */
+    public static int[] WINCH_PORTS = {12, 13};
+    public static int[] INVERTED_WINCH_PORTS = {0, 0};
+    public static int[] GEAR_DISENGAGER_PORTS = {4, 5};
+    public static TecbotSpeedController.TypeOfMotor[] WINCH_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
 
-    public static int[] winchPorts = {12, 13};
-    public static int[] invertedWinchMotors = {0, 0};
-    public static int[] gearShifterPneumatics = {4, 5};
-    public static TecbotSpeedController.TypeOfMotor[] winchTypesOfMotors = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
+    /**
+     * CLIMBER ENDS
+     */
 
 }

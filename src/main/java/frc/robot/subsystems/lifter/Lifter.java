@@ -22,25 +22,26 @@ public class Lifter extends SubsystemBase {
      * Creates a new Lifter.
      */
     List<TecbotSpeedController> winchMotors;
-    DoubleSolenoid gearShifter;
+    DoubleSolenoid gearDisengager;
     int encoderMotor = -1;
 
     public Lifter() {
         winchMotors = new ArrayList<>();
-        for (int i = 0; i < RobotMap.winchPorts.length; i++) {
-            winchMotors.add(new TecbotSpeedController(RobotMap.winchPorts[i], RobotMap.winchTypesOfMotors[i]));
-            if (RobotMap.winchPorts[i] == RobotMap.invertedWinchMotors[i]) {
-                winchMotors.get(i).setInverted(true);
+        for (int i = 0; i < RobotMap.WINCH_PORTS.length; i++) {
+            winchMotors.add(new TecbotSpeedController(RobotMap.WINCH_PORTS[i], RobotMap.WINCH_MOTOR_TYPES[i]));
+            for (int port : RobotMap.INVERTED_WINCH_PORTS) {
+                if (port == RobotMap.WINCH_PORTS[i])
+                    winchMotors.get(i).setInverted(true);
             }
         }
-        gearShifter = new DoubleSolenoid(RobotMap.gearShifterPneumatics[0], RobotMap.gearShifterPneumatics[1]);
+        gearDisengager = new DoubleSolenoid(RobotMap.GEAR_DISENGAGER_PORTS[0], RobotMap.GEAR_DISENGAGER_PORTS[1]);
     }
 
-    public void disengageGearsToggle() {
-        if (gearShifter.get() == Value.kForward)
-            gearShifter.set(Value.kReverse);
+    public void gearDisengagerToggle() {
+        if (gearDisengager.get() == Value.kForward)
+            gearDisengager.set(Value.kReverse);
         else
-            gearShifter.set(Value.kForward);
+            gearDisengager.set(Value.kForward);
     }
 
     public void manualLifter(double rightWinch, double leftWinch, double rightPulley, double leftPulley) {

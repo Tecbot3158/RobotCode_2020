@@ -4,6 +4,7 @@
     <list default="true" id="ac917a04-bcb7-4465-b11a-99da1f4b3453" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/frc/robot/RobotMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/robot/RobotMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/frc/robot/commands/lifter/DisengageGears.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/robot/commands/lifter/DisengageGears.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/frc/robot/subsystems/SharedMotors.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/robot/subsystems/SharedMotors.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/frc/robot/subsystems/lifter/Lifter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/robot/subsystems/lifter/Lifter.java" afterDir="false" />
     </list>
@@ -70,6 +71,9 @@
     <property name="show.unlinked.gradle.project.popup" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="SHARED_MOTORS_LEFT_PORTS" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="frc.robot" />
       <recent name="frc.robot.subsystems.chassis" />
@@ -148,6 +152,7 @@
       <workItem from="1579820566034" duration="9265000" />
       <workItem from="1579830367772" duration="103000" />
       <workItem from="1580257470583" duration="330000" />
+      <workItem from="1580257925864" duration="2204000" />
     </task>
     <servers />
   </component>
@@ -173,10 +178,10 @@
     </ignored-roots>
   </component>
   <component name="WindowStateProjectService">
-    <state x="480" y="141" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog" timestamp="1580257572846">
+    <state x="480" y="141" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog" timestamp="1580263842482">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="480" y="141" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog/0.0.1536.864@0.0.1536.864" timestamp="1580257572846" />
+    <state x="480" y="141" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog/0.0.1536.864@0.0.1536.864" timestamp="1580263842482" />
     <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1579654254688">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -185,10 +190,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="316" y="74" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1579828356949" />
-    <state x="465" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1580257473355">
+    <state x="465" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1580257989790">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="465" y="256" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1580257473355" />
+    <state x="465" y="256" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1580257989790" />
     <state x="463" y="37" width="738" height="789" key="find.popup" timestamp="1579825351488">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

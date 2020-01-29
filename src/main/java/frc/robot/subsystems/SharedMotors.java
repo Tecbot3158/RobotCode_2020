@@ -8,21 +8,24 @@ import java.util.List;
 
 public class SharedMotors {
     public static List<TecbotSpeedController> rightSharedMotors, leftSharedMotors;
-    private int encoderMotor = RobotMap.shooterClimberMotorWithEncoder;
+    private int encoderMotorRight = RobotMap.SHARED_RIGHT_MOTOR_WITH_ENCODER;
+    private int encoderMotorLeft = RobotMap.SHARED_LEFT_MOTOR_WITH_ENCODER;
 
     public static void initializeSharedMotors() {
         rightSharedMotors = new ArrayList<>();
         leftSharedMotors = new ArrayList<>();
-        for (int i = 0; i < RobotMap.shooterClimberPortsRight.length; i++) {
-            rightSharedMotors.add(new TecbotSpeedController(RobotMap.shooterClimberPortsRight[i], RobotMap.sharedRightMotorsTypes[i]));
-            if (RobotMap.shooterClimberPortsRight[i] == RobotMap.invertedLeftShooterClimberMotors[i]) {
-                rightSharedMotors.get(i).setInverted(true);
+        for (int i = 0; i < RobotMap.SHARED_MOTORS_RIGHT_PORTS.length; i++) {
+            rightSharedMotors.add(new TecbotSpeedController(RobotMap.SHARED_MOTORS_RIGHT_PORTS[i], RobotMap.SHARED_RIGHT_MOTOR_TYPES[i]));
+            for (int port : RobotMap.INVERTED_SHARED_MOTORS_RIGHT) {
+                if (port == RobotMap.SHARED_MOTORS_RIGHT_PORTS[i])
+                    rightSharedMotors.get(i).setInverted(true);
             }
         }
-        for (int i = 0; i < RobotMap.shooterClimberPortsLeft.length; i++) {
-            leftSharedMotors.add(new TecbotSpeedController(RobotMap.shooterClimberPortsLeft[i], RobotMap.sharedLeftMotorsTypes[i]));
-            if (RobotMap.shooterClimberPortsLeft[i] == RobotMap.invertedRightShooterClimberMotors[i]) {
-                leftSharedMotors.get(i).setInverted(true);
+        for (int i = 0; i < RobotMap.SHARED_MOTORS_LEFT_PORTS.length; i++) {
+            leftSharedMotors.add(new TecbotSpeedController(RobotMap.SHARED_MOTORS_LEFT_PORTS[i], RobotMap.SHARED_LEFT_MOTOR_TYPES[i]));
+            for (int port : RobotMap.INVERTED_SHARED_MOTORS_LEFT) {
+                if (port == RobotMap.SHARED_MOTORS_LEFT_PORTS[i])
+                    leftSharedMotors.get(i).setInverted(true);
             }
         }
     }
@@ -41,10 +44,10 @@ public class SharedMotors {
     }
 
     public TecbotSpeedController getMotorWithEncoderRight() {
-        return (encoderMotor > 0) ? rightSharedMotors.get(encoderMotor) : null;
+        return (encoderMotorRight > 0) ? rightSharedMotors.get(encoderMotorRight) : null;
     }
 
     public TecbotSpeedController getMotorWithEncoderLeft() {
-        return (encoderMotor > 0) ? leftSharedMotors.get(encoderMotor) : null;
+        return (encoderMotorLeft > 0) ? leftSharedMotors.get(encoderMotorLeft) : null;
     }
 }
