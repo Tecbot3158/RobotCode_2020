@@ -27,8 +27,5 @@ public class ShootingOff extends InstantCommand {
     ShooterPosition position = ShooterPosition.OFF;
     RobotContainer.shooter.setShootingSpeed(position);
     RobotContainer.shooter.setAnglerDegrees(position);
-    RobotContainer.shooter.shoot();
-
-
   }
 }

@@ -27,7 +27,5 @@ public class ShootingFromTrench extends InstantCommand {
     ShooterPosition position = ShooterPosition.TRENCH;
     RobotContainer.shooter.setShootingSpeed(position);
     RobotContainer.shooter.setAnglerDegrees(position);
-    RobotContainer.shooter.shoot();
-
   }
 }

@@ -28,6 +28,5 @@ public class ShootingFromInitiationLine extends InstantCommand {
     ShooterPosition position = ShooterPosition.INITIATION_LINE;
     RobotContainer.shooter.setShootingSpeed(position);
     RobotContainer.shooter.setAnglerDegrees(position);
-    RobotContainer.shooter.shoot();
   }
 }

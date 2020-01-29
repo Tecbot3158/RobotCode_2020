@@ -26,6 +26,5 @@ public class ShootingFromTargetZone extends InstantCommand {
     ShooterPosition position = ShooterPosition.TARGET_ZONE;
     RobotContainer.shooter.setShootingSpeed(position);
     RobotContainer.shooter.setAnglerDegrees(position);   
-     RobotContainer.shooter.shoot();
-  }
+    }
 }
