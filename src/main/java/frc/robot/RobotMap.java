@@ -8,6 +8,7 @@
 package frc.robot;
 
 import frc.robot.resources.RobotConfigurator;
+import frc.robot.resources.TecbotSpeedController;
 import frc.robot.resources.TecbotSpeedController.TypeOfMotor;
 
 
@@ -49,15 +50,17 @@ public class RobotMap {
     public static int middleWheelPort = 0;
     public static TypeOfMotor middleWheelMotorType = TypeOfMotor.TALON_SRX;
 
-    public static final TypeOfMotor [] SHOOTER_TYPE_OF_MOTORS= {TypeOfMotor.TALON_SRX,TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX };
-    public static final int [] SHOOTER_LEFT_MOTOR_PORTS = {7,8};
-    public static final int [] SHOOTER_RIGHT_MOTOR_PORTS = {9,10};
-    public static final int [] SHOOTER_ENCODER_PORT = {0,1};
-
-    public static final int [] SHOOTER_LEFT_INVERTED_MOTOR_PORTS = {};
-    public static final int [] SHOOTER_RIGHT_INVERTED_MOTOR_PORTS = {};
+    public static final  int[] SHARED_MOTORS_LEFT_PORTS = {7, 8};
+    public static final int[] SHARED_MOTORS_RIGHT_PORTS = {9, 10};
+    public static final int[] INVERTED_SHARED_MOTORS_LEFT = {0, 0};
+    public static final int[] INVERTED_SHARED_MOTORS_RIGHT = {0, 0};
+    public static final int SHARED_RIGHT_MOTOR_WITH_ENCODER = 0;
+    public static final int SHARED_LEFT_MOTOR_WITH_ENCODER = 0;
+    public static TecbotSpeedController.TypeOfMotor[] SHARED_RIGHT_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
+    public static TecbotSpeedController.TypeOfMotor[] SHARED_LEFT_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
 
     public static final int ANGLER_PORT = 0;
     public static double MANUALSHOOT = 0.4;
+    public static final int[]  SHARED_ENCODER_PORT = {0,0};
 
 }

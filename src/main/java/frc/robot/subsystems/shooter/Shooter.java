@@ -17,6 +17,7 @@ import frc.robot.RobotMap;
 import frc.robot.resources.TecbotConstants;
 import frc.robot.resources.TecbotEncoder;
 import frc.robot.resources.TecbotSpeedController;
+import frc.robot.subsystems.SharedMotors;
 
 public class Shooter extends PIDSubsystem {
   List <TecbotSpeedController> shooterLeftMotors; 
@@ -40,23 +41,9 @@ public class Shooter extends PIDSubsystem {
             TecbotConstants.K_SHOOTER_D));
         
         
-    shooterLeftMotors = new ArrayList<>();
-    for(int i = 0; i < RobotMap.SHOOTER_LEFT_MOTOR_PORTS.length; i ++){
-      shooterLeftMotors.add(new TecbotSpeedController(RobotMap.SHOOTER_LEFT_MOTOR_PORTS[i], RobotMap.SHOOTER_TYPE_OF_MOTORS[i]));//el valor de i es igualado al número de los puertos en los parámetros, entonces entre las llaves  va aumentando el valor del puerto correspondiendo al avance en los parámetros 
-      for (int ports : RobotMap.SHOOTER_LEFT_INVERTED_MOTOR_PORTS ){
-        if(ports == RobotMap.SHOOTER_LEFT_MOTOR_PORTS[i])
-          shooterLeftMotors.get(i).setInverted(true);
-      }
-    }
-    for (int i = 0; i < RobotMap.SHOOTER_RIGHT_MOTOR_PORTS.length; i++) {
-    shooterRightMotors.add(new TecbotSpeedController(RobotMap.SHOOTER_RIGHT_MOTOR_PORTS[i], RobotMap.SHOOTER_TYPE_OF_MOTORS[i]));
-    for (int ports : RobotMap.SHOOTER_RIGHT_INVERTED_MOTOR_PORTS ){
-      if(ports == RobotMap.SHOOTER_RIGHT_MOTOR_PORTS[i])
-        shooterRightMotors.get(i).setInverted(true);
-    }
-  }
+SharedMotors.initializeSharedMotors();
 anglerServo = new Servo(RobotMap.ANGLER_PORT);
-shooterEncoder = new TecbotEncoder(RobotMap.SHOOTER_ENCODER_PORT[0], RobotMap.SHOOTER_ENCODER_PORT[1]);
+shooterEncoder = new TecbotEncoder(RobotMap.SHARED_ENCODER_PORT[0], RobotMap.SHARED_ENCODER_PORT[1]);
   
   }
   @Override
@@ -71,10 +58,10 @@ shooterEncoder = new TecbotEncoder(RobotMap.SHOOTER_ENCODER_PORT[0], RobotMap.SH
     //obtiene el rate del encoder 
   }
   public void shoot(){
-    for(TecbotSpeedController leftMotors : shooterLeftMotors){
+    for(TecbotSpeedController leftMotors : SharedMotors.leftSharedMotors){
       leftMotors.set(speed);
     } 
-    for(TecbotSpeedController rightMotors : shooterRightMotors) {
+    for(TecbotSpeedController rightMotors : SharedMotors.rightSharedMotors) {
      rightMotors.set(speed);
       }
 
@@ -143,10 +130,10 @@ public void setAnglerDegrees(ShooterPosition position) {
 }
 
 public void setManualShooter(double manualSpeed) {
-  for(TecbotSpeedController leftManualMotors : shooterLeftMotors){
+  for(TecbotSpeedController leftManualMotors : SharedMotors.leftSharedMotors){
     leftManualMotors.set(manualSpeed);
   }
-  for(TecbotSpeedController rightManualMotors : shooterRightMotors) {
+  for(TecbotSpeedController rightManualMotors : SharedMotors.rightSharedMotors) {
     rightManualMotors.set(manualSpeed);
     SmartDashboard.putNumber("ShooterEncoderRate", shooterEncoder.getRate());
 
