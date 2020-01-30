@@ -5,20 +5,34 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.fileTemplates;
+package frc.robot.commands.chassis.autonomous;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
+import frc.robot.resources.TecbotSensors;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+
 public class PIDSetAngle extends InstantCommand {
-    public PIDSetAngle() {
-        // Use addRequirements() here to declare subsystem dependencies.
+    double m_angle;
+    boolean m_isDelta;
+
+    public PIDSetAngle(double angle) {
+        m_angle = angle;
+    }
+
+    /**
+     * @param isDelta true if the angle indicated is the amount of degrees to turn instead of the desired heading
+     */
+
+    public PIDSetAngle(double angle, boolean isDelta) {
+        m_angle = angle;
+        m_isDelta = isDelta;
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        RobotContainer.getDriveTrain().setPidAngleTarget(m_isDelta ? TecbotSensors.getYaw() : 0 + m_angle);
     }
 }

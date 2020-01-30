@@ -9,9 +9,7 @@ package frc.robot.subsystems.chassis;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 import frc.robot.resources.Math;
@@ -24,7 +22,7 @@ public class DriveTrain extends SubsystemBase {
     // Motors
     List<TecbotSpeedController> leftMotors;
     List<TecbotSpeedController> rightMotors;
-    public static TecbotSpeedController middle;
+    List<TecbotSpeedController> middleMotors;
 
     DoubleSolenoid wheelSolenoid;
 
@@ -59,6 +57,7 @@ public class DriveTrain extends SubsystemBase {
 
     public static TecbotSpeedController leftEncoderMotor = null;
     public static TecbotSpeedController rightEncoderMotor = null;
+    public static TecbotSpeedController middleEncoderMotor = null;
 
     private DrivingMode currentDrivingMode = DrivingMode.Default;
 
@@ -70,49 +69,60 @@ public class DriveTrain extends SubsystemBase {
         RIGHT, LEFT;
     }
 
-    // The desired angle when using straight PID
+    // The desired angle when using PID
     public double pidAngleTarget = 0;
+
+    // The desired encoder count when using PID
+    public double pidStraightTarget = 0;
 
     public DriveTrain() {
 
-        transmission = new DoubleSolenoid(RobotMap.transmissionPorts[0], RobotMap.transmissionPorts[1]);
-        wheelSolenoid = new DoubleSolenoid(RobotMap.wheelSolenoidPorts[0], RobotMap.wheelSolenoidPorts[1]);
+        transmission = new DoubleSolenoid(RobotMap.TRANSMISSION_PORT[0], RobotMap.TRANSMISSION_PORT[1]);
+        wheelSolenoid = new DoubleSolenoid(RobotMap.WHEEL_SOLENOID_PORTS[0], RobotMap.WHEEL_SOLENOID_PORTS[1]);
 
-        middle = new TecbotSpeedController(RobotMap.middleWheelPort, RobotMap.middleWheelMotorType);
 
         leftMotors = new ArrayList<>();
         rightMotors = new ArrayList<>();
+        middleMotors = new ArrayList<>();
 
-        if (RobotMap.leftChassisPorts.length != RobotMap.rightChassisPorts.length)
+        if (RobotMap.LEFT_CHASSIS_PORTS.length != RobotMap.RIGHT_CHASSIS_PORTS.length)
             DriverStation.reportError("More motors in one side.", true);
-        if (RobotMap.leftChassisPorts.length != RobotMap.leftChassisMotorTypes.length
-                || RobotMap.rightChassisPorts.length != RobotMap.rightChassisMotorTypes.length)
+        if (RobotMap.LEFT_CHASSIS_PORTS.length != RobotMap.LEFT_CHASSIS_MOTOR_TYPES.length
+                || RobotMap.RIGHT_CHASSIS_PORTS.length != RobotMap.RIGHT_CHASSIS_MOTOR_TYPES.length)
             DriverStation.reportError("More ports that motor types", true);
 
 
 
-        for (int i = 0; i < RobotMap.leftChassisPorts.length; i++) {
-            leftMotors.add(new TecbotSpeedController(RobotMap.leftChassisPorts[i], RobotMap.leftChassisMotorTypes[i]));
-            if (i == RobotMap.leftChassisMotorWithEncoder)
+        for (int i = 0; i < RobotMap.LEFT_CHASSIS_PORTS.length; i++) {
+            leftMotors.add(new TecbotSpeedController(RobotMap.LEFT_CHASSIS_PORTS[i], RobotMap.LEFT_CHASSIS_MOTOR_TYPES[i]));
+            if (i == RobotMap.LEFT_CHASSIS_MOTOR_WITH_ENCODER)
                 leftEncoderMotor = leftMotors.get(i);
-            for (int port : RobotMap.leftChassisInvertedMotors) {
-                if (port == RobotMap.leftChassisPorts[i])
+            for (int port : RobotMap.LEFT_CHASSIS_INVERTED_MOTORS) {
+                if (port == RobotMap.LEFT_CHASSIS_PORTS[i])
                     leftMotors.get(i).setInverted(true);
             }
         }
-        for (int i = 0; i < RobotMap.rightChassisPorts.length; i++) {
+        for (int i = 0; i < RobotMap.RIGHT_CHASSIS_PORTS.length; i++) {
             rightMotors
-                    .add(new TecbotSpeedController(RobotMap.rightChassisPorts[i], RobotMap.rightChassisMotorTypes[i]));
-            if (i == RobotMap.rightChassisMotorWithEncoder)
+                    .add(new TecbotSpeedController(RobotMap.RIGHT_CHASSIS_PORTS[i], RobotMap.RIGHT_CHASSIS_MOTOR_TYPES[i]));
+            if (i == RobotMap.RIGHT_CHASSIS_MOTOR_WITH_ENCODER)
                 rightEncoderMotor = rightMotors.get(i);
-            for (int port : RobotMap.rightChassisInvertedMotors) {
-                if (port == RobotMap.rightChassisPorts[i])
+            for (int port : RobotMap.RIGHT_CHASSIS_INVERTED_MOTORS) {
+                if (port == RobotMap.RIGHT_CHASSIS_PORTS[i])
                     rightMotors.get(i).setInverted(true);
             }
         }
 
 
-
+        for (int i = 0; i < RobotMap.MIDDLE_WHEEL_PORTS.length; i++) {
+            middleMotors.add(new TecbotSpeedController(RobotMap.LEFT_CHASSIS_PORTS[i], RobotMap.MIDDLE_WHEEL_MOTOR_TYPES[i]));
+            if (i == RobotMap.MIDDLE_WHEEL_ENCODER_PORTS[i])
+                middleEncoderMotor = middleMotors.get(i);
+            for (int port : RobotMap.MIDDLE_WHEEL_INVERTED_MOTORS) {
+                if (port == RobotMap.MIDDLE_WHEEL_PORTS[i])
+                    middleMotors.get(i).setInverted(true);
+            }
+        }
 
 
     }
@@ -228,7 +238,7 @@ public class DriveTrain extends SubsystemBase {
      * @param middleWheel The value that will be given to the middle wheel
      */
     public void frankieDrive(double turn, double speed, double middleWheel) {
-        middle.set(middleWheel);
+        setMiddleWheel(middleWheel);
         drive(speed, turn);
     }
 
@@ -283,7 +293,7 @@ public class DriveTrain extends SubsystemBase {
         double rightSide = TecbotConstants.MIDDLE_SIDES_CORRECTION * (y + correction - turn);
 
         tankDrive(leftSide, rightSide);
-        middle.set(x);
+        setMiddleWheel(x);
 
     }
 
@@ -340,7 +350,31 @@ public class DriveTrain extends SubsystemBase {
 
     }
 
+    public void setMiddleWheel(double power){
+        for(TecbotSpeedController motor : middleMotors){
+            motor.set(power);
+        }
+    }
 
+    public void pidTurn(double output){
+        drive(output,0);
+    }
+    public double getPidAngleTarget(){
+        return pidAngleTarget;
+    }
+    public void setPidAngleTarget(double target){
+        pidAngleTarget = target;
+    }
+
+    public void moveStraightPID(double output){
+        drive((TecbotSensors.getYaw()-pidAngleTarget)*TecbotConstants.TURN_CORRECTION, output);
+    }
+    public double getPidStraightTarget(){
+        return pidStraightTarget;
+    }
+    public void setPidStraightTarget(double target){
+        pidStraightTarget = target;
+    }
 
 
     public void setMecanumDrive(boolean state) {
@@ -432,8 +466,8 @@ public class DriveTrain extends SubsystemBase {
         return leftEncoderMotor;
     }
 
-    public static TecbotSpeedController getMiddleWheelMotor(){
-        return middle;
+    public static TecbotSpeedController getMiddleEncoderMotor(){
+        return middleEncoderMotor;
     }
 
 }

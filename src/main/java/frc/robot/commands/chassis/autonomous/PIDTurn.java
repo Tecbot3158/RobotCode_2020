@@ -5,10 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.fileTemplates;
+package frc.robot.commands.chassis.autonomous;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.RobotContainer;
+import frc.robot.resources.TecbotConstants;
+import frc.robot.resources.TecbotSensors;
+
+import static frc.robot.resources.TecbotConstants.K_TURN_D;
+import static frc.robot.resources.TecbotConstants.K_TURN_I;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -17,17 +23,19 @@ public class PIDTurn extends PIDCommand {
     /**
      * Creates a new PID_Command.
      */
+
     public PIDTurn() {
         super(
                 // The controller that the command will use
-                new PIDController(0, 0, 0),
+                new PIDController(TecbotConstants.K_TURN_P, K_TURN_I, K_TURN_D),
                 // This should return the measurement
-                () -> 0,
+                () -> TecbotSensors.getYaw(),
                 // This should return the setpoint (can also be a constant)
-                () -> 0,
+                () -> RobotContainer.getDriveTrain().getPidAngleTarget(),
                 // This uses the output
                 output -> {
                     // Use the output here
+                    RobotContainer.getDriveTrain().pidTurn(output);
                 });
         // Use addRequirements() here to declare subsystem dependencies.
         // Configure additional PID options by calling `getController` here.
@@ -36,6 +44,6 @@ public class PIDTurn extends PIDCommand {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return (Math.abs(RobotContainer.getDriveTrain().getPidAngleTarget() - TecbotSensors.getYaw()) <= TecbotConstants.K_PID_STRAIGHT_ARRIVE_OFFSET);
     }
 }

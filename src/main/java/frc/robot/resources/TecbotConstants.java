@@ -52,5 +52,11 @@ public class TecbotConstants {
     public static final double K_STRAIGHT_P = 0;
     public static final double K_STRAIGHT_I = 0;
     public static final double K_STRAIGHT_D = 0;
+    public static final double K_PID_STRAIGHT_ARRIVE_OFFSET = 0;
+
+    public static final double K_TURN_P = 0;
+    public static final double K_TURN_I = 0;
+    public static final double K_TURN_D = 0;
+    public static final double K_PID_TURN_ARRIVE_OFFSET = 0;
 
 }

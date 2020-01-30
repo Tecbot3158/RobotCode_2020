@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.fileTemplates;
+package frc.robot.commands.chassis.autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
@@ -16,9 +16,9 @@ public class PIDTurnToAngle extends SequentialCommandGroup {
     /**
      * Creates a new Sequential_CommandGroup.
      */
-    public PIDTurnToAngle() {
+    public PIDTurnToAngle(double angle) {
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
-        super();
+        super(new PIDSetAngle(angle), new PIDTurn());
     }
 }

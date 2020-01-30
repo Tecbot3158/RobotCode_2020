@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.fileTemplates;
+package frc.robot.commands.chassis.autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
@@ -16,9 +16,14 @@ public class PIDMoveMeters extends SequentialCommandGroup {
     /**
      * Creates a new Sequential_CommandGroup.
      */
-    public PIDMoveMeters() {
+    public PIDMoveMeters(double meters) {
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
-        super();
+        super(new PIDSetMeters(meters), new StraightPID());
+    }
+    public PIDMoveMeters(double meters, double angle) {
+        // Add your commands in the super() call, e.g.
+        // super(new FooCommand(), new BarCommand());
+        super(new PIDSetMeters(meters, angle), new StraightPID());
     }
 }

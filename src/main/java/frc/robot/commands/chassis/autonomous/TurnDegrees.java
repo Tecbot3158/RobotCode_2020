@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.fileTemplates;
+package frc.robot.commands.chassis.autonomous;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
@@ -16,8 +16,9 @@ public class TurnDegrees extends ParallelCommandGroup {
     /**
      * Creates a new ParallelCommandGroup.
      */
-    public TurnDegrees() {
+    public TurnDegrees(double degrees) {
         // Add your commands in the super() call, e.g.
-        // super(new FooCommand(), new BarCommand());super();
+        // super(new FooCommand(), new BarCommand());
+        super(new PIDSetAngle(degrees, true), new PIDTurn());
     }
 }
