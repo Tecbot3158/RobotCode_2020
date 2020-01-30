@@ -28,19 +28,20 @@ public class Intake extends SubsystemBase {
    */
   public Intake() {
 
-    for (int i = 0; i < RobotMap.frontIntakeMotors.length; i++) {
-      frontMotors.add(new TecbotSpeedController(RobotMap.frontIntakeMotors[i], RobotMap.frontIntakeMotorsTypes[i]));
-      frontMotors.get(i).setInverted(RobotMap.frontIntakeMotorDirection[i]);
+    for (int i = 0; i < RobotMap.FRONT_INTAKE_MOTORS.length; i++) {
+      frontMotors
+          .add(new TecbotSpeedController(RobotMap.FRONT_INTAKE_MOTORS[i], RobotMap.FRONT_INTAKE_MOTORS_TYPES[i]));
+      frontMotors.get(i).setInverted(RobotMap.FRONT_INTAKE_MOTOR_DIRECTION[i]);
     }
 
-    for (int i = 0; i < RobotMap.backIntakeMotors.length; i++) {
-      rearMotors.add(new TecbotSpeedController(RobotMap.backIntakeMotors[i], RobotMap.backIntakeMotorsTypes[i]));
-      rearMotors.get(i).setInverted(RobotMap.backIntakeMotorDirection[i]);
+    for (int i = 0; i < RobotMap.REAR_INTAKE_MOTORS.length; i++) {
+      rearMotors.add(new TecbotSpeedController(RobotMap.REAR_INTAKE_MOTORS[i], RobotMap.BACK_INTAKE_MOTORS_TYPES[i]));
+      rearMotors.get(i).setInverted(RobotMap.BACK_INTAKE_MOTOR_DIRECTION[i]);
     }
 
-    frontSolenoids.add(new DoubleSolenoid(RobotMap.frontsolenoids[0], RobotMap.frontsolenoids[1]));
+    frontSolenoids.add(new DoubleSolenoid(RobotMap.FRONT_SOLENOIDS[0], RobotMap.FRONT_SOLENOIDS[1]));
 
-    backSolenoids.add(new DoubleSolenoid(RobotMap.backsolenoids[2], RobotMap.backsolenoids[3]));
+    backSolenoids.add(new DoubleSolenoid(RobotMap.BACK_SOLENOIDS[2], RobotMap.BACK_SOLENOIDS[3]));
   }
 
   /* Front Intake */
