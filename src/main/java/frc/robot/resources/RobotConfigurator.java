@@ -32,6 +32,17 @@ public class RobotConfigurator {
         return null;
     }
 
+    /**
+     * Builds a new {@link TecbotMotorList}
+     *
+     * @param motorPorts
+     * @param invertedPorts
+     * @param typesOfMotors
+     * @return A new {@link TecbotMotorList}
+     */
+    public static TecbotMotorList buildMotorList(int[] motorPorts, int[] invertedPorts, TypeOfMotor[] typesOfMotors) {
+        return new TecbotMotorList(motorPorts, invertedPorts, typesOfMotors);
+    }
 }
 
 

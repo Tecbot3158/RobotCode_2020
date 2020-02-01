@@ -35,6 +35,7 @@ public class RobotContainer {
     public static DriveTrain driveTrain;
     public static OI oi;
     public static Climber climber;
+    public static SharedMotors sharedMotors;
     SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 
@@ -48,7 +49,7 @@ public class RobotContainer {
         // Configure the button bindings
         configureButtonBindings();
         TecbotSensors.initializeAllSensors();
-        SharedMotors.initializeSharedMotors();
+        sharedMotors = new SharedMotors();
         driveTrain = new DriveTrain();
         oi = new OI();
         climber = new Climber();

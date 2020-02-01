@@ -13,27 +13,21 @@ import java.util.List;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 import frc.robot.RobotMap;
-import frc.robot.resources.TecbotSpeedController;
-import frc.robot.subsystems.SharedMotors;
+import frc.robot.resources.Math;
+import frc.robot.resources.RobotConfigurator;
+import frc.robot.resources.TecbotMotorList;
 
 public class Climber extends SubsystemBase {
     /**
      * Creates a new Climber.
      */
-    List<TecbotSpeedController> winchMotors;
+    TecbotMotorList winchMotors;
     DoubleSolenoid gearDisengager;
-    int encoderMotor = -1;
 
     public Climber() {
-        winchMotors = new ArrayList<>();
-        for (int i = 0; i < RobotMap.WINCH_PORTS.length; i++) {
-            winchMotors.add(new TecbotSpeedController(RobotMap.WINCH_PORTS[i], RobotMap.WINCH_MOTOR_TYPES[i]));
-            for (int port : RobotMap.INVERTED_WINCH_PORTS) {
-                if (port == RobotMap.WINCH_PORTS[i])
-                    winchMotors.get(i).setInverted(true);
-            }
-        }
+        winchMotors = RobotConfigurator.buildMotorList(RobotMap.WINCH_PORTS, RobotMap.INVERTED_WINCH_PORTS, RobotMap.WINCH_MOTOR_TYPES);
         gearDisengager = new DoubleSolenoid(RobotMap.GEAR_DISENGAGER_PORTS[0], RobotMap.GEAR_DISENGAGER_PORTS[1]);
     }
 
@@ -44,27 +38,20 @@ public class Climber extends SubsystemBase {
             gearDisengager.set(Value.kForward);
     }
 
-    public void winchCommand(double winchPower) {
-        //lift hook
-        for (TecbotSpeedController motor : winchMotors) {
-            motor.set(winchPower);
-        }
+    /**
+     * @param winchPower Requires double for the speed for lifting the hook
+     */
+    public void setWinchSpeed(double winchPower) {
+        winchMotors.setAll(winchPower);
     }
 
     /**
-     *
-     * @param pulleyPowerRight  Requires double for right pulley ports
-     * @param pulleyPowerLeft   Requires double for left pulley ports
+     * @param pulleyPowerRight Requires double for right pulley speed
+     * @param pulleyPowerLeft  Requires double for left pulley speed
      */
-    public void pulleyCommand(double pulleyPowerRight, double pulleyPowerLeft) {
+    public void setPulleySpeed(double pulleyPowerRight, double pulleyPowerLeft) {
         //reel, cannot do this if input is negative
-        if (pulleyPowerRight >= 0 && pulleyPowerLeft >= 0) {
-            SharedMotors.setAll(pulleyPowerRight, pulleyPowerLeft);
-        }
-    }
-
-    public TecbotSpeedController getMotorWithEncoder() {
-        return (encoderMotor > 0) ? winchMotors.get(encoderMotor) : null;
+        RobotContainer.sharedMotors.setAll(Math.abs(pulleyPowerRight), Math.abs(pulleyPowerLeft));
     }
 
     @Override

@@ -33,7 +33,7 @@ public class ClimberWinchCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_climber.winchCommand(winchPower);
+        m_climber.setWinchSpeed(winchPower);
     }
 
     // Called once the command ends or is interrupted.

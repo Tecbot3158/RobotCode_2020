@@ -33,7 +33,7 @@ public class ClimberPulleyCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_climber.pulleyCommand(pulleyPowerRight, pulleyPowerLeft);
+        m_climber.setPulleySpeed(pulleyPowerRight, pulleyPowerLeft);
     }
 
     // Called once the command ends or is interrupted.
