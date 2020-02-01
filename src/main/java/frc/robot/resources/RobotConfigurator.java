@@ -9,6 +9,7 @@ package frc.robot.resources;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.resources.TecbotSpeedController.TypeOfMotor;
 
@@ -82,6 +83,10 @@ public class RobotConfigurator {
      */
     public static Solenoid buildSingleSolenoid(int[] ports) {
         return new Solenoid(ports[0], ports[1]);
+    }
+
+    public static Servo buildServo(int port){
+        return new Servo(port);
     }
 
 }

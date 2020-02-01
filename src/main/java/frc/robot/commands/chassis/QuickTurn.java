@@ -8,7 +8,6 @@
 package frc.robot.commands.chassis;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.resources.TecbotConstants;
 import frc.robot.resources.TecbotSensors;
@@ -38,9 +37,9 @@ public class QuickTurn extends CommandBase {
     @Override
     public void initialize() {
         initialMode = RobotContainer.getDriveTrain().getCurrentDrivingMode();
-        initialWheelState = RobotContainer.getDriveTrain().getWheelState();
+        initialWheelState = RobotContainer.getDriveTrain().getDragonFlyWheelState();
 
-        RobotContainer.getDriveTrain().setWheelState(false);
+        RobotContainer.getDriveTrain().setDragonFlyWheelState(false);
         onTarget = false;
         initialAngle = TecbotSensors.getYaw();
         if(initialAngle >=0)
@@ -71,7 +70,7 @@ public class QuickTurn extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        RobotContainer.getDriveTrain().setWheelState(initialWheelState);
+        RobotContainer.getDriveTrain().setDragonFlyWheelState(initialWheelState);
         RobotContainer.getDriveTrain().setDrivingMode(initialMode);
     }
 

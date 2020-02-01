@@ -2,7 +2,8 @@ package frc.robot.resources;
 
 public class Math {
 
-    public static final double PI = 3.141592653589793238462643383279502884197;
+    public static final double  PI = 3.141592653589793238462643383279502884197;
+
 
     public static double clamp (double p, double mn, double mx){
         return java.lang.Math.max(mn, java.lang.Math.min(p,mx));
@@ -16,6 +17,14 @@ public class Math {
     public static double abs(double a){
         return java.lang.Math.abs(a);
     }
+    public static double sin(double a){return java.lang.Math.sin(a);}
+    public static double cos(double a){return java.lang.Math.cos(a);}
+    public static double tan(double a){return java.lang.Math.tan(a);}
+    public static double atan(double a){return java.lang.Math.atan(a);}
+    public static double hypot(double a, double b){return java.lang.Math.hypot(a,b);}
+    public static double toRadians(double a){return java.lang.Math.toRadians(a);}
+    public static double toDegrees(double a){return java.lang.Math.toDegrees(a);}
+    public static double sqrt(double a){return java.lang.Math.sqrt(a);}
 
     /**
      *

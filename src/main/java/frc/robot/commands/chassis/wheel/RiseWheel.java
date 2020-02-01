@@ -16,7 +16,7 @@ public class RiseWheel extends InstantCommand {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        RobotContainer.getDriveTrain().setWheelState(true);
+        RobotContainer.getDriveTrain().setDragonFlyWheelState(true);
         RobotContainer.getDriveTrain().setDrivingMode(DriveTrain.DrivingMode.Default);
     }
 }

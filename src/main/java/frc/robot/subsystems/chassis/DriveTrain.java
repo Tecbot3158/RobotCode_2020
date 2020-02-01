@@ -20,11 +20,11 @@ import java.util.List;
 
 public class DriveTrain extends SubsystemBase {
     // Motors
-    List<TecbotSpeedController> leftMotors;
-    List<TecbotSpeedController> rightMotors;
-    List<TecbotSpeedController> middleMotors;
+    TecbotMotorList leftMotors;
+    TecbotMotorList rightMotors;
+    TecbotMotorList middleMotors;
 
-    DoubleSolenoid wheelSolenoid;
+    DoubleSolenoid dragonFlyWheelSolenoid;
 
     DoubleSolenoid transmission;
     boolean transmissionOn = false;
@@ -55,10 +55,6 @@ public class DriveTrain extends SubsystemBase {
         Default, Pivot, Mecanum, Swerve
     };
 
-    public static TecbotSpeedController leftEncoderMotor = null;
-    public static TecbotSpeedController rightEncoderMotor = null;
-    public static TecbotSpeedController middleEncoderMotor = null;
-
     private DrivingMode currentDrivingMode = DrivingMode.Default;
 
     public DrivingMode getCurrentDrivingMode() {
@@ -78,58 +74,25 @@ public class DriveTrain extends SubsystemBase {
     public DriveTrain() {
 
         transmission = new DoubleSolenoid(RobotMap.TRANSMISSION_PORT[0], RobotMap.TRANSMISSION_PORT[1]);
-        wheelSolenoid = new DoubleSolenoid(RobotMap.WHEEL_SOLENOID_PORTS[0], RobotMap.WHEEL_SOLENOID_PORTS[1]);
 
+        if(RobotMap.DRAGON_FLY_IS_AVAILABLE)
+        dragonFlyWheelSolenoid = new DoubleSolenoid(RobotMap.WHEEL_SOLENOID_PORTS[0], RobotMap.WHEEL_SOLENOID_PORTS[1]);
 
-        leftMotors = new ArrayList<>();
-        rightMotors = new ArrayList<>();
-        middleMotors = new ArrayList<>();
 
         if (RobotMap.LEFT_CHASSIS_PORTS.length != RobotMap.RIGHT_CHASSIS_PORTS.length)
             DriverStation.reportError("More motors in one side.", true);
-        if (RobotMap.LEFT_CHASSIS_PORTS.length != RobotMap.LEFT_CHASSIS_MOTOR_TYPES.length
-                || RobotMap.RIGHT_CHASSIS_PORTS.length != RobotMap.RIGHT_CHASSIS_MOTOR_TYPES.length)
-            DriverStation.reportError("More ports that motor types", true);
 
+      leftMotors = RobotConfigurator.buildMotorList(RobotMap.LEFT_CHASSIS_PORTS,
+              RobotMap.LEFT_CHASSIS_INVERTED_MOTORS, RobotMap.LEFT_CHASSIS_MOTOR_TYPES);
 
-
-        for (int i = 0; i < RobotMap.LEFT_CHASSIS_PORTS.length; i++) {
-            leftMotors.add(new TecbotSpeedController(RobotMap.LEFT_CHASSIS_PORTS[i], RobotMap.LEFT_CHASSIS_MOTOR_TYPES[i]));
-            if (i == RobotMap.LEFT_CHASSIS_MOTOR_WITH_ENCODER)
-                leftEncoderMotor = leftMotors.get(i);
-            for (int port : RobotMap.LEFT_CHASSIS_INVERTED_MOTORS) {
-                if (port == RobotMap.LEFT_CHASSIS_PORTS[i])
-                    leftMotors.get(i).setInverted(true);
-            }
-        }
-        for (int i = 0; i < RobotMap.RIGHT_CHASSIS_PORTS.length; i++) {
-            rightMotors
-                    .add(new TecbotSpeedController(RobotMap.RIGHT_CHASSIS_PORTS[i], RobotMap.RIGHT_CHASSIS_MOTOR_TYPES[i]));
-            if (i == RobotMap.RIGHT_CHASSIS_MOTOR_WITH_ENCODER)
-                rightEncoderMotor = rightMotors.get(i);
-            for (int port : RobotMap.RIGHT_CHASSIS_INVERTED_MOTORS) {
-                if (port == RobotMap.RIGHT_CHASSIS_PORTS[i])
-                    rightMotors.get(i).setInverted(true);
-            }
-        }
-
-
-        for (int i = 0; i < RobotMap.MIDDLE_WHEEL_PORTS.length; i++) {
-            middleMotors.add(new TecbotSpeedController(RobotMap.LEFT_CHASSIS_PORTS[i], RobotMap.MIDDLE_WHEEL_MOTOR_TYPES[i]));
-            if (i == RobotMap.MIDDLE_WHEEL_ENCODER_PORTS[i])
-                middleEncoderMotor = middleMotors.get(i);
-            for (int port : RobotMap.MIDDLE_WHEEL_INVERTED_MOTORS) {
-                if (port == RobotMap.MIDDLE_WHEEL_PORTS[i])
-                    middleMotors.get(i).setInverted(true);
-            }
-        }
-
+      rightMotors = RobotConfigurator.buildMotorList(RobotMap.RIGHT_CHASSIS_PORTS,
+              RobotMap.RIGHT_CHASSIS_INVERTED_MOTORS, RobotMap.RIGHT_CHASSIS_MOTOR_TYPES);
 
     }
 
     /**
      * The default driving method for all driving modes.
-     * 
+     *
      * @param x           The value of the x axis
      * @param y           The value of the y axis
      * @param turn        The value of the axis designated for turing
@@ -138,38 +101,38 @@ public class DriveTrain extends SubsystemBase {
     public void defaultDrive(double x, double y, double turn, double middleWheel) {
 
         switch (currentDrivingMode) {
-        case Default:
-            frankieDrive(x,reverse?-1:1 *  y, middleWheel);
-            break;
-        case Pivot:
-            pivot(x, reverse?-1:1 * y);
-            break;
-        case Mecanum:
-            mecanumDrive(reverse?-1:1 * x, reverse?-1:1 * y, turn);
-            break;
-        case Swerve:
-            swerveMove(x, y, turn);
-            break;
-        default:
-            DriverStation.reportError("Driving mode not recognized", true);
+            case Default:
+                dragonFlyDrive(x,reverse?-1:1 *  y, middleWheel);
+                break;
+            case Pivot:
+                pivot(x, reverse?-1:1 * y);
+                break;
+            case Mecanum:
+                mecanumDrive(reverse?-1:1 * x, reverse?-1:1 * y, turn);
+                break;
+            case Swerve:
+                swerveMove(x, y, turn);
+                break;
+            default:
+                DriverStation.reportError("Driving mode not recognized", true);
         }
 
     }
 
-    public void driveSide( Side side, double s) {
+    public void driveSide( Side side, double power) {
         switch (side) {
-        case LEFT:
-            for (TecbotSpeedController m : leftMotors) {
-                m.set(s);
-            }
-            break;
-        case RIGHT:
-            for (TecbotSpeedController m : rightMotors) {
-                m.set(s);
-            }
-            break;
+            case LEFT:
+                leftMotors.setAll(power);
+                break;
+            case RIGHT:
+                rightMotors.setAll(power);
+                break;
 
         }
+    }
+
+    public void setMiddleWheel(double power){
+        middleMotors.setAll(power);
     }
 
     public void tankDrive(double leftPower, double rightPower) {
@@ -209,42 +172,42 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void stop() {
-        frankieDrive(0, 0, 0);
+        dragonFlyDrive(0, 0, 0);
     }
 
     /**
      * Rises or lowers the wheel.
-     * 
+     *
      * @param state The desired state for the wheel, true for rising.
      */
 
-    public void setWheelState(boolean state) {
+    public void setDragonFlyWheelState(boolean state) {
         if (state) {
-            wheelSolenoid.set(DoubleSolenoid.Value.kForward);
+            dragonFlyWheelSolenoid.set(DoubleSolenoid.Value.kForward);
         } else {
-            wheelSolenoid.set(DoubleSolenoid.Value.kReverse);
+            dragonFlyWheelSolenoid.set(DoubleSolenoid.Value.kReverse);
         }
     }
 
-    public boolean getWheelState() {
-        return (wheelSolenoid.get() == DoubleSolenoid.Value.kForward);
+    public boolean getDragonFlyWheelState() {
+        return (dragonFlyWheelSolenoid.get() == DoubleSolenoid.Value.kForward);
     }
 
     /**
-     * The default driving method for driving a frankie-type chassis as a tank
-     * 
+     * The default driving method for driving a DragonFly chassis manually.
+     *
      * @param turn        The value of the joystick used for turning.
      * @param speed       The value of the joystick used for moving straight.
      * @param middleWheel The value that will be given to the middle wheel
      */
-    public void frankieDrive(double turn, double speed, double middleWheel) {
+    public void dragonFlyDrive(double turn, double speed, double middleWheel) {
         setMiddleWheel(middleWheel);
         drive(speed, turn);
     }
 
     /**
      * Moves the robot pivoting in left or right wheels
-     * 
+     *
      * @param turn  The value of the joystick used for turning.
      * @param speed The value of the joystick used for moving straight.
      */
@@ -274,7 +237,7 @@ public class DriveTrain extends SubsystemBase {
             // This condition will happen once every time the robot enters mecanum drive.
             // Mecanum drive needs to be lowered. We need to lower the wheel once the robot
             // enters mecanum drive.
-            setWheelState(false);
+            setDragonFlyWheelState(false);
         }
         if (turn >= .1 || turn <= -.1)
             startingAngle = TecbotSensors.getYaw();
@@ -309,8 +272,8 @@ public class DriveTrain extends SubsystemBase {
      *                 -1 to 1.
      */
     public void driveToAngle(double angle, double maxPower, double turn) {
-        double x = java.lang.Math.sin(java.lang.Math.toRadians(angle)) * maxPower;
-        double y = java.lang.Math.cos(java.lang.Math.toRadians(angle)) * maxPower;
+        double x = Math.sin(Math.toRadians(angle)) * maxPower;
+        double y = Math.cos(Math.toRadians(angle)) * maxPower;
 
         mecanumDrive(x, y, turn);
     }
@@ -328,7 +291,7 @@ public class DriveTrain extends SubsystemBase {
         // The angle relative to the field given by the x and the y
         double absoluteAngle = 0;
         if (y != 0) {
-            absoluteAngle = java.lang.Math.toDegrees(java.lang.Math.atan(x / y));
+            absoluteAngle = Math.toDegrees(Math.atan(x / y));
             if (x > 0)
                 absoluteAngle = 90;
             if (x < 0)
@@ -344,16 +307,10 @@ public class DriveTrain extends SubsystemBase {
         // The angle at which the robot will move, considering its rotation.
         double relativeAngle = absoluteAngle - TecbotSensors.getYaw();
         // The max power that will be given to the motors.
-        double speed = java.lang.Math.sqrt((x * x) + (y * y));
+        double speed = Math.sqrt((x * x) + (y * y));
 
         driveToAngle(relativeAngle, speed, turn);
 
-    }
-
-    public void setMiddleWheel(double power){
-        for(TecbotSpeedController motor : middleMotors){
-            motor.set(power);
-        }
     }
 
     public void pidTurn(double output){
@@ -458,16 +415,14 @@ public class DriveTrain extends SubsystemBase {
         return reverse;
     }
 
-    public static TecbotSpeedController getRightEncoderMotor(){
-        return rightEncoderMotor;
-    }
+    public TecbotSpeedController getSpecificMotor(int port){
+        TecbotSpeedController left = leftMotors.getSpecificMotor(port);
+        TecbotSpeedController right = rightMotors.getSpecificMotor(port);
+        TecbotSpeedController middle = rightMotors.getSpecificMotor(port);
 
-    public static TecbotSpeedController getLeftEncoderMotor(){
-        return leftEncoderMotor;
-    }
-
-    public static TecbotSpeedController getMiddleEncoderMotor(){
-        return middleEncoderMotor;
+        if(left != null)return left;
+        else if(right != null) return right;
+        else return middle;
     }
 
 }

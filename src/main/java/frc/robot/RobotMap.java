@@ -26,6 +26,7 @@ public class RobotMap {
      */
     public static int LEFT_CHASSIS_MOTOR_WITH_ENCODER = RobotConfigurator.CONFIG_NOT_SET;
     public static int RIGHT_CHASSIS_MOTOR_WITH_ENCODER = RobotConfigurator.CONFIG_NOT_SET;
+    public static int MIDDLE_CHASSIS_MOTOR_WITH_ENCODER = RobotConfigurator.CONFIG_NOT_SET;
 
     /*
      * If encoder is connected to RoboRIO,
@@ -49,4 +50,6 @@ public class RobotMap {
     public static int[] MIDDLE_WHEEL_PORTS ={};
     public static int[] MIDDLE_WHEEL_INVERTED_MOTORS ={};
     public static TypeOfMotor[] MIDDLE_WHEEL_MOTOR_TYPES = {};
+
+    public static boolean DRAGON_FLY_IS_AVAILABLE = true;
 }

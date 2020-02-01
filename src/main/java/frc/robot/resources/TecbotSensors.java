@@ -5,6 +5,7 @@ import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.chassis.DriveTrain;
 
@@ -28,12 +29,15 @@ public class TecbotSensors {
 
         tecbotGyro = new Navx();
 
-        leftChassisEncoder = RobotConfigurator.buildEncoder(DriveTrain.getLeftEncoderMotor(), RobotMap.LEFT_CHASSIS_ENCODER_PORTS[0],
-                RobotMap.LEFT_CHASSIS_ENCODER_PORTS[1]);
-        rightChassisEncoder = RobotConfigurator.buildEncoder(DriveTrain.getRightEncoderMotor(), RobotMap.RIGHT_CHASSIS_ENCODER_PORTS[0],
-                RobotMap.RIGHT_CHASSIS_ENCODER_PORTS[1]);
-        middleChassisEncoder = RobotConfigurator.buildEncoder(DriveTrain.getMiddleEncoderMotor(), RobotMap.MIDDLE_WHEEL_ENCODER_PORTS[0],
-                RobotMap.MIDDLE_WHEEL_ENCODER_PORTS[1]);
+        leftChassisEncoder = RobotConfigurator.buildEncoder
+                (Robot.getRobotContainer().getDriveTrain().getSpecificMotor(RobotMap.LEFT_CHASSIS_MOTOR_WITH_ENCODER),
+                RobotMap.LEFT_CHASSIS_ENCODER_PORTS[0], RobotMap.LEFT_CHASSIS_ENCODER_PORTS[1]);
+        rightChassisEncoder = RobotConfigurator.buildEncoder
+                (Robot.getRobotContainer().getDriveTrain().getSpecificMotor(RobotMap.RIGHT_CHASSIS_MOTOR_WITH_ENCODER),
+                        RobotMap.RIGHT_CHASSIS_ENCODER_PORTS[0], RobotMap.RIGHT_CHASSIS_ENCODER_PORTS[1]);
+        middleChassisEncoder = RobotConfigurator.buildEncoder
+                (Robot.getRobotContainer().getDriveTrain().getSpecificMotor(RobotMap.MIDDLE_CHASSIS_MOTOR_WITH_ENCODER)
+                , RobotMap.MIDDLE_WHEEL_ENCODER_PORTS[0], RobotMap.MIDDLE_WHEEL_ENCODER_PORTS[1]);
 
         TecbotSensors.colorSensorV3 = new ColorSensorV3(i2cPort);
         TecbotSensors.colorMatcher = new ColorMatch();
