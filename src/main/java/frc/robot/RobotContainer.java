@@ -33,7 +33,7 @@ public class RobotContainer {
 
     public static DriveTrain driveTrain;
     public static OI oi;
-    public static Shooter shooter;
+    public Shooter shooter;
     SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 
@@ -73,11 +73,11 @@ public class RobotContainer {
         return m_chooser.getSelected();
     }
 
-    public DriveTrain getDriveTrain(){
+    public static DriveTrain getDriveTrain(){
         return driveTrain;
     }
 
-    public OI getOI(){
+    public static OI getOI(){
         return oi;
     }
 
