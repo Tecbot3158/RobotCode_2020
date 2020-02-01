@@ -62,5 +62,8 @@ public class RobotMap {
     public static final int ANGLER_PORT = 0;
     public static double MANUALSHOOT = 0.4;
     public static final int[]  SHARED_ENCODER_PORT = {0,0};
+	public static final int[] LEFT_CHASSIS_ENCODER_PORTS = {0,0};
+	public static final int[] RIGHT_CHASSIS_ENCODER_PORTS = null;
+	public static final int[] MIDDLE_WHEEL_ENCODER_PORTS = null;
 
 }

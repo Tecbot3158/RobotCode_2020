@@ -73,15 +73,15 @@ public class RobotContainer {
         return m_chooser.getSelected();
     }
 
-    public static DriveTrain getDriveTrain(){
+    public DriveTrain getDriveTrain(){
         return driveTrain;
     }
 
-    public static OI getOI(){
+    public OI getOI(){
         return oi;
     }
 
-    public static Shooter getShooter() {
+    public Shooter getShooter() {
         return shooter;
     }
     

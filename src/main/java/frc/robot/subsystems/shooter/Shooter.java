@@ -22,8 +22,9 @@ import frc.robot.subsystems.SharedMotors;
 public class Shooter extends PIDSubsystem {
   List <TecbotSpeedController> shooterLeftMotors; 
   List <TecbotSpeedController> shooterRightMotors;
+  TecbotSpeedController shooterMotorEncoder;
   Servo anglerServo; 
-  TecbotEncoder shooterEncoder;
+  
   
 
   
@@ -43,19 +44,27 @@ public class Shooter extends PIDSubsystem {
         
 SharedMotors.initializeSharedMotors();
 anglerServo = new Servo(RobotMap.ANGLER_PORT);
-shooterEncoder = new TecbotEncoder(RobotMap.SHARED_ENCODER_PORT[0], RobotMap.SHARED_ENCODER_PORT[1]);
-  
+
   }
   @Override
   public void useOutput(double output, double setpoint) {
     // Use the output here
-  } //tengo que poner que setee el output del pid 
+    output = speed;
+    setpoint = speed;
+  anglerServo.setAngle(angle);
+  SharedMotors.setAll(output, output);
+   
+    
+
+  }
+  
+
 
   @Override
   public double getMeasurement() {
     // Return the process variable measurement here
     return 0;
-    //obtiene el rate del encoder 
+   
   }
   public void shoot(){
     for(TecbotSpeedController leftMotors : SharedMotors.leftSharedMotors){
@@ -135,7 +144,7 @@ public void setManualShooter(double manualSpeed) {
   }
   for(TecbotSpeedController rightManualMotors : SharedMotors.rightSharedMotors) {
     rightManualMotors.set(manualSpeed);
-    SmartDashboard.putNumber("ShooterEncoderRate", shooterEncoder.getRate());
+    
 
   }
 }
@@ -156,6 +165,7 @@ public void setManualAngler(double lt, double rt){
     INITIATION_LINE,
     OFF
   }
+  
   
   
   
