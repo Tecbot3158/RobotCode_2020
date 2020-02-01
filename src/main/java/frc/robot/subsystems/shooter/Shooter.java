@@ -48,11 +48,9 @@ anglerServo = new Servo(RobotMap.ANGLER_PORT);
   }
   @Override
   public void useOutput(double output, double setpoint) {
-    // Use the output here
-    output = speed;
-    setpoint = speed;
+    // Use the output her
   anglerServo.setAngle(angle);
-  SharedMotors.setAll(output, output);
+  shoot();
    
     
 
@@ -67,14 +65,7 @@ anglerServo = new Servo(RobotMap.ANGLER_PORT);
    
   }
   public void shoot(){
-    for(TecbotSpeedController leftMotors : SharedMotors.leftSharedMotors){
-      leftMotors.set(speed);
-    } 
-    for(TecbotSpeedController rightMotors : SharedMotors.rightSharedMotors) {
-     rightMotors.set(speed);
-      }
-
-    anglerServo.set(angle);
+    SharedMotors.setAll(speed, speed);
   }
   
 
