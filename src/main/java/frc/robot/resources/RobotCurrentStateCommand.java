@@ -107,7 +107,6 @@ class RobotStateCommands {
      * </ul>
      */
     public static ParallelCommandGroup GROUP_COMMAND_ALL_SYSTEMS_OFF = new TestGroupParallelCommand();
-
     /**
      * <h3><strong>TRANSPORT active when Power Cell present in Front
      * INTAKE</strong></h3>
@@ -135,6 +134,7 @@ class RobotStateCommands {
      * </ul>
      */
     public static ParallelCommandGroup GROUP_COMMAND_FRONT_INTAKE_AND_TRANSPORT_ONLY = new TestGroupParallelCommand();
+
 
     /**
      * <h3><strong>TRANSPORT active when Power Cell present in Rear

@@ -58,6 +58,7 @@ public class TecbotController {
      * </strong>
      */
     private int[] portsButtonsPS4 = {2, 3, 1, 4, 5, 6, 9, 10, 11, 12};
+
     /**
      * The ports for the buttons in xbox controller.
      * <br>
@@ -89,6 +90,7 @@ public class TecbotController {
      * </ul>
      */
     private int[] portsTriggersPS4 = {3, 4};
+
     /**
      * <h1>Trigger ports for XBOX</h1>
      * <br>
@@ -102,7 +104,7 @@ public class TecbotController {
 
     private Joystick pilot;
     TypeOfController controllerType;
-    JoystickButton[] buttons;
+    List<JoystickButton> buttons;
     private double offset = 0.1;
 
     private enum TypeOfController {
@@ -132,7 +134,7 @@ public class TecbotController {
         if (pilot.getName().toLowerCase().contains("wireless controller")) controllerType = TypeOfController.PS4;
         if (pilot.getName().toLowerCase().contains("xbox")) controllerType = TypeOfController.XBOX;
 
-        if (pilot.getName() == null) DriverStation.reportWarning("Joystick not found (Tecbot Controller)", false);
+        if (pilot.getName() == null) DriverStation.reportWarning("Joystick not found (Tecbot Controller)", true);
         if (controllerType != null) setButtons();
         else DriverStation.reportWarning("Controller not identified, some methods will return 0.", false);
 
@@ -314,7 +316,7 @@ public class TecbotController {
     }
 
     private void setButtons() {
-        List<JoystickButton> bs = new ArrayList<JoystickButton>() ;
+        List<JoystickButton> bs = new ArrayList<>() ;
         switch (controllerType) {
             case XBOX:
                 for (int port: portsButtonsXBOX) {
@@ -333,7 +335,7 @@ public class TecbotController {
                 }
                 break;
         }
-                buttons = (JoystickButton[]) bs.toArray();
+                buttons = bs;
     }
 
 
@@ -346,7 +348,7 @@ public class TecbotController {
         int index = 0;
         switch(button){
             case A:
-                index = 0;
+                //nothing needs to be done here because index already = 0
                 break;
             case B:
                 index = 1;
@@ -376,10 +378,10 @@ public class TecbotController {
                 index = 9;
                 break;
             default:
-                DriverStation.reportError("That's a problem.", false);
+                DriverStation.reportError("Button not recognized. TecbotController", true);
                 break;
         }
-        return buttons[index];
+        return buttons.get(index);
 
     }
 
