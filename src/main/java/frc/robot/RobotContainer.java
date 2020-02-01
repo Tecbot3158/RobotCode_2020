@@ -10,12 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.resources.TecbotSensors;
-import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.SharedMotors;
 import frc.robot.subsystems.chassis.DriveTrain;
 
 /**
@@ -26,9 +22,9 @@ import frc.robot.subsystems.chassis.DriveTrain;
  */
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
-    private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-    private final ExampleCommand m_defaultCommand = new ExampleCommand(m_exampleSubsystem);
+
+
 
 
     public static DriveTrain driveTrain;
@@ -40,13 +36,10 @@ public class RobotContainer {
      * The container for the robot.  Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
-        m_chooser.setDefaultOption("Default auto", m_defaultCommand);
-        SmartDashboard.putData("Auto Mode", m_chooser);
 
         // Configure the button bindings
         configureButtonBindings();
         TecbotSensors.initializeAllSensors();
-        SharedMotors.initializeSharedMotors();
         driveTrain = new DriveTrain();
         oi = new OI();
     }
