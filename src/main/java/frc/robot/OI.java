@@ -14,15 +14,26 @@ import frc.robot.resources.TecbotController;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+    private static OI instance;
     TecbotController pilot;
 
-    public void configureButtonBindings(){
-
-        pilot = new TecbotController(0);
+    public OI() {
 
     }
 
-    public TecbotController getPilot(){
+    public static OI getInstance() {
+        if (instance == null) instance = new OI();
+        return instance;
+    }
+
+    public void configureButtonBindings() {
+        //put here all
+        pilot = new TecbotController(0);
+        pilot.whenPressed(TecbotController.ButtonType.X, RobotActionsCatalog.getInstance().allSystemsOff);
+
+    }
+
+    public TecbotController getPilot() {
         return pilot;
     }
 }

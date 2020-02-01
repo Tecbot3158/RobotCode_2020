@@ -121,7 +121,11 @@ public class TecbotController {
         BACK,
         START,
         LS,
-        RS
+        RS,
+        POV_0,
+        POV_90,
+        POV_180,
+        POV_270
     }
 
     /**
@@ -386,6 +390,7 @@ public class TecbotController {
     }
 
     public void whenPressed(ButtonType button, Command command){
+
         JoystickButton m_button = getButton(button);
         m_button.whenPressed(command);
     }

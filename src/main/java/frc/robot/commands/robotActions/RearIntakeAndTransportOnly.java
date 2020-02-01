@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class RA_REAR_INTAKE_AND_TRANSPORT_ONLY extends SequentialCommandGroup {
+public class RearIntakeAndTransportOnly extends SequentialCommandGroup {
 
     /**
      * <h3><strong>TRANSPORT active when Power Cell present in Rear
@@ -40,7 +40,7 @@ public class RA_REAR_INTAKE_AND_TRANSPORT_ONLY extends SequentialCommandGroup {
      *
      * </ul>
      */
-    public RA_REAR_INTAKE_AND_TRANSPORT_ONLY() {
+    public RearIntakeAndTransportOnly() {
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
         super(

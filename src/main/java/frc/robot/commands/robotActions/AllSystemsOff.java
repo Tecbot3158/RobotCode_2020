@@ -12,47 +12,45 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class RA_FRONT_INTAKE_AND_TRANSPORT_ONLY extends SequentialCommandGroup {
-
+public class AllSystemsOff extends SequentialCommandGroup {
     /**
-     * <h3><strong>TRANSPORT active when Power Cell present in Front
-     * INTAKE</strong></h3>
+     * <h3><strong>ALL SYSTEMS OFF</strong></h3>
      * <ul>
      *
      * <li>Intakes:
      * <ul>
-     * <li>Front intake on intake mode, pneumatics on</li>
+     * <li>Front intake on off mode, pneumatics off</li>
      * <li>Rear intake on off mode, pneumatics off</li>
      * </ul>
      * </li>
      *
      * <li>Power Cell Transportation System
      * <ul>
-     * <li>Forward mode, deflector on</li>
+     * <li>Off mode, deflector off</li>
      * </ul>
      * </li>
      *
      * <li>Powercell shooter:
      * <ul>
-     * <li>off</li>
+     * <li>On position #OFF</li>
      * </ul>
      * </li>
      *
      * </ul>
      */
-    public RA_FRONT_INTAKE_AND_TRANSPORT_ONLY() {
+    public AllSystemsOff() {
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
-        super(
+        super();
+        addCommands(
                 /*
-                FI PNEUMATICS ON
-                FI INTAKE MODE
+                FI PNEUMATICS OFF
+                FI OFF MODE
                 RI PNEUMATICS OFF
                 RI OFF MODE
-                PCTS FORWARD, DEF ON
+                PCTS OFF, DEF OFF
                 PCS OFF
                  */
         );
-
     }
 }
