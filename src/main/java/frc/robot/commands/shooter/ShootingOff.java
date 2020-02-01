@@ -8,6 +8,7 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.shooter.Shooter.ShooterPosition;
 
@@ -16,7 +17,7 @@ import frc.robot.subsystems.shooter.Shooter.ShooterPosition;
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class ShootingOff extends InstantCommand {
   public ShootingOff() {
-    addRequirements(RobotContainer.shooter);
+    addRequirements(Robot.getRobotContainer().shooter);
     
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -25,7 +26,7 @@ public class ShootingOff extends InstantCommand {
   @Override
   public void initialize() {
     ShooterPosition position = ShooterPosition.OFF;
-    RobotContainer.shooter.setShootingSpeed(position);
-    RobotContainer.shooter.setAnglerDegrees(position);
+    Robot.getRobotContainer().shooter.setShootingSpeed(position);
+    Robot.getRobotContainer().shooter.setAnglerDegrees(position);
   }
 }
