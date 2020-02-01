@@ -46,19 +46,19 @@ public class Intake extends SubsystemBase {
 
   /* Front Intake */
 
-  public void forwardFrontIntake() {
+  public void frontIntakeForward() {
     for (TecbotSpeedController m : frontMotors) {
       m.set(TecbotConstants.FRONT_INTAKE_SPEED);
     }
   }
 
-  public void offFrontIntake() {
+  public void frontIntakeOff() {
     for (TecbotSpeedController m : frontMotors) {
       m.set(0);
     }
   }
 
-  public void reverseFrontIntake() {
+  public void frontIntakeReverse() {
     for (TecbotSpeedController m : frontMotors) {
       m.set(-TecbotConstants.FRONT_INTAKE_SPEED);
     }
@@ -66,19 +66,19 @@ public class Intake extends SubsystemBase {
 
   /* Rear Intake */
 
-  public void forwardRearIntake() {
+  public void rearIntakeForward() {
     for (TecbotSpeedController m : rearMotors) {
       m.set(TecbotConstants.REAR_INTAKE_SPEED);
     }
   }
 
-  public void offRearIntake() {
+  public void rearIntakeOff() {
     for (TecbotSpeedController m : rearMotors) {
       m.set(0);
     }
   }
 
-  public void reverseRearIntake() {
+  public void rearIntakeReverse() {
     for (TecbotSpeedController m : rearMotors) {
       m.set(-TecbotConstants.REAR_INTAKE_SPEED);
     }
@@ -98,26 +98,26 @@ public class Intake extends SubsystemBase {
 
   /* Front Solenoids */
 
-  public void onFrontSolenoids() {
+  public void frontIntakeSolenoidOn() {
     for (DoubleSolenoid m : frontSolenoids) {
       m.set(Value.kForward);
     }
   }
 
-  public void offFrontSolenoids() {
+  public void frontIntakeSolenoidOff() {
     for (DoubleSolenoid m : frontSolenoids) {
       m.set(Value.kReverse);
     }
   }
   /* Rear Solenoids */
 
-  public void onRearSolenoids() {
+  public void rearIntakeSolenoidOn() {
     for (DoubleSolenoid m : frontSolenoids) {
       m.set(Value.kForward);
     }
   }
 
-  public void offRearSolenoids() {
+  public void rearIntakeSolenoidOff() {
     for (DoubleSolenoid m : frontSolenoids) {
       m.set(Value.kReverse);
     }
