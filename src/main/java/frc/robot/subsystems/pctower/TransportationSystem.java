@@ -7,56 +7,42 @@
 
 package frc.robot.subsystems.pctower;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
+import frc.robot.resources.RobotConfigurator;
 import frc.robot.resources.TecbotConstants;
-import frc.robot.resources.TecbotSpeedController;
+import frc.robot.resources.TecbotMotorList;
 
 
 public class TransportationSystem extends SubsystemBase {
     DoubleSolenoid solenoidDeflector; 
     //Servo servoDeflector;
-    List <TecbotSpeedController> transportationSystemMotors;
+    TecbotMotorList transportationSystemMotors;
   /**
    * Creates a new Subsystem.
    */
   public TransportationSystem() {
-      solenoidDeflector = new DoubleSolenoid (RobotMap.DEFLECTOR_SOLENOID[0], RobotMap.DEFLECTOR_SOLENOID[1]);
-      transportationSystemMotors = new ArrayList<>();
-      for (int i = 0; i < RobotMap.TRANSPORTATION_SYSTEM_MOTOR_PORTS.length; i ++){
-        transportationSystemMotors.add(new TecbotSpeedController(RobotMap.TRANSPORTATION_SYSTEM_MOTOR_PORTS[i], RobotMap.TRANSPORTATION_SYSTEM_TYPE_OF_MOTORS[i])); 
-      //El valor de i es igualado al número de los puertos
-      }
+      solenoidDeflector = RobotConfigurator.buildDoubleSolenoid(RobotMap.DEFLECTOR_SOLENOID);
+      transportationSystemMotors = RobotConfigurator.buildMotorList(RobotMap.TRANSPORTATION_SYSTEM_MOTOR_PORTS, RobotMap.TRANSPORTATION_SYSTEM_INVERTED_MOTOR_PORTS, RobotMap.TRANSPORTATION_SYSTEM_TYPE_OF_MOTORS);
   }
   
   public void setRaw(double speed){
-    for(TecbotSpeedController motor : transportationSystemMotors){ //for te ayuda a acceder a los elementos por cada uno y no a la lista completa
-      motor.set(speed);
-    }
+    transportationSystemMotors.setAll(speed);
   }
 
 
   public void forward(){
-    for(TecbotSpeedController motor : transportationSystemMotors){ //for te ayuda a acceder a los elementos por cada uno y no a la lista completa
-      motor.set(TecbotConstants.TRANSPORTATION_SYSTEM_POWER);
-    }
+    transportationSystemMotors.setAll(TecbotConstants.TRANSPORTATION_SYSTEM_POWER);
   }
 
   public void reverse(){
-    for(TecbotSpeedController motor : transportationSystemMotors){ //: significa en
-      motor.set(-TecbotConstants.TRANSPORTATION_SYSTEM_POWER);
-    }
+    transportationSystemMotors.setAll(-TecbotConstants.TRANSPORTATION_SYSTEM_POWER);
   }  
 
   public void off(){
-    for(TecbotSpeedController motor : transportationSystemMotors){
-      motor.set(0);
-    }
+    transportationSystemMotors.setAll(0);
   }   
 
   public void closeDeflector(){

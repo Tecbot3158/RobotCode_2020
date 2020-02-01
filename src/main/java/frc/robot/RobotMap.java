@@ -52,5 +52,6 @@ public class RobotMap {
 
     public static final TypeOfMotor[] TRANSPORTATION_SYSTEM_TYPE_OF_MOTORS= {TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX};
     public static final int [] TRANSPORTATION_SYSTEM_MOTOR_PORTS = {3,4,5,6};
+    public static final int [] TRANSPORTATION_SYSTEM_INVERTED_MOTOR_PORTS = {};
     public static final int [] DEFLECTOR_SOLENOID = {6, 7};
 }
