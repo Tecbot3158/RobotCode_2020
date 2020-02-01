@@ -60,10 +60,20 @@ public class TecbotMotorList {
         }
     }
 
+    /**
+     * Sets a specific motor to a given speed.
+     * @param port motor port
+     * @param speed speed ranging from -1 to 1
+     */
     public void setSpecificMotorSpeed(int port, double speed) {
         motorsHashMap.get(port).set(speed);
     }
 
+    /**
+     * This can be used to get the encoder linked to a motor.
+     * @param port motor port
+     * @return {@link TecbotSpeedController} 
+     */
     public TecbotSpeedController getSpecificMotor(int port){
         return motorsHashMap.get(port);
     }
