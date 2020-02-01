@@ -43,8 +43,7 @@ public class RA_FRONT_INTAKE_AND_TRANSPORT_ONLY extends SequentialCommandGroup {
     public RA_FRONT_INTAKE_AND_TRANSPORT_ONLY() {
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
-        super();
-        addCommands(
+        super(
                 /*
                 FI PNEUMATICS ON
                 FI INTAKE MODE
@@ -54,5 +53,6 @@ public class RA_FRONT_INTAKE_AND_TRANSPORT_ONLY extends SequentialCommandGroup {
                 PCS OFF
                  */
         );
+
     }
 }

@@ -77,12 +77,11 @@ public class RobotConfigurator {
     /**
      * Intended to be used when creating a new instance of {@link Solenoid}
      *
-     * @param highSolenoidPort moduleNumber in double solenoid
-     * @param lowSolenoidPort  channel in solenoid
+     * @param ports array with solenoid ports.
      * @return {@link Solenoid} new instance
      */
-    public static Solenoid buildSingleSolenoid(int highSolenoidPort, int lowSolenoidPort) {
-        return new Solenoid(highSolenoidPort, lowSolenoidPort);
+    public static Solenoid buildSingleSolenoid(int[] ports) {
+        return new Solenoid(ports[0], ports[1]);
     }
 
 }

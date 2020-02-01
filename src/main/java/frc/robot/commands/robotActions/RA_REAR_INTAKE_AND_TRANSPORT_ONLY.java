@@ -43,8 +43,7 @@ public class RA_REAR_INTAKE_AND_TRANSPORT_ONLY extends SequentialCommandGroup {
     public RA_REAR_INTAKE_AND_TRANSPORT_ONLY() {
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
-        super();
-        addCommands(
+        super(
                 /*
                 FI PNEUMATICS OFF
                 FI OFF MODE
@@ -54,5 +53,6 @@ public class RA_REAR_INTAKE_AND_TRANSPORT_ONLY extends SequentialCommandGroup {
                 PCS OFF
                  */
         );
+
     }
 }
