@@ -8,7 +8,6 @@
 package frc.robot.resources;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.resources.TecbotSpeedController.TypeOfMotor;
 
 /**
@@ -18,31 +17,24 @@ public class RobotConfigurator {
 
     public static int CONFIG_NOT_SET = -1;
 
-    public static TecbotEncoder buildEncoder(TecbotSpeedController speedController, int a, int b){
-        if( speedController != null){
+    public static TecbotEncoder buildEncoder(TecbotSpeedController speedController, int a, int b) {
+        if (speedController != null) {
 
-            if( speedController.getType() == TypeOfMotor.TALON_SRX  )
+            if (speedController.getType() == TypeOfMotor.TALON_SRX)
                 return new TecbotEncoder(speedController);
 
         }
-        if( a != CONFIG_NOT_SET && b > CONFIG_NOT_SET && a != b)
-            return new TecbotEncoder(a,b);
-        
+        if (a != CONFIG_NOT_SET && b > CONFIG_NOT_SET && a != b)
+            return new TecbotEncoder(a, b);
+
         DriverStation.reportWarning("No ENCODER on this build try", true);
         return null;
     }
 
-    /**
-     * Builds a new {@link TecbotMotorList}
-     *
-     * @param motorPorts
-     * @param invertedPorts
-     * @param typesOfMotors
-     * @return A new {@link TecbotMotorList}
-     */
-    public static TecbotMotorList buildMotorList(int[] motorPorts, int[] invertedPorts, TypeOfMotor[] typesOfMotors) {
-        return new TecbotMotorList(motorPorts, invertedPorts, typesOfMotors);
+    public static TecbotMotorList buildMotorList(int[] ports, int[] invertedMotorPorts, TypeOfMotor[] motorTypes) {
+        return new TecbotMotorList(ports, invertedMotorPorts, motorTypes);
     }
+
 }
 
 
