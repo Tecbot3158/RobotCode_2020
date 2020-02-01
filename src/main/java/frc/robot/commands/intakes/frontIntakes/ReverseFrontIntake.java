@@ -21,6 +21,6 @@ public class ReverseFrontIntake extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.getIntake().reverseRearIntake();
+    RobotContainer.getIntake().reverseFrontIntake();
   }
 }

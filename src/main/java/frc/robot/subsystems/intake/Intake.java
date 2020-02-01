@@ -21,7 +21,7 @@ public class Intake extends SubsystemBase {
   ArrayList<TecbotSpeedController> rearMotors;
 
   ArrayList<DoubleSolenoid> frontSolenoids;
-  ArrayList<DoubleSolenoid> backSolenoids;
+  ArrayList<DoubleSolenoid> rearSolenoids;
 
   /**
    * Creates a new Intake.
@@ -41,7 +41,7 @@ public class Intake extends SubsystemBase {
 
     frontSolenoids.add(new DoubleSolenoid(RobotMap.FRONT_SOLENOIDS[0], RobotMap.FRONT_SOLENOIDS[1]));
 
-    backSolenoids.add(new DoubleSolenoid(RobotMap.BACK_SOLENOIDS[2], RobotMap.BACK_SOLENOIDS[3]));
+    rearSolenoids.add(new DoubleSolenoid(RobotMap.BACK_SOLENOIDS[2], RobotMap.BACK_SOLENOIDS[3]));
   }
 
   /* Front Intake */
