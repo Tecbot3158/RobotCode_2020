@@ -66,12 +66,11 @@ public class RobotConfigurator {
     /**
      * Intended to be used when creating a new instance of {@link DoubleSolenoid}
      *
-     * @param highSolenoidPort forward channel in double solenoid
-     * @param lowSolenoidPort  reverse channel in double solenoid
+     * @param ports array with solenoid ports.
      * @return {@link DoubleSolenoid} new instance
      */
-    public static DoubleSolenoid buildDoubleSolenoid(int highSolenoidPort, int lowSolenoidPort) {
-        return new DoubleSolenoid(highSolenoidPort, lowSolenoidPort);
+    public static DoubleSolenoid buildDoubleSolenoid(int[] ports) {
+        return new DoubleSolenoid(ports[0], ports[1]);
     }
 
     /**
