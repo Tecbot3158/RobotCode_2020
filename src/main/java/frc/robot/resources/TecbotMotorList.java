@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.resources.TecbotSpeedController.TypeOfMotor;
 
 /**
@@ -28,9 +29,13 @@ public class TecbotMotorList {
      *
      * @param ports              Requires an array of ports
      * @param invertedMotorPorts Requires an array that indicates inverted motor ports
-     * @param motorTypes      Requires an array of {@link TypeOfMotor}
+     * @param motorTypes         Requires an array of {@link TypeOfMotor}
      */
     public TecbotMotorList(int[] ports, int[] invertedMotorPorts, TypeOfMotor[] motorTypes) {
+        if (ports.length != motorTypes.length) {
+            DriverStation.reportError("Amount of motor types and motor ports is not equal.", true);
+            return;
+        }
         motorsHashMap = new HashMap<>();
         motors = new ArrayList<>();
         for (int i = 0; i < ports.length; i++) {
@@ -55,7 +60,11 @@ public class TecbotMotorList {
         }
     }
 
-    public void setSpecificMotor(int port, double speed){
+    public void setSpecificMotorSpeed(int port, double speed) {
         motorsHashMap.get(port).set(speed);
+    }
+
+    public TecbotSpeedController getSpecificMotor(int port){
+        return motorsHashMap.get(port);
     }
 }
