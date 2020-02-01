@@ -28,8 +28,6 @@ public class TecbotConstants {
 
     // (encoderCount / tickPerRevolution) * wheelDiam * Pi = distance
 
-    // K_METERS_TO_ENCODER * meters = encoderCount
-    public static double K_METERS_TO_ENCODER = (float) (30000 / (.2034 * Math.PI));
 
     // K_CHASSIS_ENCODER_TO_METERS * encoder count = distance in meters
     // (encoderCount / tickPerRevolution) * wheelDiam * Pi = distance
@@ -42,9 +40,27 @@ public class TecbotConstants {
     public static double K_MIDDLE_WHEEL_ENCODER_TO_METERS = (1 / K_MIDDLE_WHEEL_TIC_PER_REVOLUTION)
             * K_MIDDLE_WHEEL_TIC_PER_REVOLUTION * Math.PI;
 
+    // K_METERS_TO_ENCODER * meters = encoderCount
+    // (encoderCount / tickPerRevolution) * wheelDiam * Pi = distance
+    // (encoderCount * wheel diam*pi) / tickPerRevolution  = distance
+    // encoderCount * wheel diam * pi = distance * tickPerRevolution
+    // encoderCount = (distance * tickPerRevolution) / (wheel diam * pi)
+
+    // This only works for chassis wheels
+    public static double K_CHASSIS_METERS_TO_ENCODER = (float) (K_CHASSIS_TIC_PER_REVOLUTION / (K_CHASSIS_WHEEL_DIAMETER * Math.PI));
+    // This only works for the middle wheel
+    public static double K_MIDDLE_WHEEL_METERS_TO_ENCODER = (float) (K_MIDDLE_WHEEL_TIC_PER_REVOLUTION / (K_MIDDLE_WHEEL_DIAMETER * Math.PI));
+
+
     public static final double K_STRAIGHT_P = 0;
     public static final double K_STRAIGHT_I = 0;
     public static final double K_STRAIGHT_D = 0;
+    public static final double K_PID_STRAIGHT_ARRIVE_OFFSET = 0;
+
+    public static final double K_TURN_P = 0;
+    public static final double K_TURN_I = 0;
+    public static final double K_TURN_D = 0;
+    public static final double K_PID_TURN_ARRIVE_OFFSET = 0;
 
     public static final double FRONT_INTAKE_SPEED = 0.8;
     public static final double REAR_INTAKE_SPEED = 0.8;

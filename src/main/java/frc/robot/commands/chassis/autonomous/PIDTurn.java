@@ -13,35 +13,37 @@ import frc.robot.RobotContainer;
 import frc.robot.resources.TecbotConstants;
 import frc.robot.resources.TecbotSensors;
 
-import static frc.robot.resources.TecbotSensors.SubsystemType.RIGHT_CHASSIS;
+import static frc.robot.resources.TecbotConstants.K_TURN_D;
+import static frc.robot.resources.TecbotConstants.K_TURN_I;
 
-public class PIDMovement extends PIDCommand {
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+public class PIDTurn extends PIDCommand {
     /**
      * Creates a new PID_Command.
      */
-    public PIDMovement(double meters) {
+
+    public PIDTurn() {
         super(
                 // The controller that the command will use
-                new PIDController(TecbotConstants.K_STRAIGHT_P, TecbotConstants.K_STRAIGHT_I, TecbotConstants.K_STRAIGHT_D),
+                new PIDController(TecbotConstants.K_TURN_P, K_TURN_I, K_TURN_D),
                 // This should return the measurement
-                () -> TecbotSensors.getEncoderRaw(RIGHT_CHASSIS),
+                () -> TecbotSensors.getYaw(),
                 // This should return the setpoint (can also be a constant)
-                () -> RobotContainer.getDriveTrain().getPIDTarget(),
+                () -> RobotContainer.getDriveTrain().getPidAngleTarget(),
                 // This uses the output
-                output -> RobotContainer.driveTrain.useOutput(output)
-        );
-
-        RobotContainer.getDriveTrain().setPIDTarget(50);
-
-    }
-
-    public void useOutput(double output){
-
+                output -> {
+                    // Use the output here
+                    RobotContainer.getDriveTrain().pidTurn(output);
+                });
+        // Use addRequirements() here to declare subsystem dependencies.
+        // Configure additional PID options by calling `getController` here.
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return (Math.abs(RobotContainer.getDriveTrain().getPidAngleTarget() - TecbotSensors.getYaw()) <= TecbotConstants.K_PID_STRAIGHT_ARRIVE_OFFSET);
     }
 }
