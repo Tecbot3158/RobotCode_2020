@@ -36,6 +36,7 @@ public class ShootingFromInitiationLine extends InstantCommand {
     Robot.getRobotContainer().getShooter().enable();
     Robot.getRobotContainer().getShooter().useOutput(output, setpoint);
     Robot.getRobotContainer().getShooter().getMeasurement();
+    
 
   }
 }
