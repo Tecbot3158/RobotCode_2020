@@ -35,7 +35,7 @@ public class RobotContainer {
     public static OI oi;
     SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-    public static TransportationSystem transportationSystem;
+    public TransportationSystem transportationSystem;
 
 
     /**
@@ -83,6 +83,10 @@ public class RobotContainer {
 
     public static OI getOI(){
         return oi;
+    }
+
+    public TransportationSystem getTransportationSystem(){
+        return transportationSystem;
     }
 
 }

@@ -7,8 +7,7 @@
 
 package frc.robot.commands.pctower;
 
-
-import frc.robot.RobotContainer;
+import frc.robot.Robot;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -17,13 +16,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class CloseDeflectorTransportationSystem extends CommandBase {
 
     public CloseDeflectorTransportationSystem() {
-        addRequirements(RobotContainer.transportationSystem);
+        addRequirements(Robot.m_robotContainer.getTransportationSystem());
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      RobotContainer.transportationSystem.closeDeflector();
+      Robot.m_robotContainer.transportationSystem.closeDeflector();
 
   }
 
