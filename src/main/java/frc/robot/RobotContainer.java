@@ -34,8 +34,8 @@ public class RobotContainer {
 
     private final ExampleCommand m_defaultCommand = new ExampleCommand(m_exampleSubsystem);
 
-    public static Intake intake;
-    public static ControlPanel controlPanel;
+    public  Intake intake;
+    public  ControlPanel controlPanel;
 
     public static DriveTrain driveTrain;
     public static OI oi;
@@ -87,11 +87,11 @@ public class RobotContainer {
         return oi;
     }
 
-    public static Intake getIntake() {
+    public  Intake getIntake() {
         return intake;
     }
 
-    public static ControlPanel controlPanel() {
+    public  ControlPanel controlPanel() {
         return controlPanel;
     }
 
