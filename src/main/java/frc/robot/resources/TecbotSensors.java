@@ -28,12 +28,12 @@ public class TecbotSensors {
 
         tecbotGyro = new Navx();
 
-        leftChassisEncoder = RobotConfigurator.buildEncoder(DriveTrain.getLeftEncoderMotor(), RobotMap.leftChassisEncoderPorts[0],
-                RobotMap.leftChassisEncoderPorts[1]);
-        rightChassisEncoder = RobotConfigurator.buildEncoder(DriveTrain.getRightEncoderMotor(), RobotMap.rightChassisEncoderPorts[0],
-                RobotMap.rightChassisEncoderPorts[1]);
-        middleChassisEncoder = RobotConfigurator.buildEncoder(DriveTrain.getMiddleWheelMotor(), RobotMap.middleWheelEncoderPorts[0],
-                RobotMap.middleWheelEncoderPorts[0]);
+        leftChassisEncoder = RobotConfigurator.buildEncoder(DriveTrain.getLeftEncoderMotor(), RobotMap.LEFT_CHASSIS_ENCODER_PORTS[0],
+                RobotMap.LEFT_CHASSIS_ENCODER_PORTS[1]);
+        rightChassisEncoder = RobotConfigurator.buildEncoder(DriveTrain.getRightEncoderMotor(), RobotMap.RIGHT_CHASSIS_ENCODER_PORTS[0],
+                RobotMap.RIGHT_CHASSIS_ENCODER_PORTS[1]);
+        middleChassisEncoder = RobotConfigurator.buildEncoder(DriveTrain.getMiddleEncoderMotor(), RobotMap.MIDDLE_WHEEL_ENCODER_PORTS[0],
+                RobotMap.MIDDLE_WHEEL_ENCODER_PORTS[1]);
 
         TecbotSensors.colorSensorV3 = new ColorSensorV3(i2cPort);
         TecbotSensors.colorMatcher = new ColorMatch();
