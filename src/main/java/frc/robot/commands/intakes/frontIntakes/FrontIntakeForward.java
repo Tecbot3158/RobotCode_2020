@@ -23,5 +23,6 @@ public class FrontIntakeForward extends InstantCommand {
   @Override
   public void initialize() {
     Robot.getRobotContainer().getIntake().frontIntakeForward();
+    addRequirements(Robot.getRobotContainer().getIntake());
   }
 }

@@ -23,5 +23,6 @@ public class RearIntakeReverse extends InstantCommand {
   @Override
   public void initialize() {
     Robot.getRobotContainer().getIntake().rearIntakeReverse();
+    addRequirements(Robot.getRobotContainer().getIntake());
   }
 }

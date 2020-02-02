@@ -22,5 +22,6 @@ public class RearIntakeSolenoidOff extends InstantCommand {
   @Override
   public void initialize() {
     Robot.getRobotContainer().getIntake().rearIntakeSolenoidOff();
+    addRequirements(Robot.getRobotContainer().getIntake());
   }
 }

@@ -23,5 +23,6 @@ public class RearIntakeOff extends InstantCommand {
   @Override
   public void initialize() {
     Robot.getRobotContainer().getIntake().rearIntakeOff();
+    addRequirements(Robot.getRobotContainer().getIntake());
   }
 }
