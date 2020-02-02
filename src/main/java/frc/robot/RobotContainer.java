@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.resources.TecbotSensors;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.SharedMotors;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.chassis.DriveTrain;
 import frc.robot.subsystems.shooter.Shooter;
@@ -34,6 +35,7 @@ public class RobotContainer {
     public static DriveTrain driveTrain;
     public static OI oi;
     public Shooter shooter;
+    public SharedMotors sharedMotors;
     SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 
@@ -50,6 +52,7 @@ public class RobotContainer {
         driveTrain = new DriveTrain();
         oi = new OI();
         shooter = new Shooter();
+        sharedMotors = new SharedMotors();
     }
 
     /**
@@ -83,6 +86,10 @@ public class RobotContainer {
 
     public Shooter getShooter() {
         return shooter;
+    }
+
+    public SharedMotors getSharedMotors(){
+        return sharedMotors; 
     }
     
     
