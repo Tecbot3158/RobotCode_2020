@@ -56,14 +56,14 @@ public class RobotMap {
         public static int[] REAR_INTAKE_MOTORS = { 0 };
         public static int[] FRONT_INTAKE_MOTORS = { 1 };
 
-        public static boolean[] FRONT_INTAKE_MOTOR_DIRECTION = { true };
-        public static boolean[] BACK_INTAKE_MOTOR_DIRECTION = { true };
+        public static int [] FRONT_INTAKE_MOTOR_DIRECTION = {};
+        public static int [] REAR_INTAKE_MOTOR_DIRECTION = {};
 
         public static TypeOfMotor[] FRONT_INTAKE_MOTORS_TYPES = { TypeOfMotor.TALON_SRX };
-        public static TypeOfMotor[] BACK_INTAKE_MOTORS_TYPES = { TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX };
+        public static TypeOfMotor[] REAR_INTAKE_MOTORS_TYPES = { TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX };
 
         public static int[] FRONT_SOLENOIDS = { 0, 1 };
-        public static int[] BACK_SOLENOIDS = { 2, 3 };
+        public static int[] REAR_SOLENOIDS = { 2, 3 };
 
         /* Test */
         // test

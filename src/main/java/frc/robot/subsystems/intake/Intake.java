@@ -17,8 +17,8 @@ import frc.robot.resources.*;
 
 public class Intake extends SubsystemBase {
 
-  ArrayList<TecbotSpeedController> frontMotors;
-  ArrayList<TecbotSpeedController> rearMotors;
+  TecbotMotorList frontMotors;
+  TecbotMotorList rearMotors;
 
   ArrayList<DoubleSolenoid> frontSolenoids;
   ArrayList<DoubleSolenoid> rearSolenoids;
@@ -28,72 +28,49 @@ public class Intake extends SubsystemBase {
    */
   public Intake() {
 
-    for (int i = 0; i < RobotMap.FRONT_INTAKE_MOTORS.length; i++) {
-      frontMotors
-          .add(new TecbotSpeedController(RobotMap.FRONT_INTAKE_MOTORS[i], RobotMap.FRONT_INTAKE_MOTORS_TYPES[i]));
-      frontMotors.get(i).setInverted(RobotMap.FRONT_INTAKE_MOTOR_DIRECTION[i]);
-    }
+    frontMotors = RobotConfigurator.buildMotorList(RobotMap.FRONT_INTAKE_MOTORS, RobotMap.FRONT_INTAKE_MOTOR_DIRECTION, RobotMap.FRONT_INTAKE_MOTORS_TYPES);
 
-    for (int i = 0; i < RobotMap.REAR_INTAKE_MOTORS.length; i++) {
-      rearMotors.add(new TecbotSpeedController(RobotMap.REAR_INTAKE_MOTORS[i], RobotMap.BACK_INTAKE_MOTORS_TYPES[i]));
-      rearMotors.get(i).setInverted(RobotMap.BACK_INTAKE_MOTOR_DIRECTION[i]);
-    }
+    rearMotors = RobotConfigurator.buildMotorList(RobotMap.REAR_INTAKE_MOTORS,RobotMap.REAR_INTAKE_MOTOR_DIRECTION,RobotMap.REAR_INTAKE_MOTORS_TYPES);
 
-    frontSolenoids.add(new DoubleSolenoid(RobotMap.FRONT_SOLENOIDS[0], RobotMap.FRONT_SOLENOIDS[1]));
+    frontSolenoids.add(RobotConfigurator.buildDoubleSolenoid(RobotMap.FRONT_SOLENOIDS));
 
-    rearSolenoids.add(new DoubleSolenoid(RobotMap.BACK_SOLENOIDS[2], RobotMap.BACK_SOLENOIDS[3]));
+    rearSolenoids.add(RobotConfigurator.buildDoubleSolenoid(RobotMap.REAR_SOLENOIDS));
   }
 
   /* Front Intake */
 
   public void frontIntakeForward() {
-    for (TecbotSpeedController m : frontMotors) {
-      m.set(TecbotConstants.FRONT_INTAKE_SPEED);
-    }
+    frontMotors.setAll(TecbotConstants.FRONT_INTAKE_SPEED);
   }
 
   public void frontIntakeOff() {
-    for (TecbotSpeedController m : frontMotors) {
-      m.set(0);
-    }
+    frontMotors.setAll(0);
   }
 
   public void frontIntakeReverse() {
-    for (TecbotSpeedController m : frontMotors) {
-      m.set(-TecbotConstants.FRONT_INTAKE_SPEED);
-    }
+    frontMotors.setAll(-TecbotConstants.FRONT_INTAKE_SPEED);
   }
 
   /* Rear Intake */
 
   public void rearIntakeForward() {
-    for (TecbotSpeedController m : rearMotors) {
-      m.set(TecbotConstants.REAR_INTAKE_SPEED);
-    }
+    rearMotors.setAll(TecbotConstants.REAR_INTAKE_SPEED);
   }
 
   public void rearIntakeOff() {
-    for (TecbotSpeedController m : rearMotors) {
-      m.set(0);
-    }
+    rearMotors.setAll(0);
   }
 
   public void rearIntakeReverse() {
-    for (TecbotSpeedController m : rearMotors) {
-      m.set(-TecbotConstants.REAR_INTAKE_SPEED);
-    }
+    rearMotors.setAll(-TecbotConstants.REAR_INTAKE_SPEED);
   }
 
   public void setRawFrontIntake(double speed) {
-    for (TecbotSpeedController m : frontMotors) {
-      m.set(speed);
-    }
+    frontMotors.setAll(speed);
   }
 
   public void setRawRearIntake(double speed) {
-    for (TecbotSpeedController m : rearMotors) {
-      m.set(speed);
-    }
+    rearMotors.setAll(speed);
   }
 
   /* Front Solenoids */
