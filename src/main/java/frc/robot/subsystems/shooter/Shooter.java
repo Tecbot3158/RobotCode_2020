@@ -5,26 +5,26 @@
 
 package frc.robot.subsystems.shooter;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.resources.RobotConfigurator;
 import frc.robot.resources.TecbotConstants;
 import frc.robot.resources.TecbotEncoder;
 import frc.robot.resources.TecbotSpeedController;
-import frc.robot.subsystems.SharedMotors;
+
 
 public class Shooter extends PIDSubsystem {
   List<TecbotSpeedController> shooterLeftMotors;
   List<TecbotSpeedController> shooterRightMotors;
-  TecbotSpeedController shooterMotorEncoder;
   Servo anglerServo;
+  TecbotEncoder shooterEncoder;
 
   double speed;
   double angle;
@@ -36,14 +36,17 @@ public class Shooter extends PIDSubsystem {
     super(
         // The PIDController used by the subsystem
         new PIDController(TecbotConstants.K_SHOOTER_P, TecbotConstants.K_SHOOTER_I, TecbotConstants.K_SHOOTER_D));
+    
+    
+    anglerServo = RobotConfigurator.buildServo(RobotMap.ANGLER_PORT);
+    shooterEncoder = RobotConfigurator.buildEncoder(Robot.getRobotContainer().getSharedMotors().getMotorWithEncoderLeft() , RobotConfigurator.CONFIG_NOT_SET, RobotConfigurator.CONFIG_NOT_SET);
 
-    anglerServo = new Servo(RobotMap.ANGLER_PORT);
 
   }
 
   @Override
   public void useOutput(double output, double setpoint) {
-    // Use the output her
+    // Use the output here
     anglerServo.setAngle(angle);
     shoot();
   }
@@ -51,7 +54,7 @@ public class Shooter extends PIDSubsystem {
   @Override
   public double getMeasurement() {
     // Return the process variable measurement here
-    return 0;
+    return shooterEncoder.getRaw();
 
   }
 
