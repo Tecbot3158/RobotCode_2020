@@ -50,6 +50,11 @@ public class RobotMap {
     public static int middleWheelPort = 0;
     public static TypeOfMotor middleWheelMotorType = TypeOfMotor.TALON_SRX;
 
+    public static final int[]  SHARED_ENCODER_PORT = {0,0};
+	public static final int[] LEFT_CHASSIS_ENCODER_PORTS = {0,0};
+	public static final int[] RIGHT_CHASSIS_ENCODER_PORTS = null;
+	public static final int[] MIDDLE_WHEEL_ENCODER_PORTS = null;
+
     public static final  int[] SHARED_MOTORS_LEFT_PORTS = {7, 8};
     public static final int[] SHARED_MOTORS_RIGHT_PORTS = {9, 10};
     public static final int[] INVERTED_SHARED_MOTORS_LEFT = {0, 0};
@@ -61,9 +66,6 @@ public class RobotMap {
 
     public static final int ANGLER_PORT = 0;
     public static double MANUALSHOOT = 0.4;
-    public static final int[]  SHARED_ENCODER_PORT = {0,0};
-	public static final int[] LEFT_CHASSIS_ENCODER_PORTS = {0,0};
-	public static final int[] RIGHT_CHASSIS_ENCODER_PORTS = null;
-	public static final int[] MIDDLE_WHEEL_ENCODER_PORTS = null;
+  
 
 }
