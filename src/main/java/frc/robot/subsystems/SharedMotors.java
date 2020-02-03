@@ -5,9 +5,6 @@ import frc.robot.resources.RobotConfigurator;
 import frc.robot.resources.TecbotMotorList;
 import frc.robot.resources.TecbotSpeedController;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class SharedMotors {
     public TecbotMotorList rightSharedMotors, leftSharedMotors;
     private int encoderMotorRight = RobotMap.SHARED_RIGHT_MOTOR_WITH_ENCODER;

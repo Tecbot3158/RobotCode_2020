@@ -47,7 +47,7 @@ public class TecbotMotorList {
     /**
      * Sets all motors in the list to desired speed.
      *
-     * @param speed power
+     * @param speed Recuires a double for the motor's speed
      */
     public void setAll(double speed) {
         for (TecbotSpeedController motor : motors) {
@@ -55,7 +55,21 @@ public class TecbotMotorList {
         }
     }
 
+    /**
+     * Sets a specific motor to desired speed
+     * @param port  Requires the port of the specific motor
+     * @param speed Recuires a double for the motor's speed
+     */
     public void setSpecificMotor(int port, double speed){
         motorsHashMap.get(port).set(speed);
+    }
+
+    /**
+     *
+     * @param port  Requires the port of the desired motor
+     * @return      The desired TecbotSpeedController from the list
+     */
+    public TecbotSpeedController getMotor(int port){
+        return motorsHashMap.get(port);
     }
 }
