@@ -25,10 +25,10 @@ public class SharedMotors {
     }
 
     public TecbotSpeedController getMotorWithEncoderRight() {
-        return (encoderMotorRight > 0) ? rightSharedMotors.getMotor(RobotMap.SHARED_RIGHT_MOTOR_WITH_ENCODER) : null;
+        return (encoderMotorRight > 0) ? rightSharedMotors.getSpecificMotor(RobotMap.SHARED_RIGHT_MOTOR_WITH_ENCODER) : null;
     }
 
     public TecbotSpeedController getMotorWithEncoderLeft() {
-        return (encoderMotorLeft > 0) ? leftSharedMotors.getMotor(RobotMap.SHARED_LEFT_MOTOR_WITH_ENCODER) : null;
+        return (encoderMotorLeft > 0) ? leftSharedMotors.getSpecificMotor(RobotMap.SHARED_LEFT_MOTOR_WITH_ENCODER) : null;
     }
 }

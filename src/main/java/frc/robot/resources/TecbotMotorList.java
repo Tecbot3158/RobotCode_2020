@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.resources.TecbotSpeedController.TypeOfMotor;
 
 /**
@@ -28,9 +29,13 @@ public class TecbotMotorList {
      *
      * @param ports              Requires an array of ports
      * @param invertedMotorPorts Requires an array that indicates inverted motor ports
-     * @param motorTypes      Requires an array of {@link TypeOfMotor}
+     * @param motorTypes         Requires an array of {@link TypeOfMotor}
      */
     public TecbotMotorList(int[] ports, int[] invertedMotorPorts, TypeOfMotor[] motorTypes) {
+        if (ports.length != motorTypes.length) {
+            DriverStation.reportError("Amount of motor types and motor ports is not equal.", true);
+            return;
+        }
         motorsHashMap = new HashMap<>();
         motors = new ArrayList<>();
         for (int i = 0; i < ports.length; i++) {
@@ -47,7 +52,7 @@ public class TecbotMotorList {
     /**
      * Sets all motors in the list to desired speed.
      *
-     * @param speed Recuires a double for the motor's speed
+     * @param speed power
      */
     public void setAll(double speed) {
         for (TecbotSpeedController motor : motors) {
@@ -56,20 +61,20 @@ public class TecbotMotorList {
     }
 
     /**
-     * Sets a specific motor to desired speed
-     * @param port  Requires the port of the specific motor
-     * @param speed Recuires a double for the motor's speed
+     * Sets a specific motor to a given speed.
+     * @param port motor port
+     * @param speed speed ranging from -1 to 1
      */
-    public void setSpecificMotor(int port, double speed){
+    public void setSpecificMotorSpeed(int port, double speed) {
         motorsHashMap.get(port).set(speed);
     }
 
     /**
-     *
-     * @param port  Requires the port of the desired motor
-     * @return      The desired TecbotSpeedController from the list
+     * This can be used to get the encoder linked to a motor.
+     * @param port motor port
+     * @return {@link TecbotSpeedController}
      */
-    public TecbotSpeedController getMotor(int port){
+    public TecbotSpeedController getSpecificMotor(int port){
         return motorsHashMap.get(port);
     }
 }
