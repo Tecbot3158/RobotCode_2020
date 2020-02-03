@@ -28,7 +28,7 @@ public class Climber extends SubsystemBase {
 
     public Climber() {
         winchMotors = RobotConfigurator.buildMotorList(RobotMap.WINCH_PORTS, RobotMap.INVERTED_WINCH_PORTS, RobotMap.WINCH_MOTOR_TYPES);
-        gearDisengager = new DoubleSolenoid(RobotMap.GEAR_DISENGAGER_PORTS[0], RobotMap.GEAR_DISENGAGER_PORTS[1]);
+        gearDisengager = RobotConfigurator.buildDoubleSolenoid(RobotMap.GEAR_DISENGAGER_PORTS);
     }
 
     public void gearDisengagerToggle() {
