@@ -8,6 +8,7 @@
 package frc.robot.commands.chassis.drivingModes;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.chassis.DriveTrain;
 
@@ -18,6 +19,6 @@ public class ChassisSetTorque extends InstantCommand {
 
     @Override
     public void initialize() {
-        RobotContainer.getDriveTrain().setTransmissionState(DriveTrain.TransmissionMode.torque);
+        Robot.m_robotContainer.getDriveTrain().setTransmissionState(DriveTrain.TransmissionMode.torque);
     }
 }

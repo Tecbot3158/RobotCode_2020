@@ -8,6 +8,7 @@
 package frc.robot.commands.chassis;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.resources.TecbotConstants;
 import frc.robot.resources.TecbotSensors;
@@ -30,16 +31,16 @@ public class QuickTurn extends CommandBase {
     DrivingMode initialMode;
 
     public QuickTurn() {
-        addRequirements(RobotContainer.getDriveTrain());
+        addRequirements(Robot.m_robotContainer.getDriveTrain());
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        initialMode = RobotContainer.getDriveTrain().getCurrentDrivingMode();
-        initialWheelState = RobotContainer.getDriveTrain().getDragonFlyWheelState();
+        initialMode = Robot.m_robotContainer.getDriveTrain().getCurrentDrivingMode();
+        initialWheelState = Robot.m_robotContainer.getDriveTrain().getDragonFlyWheelState();
 
-        RobotContainer.getDriveTrain().setDragonFlyWheelState(false);
+        Robot.m_robotContainer.getDriveTrain().setDragonFlyWheelState(false);
         onTarget = false;
         initialAngle = TecbotSensors.getYaw();
         if(initialAngle >=0)
@@ -60,7 +61,7 @@ public class QuickTurn extends CommandBase {
         else if(deltaAngle < -180) {
             deltaAngle = -deltaAngle + 360;
         }
-        RobotContainer.getDriveTrain().tankDrive(-deltaAngle * TecbotConstants.QUICK_TURN_CORRECTION, deltaAngle * TecbotConstants.QUICK_TURN_CORRECTION);
+        Robot.m_robotContainer.getDriveTrain().tankDrive(-deltaAngle * TecbotConstants.QUICK_TURN_CORRECTION, deltaAngle * TecbotConstants.QUICK_TURN_CORRECTION);
         if(Math.abs(deltaAngle) <= TecbotConstants.QUICK_TURN_OFFSET){
             onTarget = true;
         }
@@ -70,8 +71,8 @@ public class QuickTurn extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        RobotContainer.getDriveTrain().setDragonFlyWheelState(initialWheelState);
-        RobotContainer.getDriveTrain().setDrivingMode(initialMode);
+        Robot.m_robotContainer.getDriveTrain().setDragonFlyWheelState(initialWheelState);
+        Robot.m_robotContainer.getDriveTrain().setDrivingMode(initialMode);
     }
 
     // Returns true when the command should end.

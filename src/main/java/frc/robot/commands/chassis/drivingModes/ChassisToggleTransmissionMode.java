@@ -8,6 +8,7 @@
 package frc.robot.commands.chassis.drivingModes;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.chassis.DriveTrain;
 
@@ -17,9 +18,9 @@ public class ChassisToggleTransmissionMode extends InstantCommand {
 
     @Override
     public void initialize() {
-        if(RobotContainer.getDriveTrain().getTransmissionMode() == DriveTrain.TransmissionMode.speed)
-         RobotContainer.getDriveTrain().setTransmissionState(DriveTrain.TransmissionMode.torque);
+        if(Robot.m_robotContainer.getDriveTrain().getTransmissionMode() == DriveTrain.TransmissionMode.speed)
+            Robot.m_robotContainer.getDriveTrain().setTransmissionState(DriveTrain.TransmissionMode.torque);
         else
-            RobotContainer.getDriveTrain().setTransmissionState(DriveTrain.TransmissionMode.speed);
+            Robot.m_robotContainer.getDriveTrain().setTransmissionState(DriveTrain.TransmissionMode.speed);
     }
 }

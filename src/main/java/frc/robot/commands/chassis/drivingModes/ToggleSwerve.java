@@ -8,16 +8,17 @@
 package frc.robot.commands.chassis.drivingModes;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class ToggleSwerve extends InstantCommand {
     public ToggleSwerve() {
-        addRequirements(RobotContainer.getDriveTrain());
+        addRequirements(Robot.m_robotContainer.getDriveTrain());
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        RobotContainer.getDriveTrain().setSwerveDrive(!RobotContainer.getDriveTrain().isMovingSwerve());
+        Robot.m_robotContainer.getDriveTrain().setSwerveDrive(!Robot.m_robotContainer.getDriveTrain().isMovingSwerve());
     }
 }

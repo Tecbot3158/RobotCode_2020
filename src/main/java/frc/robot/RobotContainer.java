@@ -45,9 +45,8 @@ public class RobotContainer {
         SmartDashboard.putData("Auto Mode", m_chooser);
 
         driveTrain = new DriveTrain();
-        CommandScheduler.getInstance().setDefaultCommand(driveTrain, new DefaultDrive());
         // Configure the button bindings
-        TecbotSensors.initializeAllSensors();
+        oi = new OI();
         configureButtonBindings();
     }
 
@@ -58,6 +57,7 @@ public class RobotContainer {
      * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
+        CommandScheduler.getInstance().setDefaultCommand(driveTrain, new DefaultDrive());
         oi.configureButtonBindings();
     }
 
@@ -72,7 +72,7 @@ public class RobotContainer {
         return m_chooser.getSelected();
     }
 
-    public static DriveTrain getDriveTrain(){
+    public  DriveTrain getDriveTrain(){
         return driveTrain;
     }
 

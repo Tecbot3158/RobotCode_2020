@@ -8,16 +8,17 @@
 package frc.robot.commands.chassis.drivingModes;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class TogglePivoting extends InstantCommand {
     public TogglePivoting() {
-        addRequirements(RobotContainer.getDriveTrain());
+        addRequirements(Robot.m_robotContainer.getDriveTrain());
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        RobotContainer.getDriveTrain().setPivoting(!RobotContainer.getDriveTrain().isPivoting());
+        Robot.m_robotContainer.getDriveTrain().setPivoting(!Robot.m_robotContainer.getDriveTrain().isPivoting());
     }
 }

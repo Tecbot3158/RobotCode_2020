@@ -9,6 +9,7 @@ package frc.robot.commands.chassis.autonomous;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.resources.TecbotConstants;
 import frc.robot.resources.TecbotSensors;
@@ -27,11 +28,11 @@ public class StraightPID extends PIDCommand {
                 // This should return the measurement
                 () -> TecbotSensors.getEncoderRaw(TecbotSensors.SubsystemType.LEFT_CHASSIS),
                 // This should return the setpoint (can also be a constant)
-                () -> RobotContainer.getDriveTrain().getPidStraightTarget(),
+                () -> Robot.m_robotContainer.getDriveTrain().getPidStraightTarget(),
                 // This uses the output
                 output -> {
                     // Use the output here
-                    RobotContainer.getDriveTrain().moveStraightPID(output);
+                    Robot.m_robotContainer.getDriveTrain().moveStraightPID(output);
                 });
         // Use addRequirements() here to declare subsystem dependencies.
         // Configure additional PID options by calling `getController` here.
@@ -42,6 +43,6 @@ public class StraightPID extends PIDCommand {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Math.abs(TecbotSensors.getEncoderRaw(TecbotSensors.SubsystemType.LEFT_CHASSIS) - RobotContainer.getDriveTrain().getPidStraightTarget()) < TecbotConstants.K_PID_STRAIGHT_ARRIVE_OFFSET;
+        return Math.abs(TecbotSensors.getEncoderRaw(TecbotSensors.SubsystemType.LEFT_CHASSIS) - Robot.m_robotContainer.getDriveTrain().getPidStraightTarget()) < TecbotConstants.K_PID_STRAIGHT_ARRIVE_OFFSET;
     }
 }

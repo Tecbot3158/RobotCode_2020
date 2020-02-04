@@ -16,7 +16,7 @@ public class DefaultDrive extends CommandBase {
      * Creates a new Command.
      */
     public DefaultDrive() {
-        addRequirements(RobotContainer.getDriveTrain());
+        addRequirements(Robot.m_robotContainer.getDriveTrain());
     }
 
     // Called when the command is initially scheduled.
@@ -36,7 +36,7 @@ public class DefaultDrive extends CommandBase {
         // Triggers
         double middleWheel = RobotContainer.oi.getPilot().getTriggers();
 
-        RobotContainer.getDriveTrain().defaultDrive(x,y,turn,middleWheel);
+        Robot.m_robotContainer.getDriveTrain().defaultDrive(x,y,turn,middleWheel);
     }
 
     // Called once the command ends or is interrupted.

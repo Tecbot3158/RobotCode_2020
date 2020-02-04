@@ -8,6 +8,7 @@
 package frc.robot.commands.chassis.drivingModes;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class SetInvertedDriving extends InstantCommand {
@@ -19,6 +20,6 @@ public class SetInvertedDriving extends InstantCommand {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        RobotContainer.getDriveTrain().setOrientation(inverted);
+        Robot.m_robotContainer.getDriveTrain().setOrientation(inverted);
     }
 }

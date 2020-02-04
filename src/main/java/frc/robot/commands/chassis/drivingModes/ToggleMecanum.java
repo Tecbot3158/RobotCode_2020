@@ -8,16 +8,17 @@
 package frc.robot.commands.chassis.drivingModes;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class ToggleMecanum extends InstantCommand {
     public ToggleMecanum() {
-        addRequirements(RobotContainer.getDriveTrain());
+        addRequirements(Robot.m_robotContainer.getDriveTrain());
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        RobotContainer.getDriveTrain().setMecanumDrive(!RobotContainer.getDriveTrain().isMovingMecanum());
+        Robot.m_robotContainer.getDriveTrain().setMecanumDrive(!Robot.m_robotContainer.getDriveTrain().isMovingMecanum());
     }
 }

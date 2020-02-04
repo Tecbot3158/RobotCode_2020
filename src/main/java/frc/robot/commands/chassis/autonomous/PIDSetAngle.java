@@ -33,6 +33,6 @@ public class PIDSetAngle extends InstantCommand {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        RobotContainer.getDriveTrain().setPidAngleTarget(m_isDelta ? TecbotSensors.getYaw() : 0 + m_angle);
+        Robot.m_robotContainer.getDriveTrain().setPidAngleTarget(m_isDelta ? TecbotSensors.getYaw() : 0 + m_angle);
     }
 }
