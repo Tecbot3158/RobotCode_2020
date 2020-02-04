@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.resources.Math;
 import frc.robot.resources.*;
@@ -152,7 +153,7 @@ public class DriveTrain extends SubsystemBase {
 
         maxPower = Math.clamp(maxPower, 0, 1);
 
-        double diffAngle = TecbotSensors.getYaw() - target;
+        double diffAngle = Robot.getRobotContainer().getTecbotSensors().getYaw() - target;
 
         double turnPower = Math.clamp((diffAngle / TecbotConstants.CHASSIS_TURN_MAX_DISTANCE), -maxPower, maxPower);
 
@@ -231,7 +232,7 @@ public class DriveTrain extends SubsystemBase {
     public void mecanumDrive(double x, double y, double turn) {
 
         if (!hasSetAngle) {
-            startingAngle = TecbotSensors.getYaw();
+            startingAngle = Robot.getRobotContainer().getTecbotSensors().getYaw();
             hasSetAngle = true;
 
             // This condition will happen once every time the robot enters mecanum drive.
@@ -240,9 +241,9 @@ public class DriveTrain extends SubsystemBase {
             setDragonFlyWheelState(false);
         }
         if (turn >= .1 || turn <= -.1)
-            startingAngle = TecbotSensors.getYaw();
+            startingAngle = Robot.getRobotContainer().getTecbotSensors().getYaw();
 
-        double deltaAngle = TecbotSensors.getYaw() - startingAngle;
+        double deltaAngle = Robot.getRobotContainer().getTecbotSensors().getYaw() - startingAngle;
 
         // Prevents robot from turning in the incorrect direction
         if (deltaAngle > 180) {
@@ -305,7 +306,7 @@ public class DriveTrain extends SubsystemBase {
             }
         }
         // The angle at which the robot will move, considering its rotation.
-        double relativeAngle = absoluteAngle - TecbotSensors.getYaw();
+        double relativeAngle = absoluteAngle - Robot.getRobotContainer().getTecbotSensors().getYaw();
         // The max power that will be given to the motors.
         double speed = Math.sqrt((x * x) + (y * y));
 
@@ -324,7 +325,7 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void moveStraightPID(double output){
-        drive((TecbotSensors.getYaw()-pidAngleTarget)*TecbotConstants.TURN_CORRECTION, output);
+        drive((Robot.getRobotContainer().getTecbotSensors().getYaw()-pidAngleTarget)*TecbotConstants.TURN_CORRECTION, output);
     }
     public double getPidStraightTarget(){
         return pidStraightTarget;

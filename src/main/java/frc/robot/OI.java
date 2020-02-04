@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.ResetGyro;
 import frc.robot.commands.chassis.QuickTurn;
 import frc.robot.commands.chassis.drivingModes.ToggleMecanum;
@@ -23,12 +22,19 @@ import frc.robot.resources.TecbotController;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-    TecbotController pilot;
+    private TecbotController pilot;
+    private static OI instance;
 
-    public void configureButtonBindings(){
-
+    public OI() {
         pilot = new TecbotController(0);
+    }
 
+    public OI getInstance() {
+        if (instance == null) instance = new OI();
+        return instance;
+    }
+
+    public void configureButtonBindings() {
         pilot.whenPressed(ButtonType.A, new LowerWheel());
         pilot.whenPressed(ButtonType.B, new RiseWheel());
         pilot.whenPressed(ButtonType.Y, new QuickTurn());
@@ -40,7 +46,7 @@ public class OI {
 
     }
 
-    public TecbotController getPilot(){
+    public TecbotController getPilot() {
         return pilot;
     }
 }
