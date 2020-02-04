@@ -17,14 +17,16 @@ import frc.robot.RobotMap;
 import frc.robot.resources.RobotConfigurator;
 import frc.robot.resources.TecbotConstants;
 import frc.robot.resources.TecbotEncoder;
+import frc.robot.resources.TecbotSensors;
 import frc.robot.resources.TecbotSpeedController;
+import frc.robot.resources.TecbotSensors.SubsystemType;
 
 
 public class Shooter extends PIDSubsystem {
   List<TecbotSpeedController> shooterLeftMotors;
   List<TecbotSpeedController> shooterRightMotors;
   Servo anglerServo;
-  TecbotEncoder shooterEncoder;
+  
 
   double speed;
   double angle;
@@ -39,7 +41,7 @@ public class Shooter extends PIDSubsystem {
     
     
     anglerServo = RobotConfigurator.buildServo(RobotMap.ANGLER_PORT);
-    shooterEncoder = RobotConfigurator.buildEncoder(Robot.getRobotContainer().getSharedMotors().getMotorWithEncoderLeft() , RobotConfigurator.CONFIG_NOT_SET, RobotConfigurator.CONFIG_NOT_SET);
+    
 
 
   }
@@ -54,7 +56,7 @@ public class Shooter extends PIDSubsystem {
   @Override
   public double getMeasurement() {
     // Return the process variable measurement here
-    return shooterEncoder.getRaw();
+    return TecbotSensors.getEncoderRaw(SubsystemType.SHOOTER);
 
   }
 

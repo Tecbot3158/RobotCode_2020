@@ -5,6 +5,7 @@ import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.chassis.DriveTrain;
 
@@ -13,7 +14,7 @@ public class TecbotSensors {
     public static Navx tecbotGyro;
 
     public static TecbotEncoder leftChassisEncoder, rightChassisEncoder, middleChassisEncoder;
-    public static TecbotEncoder ShooterEncoder;
+    public static TecbotEncoder shooterEncoder;
 
     //Color sensors
 
@@ -29,6 +30,7 @@ public class TecbotSensors {
 
         tecbotGyro = new Navx();
 
+        shooterEncoder = RobotConfigurator.buildEncoder(Robot.getRobotContainer().getSharedMotors().getMotorWithEncoderLeft() , RobotConfigurator.CONFIG_NOT_SET, RobotConfigurator.CONFIG_NOT_SET);
         
 
         TecbotSensors.colorSensorV3 = new ColorSensorV3(i2cPort);
@@ -79,12 +81,14 @@ public class TecbotSensors {
                 return leftChassisEncoder.getRaw();
             case MIDDLE_CHASSIS:
                 return middleChassisEncoder.getRaw();
+            case SHOOTER: 
+                return shooterEncoder.getRaw();
             default:
                 return -1;
         }
     }
     public enum SubsystemType {
-        MIDDLE_CHASSIS, RIGHT_CHASSIS, LEFT_CHASSIS
+        MIDDLE_CHASSIS, RIGHT_CHASSIS, LEFT_CHASSIS, SHOOTER
     }
 
 }
