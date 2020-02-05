@@ -18,8 +18,15 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.*;
 
+/**
+ * Creates new TecbotSpeedController and allows a generalized
+ * use of speed controllers. To see the currently supported
+ * motor controllers you can check {@link TypeOfMotor}
+ */
 public class TecbotSpeedController {
 
     public enum TypeOfMotor {
@@ -92,12 +99,12 @@ public class TecbotSpeedController {
                 break;
             case CAN_SPARK_BRUSHLESS:
 
-                //frcMotor = new CANSparkMax(port, CANSparkMaxLowLevel.MotorType.kBrushless);
+                frcMotor = new CANSparkMax(port, CANSparkMaxLowLevel.MotorType.kBrushless);
 
                 break;
             case CAN_SPARK_BRUSHED:
 
-                //frcMotor = new CANSparkMax(port, CANSparkMaxLowLevel.MotorType.kBrushed);
+                frcMotor = new CANSparkMax(port, CANSparkMaxLowLevel.MotorType.kBrushed);
 
                 break;
             default:
@@ -123,8 +130,7 @@ public class TecbotSpeedController {
         if (motorToUse == TypeOfMotor.TALON_SRX)
             return phoenixMotor.getSelectedSensorPosition(0);
         else if (motorToUse == TypeOfMotor.CAN_SPARK_BRUSHLESS) {
-            //return (int) (frcMotor).getEncoder().getPosition();
-            return 0;
+            return (int) ((CANSparkMax) frcMotor).getEncoder().getPosition();
         } else
             DriverStation.reportWarning("That is not a Talon SRX nor a Spark Max!", true);
         return 0;

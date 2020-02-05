@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.CommandGroupBase;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import java.util.ArrayList;
@@ -14,6 +17,73 @@ import java.util.List;
  * whether it is a Ps4, Ps3, Xbox ONE, Xbox 360 or any other controller.
  */
 public class TecbotController {
+
+    private int currentPovAngle = -1;
+    private int previousPovAngle = currentPovAngle;
+
+    //POV Commands for 0°
+    /**
+     * Command for whenPressed state in POV 0
+     */
+    private CommandBase pov0CommandWhenPressed = null;
+
+    /**
+     * Command for whenReleased state in POV 0
+     */
+    private CommandBase pov0CommandWhenReleased = null;
+
+    /**
+     * Command for whileHeld state in POV 0
+     */
+    private CommandBase pov0CommandWhileHeld = null;
+
+    //POV Commands for 90°
+    /**
+     * Command for whenPressed state in POV 90
+     */
+    private CommandBase pov90CommandWhenPressed = null;
+
+    /**
+     * Command for whenReleased state in POV 90
+     */
+    private CommandBase pov90CommandWhenReleased = null;
+
+    /**
+     * Command for whileHeld state in POV 90
+     */
+    private CommandBase pov90CommandWhileHeld = null;
+
+    //POV Commands for 180°
+    /**
+     * Command for whenPressed state in POV 180
+     */
+    private CommandBase pov180CommandWhenPressed = null;
+
+    /**
+     * Command for whenReleased state in POV 180
+     */
+    private CommandBase pov180CommandWhenReleased = null;
+
+    /**
+     * Command for whileHeld state in POV 180
+     */
+    private CommandBase pov180CommandWhileHeld = null;
+
+    //POV Commands for 270°
+    /**
+     * Command for whenPressed state in POV 270
+     */
+    private CommandBase pov270CommandWhenPressed = null;
+
+    /**
+     * Command for whenReleased state in POV 270
+     */
+    private CommandBase pov270CommandWhenReleased = null;
+
+    /**
+     * Command for whileHeld state in POV 270
+     */
+    private CommandBase pov270CommandWhileHeld = null;
 
 
     /**
@@ -58,6 +128,7 @@ public class TecbotController {
      * </strong>
      */
     private int[] portsButtonsPS4 = {2, 3, 1, 4, 5, 6, 9, 10, 11, 12};
+
     /**
      * The ports for the buttons in xbox controller.
      * <br>
@@ -89,6 +160,7 @@ public class TecbotController {
      * </ul>
      */
     private int[] portsTriggersPS4 = {3, 4};
+
     /**
      * <h1>Trigger ports for XBOX</h1>
      * <br>
@@ -100,15 +172,46 @@ public class TecbotController {
      */
     private int[] portsTriggersXBOX = {2, 3};
 
+    /**
+     * Joystick object from FRC, this is used to getRawAxis,
+     * etc.
+     */
     private Joystick pilot;
+    /**
+     * {@link TypeOfController} enum object.
+     */
     TypeOfController controllerType;
+    /**
+     * {@link #pilot} buttons.
+     */
     List<JoystickButton> buttons;
+    /**
+     * Default offset to correct:<br>
+     * {@link #getLeftAxisX()}<br>
+     * {@link #getLeftAxisY()}<br>
+     * {@link #getRightAxisX()}<br>
+     * {@link #getRightAxisY()}<br>
+     * {@link #getRawAxis(int, boolean)}
+     *
+     */
     private double offset = 0.1;
 
+    /**
+     * Controller Type that these (<br>
+     * {@link #getLeftAxisX()}<br>
+     * {@link #getLeftAxisY()}<br>
+     * {@link #getRightAxisX()}<br>
+     * {@link #getRightAxisY()}
+     * ) methods support.
+     */
     private enum TypeOfController {
         PS4,
         XBOX
     }
+
+    /**
+     * XBOX-style buttons.
+     */
     public enum ButtonType {
         A,
         B,
@@ -119,7 +222,11 @@ public class TecbotController {
         BACK,
         START,
         LS,
-        RS
+        RS,
+        POV_0,
+        POV_90,
+        POV_180,
+        POV_270
     }
 
     /**
@@ -128,15 +235,13 @@ public class TecbotController {
     public TecbotController(int port) {
         pilot = new Joystick(port);
 
-        buttons = new ArrayList<>();
-        controllerType = TypeOfController.PS4;
+        controllerType = null;
         if (pilot.getName().toLowerCase().contains("wireless controller")) controllerType = TypeOfController.PS4;
         if (pilot.getName().toLowerCase().contains("xbox")) controllerType = TypeOfController.XBOX;
 
-        if (pilot.getName() == null) DriverStation.reportWarning("Joystick not found (Tecbot Controller)", false);
-        if (controllerType == null)
-            DriverStation.reportWarning("Controller not identified, some methods will return 0.", false);
-        setButtons();
+        if (pilot.getName() == null) DriverStation.reportWarning("Joystick not found (Tecbot Controller)", true);
+        if (controllerType != null) setButtons();
+        else DriverStation.reportWarning("Controller not identified, some methods will return 0.", false);
 
     }
 
@@ -242,6 +347,7 @@ public class TecbotController {
     public double getRawAxis(int axis, boolean ground) {
         return ground ? ground(pilot.getRawAxis(axis), offset) : pilot.getRawAxis(axis);
     }
+
     /**
      * Returns value of given axis.
      *
@@ -254,10 +360,11 @@ public class TecbotController {
 
     /**
      * Returns the value of the button.
+     *
      * @param buttonNumber The button to be read.
      * @return The state of the button.
      */
-    public boolean getRawButton(int buttonNumber){
+    public boolean getRawButton(int buttonNumber) {
         return pilot.getRawButton(buttonNumber);
     }
 
@@ -284,6 +391,278 @@ public class TecbotController {
                 break;
         }
         return ground(value, offset);
+    }
+
+    private void setButtons() {
+        List<JoystickButton> bs = new ArrayList<>();
+        switch (controllerType) {
+            case XBOX:
+                for (int port : portsButtonsXBOX) {
+                    bs.add(new JoystickButton(pilot, port));
+                }
+                break;
+            case PS4:
+                for (int port : portsButtonsPS4) {
+                    bs.add(new JoystickButton(pilot, port));
+                }
+                break;
+            default:
+
+                for (int i = 0; i < pilot.getButtonCount(); i++) {
+                    bs.add(new JoystickButton(pilot, i + 1));
+                }
+                break;
+        }
+        buttons = bs;
+    }
+
+    /**
+     * @param button the button to return
+     * @return Returns JoystickButton Object
+     */
+    public JoystickButton getButton(ButtonType button) {
+        int index = 0;
+        switch (button) {
+            case A:
+                //nothing needs to be done here because index already = 0
+                break;
+            case B:
+                index = 1;
+                break;
+            case X:
+                index = 2;
+                break;
+            case Y:
+                index = 3;
+                break;
+            case LB:
+                index = 4;
+                break;
+            case RB:
+                index = 5;
+                break;
+            case BACK:
+                index = 6;
+                break;
+            case START:
+                index = 7;
+                break;
+            case LS:
+                index = 8;
+                break;
+            case RS:
+                index = 9;
+                break;
+            default:
+                DriverStation.reportError("Button not recognized. TecbotController", true);
+                break;
+        }
+        return buttons.get(index);
+
+    }
+
+    public void whenPressed(ButtonType buttonType, CommandBase command) {
+        switch (buttonType) {
+            case POV_0:
+                pov0CommandWhenPressed = command;
+                break;
+            case POV_90:
+                pov90CommandWhenPressed = command;
+                break;
+            case POV_180:
+                pov180CommandWhenPressed = command;
+                break;
+            case POV_270:
+                pov270CommandWhenPressed = command;
+                break;
+            default:
+                JoystickButton m_button = getButton(buttonType);
+                m_button.whenPressed(command);
+                break;
+        }
+    }
+
+    public void whenReleased(ButtonType buttonType, CommandBase command) {
+        switch (buttonType) {
+            case POV_0:
+                pov0CommandWhenReleased = command;
+                break;
+            case POV_90:
+                pov90CommandWhenReleased = command;
+                break;
+            case POV_180:
+                pov180CommandWhenReleased = command;
+                break;
+            case POV_270:
+                pov270CommandWhenReleased = command;
+                break;
+            default:
+                JoystickButton m_button = getButton(buttonType);
+                m_button.whenReleased(command);
+        }
+    }
+
+    /**
+     * Constantly starts the given command while the button is held.
+     * <p>
+     * {@link Command#schedule(boolean)} will be called repeatedly while the button is held, and will
+     * be canceled when the button is released.  The command is set to be interruptible.
+     *
+     * <strong>The command should always have the isFinished value as true, since it
+     * will be scheduled several times.</strong>
+     *
+     * @param command    the command to start
+     * @param buttonType the button type to refer to
+     * @return this button, so calls can be chained
+     */
+    public void whileHeld(ButtonType buttonType, CommandBase command) {
+        switch (buttonType) {
+            case POV_0:
+                pov0CommandWhileHeld = command;
+                break;
+            case POV_90:
+                pov90CommandWhileHeld = command;
+                break;
+            case POV_180:
+                pov180CommandWhileHeld = command;
+                break;
+            case POV_270:
+                pov270CommandWhileHeld = command;
+                break;
+            default:
+                JoystickButton m_button = getButton(buttonType);
+                m_button.whileHeld(command);
+        }
+    }
+
+    /**
+     * Must be called in teleop Periodic to set POV data.
+     */
+    public void run() {
+        //sets currentPovAngle to POV angle from pilot
+        currentPovAngle = pilot.getPOV();
+        //sets current commands based on currentPovAngle
+        CommandBase currentPovWhenPressedCommand = getPovWhileHeldCommand(currentPovAngle);
+        //CommandBase currentPovWhenReleasedCommand = getPovWhileHeldCommand(currentPovAngle);
+        CommandBase currentPovWhileHeldCommand = getPovWhileHeldCommand(currentPovAngle);
+
+        //sets previous commands based on previousPovAngle
+        CommandBase previousPovWhenPressedCommand = getPovWhileHeldCommand(previousPovAngle);
+        CommandBase previousPovWhenReleasedCommand = getPovWhileHeldCommand(previousPovAngle);
+        CommandBase previousPovWhileHeldCommand = getPovWhileHeldCommand(previousPovAngle);
+
+
+        /*
+        if there is a button change (e.g. currentPovAngle differs from previousPovAngle),
+        then the previous whileHeld command will be cancelled,
+        the previous whenReleased command will be scheduled,
+        and the current whenPressed command will be scheduled.
+        */
+        if (currentPovAngle != previousPovAngle) {
+            if (previousPovWhenReleasedCommand != null)
+                previousPovWhenReleasedCommand.schedule();
+            if (previousPovWhileHeldCommand != null)
+                previousPovWhileHeldCommand.cancel();
+            if (currentPovWhenPressedCommand != null)
+                currentPovWhenPressedCommand.schedule();
+
+            /*
+            clears all previous commands, this a requirement
+            if from code a group command is manually scheduled
+            and is going to be scheduled again.
+            This is not necessary for 'regular' buttons, since
+            that is automatically done by frc / wpilib libraries
+            */
+            clearGroupedCommands(
+                    previousPovWhenPressedCommand,
+                    previousPovWhenReleasedCommand,
+                    previousPovWhileHeldCommand
+            );
+        }
+        //this will just schedule the whileHeld command,
+        //which should have the isFinised true.
+        //this command also has to be cleared since it will be called several times.
+        if (currentPovWhileHeldCommand != null) {
+            currentPovWhileHeldCommand.schedule();
+            clearGroupedCommands(currentPovWhileHeldCommand);
+        }
+
+
+        previousPovAngle = currentPovAngle;
+    }
+
+    /**
+     * Returns new {@link CommandBase} given the POV angle.
+     *
+     * @param angle POV angle
+     * @return {@link CommandBase} for angle in whenPressed state.
+     */
+    public CommandBase getPovWhenPressedCommand(int angle) {
+        switch (angle) {
+            case 0:
+                return pov0CommandWhenPressed;
+            case 90:
+                return pov90CommandWhenPressed;
+            case 180:
+                return pov180CommandWhenPressed;
+            case 270:
+                return pov270CommandWhenPressed;
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Returns new {@link CommandBase} given the POV angle.
+     *
+     * @param angle POV angle
+     * @return {@link CommandBase} for angle in whenReleased state.
+     */
+    public CommandBase getPovWhenReleasedCommand(int angle) {
+        switch (angle) {
+            case 0:
+                return pov0CommandWhenReleased;
+            case 90:
+                return pov90CommandWhenReleased;
+            case 180:
+                return pov180CommandWhenReleased;
+            case 270:
+                return pov270CommandWhenReleased;
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Returns new {@link CommandBase} given the POV angle.
+     *
+     * @param angle POV angle
+     * @return {@link CommandBase} for angle in whileHeld state.
+     */
+    public CommandBase getPovWhileHeldCommand(int angle) {
+        switch (angle) {
+            case 0:
+                return pov0CommandWhileHeld;
+            case 90:
+                return pov90CommandWhileHeld;
+            case 180:
+                return pov180CommandWhileHeld;
+            case 270:
+                return pov270CommandWhileHeld;
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Set the rumble output for the HID. The DS currently supports 2 rumble values, left rumble and
+     * right rumble.
+     *
+     * @param rumbleType Which rumble value to set
+     * @param value      The normalized value (0 to 1) to set the rumble to
+     */
+    public void setRumble(GenericHID.RumbleType rumbleType, double value) {
+        pilot.setRumble(rumbleType, value);
     }
 
     /**
@@ -315,91 +694,27 @@ public class TecbotController {
         return value >= -offset && value <= offset ? 0 : value;
     }
 
-    private void setButtons() {
-        List<JoystickButton> bs = new ArrayList<JoystickButton>() ;
-        switch (controllerType) {
-            case XBOX:
-                for (int port: portsButtonsXBOX) {
-                    bs.add(new JoystickButton(pilot, port));
-                }
-                break;
-            case PS4:
-                for (int port: portsButtonsPS4) {
-                    bs.add(new JoystickButton(pilot, port));
-                }
-                break;
-            default:
-
-                for (int i = 0; i < pilot.getButtonCount(); i++) {
-                    bs.add(new JoystickButton(pilot, i + 1));
-                }
-                break;
-        }
-                buttons = bs;
-    }
-
-
     /**
+     * Clears any amount of group commands, this means that the same
+     * instance of the group command can be reused and run again.
      *
-     * @param button the button to return
-     * @return Returns JoystickButton Object
+     * @param commandGroupBases {@link CommandGroupBase}
      */
-    public JoystickButton getButton(ButtonType button){
-        int index = 0;
-        switch(button){
-            case A:
-                index = 0;
-                break;
-            case B:
-                index = 1;
-                break;
-            case X:
-                index = 2;
-                break;
-            case Y:
-                index = 3;
-                break;
-            case LB:
-                index = 4;
-                break;
-            case RB:
-                index = 5;
-                break;
-            case BACK:
-                index = 6;
-                break;
-            case START:
-                index = 7;
-                break;
-            case LS:
-                index = 8;
-                break;
-            case RS:
-                index = 9;
-                break;
-            default:
-                DriverStation.reportError("That's a problem.", false);
-                break;
+    private void clearGroupedCommands(CommandBase... commandGroupBases) {
+        for (CommandBase commandGroup :
+                commandGroupBases) {
+            CommandGroupBase.clearGroupedCommand(commandGroup);
         }
-        return buttons.get(index);
-
     }
 
-    public void whenPressed(ButtonType button, Command command){
-        JoystickButton m_button = getButton(button);
-        m_button.whenPressed(command);
-    }
-    public void whenReleased(ButtonType button, Command command){
-        JoystickButton m_button = getButton(button);
-        m_button.whenReleased(command);
-    }
-    public void whileHeld(ButtonType button, Command command){
-        JoystickButton m_button = getButton(button);
-        m_button.whileHeld(command);
-    }
-
-    public void setRumble(GenericHID.RumbleType rumble, double value){
-        pilot.setRumble(rumble,value);
+    private boolean notNullCommands(CommandBase... commandBases) {
+        if (commandBases.length < 1) return false;
+        boolean notNull = false;
+        for (CommandBase command : commandBases) {
+            if (commandBases == null) return false;
+            else notNull = true;
+        }
+        return notNull;
     }
 
 }

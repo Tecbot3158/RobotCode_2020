@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.resources.RobotConfigurator;
 import frc.robot.resources.TecbotSpeedController;
 import frc.robot.resources.TecbotSpeedController.TypeOfMotor;
@@ -54,7 +56,7 @@ public class RobotMap {
 
     public static boolean DRAGON_FLY_IS_AVAILABLE = true;
 
-    /**
+    /*
      * SHARED MOTORS STARTS
      */
     public static int[] SHARED_MOTORS_LEFT_PORTS = {7, 8};
@@ -98,23 +100,33 @@ public class RobotMap {
      */
 
     /*
-     * Front Intake Subsystem
+     * Intake Subsystem
+     *
      */
 
-    public static int[] REAR_INTAKE_MOTORS = {0};
     public static int[] FRONT_INTAKE_MOTORS = {1};
-
     public static int[] FRONT_INTAKE_MOTOR_DIRECTION = {};
-    public static int[] REAR_INTAKE_MOTOR_DIRECTION = {};
-
     public static TypeOfMotor[] FRONT_INTAKE_MOTORS_TYPES = {TypeOfMotor.TALON_SRX};
+
+    public static int[] REAR_INTAKE_MOTORS = {0};
+    public static int[] REAR_INTAKE_MOTOR_DIRECTION = {};
     public static TypeOfMotor[] REAR_INTAKE_MOTORS_TYPES = {TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX};
+
 
     public static int[] FRONT_SOLENOIDS = {0, 1};
     public static int[] REAR_SOLENOIDS = {2, 3};
 
+    /*
+    Intake Subsystem ENDS
+     */
+    /*
+        TransportationSystem Subsystems
+     */
     public static final TypeOfMotor[] TRANSPORTATION_SYSTEM_TYPE_OF_MOTORS = {TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX};
     public static final int[] TRANSPORTATION_SYSTEM_MOTOR_PORTS = {3, 4, 5, 6};
     public static final int[] TRANSPORTATION_SYSTEM_INVERTED_MOTOR_PORTS = {};
     public static final int[] DEFLECTOR_SOLENOID = {6, 7};
+    /*
+    TransportationSystem Subsystem ENDS
+     */
 }

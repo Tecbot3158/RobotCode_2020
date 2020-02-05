@@ -18,7 +18,9 @@ import edu.wpi.first.wpilibj.*;
 
 /**
  * 
- * Add your docs here.
+ * TecbotEncoder can be used to create almost any kind of encoder,
+ * either linked to a TALON_SRX {@link TecbotSpeedController.TypeOfMotor}
+ * or directly connected to the RoboRIO.
  * 
  */
 

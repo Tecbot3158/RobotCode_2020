@@ -14,7 +14,12 @@ import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.resources.TecbotSpeedController.TypeOfMotor;
 
 /**
- * Add your docs here.
+ * This class is used for building objects such as:<br>
+ * {@link TecbotEncoder}<br>
+ * {@link TecbotMotorList}<br>
+ * {@link DoubleSolenoid}<br>
+ * {@link Solenoid}<br>
+ * {@link Servo}<br>
  */
 public class RobotConfigurator {
 
@@ -84,6 +89,11 @@ public class RobotConfigurator {
         return new Solenoid(ports[0], ports[1]);
     }
 
+    /**
+     * Builds new {@link Servo} object.
+     * @param port servo port
+     * @return {@link Servo}
+     */
     public static Servo buildServo(int port) {
         return new Servo(port);
     }
