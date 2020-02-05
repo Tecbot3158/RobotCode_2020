@@ -84,4 +84,6 @@ public class TecbotConstants {
     public static final double FRONT_INTAKE_SPEED = 0.8;
     public static final double REAR_INTAKE_SPEED = 0.8;
 
+	public static double TRANSPORTATION_SYSTEM_POWER = 0.2;
+
 }

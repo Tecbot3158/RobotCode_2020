@@ -21,6 +21,7 @@ public class PIDMoveMeters extends SequentialCommandGroup {
         // super(new FooCommand(), new BarCommand());
         super(new PIDSetMeters(meters), new StraightPID());
     }
+
     public PIDMoveMeters(double meters, double angle) {
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
