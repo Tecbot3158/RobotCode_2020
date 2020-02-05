@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SharedMotors;
 import frc.robot.subsystems.chassis.DriveTrain;
 import frc.robot.subsystems.climber.Climber;
+import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.shooter.Shooter;
 
 /**
@@ -32,6 +33,7 @@ public class RobotContainer {
     private SharedMotors sharedMotors;
     private DriveTrain driveTrain;
     private Climber climber;
+    private Intake intake;
     private Shooter shooter;
     private OI oi;
     private TecbotSensors tecbotSensors;
@@ -47,9 +49,10 @@ public class RobotContainer {
 
         driveTrain = new DriveTrain();
         climber = new Climber();
+        intake = new Intake();
         shooter = new Shooter();
-        sharedMotors = new SharedMotors();
         tecbotSensors = new TecbotSensors();
+        sharedMotors = new SharedMotors();
 
         // Configure the button bindings
         oi = new OI();
@@ -95,6 +98,10 @@ public class RobotContainer {
 
     public Climber getClimber() {
         return climber;
+    }
+
+    public Intake getIntake() {
+        return intake;
     }
 
     public Shooter getShooter() {
