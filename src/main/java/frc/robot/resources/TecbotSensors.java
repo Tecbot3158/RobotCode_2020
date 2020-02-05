@@ -13,14 +13,11 @@ public class TecbotSensors {
     private Navx tecbotGyro;
 
     private TecbotEncoder leftChassisEncoder, rightChassisEncoder, middleChassisEncoder,
-            shooterEncoder;
+            sharedMotorsRightEncoder, sharedMotorsLeftEncoder;
 
-
-    //Color sensors
-
+    //Color sensor
     private ColorSensorV3 colorSensorV3;
     private ColorMatch colorMatcher;
-
     //Color sensor constants
     private final I2C.Port I2C_PORT_ONBOARD = I2C.Port.kOnboard;
     private final Color K_BLUE_TARGET = ColorMatch.makeColor(0.143, 0.427, 0.429);
@@ -35,6 +32,12 @@ public class TecbotSensors {
     public void initializeAllSensors() {
 
         tecbotGyro = new Navx();
+        sharedMotorsRightEncoder = RobotConfigurator.buildEncoder(Robot.getRobotContainer().getSharedMotors().getMotorWithEncoderRight(),
+                RobotMap.SHARED_MOTORS_RIGHT_ENCODER_PORTS[0],
+                RobotMap.SHARED_MOTORS_RIGHT_ENCODER_PORTS[1]);
+        sharedMotorsLeftEncoder = RobotConfigurator.buildEncoder(Robot.getRobotContainer().getSharedMotors().getMotorWithEncoderLeft(),
+                RobotMap.SHARED_MOTORS_LEFT_ENCODER_PORTS[0],
+                RobotMap.SHARED_MOTORS_LEFT_ENCODER_PORTS[1]);
 
         leftChassisEncoder = RobotConfigurator.buildEncoder
                 (Robot.getRobotContainer().getDriveTrain().getSpecificMotor(RobotMap.LEFT_CHASSIS_MOTOR_WITH_ENCODER),
@@ -45,8 +48,6 @@ public class TecbotSensors {
         middleChassisEncoder = RobotConfigurator.buildEncoder
                 (Robot.getRobotContainer().getDriveTrain().getSpecificMotor(RobotMap.MIDDLE_CHASSIS_MOTOR_WITH_ENCODER)
                         , RobotMap.MIDDLE_WHEEL_ENCODER_PORTS[0], RobotMap.MIDDLE_WHEEL_ENCODER_PORTS[1]);
-
-        shooterEncoder = RobotConfigurator.buildEncoder(Robot.getRobotContainer().getSharedMotors().getMotorWithEncoderLeft(), RobotConfigurator.CONFIG_NOT_SET, RobotConfigurator.CONFIG_NOT_SET);
 
         colorSensorV3 = new ColorSensorV3(I2C_PORT_ONBOARD);
         colorMatcher = new ColorMatch();
@@ -85,6 +86,13 @@ public class TecbotSensors {
         }
     }
 
+    public enum CurrentColor {
+        RED,
+        GREEN,
+        BLUE,
+        YELLOW
+    }
+
     /**
      * @return Raw value form selected encoder
      */
@@ -97,19 +105,12 @@ public class TecbotSensors {
             case MIDDLE_CHASSIS:
                 return middleChassisEncoder.getRaw();
             default:
-                return -1;
+                return 0;
         }
     }
 
     public enum SubsystemType {
         MIDDLE_CHASSIS, RIGHT_CHASSIS, LEFT_CHASSIS
-    }
-
-    public enum CurrentColor {
-        RED,
-        GREEN,
-        BLUE,
-        YELLOW
     }
 
 }

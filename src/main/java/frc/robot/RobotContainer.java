@@ -15,7 +15,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.chassis.DefaultDrive;
 import frc.robot.resources.TecbotSensors;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.SharedMotors;
 import frc.robot.subsystems.chassis.DriveTrain;
+import frc.robot.subsystems.climber.Climber;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -26,9 +28,12 @@ import frc.robot.subsystems.chassis.DriveTrain;
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
 
+    private SharedMotors sharedMotors;
     private DriveTrain driveTrain;
+    private Climber climber;
     private OI oi;
     private TecbotSensors tecbotSensors;
+
     SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 
@@ -39,7 +44,9 @@ public class RobotContainer {
         SmartDashboard.putData("Auto Mode", m_chooser);
 
         driveTrain = new DriveTrain();
+        climber = new Climber();
         tecbotSensors = new TecbotSensors();
+        sharedMotors = new SharedMotors();
 
         // Configure the button bindings
         oi = new OI();
@@ -78,4 +85,13 @@ public class RobotContainer {
     public TecbotSensors getTecbotSensors() {
         return tecbotSensors;
     }
+
+    public SharedMotors getSharedMotors() {
+        return sharedMotors;
+    }
+
+    public Climber getClimber() {
+        return climber;
+    }
+
 }

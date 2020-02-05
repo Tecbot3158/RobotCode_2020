@@ -5,16 +5,28 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.chassis.wheel;
+package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.climber.Climber;
 
-public class LowerWheel extends InstantCommand {
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+public class DisengageGearsToggle extends InstantCommand {
+
+    private final Climber m_climber = Robot.getRobotContainer().getClimber();
+
+    public DisengageGearsToggle() {
+        // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(m_climber);
+    }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.getRobotContainer().getDriveTrain().setDragonFlyWheelState(false);
+        m_climber.gearDisengagerToggle();
     }
 }

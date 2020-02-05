@@ -9,9 +9,7 @@ package frc.robot.commands.chassis;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.RobotContainer;
 import frc.robot.resources.TecbotConstants;
-import frc.robot.resources.TecbotSensors;
 import frc.robot.subsystems.chassis.DriveTrain.DrivingMode;
 
 public class QuickTurn extends CommandBase {
@@ -31,18 +29,18 @@ public class QuickTurn extends CommandBase {
     DrivingMode initialMode;
 
     public QuickTurn() {
-        addRequirements(Robot.m_robotContainer.getDriveTrain());
+        addRequirements(Robot.getRobotContainer().getDriveTrain());
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        initialMode = Robot.m_robotContainer.getDriveTrain().getCurrentDrivingMode();
-        initialWheelState = Robot.m_robotContainer.getDriveTrain().getDragonFlyWheelState();
+        initialMode = Robot.getRobotContainer().getDriveTrain().getCurrentDrivingMode();
+        initialWheelState = Robot.getRobotContainer().getDriveTrain().getDragonFlyWheelState();
 
-        Robot.m_robotContainer.getDriveTrain().setDragonFlyWheelState(false);
+        Robot.getRobotContainer().getDriveTrain().setDragonFlyWheelState(false);
         onTarget = false;
-        initialAngle = TecbotSensors.getYaw();
+        initialAngle = Robot.getRobotContainer().getTecbotSensors().getYaw();
         if(initialAngle >=0)
             targetAngle = initialAngle -180;
         else
@@ -53,7 +51,7 @@ public class QuickTurn extends CommandBase {
     @Override
     public void execute() {
 
-        double deltaAngle = (-TecbotSensors.getYaw() + targetAngle);
+        double deltaAngle = (-Robot.getRobotContainer().getTecbotSensors().getYaw() + targetAngle);
         //Prevents robot from turning in the incorrect direction
         if(deltaAngle > 180) {
             deltaAngle = deltaAngle - 360;
@@ -61,7 +59,7 @@ public class QuickTurn extends CommandBase {
         else if(deltaAngle < -180) {
             deltaAngle = -deltaAngle + 360;
         }
-        Robot.m_robotContainer.getDriveTrain().tankDrive(-deltaAngle * TecbotConstants.QUICK_TURN_CORRECTION, deltaAngle * TecbotConstants.QUICK_TURN_CORRECTION);
+        Robot.getRobotContainer().getDriveTrain().tankDrive(-deltaAngle * TecbotConstants.QUICK_TURN_CORRECTION, deltaAngle * TecbotConstants.QUICK_TURN_CORRECTION);
         if(Math.abs(deltaAngle) <= TecbotConstants.QUICK_TURN_OFFSET){
             onTarget = true;
         }
@@ -71,8 +69,8 @@ public class QuickTurn extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.m_robotContainer.getDriveTrain().setDragonFlyWheelState(initialWheelState);
-        Robot.m_robotContainer.getDriveTrain().setDrivingMode(initialMode);
+        Robot.getRobotContainer().getDriveTrain().setDragonFlyWheelState(initialWheelState);
+        Robot.getRobotContainer().getDriveTrain().setDrivingMode(initialMode);
     }
 
     // Returns true when the command should end.

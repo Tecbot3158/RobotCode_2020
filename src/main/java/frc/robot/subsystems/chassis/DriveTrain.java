@@ -16,9 +16,6 @@ import frc.robot.RobotMap;
 import frc.robot.resources.Math;
 import frc.robot.resources.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class DriveTrain extends SubsystemBase {
     // Motors
     TecbotMotorList leftMotors;
@@ -89,6 +86,8 @@ public class DriveTrain extends SubsystemBase {
       rightMotors = RobotConfigurator.buildMotorList(RobotMap.RIGHT_CHASSIS_PORTS,
               RobotMap.RIGHT_CHASSIS_INVERTED_MOTORS, RobotMap.RIGHT_CHASSIS_MOTOR_TYPES);
 
+      middleMotors = RobotConfigurator.buildMotorList(RobotMap.MIDDLE_WHEEL_PORTS,
+              RobotMap.MIDDLE_WHEEL_INVERTED_MOTORS, RobotMap.MIDDLE_WHEEL_MOTOR_TYPES);
     }
 
     /**

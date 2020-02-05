@@ -9,11 +9,10 @@ package frc.robot.commands.chassis.drivingModes;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
-import frc.robot.RobotContainer;
 
 public class ToggleInvertedDriving extends InstantCommand {
     @Override
     public void initialize() {
-        Robot.m_robotContainer.getDriveTrain().setOrientation(!Robot.m_robotContainer.getDriveTrain().getOrientation());
+        Robot.getRobotContainer().getDriveTrain().setOrientation(!Robot.getRobotContainer().getDriveTrain().getOrientation());
     }
 }

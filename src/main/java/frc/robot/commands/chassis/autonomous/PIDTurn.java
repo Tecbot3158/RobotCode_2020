@@ -10,9 +10,7 @@ package frc.robot.commands.chassis.autonomous;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Robot;
-import frc.robot.RobotContainer;
 import frc.robot.resources.TecbotConstants;
-import frc.robot.resources.TecbotSensors;
 
 import static frc.robot.resources.TecbotConstants.K_TURN_D;
 import static frc.robot.resources.TecbotConstants.K_TURN_I;
@@ -30,13 +28,13 @@ public class PIDTurn extends PIDCommand {
                 // The controller that the command will use
                 new PIDController(TecbotConstants.K_TURN_P, K_TURN_I, K_TURN_D),
                 // This should return the measurement
-                () -> TecbotSensors.getYaw(),
+                () -> Robot.getRobotContainer().getTecbotSensors().getYaw(),
                 // This should return the setpoint (can also be a constant)
-                () -> Robot.m_robotContainer.getDriveTrain().getPidAngleTarget(),
+                () -> Robot.getRobotContainer().getDriveTrain().getPidAngleTarget(),
                 // This uses the output
                 output -> {
                     // Use the output here
-                    Robot.m_robotContainer.getDriveTrain().pidTurn(output);
+                    Robot.getRobotContainer().getDriveTrain().pidTurn(output);
                 });
         // Use addRequirements() here to declare subsystem dependencies.
         // Configure additional PID options by calling `getController` here.
@@ -45,6 +43,6 @@ public class PIDTurn extends PIDCommand {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return (Math.abs(Robot.m_robotContainer.getDriveTrain().getPidAngleTarget() - TecbotSensors.getYaw()) <= TecbotConstants.K_PID_STRAIGHT_ARRIVE_OFFSET);
+        return (Math.abs(Robot.getRobotContainer().getDriveTrain().getPidAngleTarget() - Robot.getRobotContainer().getTecbotSensors().getYaw()) <= TecbotConstants.K_PID_STRAIGHT_ARRIVE_OFFSET);
     }
 }

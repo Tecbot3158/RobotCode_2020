@@ -9,7 +9,6 @@ package frc.robot.commands.chassis.wheel;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.chassis.DriveTrain;
 
 public class RiseWheel extends InstantCommand {
@@ -17,7 +16,7 @@ public class RiseWheel extends InstantCommand {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.m_robotContainer.getDriveTrain().setDragonFlyWheelState(true);
-        Robot.m_robotContainer.getDriveTrain().setDrivingMode(DriveTrain.DrivingMode.Default);
+        Robot.getRobotContainer().getDriveTrain().setDragonFlyWheelState(true);
+        Robot.getRobotContainer().getDriveTrain().setDrivingMode(DriveTrain.DrivingMode.Default);
     }
 }

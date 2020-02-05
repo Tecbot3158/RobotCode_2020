@@ -26,13 +26,13 @@ public class StraightPID extends PIDCommand {
                 // The controller that the command will use
                 new PIDController(TecbotConstants.K_STRAIGHT_P, TecbotConstants.K_STRAIGHT_I, TecbotConstants.K_STRAIGHT_D),
                 // This should return the measurement
-                () -> TecbotSensors.getEncoderRaw(TecbotSensors.SubsystemType.LEFT_CHASSIS),
+                () -> Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(TecbotSensors.SubsystemType.LEFT_CHASSIS),
                 // This should return the setpoint (can also be a constant)
-                () -> Robot.m_robotContainer.getDriveTrain().getPidStraightTarget(),
+                () -> Robot.getRobotContainer().getDriveTrain().getPidStraightTarget(),
                 // This uses the output
                 output -> {
                     // Use the output here
-                    Robot.m_robotContainer.getDriveTrain().moveStraightPID(output);
+                    Robot.getRobotContainer().getDriveTrain().moveStraightPID(output);
                 });
         // Use addRequirements() here to declare subsystem dependencies.
         // Configure additional PID options by calling `getController` here.
@@ -43,6 +43,6 @@ public class StraightPID extends PIDCommand {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Math.abs(TecbotSensors.getEncoderRaw(TecbotSensors.SubsystemType.LEFT_CHASSIS) - Robot.m_robotContainer.getDriveTrain().getPidStraightTarget()) < TecbotConstants.K_PID_STRAIGHT_ARRIVE_OFFSET;
+        return Math.abs(Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(TecbotSensors.SubsystemType.LEFT_CHASSIS) - Robot.getRobotContainer().getDriveTrain().getPidStraightTarget()) < TecbotConstants.K_PID_STRAIGHT_ARRIVE_OFFSET;
     }
 }

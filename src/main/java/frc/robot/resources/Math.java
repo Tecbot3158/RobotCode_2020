@@ -2,32 +2,58 @@ package frc.robot.resources;
 
 public class Math {
 
-    public static final double  PI = 3.141592653589793238462643383279502884197;
+    public static final double PI = 3.141592653589793238462643383279502884197;
 
 
-    public static double clamp (double p, double mn, double mx){
-        return java.lang.Math.max(mn, java.lang.Math.min(p,mx));
+    public static double clamp(double p, double mn, double mx) {
+        return java.lang.Math.max(mn, java.lang.Math.min(p, mx));
     }
-    public static double max(double a, double b){
+
+    public static double max(double a, double b) {
         return java.lang.Math.max(a, b);
     }
-    public static double min(double a, double b){
+
+    public static double min(double a, double b) {
         return java.lang.Math.min(a, b);
     }
-    public static double abs(double a){
+
+    public static double abs(double a) {
         return java.lang.Math.abs(a);
     }
-    public static double sin(double a){return java.lang.Math.sin(a);}
-    public static double cos(double a){return java.lang.Math.cos(a);}
-    public static double tan(double a){return java.lang.Math.tan(a);}
-    public static double atan(double a){return java.lang.Math.atan(a);}
-    public static double hypot(double a, double b){return java.lang.Math.hypot(a,b);}
-    public static double toRadians(double a){return java.lang.Math.toRadians(a);}
-    public static double toDegrees(double a){return java.lang.Math.toDegrees(a);}
-    public static double sqrt(double a){return java.lang.Math.sqrt(a);}
+
+    public static double sin(double a) {
+        return java.lang.Math.sin(a);
+    }
+
+    public static double cos(double a) {
+        return java.lang.Math.cos(a);
+    }
+
+    public static double tan(double a) {
+        return java.lang.Math.tan(a);
+    }
+
+    public static double atan(double a) {
+        return java.lang.Math.atan(a);
+    }
+
+    public static double hypot(double a, double b) {
+        return java.lang.Math.hypot(a, b);
+    }
+
+    public static double toRadians(double a) {
+        return java.lang.Math.toRadians(a);
+    }
+
+    public static double toDegrees(double a) {
+        return java.lang.Math.toDegrees(a);
+    }
+
+    public static double sqrt(double a) {
+        return java.lang.Math.sqrt(a);
+    }
 
     /**
-     *
      * @param r Red value in a range from 0-1
      * @param g Green value in a range from 0-1
      * @param b Blue value in a range from 0-1
@@ -35,7 +61,7 @@ public class Math {
      */
 
     public static double[] RGBtoHSV(double r, double g, double b) {
-        double[] hsv = { 0f, 0f, 0f };
+        double[] hsv = {0f, 0f, 0f};
         double minRGB = Math.min(r, Math.min(g, b));
         double maxRGB = Math.max(r, Math.max(g, b));
 
@@ -46,8 +72,9 @@ public class Math {
         hsv[2] = maxRGB;
         return hsv;
     }
-    public static double deadZone(double input, double tolerance){
-        if(abs(input) < tolerance){
+
+    public static double deadZone(double input, double tolerance) {
+        if (abs(input) < tolerance) {
             return 0;
         }
         return input;

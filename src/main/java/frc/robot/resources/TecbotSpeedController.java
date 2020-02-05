@@ -20,12 +20,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.*;
 
-/**
- *
- * Add your docs here.
- *
- */
-
 public class TecbotSpeedController {
 
 	public enum TypeOfMotor {

@@ -9,8 +9,6 @@ package frc.robot.commands.chassis.autonomous;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
-import frc.robot.RobotContainer;
-import frc.robot.resources.TecbotSensors;
 
 
 public class PIDSetAngle extends InstantCommand {
@@ -33,6 +31,6 @@ public class PIDSetAngle extends InstantCommand {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.m_robotContainer.getDriveTrain().setPidAngleTarget(m_isDelta ? TecbotSensors.getYaw() : 0 + m_angle);
+        Robot.getRobotContainer().getDriveTrain().setPidAngleTarget(m_isDelta ? Robot.getRobotContainer().getTecbotSensors().getYaw() : 0 + m_angle);
     }
 }

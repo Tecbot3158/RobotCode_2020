@@ -9,7 +9,6 @@ package frc.robot.commands.chassis.drivingModes;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.chassis.DriveTrain;
 
 public class ChassisSetSpeed extends InstantCommand {
@@ -18,6 +17,6 @@ public class ChassisSetSpeed extends InstantCommand {
 
     @Override
     public void initialize() {
-        Robot.m_robotContainer.getDriveTrain().setTransmissionState(DriveTrain.TransmissionMode.speed);
+        Robot.getRobotContainer().getDriveTrain().setTransmissionState(DriveTrain.TransmissionMode.speed);
     }
 }

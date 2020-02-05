@@ -5,17 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.chassis;
+package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.climber.Climber;
 
-public class DefaultDrive extends CommandBase {
+public class ClimberWinchCommand extends CommandBase {
     /**
-     * Creates a new Command.
+     * Creates a new ClimberCommand.
      */
-    public DefaultDrive() {
-        addRequirements(Robot.getRobotContainer().getDriveTrain());
+
+    private final Climber m_climber = Robot.getRobotContainer().getClimber();
+    private double winchPower;
+
+    public ClimberWinchCommand(double power) {
+        winchPower = power;
+        // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(m_climber);
     }
 
     // Called when the command is initially scheduled.
@@ -26,16 +34,7 @@ public class DefaultDrive extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        // left y
-        double y = -(Robot.getRobotContainer().getOI().getPilot().getLeftAxisY() );
-        // left x
-        double x = (Robot.getRobotContainer().getOI().getPilot().getLeftAxisX() );
-        // right x
-        double turn = (Robot.getRobotContainer().getOI().getPilot().getRightAxisX());
-        // Triggers
-        double middleWheel = Robot.getRobotContainer().getOI().getPilot().getTriggers();
-
-        Robot.getRobotContainer().getDriveTrain().defaultDrive(x,y,turn,middleWheel);
+        m_climber.setWinchSpeed(winchPower);
     }
 
     // Called once the command ends or is interrupted.

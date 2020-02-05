@@ -84,7 +84,7 @@ public class RobotConfigurator {
         return new Solenoid(ports[0], ports[1]);
     }
 
-    public static Servo buildServo(int port){
+    public static Servo buildServo(int port) {
         return new Servo(port);
     }
 

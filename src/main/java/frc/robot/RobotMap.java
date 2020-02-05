@@ -8,16 +8,17 @@
 package frc.robot;
 
 import frc.robot.resources.RobotConfigurator;
+import frc.robot.resources.TecbotSpeedController;
 import frc.robot.resources.TecbotSpeedController.TypeOfMotor;
 
 
 public class RobotMap {
 
-    public static int[] LEFT_CHASSIS_PORTS = {2,3};
-    public static int[] RIGHT_CHASSIS_PORTS = {0,1};
+    public static int[] LEFT_CHASSIS_PORTS = {2, 3};
+    public static int[] RIGHT_CHASSIS_PORTS = {0, 1};
 
-    public static TypeOfMotor[] LEFT_CHASSIS_MOTOR_TYPES = {TypeOfMotor.PWM_TALON_SRX,TypeOfMotor.SPARK};
-    public static TypeOfMotor[] RIGHT_CHASSIS_MOTOR_TYPES = {TypeOfMotor.PWM_TALON_SRX,TypeOfMotor.PWM_TALON_SRX};
+    public static TypeOfMotor[] LEFT_CHASSIS_MOTOR_TYPES = {TypeOfMotor.PWM_TALON_SRX, TypeOfMotor.SPARK};
+    public static TypeOfMotor[] RIGHT_CHASSIS_MOTOR_TYPES = {TypeOfMotor.PWM_TALON_SRX, TypeOfMotor.PWM_TALON_SRX};
 
     /*
      * If encoder is connected to speed controller,
@@ -44,12 +45,41 @@ public class RobotMap {
     public static int[] LEFT_CHASSIS_INVERTED_MOTORS = {};
     public static int[] RIGHT_CHASSIS_INVERTED_MOTORS = {};
 
-    public static int TRANSMISSION_PORT[] = {0,1};
+    public static int[] TRANSMISSION_PORT = {0, 1};
 
-    public static int[] WHEEL_SOLENOID_PORTS = {2,3};
-    public static int[] MIDDLE_WHEEL_PORTS ={};
-    public static int[] MIDDLE_WHEEL_INVERTED_MOTORS ={};
+    public static int[] WHEEL_SOLENOID_PORTS = {2, 3};
+    public static int[] MIDDLE_WHEEL_PORTS = {};
+    public static int[] MIDDLE_WHEEL_INVERTED_MOTORS = {};
     public static TypeOfMotor[] MIDDLE_WHEEL_MOTOR_TYPES = {};
 
     public static boolean DRAGON_FLY_IS_AVAILABLE = true;
+
+    /**
+     * SHARED MOTORS STARTS
+     */
+    public static int[] SHARED_MOTORS_LEFT_PORTS = {7, 8};
+    public static int[] SHARED_MOTORS_RIGHT_PORTS = {9, 10};
+    public static int[] INVERTED_SHARED_MOTORS_LEFT = {0, 0};
+    public static int[] INVERTED_SHARED_MOTORS_RIGHT = {0, 0};
+    public static int SHARED_RIGHT_MOTOR_WITH_ENCODER = 0;
+    public static int SHARED_LEFT_MOTOR_WITH_ENCODER = 0;
+    public static int[] SHARED_MOTORS_RIGHT_ENCODER_PORTS = {RobotConfigurator.CONFIG_NOT_SET, RobotConfigurator.CONFIG_NOT_SET};
+    public static int[] SHARED_MOTORS_LEFT_ENCODER_PORTS = {RobotConfigurator.CONFIG_NOT_SET, RobotConfigurator.CONFIG_NOT_SET};
+    public static TecbotSpeedController.TypeOfMotor[] SHARED_RIGHT_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
+    public static TecbotSpeedController.TypeOfMotor[] SHARED_LEFT_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
+    /*
+     * SHARED MOTORS ENDS
+     */
+    /*
+     * CLIMBER STARTS
+     */
+    public static int[] WINCH_PORTS = {12, 13};
+    public static int[] INVERTED_WINCH_PORTS = {0, 0};
+    public static int[] GEAR_DISENGAGER_PORTS = {4, 5};
+    public static TecbotSpeedController.TypeOfMotor[] WINCH_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
+
+    /*
+     * CLIMBER ENDS
+     */
+
 }

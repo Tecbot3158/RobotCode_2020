@@ -9,7 +9,6 @@ package frc.robot.commands.chassis.drivingModes;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
-import frc.robot.RobotContainer;
 
 public class SetInvertedDriving extends InstantCommand {
     boolean inverted;
@@ -20,6 +19,6 @@ public class SetInvertedDriving extends InstantCommand {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.m_robotContainer.getDriveTrain().setOrientation(inverted);
+        Robot.getRobotContainer().getDriveTrain().setOrientation(inverted);
     }
 }
