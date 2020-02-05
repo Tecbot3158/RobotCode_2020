@@ -1,4 +1,4 @@
-/*----------------------------------------------------------------------------*/
+//*----------------------------------------------------------------------------*/
 /* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
@@ -70,6 +70,7 @@ public class RobotMap {
     /*
      * SHARED MOTORS ENDS
      */
+
     /*
      * CLIMBER STARTS
      */
@@ -77,9 +78,18 @@ public class RobotMap {
     public static int[] INVERTED_WINCH_PORTS = {0, 0};
     public static int[] GEAR_DISENGAGER_PORTS = {4, 5};
     public static TecbotSpeedController.TypeOfMotor[] WINCH_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
-
     /*
      * CLIMBER ENDS
+     */
+
+    /*
+        SHOOTER STARTS
+     */
+    public static final int ANGLER_PORT = 0;
+    public static double MANUALSHOOT = 0.4;
+    public static boolean SHOOTER_ENCODER_IN_RIGHT_MOTOR = true;
+    /*
+        SHOOTER ENDS
      */
 
 }

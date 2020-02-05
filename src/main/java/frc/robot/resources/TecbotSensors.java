@@ -104,13 +104,17 @@ public class TecbotSensors {
                 return leftChassisEncoder.getRaw();
             case MIDDLE_CHASSIS:
                 return middleChassisEncoder.getRaw();
+            case SHOOTER:
+                return RobotMap.SHOOTER_ENCODER_IN_RIGHT_MOTOR ?
+                        rightChassisEncoder.getRaw() :
+                        leftChassisEncoder.getRaw();
             default:
                 return 0;
         }
     }
 
     public enum SubsystemType {
-        MIDDLE_CHASSIS, RIGHT_CHASSIS, LEFT_CHASSIS
+        MIDDLE_CHASSIS, RIGHT_CHASSIS, LEFT_CHASSIS, SHOOTER
     }
 
 }

@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SharedMotors;
 import frc.robot.subsystems.chassis.DriveTrain;
 import frc.robot.subsystems.climber.Climber;
+import frc.robot.subsystems.shooter.Shooter;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -31,6 +32,7 @@ public class RobotContainer {
     private SharedMotors sharedMotors;
     private DriveTrain driveTrain;
     private Climber climber;
+    private Shooter shooter;
     private OI oi;
     private TecbotSensors tecbotSensors;
 
@@ -45,8 +47,9 @@ public class RobotContainer {
 
         driveTrain = new DriveTrain();
         climber = new Climber();
-        tecbotSensors = new TecbotSensors();
+        shooter = new Shooter();
         sharedMotors = new SharedMotors();
+        tecbotSensors = new TecbotSensors();
 
         // Configure the button bindings
         oi = new OI();
@@ -94,4 +97,7 @@ public class RobotContainer {
         return climber;
     }
 
+    public Shooter getShooter() {
+        return shooter;
+    }
 }

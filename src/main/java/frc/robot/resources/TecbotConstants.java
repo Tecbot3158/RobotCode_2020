@@ -8,6 +8,7 @@ public class TecbotConstants {
     public static final double TURN_CORRECTION = .05;
     // The distance in angles that it needs to be from target in order to be considered onTarget
     public static final double QUICK_TURN_OFFSET = 20;
+
     public static final double QUICK_TURN_CORRECTION = .05;
     //The sides move at a different speed than the middle wheel, so this constant controls that difference to try to
     //Make them move at the same speed
@@ -58,5 +59,24 @@ public class TecbotConstants {
     public static final double K_TURN_I = 0;
     public static final double K_TURN_D = 0;
     public static final double K_PID_TURN_ARRIVE_OFFSET = 0;
+
+	// The equivalence between meters to encoder count
+	// Meter * meters_to_encoder = encoder count
+	public static double K_METERS_TO_ENCODER = (float) (30000 / (.2034 * Math.PI));
+
+	public static final double TRENCH_SHOOTING_SPEED = 0;
+	public static final double INITIATION_LINE_SHOOTING_SPEED = 0;
+	public static final double TARGET_ZONE_SHOOTING_SPEED = 0;
+	public static final double SHOOTER_OFF = 0; 
+
+	//0 TO 1
+	public static final double TRENCH_SHOOTING_ANGLE = 0;
+	public static final double INITIATION_LINE_SHOOTING_ANGLE = 0;
+	public static final double TARGET_ZONE_SHOOTING_ANGLE = 0;
+	public static final double SHOOTER_OFF_ANGLE = 0;
+
+	public static final double K_SHOOTER_P = 0;
+	public static final double K_SHOOTER_I = 0;
+	public static final double K_SHOOTER_D = 0;
 
 }
