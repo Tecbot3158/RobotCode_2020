@@ -47,6 +47,10 @@ public class RobotMap {
     public static int[] LEFT_CHASSIS_INVERTED_MOTORS = {};
     public static int[] RIGHT_CHASSIS_INVERTED_MOTORS = {};
 
+    public static boolean LEFT_CHASSIS_ENCODER_IS_INVERTED = true;
+    public static boolean RIGHT_CHASSIS_ENCODER_IS_INVERTED = false;
+    public static boolean MIDDLE_CHASSIS_ENCODER_IS_INVERTED = false;
+
     public static int[] TRANSMISSION_PORT = {0, 1};
 
     public static int[] WHEEL_SOLENOID_PORTS = {6, 7};

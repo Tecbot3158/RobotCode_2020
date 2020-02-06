@@ -48,6 +48,9 @@ public class TecbotSensors {
         middleChassisEncoder = RobotConfigurator.buildEncoder
                 (Robot.getRobotContainer().getDriveTrain().getSpecificMotor(RobotMap.MIDDLE_CHASSIS_MOTOR_WITH_ENCODER)
                         , RobotMap.MIDDLE_WHEEL_ENCODER_PORTS[0], RobotMap.MIDDLE_WHEEL_ENCODER_PORTS[1]);
+        if(RobotMap.LEFT_CHASSIS_ENCODER_IS_INVERTED) leftChassisEncoder.setInverted(true);
+        if(RobotMap.RIGHT_CHASSIS_ENCODER_IS_INVERTED) rightChassisEncoder.setInverted(true);
+        if(RobotMap.MIDDLE_CHASSIS_ENCODER_IS_INVERTED) middleChassisEncoder.setInverted(true);
 
         colorSensorV3 = new ColorSensorV3(I2C_PORT_ONBOARD);
         colorMatcher = new ColorMatch();

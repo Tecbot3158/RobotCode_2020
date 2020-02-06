@@ -295,16 +295,13 @@ public class SplineMove extends CommandBase {
 
     private void move() {
 
-        System.out.println("left encoder: " + Robot.getRobotContainer().getDriveTrain().getLeftEncoder().getRaw());
-        System.out.println("right encoder: " + Robot.getRobotContainer().getDriveTrain().getRightEncoder().getRaw());
 
         //The distance that each wheel traveled
-        // deltaDistanceLeft has the "-" because when right increases, left decreases (because of their positions in the robot)
-        // In other words, they're physically inverted
-        deltaDistanceLeft = -(-lastLeftCount * TecbotConstants.K_CHASSIS_ENCODER_TO_METERS) + (Robot.getRobotContainer().getDriveTrain().getLeftPosition() * TecbotConstants.K_CHASSIS_ENCODER_TO_METERS);
-        deltaDistanceRight = (-lastRightCount * TecbotConstants.K_CHASSIS_ENCODER_TO_METERS) + (Robot.getRobotContainer().getDriveTrain().getRightPosition() * TecbotConstants.K_CHASSIS_ENCODER_TO_METERS);
 
-        deltaMiddleWheel = (-lastMiddleCount * TecbotConstants.K_MIDDLE_WHEEL_ENCODER_TO_METERS) + (Robot.getRobotContainer().getDriveTrain().getMiddlePosition() * TecbotConstants.K_MIDDLE_WHEEL_ENCODER_TO_METERS);
+        deltaDistanceLeft = (-lastLeftCount * TecbotConstants.K_CHASSIS_ENCODER_TO_METERS) + (Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(TecbotSensors.SubsystemType.LEFT_CHASSIS) * TecbotConstants.K_CHASSIS_ENCODER_TO_METERS);
+        deltaDistanceRight = (-lastRightCount * TecbotConstants.K_CHASSIS_ENCODER_TO_METERS) + (Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(TecbotSensors.SubsystemType.RIGHT_CHASSIS) * TecbotConstants.K_CHASSIS_ENCODER_TO_METERS);
+
+        deltaMiddleWheel = (-lastMiddleCount * TecbotConstants.K_MIDDLE_WHEEL_ENCODER_TO_METERS) + (Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(TecbotSensors.SubsystemType.MIDDLE_CHASSIS) * TecbotConstants.K_MIDDLE_WHEEL_ENCODER_TO_METERS);
 
         // If the spline is going left, then we need to trick the math to think we're going right while the robot
         // is making the exact opposite.
@@ -317,7 +314,7 @@ public class SplineMove extends CommandBase {
         double leftSpeed = deltaDistanceLeft;
         double rightSpeed = deltaDistanceRight;
 
-        double currentAngle = goingLeft ? -1 : 1 * TecbotSensors.getYaw();
+        double currentAngle = goingLeft ? -1 : 1 * Robot.getRobotContainer().getTecbotSensors().getYaw();
 
         // When moving tank, ICC kinematics are needed to calculate the position of the robot
         // When moving swerve, since we're using polar coordinates, regular trigonometry is used to calculate it.
@@ -342,7 +339,7 @@ public class SplineMove extends CommandBase {
             // The angle at which the robot moved, relative to the robot
             double relativeAngle = Math.atan(deltaMiddleWheel/averageY);
             // The angle at which the robot moved, relative to the field
-            double absoluteAngle = relativeAngle + Math.toRadians(TecbotSensors.getYaw());
+            double absoluteAngle = relativeAngle + Math.toRadians(Robot.getRobotContainer().getTecbotSensors().getYaw());
             xPos+= Math.sin(absoluteAngle) * totalDistance;
         }
         //If finished
@@ -366,7 +363,7 @@ public class SplineMove extends CommandBase {
 
         nextAngle *= goingLeft ? -1 : 1;
 
-        deltaAngle =  (nextAngle - TecbotSensors.getYaw());
+        deltaAngle =  (nextAngle - Robot.getRobotContainer().getTecbotSensors().getYaw());
         System.out.println("Target angle " + nextAngle);
 
         //Prevents robot from turning in the incorrect direction
@@ -397,7 +394,7 @@ public class SplineMove extends CommandBase {
         if(xPos < startSwervingPoint)
             Robot.getRobotContainer().getDriveTrain().drive(power, -axis);
         else{
-            double deltaFinalAngle = expectedFinalAngle - TecbotSensors.getYaw();
+            double deltaFinalAngle = expectedFinalAngle - Robot.getRobotContainer().getTecbotSensors().getYaw();
             //Prevents robot from turning in the incorrect direction
             if(deltaFinalAngle > 180) {
                 deltaFinalAngle = deltaFinalAngle - 360;
@@ -415,13 +412,13 @@ public class SplineMove extends CommandBase {
         System.out.println("clamped value"+ axis);
         System.out.println("delta"+ deltaAngle);
 
-        lastLeftCount = Robot.getRobotContainer().getDriveTrain().getLeftPosition();
-        lastRightCount = Robot.getRobotContainer().getDriveTrain().getRightPosition();
-        lastMiddleCount = Robot.getRobotContainer().getDriveTrain().getMiddlePosition();
+        lastLeftCount = Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(TecbotSensors.SubsystemType.LEFT_CHASSIS);
+        lastRightCount = Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(TecbotSensors.SubsystemType.RIGHT_CHASSIS);
+        lastMiddleCount = Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(TecbotSensors.SubsystemType.MIDDLE_CHASSIS);
 
         // For some reason that I don't really understand, when going right (normal spline)
         // Last angle must be inverted in order to work.
-        lastAngle = goingLeft ? 1 : -1 * TecbotSensors.getYaw();
+        lastAngle = goingLeft ? 1 : -1 * Robot.getRobotContainer().getTecbotSensors().getYaw();
 
         SmartDashboard.putNumber("Correction Value", axis);
         SmartDashboard.putNumber("Delta Angle", deltaAngle);

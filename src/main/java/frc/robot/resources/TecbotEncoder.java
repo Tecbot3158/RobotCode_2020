@@ -30,6 +30,8 @@ public class TecbotEncoder implements CounterBase {
 
     private TecbotSpeedController talonEncoder;
 
+    boolean isInverted;
+
     private double talonDistancePerPulse = 1;
 
     public TecbotEncoder(Encoder encoder) {
@@ -121,7 +123,7 @@ public class TecbotEncoder implements CounterBase {
 
         if (talonEncoder != null) {
 
-            return talonEncoder.getEncPosition();
+            return isInverted ? -1 : 1 * talonEncoder.getEncPosition();
 
         }
 
@@ -197,6 +199,12 @@ public class TecbotEncoder implements CounterBase {
         talonEncoder.getTalonSRX().setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1);
         talonEncoder.getTalonSRX().configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
 
+    }
+    public void setInverted(boolean inverted){
+        isInverted = inverted;
+    }
+    public boolean isInverted(){
+        return isInverted;
     }
 
 }
