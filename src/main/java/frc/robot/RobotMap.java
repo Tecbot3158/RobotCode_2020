@@ -49,7 +49,7 @@ public class RobotMap {
 
     public static int[] TRANSMISSION_PORT = {0, 1};
 
-    public static int[] WHEEL_SOLENOID_PORTS = {2, 3};
+    public static int[] WHEEL_SOLENOID_PORTS = {6, 7};
     public static int[] MIDDLE_WHEEL_PORTS = {};
     public static int[] MIDDLE_WHEEL_INVERTED_MOTORS = {};
     public static TypeOfMotor[] MIDDLE_WHEEL_MOTOR_TYPES = {};
@@ -78,7 +78,7 @@ public class RobotMap {
      */
     public static int[] WINCH_PORTS = {12, 13};
     public static int[] INVERTED_WINCH_PORTS = {0, 0};
-    public static int[] GEAR_DISENGAGER_PORTS = {4, 5};
+    public static int[] GEAR_DISENGAGER_SOLENOID_PORTS = {4, 5};
     public static TecbotSpeedController.TypeOfMotor[] WINCH_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
     /*
      * CLIMBER ENDS
@@ -87,7 +87,7 @@ public class RobotMap {
     /*
         SHOOTER STARTS
      */
-    public static final int ANGLER_PORT = 0;
+    public static final int ANGLER_PORT = 5;
     public static double MANUALSHOOT = 0.4;
     public static boolean SHOOTER_ENCODER_IN_RIGHT_MOTOR = true;
     /*
@@ -110,7 +110,7 @@ public class RobotMap {
 
     public static int[] REAR_INTAKE_MOTORS = {0};
     public static int[] REAR_INTAKE_MOTOR_DIRECTION = {};
-    public static TypeOfMotor[] REAR_INTAKE_MOTORS_TYPES = {TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX};
+    public static TypeOfMotor[] REAR_INTAKE_MOTORS_TYPES = {TypeOfMotor.TALON_SRX};
 
 
     public static int[] FRONT_SOLENOIDS = {0, 1};
@@ -125,7 +125,7 @@ public class RobotMap {
     public static final TypeOfMotor[] TRANSPORTATION_SYSTEM_TYPE_OF_MOTORS = {TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX};
     public static final int[] TRANSPORTATION_SYSTEM_MOTOR_PORTS = {3, 4, 5, 6};
     public static final int[] TRANSPORTATION_SYSTEM_INVERTED_MOTOR_PORTS = {};
-    public static final int[] DEFLECTOR_SOLENOID = {6, 7};
+    public static final int[] DEFLECTOR_SOLENOID = {4, 5};
     /*
     TransportationSystem Subsystem ENDS
      */

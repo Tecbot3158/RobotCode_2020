@@ -37,7 +37,6 @@ public class RobotContainer {
     private Intake intake;
     private Shooter shooter;
     private TransportationSystem transportationSystem;
-    private OI oi;
     private TecbotSensors tecbotSensors;
 
     SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -58,7 +57,6 @@ public class RobotContainer {
         sharedMotors = new SharedMotors();
 
         // Configure the button bindings
-        oi = new OI();
     }
 
     /**
@@ -69,7 +67,7 @@ public class RobotContainer {
      */
     public void configureButtonBindings() {
         CommandScheduler.getInstance().setDefaultCommand(driveTrain, new DefaultDrive());
-        oi.configureButtonBindings();
+        getOI().configureButtonBindings();
     }
 
 
@@ -88,7 +86,7 @@ public class RobotContainer {
     }
 
     public OI getOI() {
-        return oi;
+        return OI.getInstance();
     }
 
     public TecbotSensors getTecbotSensors() {

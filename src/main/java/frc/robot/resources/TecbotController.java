@@ -3,13 +3,12 @@ package frc.robot.resources;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandGroupBase;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -18,6 +17,7 @@ import java.util.List;
  */
 public class TecbotController {
 
+    private String joystickName;
     private int currentPovAngle = -1;
     private int previousPovAngle = currentPovAngle;
 
@@ -95,7 +95,7 @@ public class TecbotController {
      *     <li>Right Axis Y</li>
      * </ul>
      */
-    private int[] portsJoysticksPS4 = {0, 1, 2, 5};
+    private final int[] portsJoysticksPS4 = {0, 1, 2, 5};
 
     /**
      * The ports for the axis on the XBOX Controller in the following order:
@@ -106,7 +106,7 @@ public class TecbotController {
      *     <li>Right Axis Y</li>
      * </ul>
      */
-    private int[] portsJoystickXBOX = {0, 1, 4, 5};
+    private final int[] portsJoystickXBOX = {0, 1, 4, 5};
 
     /**
      * The ports for the buttons in PS4 controller.
@@ -114,20 +114,20 @@ public class TecbotController {
      * In the following order:
      * <strong>
      * <ul>
-     *     <li>a</li>
-     *     <li>b</li>
      *     <li>x</li>
-     *     <li>y</li>
-     *     <li>lb</li>
-     *     <li>rb</li>
-     *     <li><i>BACK</i></li>
-     *     <li><i>START</i></li>
-     *     <li>LS</li>
-     *     <li>RS</li>
+     *     <li>o</li>
+     *     <li>[] SQUARE</li>
+     *     <li>-/\- TRIANGLE</li>
+     *     <li>L1</li>
+     *     <li>R1</li>
+     *     <li><i>SHARE</i></li>
+     *     <li><i>OPTIONS</i></li>
+     *     <li>L3</li>
+     *     <li>R3</li>
      * </ul>
      * </strong>
      */
-    private int[] portsButtonsPS4 = {2, 3, 1, 4, 5, 6, 9, 10, 11, 12};
+    private final int[] portsButtonsPS4 = {2, 3, 1, 4, 5, 6, 9, 10, 11, 12};
 
     /**
      * The ports for the buttons in xbox controller.
@@ -148,7 +148,7 @@ public class TecbotController {
      * </ul>
      * </strong>
      */
-    private int[] portsButtonsXBOX = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    private final int[] portsButtonsXBOX = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
     /**
      * <h1>Trigger ports for PS4</h1>
@@ -159,7 +159,7 @@ public class TecbotController {
      *     <li>Right Trigger Value</li>
      * </ul>
      */
-    private int[] portsTriggersPS4 = {3, 4};
+    private final int[] portsTriggersPS4 = {3, 4};
 
     /**
      * <h1>Trigger ports for XBOX</h1>
@@ -170,7 +170,7 @@ public class TecbotController {
      *     <li>Right Trigger Value</li>
      * </ul>
      */
-    private int[] portsTriggersXBOX = {2, 3};
+    private final int[] portsTriggersXBOX = {2, 3};
 
     /**
      * Joystick object from FRC, this is used to getRawAxis,
@@ -192,7 +192,6 @@ public class TecbotController {
      * {@link #getRightAxisX()}<br>
      * {@link #getRightAxisY()}<br>
      * {@link #getRawAxis(int, boolean)}
-     *
      */
     private double offset = 0.1;
 
@@ -226,23 +225,55 @@ public class TecbotController {
         POV_0,
         POV_90,
         POV_180,
-        POV_270
+        POV_270;
+
+        public static ButtonType get(int port) {
+            switch (port) {
+                case 1:
+                    return A;
+                case 2:
+                    return B;
+                case 3:
+                    return X;
+                case 4:
+                    return Y;
+                case 5:
+                    return LB;
+                case 6:
+                    return RB;
+                case 7:
+                    return BACK;
+                case 8:
+                    return START;
+                case 9:
+                    return LS;
+                case 10:
+                    return RS;
+                default:
+                    return null;
+            }
+        }
     }
+
+    private int pilotPort;
+    private HashMap<ButtonType, JoystickButton> buttonHashMap;
 
     /**
      * @param port The port that the controller has in the Driver Station.
      */
     public TecbotController(int port) {
-        pilot = new Joystick(port);
 
+        setPilotPort(port);
+        pilot = new Joystick(getPilotPort());
+        joystickName = pilot.getName().toLowerCase();
         controllerType = null;
-        if (pilot.getName().toLowerCase().contains("wireless controller")) controllerType = TypeOfController.PS4;
-        if (pilot.getName().toLowerCase().contains("xbox")) controllerType = TypeOfController.XBOX;
+        if (joystickName.contains("wireless controller")) controllerType = TypeOfController.PS4;
+        if (joystickName.contains("xbox")) controllerType = TypeOfController.XBOX;
 
-        if (pilot.getName() == null) DriverStation.reportWarning("Joystick not found (Tecbot Controller)", true);
+        if (joystickName == null) DriverStation.reportWarning("Joystick not found (Tecbot Controller)", true);
         if (controllerType != null) setButtons();
         else DriverStation.reportWarning("Controller not identified, some methods will return 0.", false);
-
+        buttonHashMap = new HashMap<>();
     }
 
     /**
@@ -252,6 +283,10 @@ public class TecbotController {
      * @return axis value
      */
     public double getLeftAxisX() {
+        if (pilot == null) {
+            DriverStation.reportWarning("Controller not found @ port #" + getPilotPort() + ".\nReturning 0", true);
+            return 0;
+        }
         double value;
         switch (controllerType) {
             case PS4:
@@ -275,6 +310,10 @@ public class TecbotController {
      * @return axis value
      */
     public double getLeftAxisY() {
+        if (pilot == null) {
+            DriverStation.reportWarning("Controller not found @ port #" + getPilotPort() + ".\nReturning 0", true);
+            return 0;
+        }
         double value;
         switch (controllerType) {
             case PS4:
@@ -291,7 +330,6 @@ public class TecbotController {
         return ground(value, getOffset());
     }
 
-
     /**
      * This function will return the value of the Right Axis <i>X</i>.
      * <br>Ranges from -1 to 1.
@@ -299,6 +337,10 @@ public class TecbotController {
      * @return axis value
      */
     public double getRightAxisX() {
+        if (pilot == null) {
+            DriverStation.reportWarning("Controller not found @ port #" + getPilotPort() + ".\nReturning 0", true);
+            return 0;
+        }
         double value;
         switch (controllerType) {
             case PS4:
@@ -322,6 +364,10 @@ public class TecbotController {
      * @return axis value
      */
     public double getRightAxisY() {
+        if (pilot == null) {
+            DriverStation.reportWarning("Controller not found @ port #" + getPilotPort() + ".\nReturning 0", true);
+            return 0;
+        }
         double value;
         switch (controllerType) {
             case PS4:
@@ -342,41 +388,80 @@ public class TecbotController {
      * Returns value of given axis.
      *
      * @param axis axis port in the controller.
+     * @param ground If true, it will correct the value according to the offset.
+     *               Default value is 0.1, change it using {@link #setOffset(double)}
      * @return value of given axis.
+     * <p>
+     * BUTTON PORTS FOR XBOX AND PS4:
+     * The ports for the buttons in xbox controller.
+     * <br>
+     * In the following order:
+     * <br>
+     * <strong>
+     * <ol>
+     *     <li>a</li>
+     *     <li>b</li>
+     *     <li>x</li>
+     *     <li>y</li>
+     *     <li>lb</li>
+     *     <li>rb</li>
+     *     <li><i>BACK</i></li>
+     *     <li><i>START</i></li>
+     *     <li>LS</li>
+     * <li>RS</li>
+     * </ol>
+     * </strong>
+     * <br>
+     * The ports for the buttons in PS4 controller.
+     * <br>
+     * In the following order:<br>
+     * <strong>
+     * <ol>
+     *     <li>x</li>
+     *     <li>o</li>
+     *     <li>[-] SQUARE</li>
+     *     <li>-/\- TRIANGLE</li>
+     *     <li>L1</li>
+     *     <li>R1</li>
+     *     <li><i>SHARE</i></li>
+     *     <li><i>OPTIONS</i></li>
+     *     <li>L3</li>
+     *     <li>R3</li>
+     * </ol>
+     * </strong>
      */
     public double getRawAxis(int axis, boolean ground) {
+        if (pilot == null) {
+            DriverStation.reportWarning("Controller not found @ port #" + getPilotPort() + ".\nReturning 0", true);
+            return 0;
+        }
         return ground ? ground(pilot.getRawAxis(axis), offset) : pilot.getRawAxis(axis);
-    }
-
-    /**
-     * Returns value of given axis.
-     *
-     * @param axis axis port in the controller.
-     * @return value of given axis.
-     */
-    public double getRawAxis(int axis) {
-        return pilot.getRawAxis(axis);
     }
 
     /**
      * Returns the value of the button.
      *
-     * @param buttonNumber The button to be read.
+     * @param buttonPort The button's port.
      * @return The state of the button.
      */
-    public boolean getRawButton(int buttonNumber) {
-        return pilot.getRawButton(buttonNumber);
+    public boolean getRawButton(int buttonPort) {
+        if (pilot == null) {
+            DriverStation.reportWarning("Controller not found @ port #" + getPilotPort() + ".\nReturning false", true);
+            return false;
+        }
+        return pilot.getRawButton(buttonPort);
     }
 
     /**
      * @return Returns triggers in controller.
      * <br>When the triggers are idle, 0 will be returned.
      * <br>When the right trigger is pressed, it will return a positive
-     * value.
-     * <br>When the left trigger is pressed, it will return a negative value.
+     * value (up to 1).
+     * <br>When the left trigger is pressed, it will return a negative value (up to -1).
      * <br>Therefore, both triggers pressed will return 0.
      */
     public double getTriggers() {
+        if (pilot == null) return 0;
         double value;
         switch (controllerType) {
             case PS4:
@@ -393,12 +478,16 @@ public class TecbotController {
         return ground(value, offset);
     }
 
+    /**
+     * Sets buttons according to the controller type.
+     */
     private void setButtons() {
         List<JoystickButton> bs = new ArrayList<>();
         switch (controllerType) {
             case XBOX:
                 for (int port : portsButtonsXBOX) {
                     bs.add(new JoystickButton(pilot, port));
+                    //buttonHashMap.put()
                 }
                 break;
             case PS4:
@@ -421,6 +510,7 @@ public class TecbotController {
      * @return Returns JoystickButton Object
      */
     public JoystickButton getButton(ButtonType button) {
+        if (pilot == null) return null;
         int index = 0;
         switch (button) {
             case A:
@@ -461,7 +551,17 @@ public class TecbotController {
 
     }
 
+    /**
+     *  Set commands to be executed when certain buttons are pressed.
+     *
+     * @param buttonType this is the button which will be assigned the command
+     * @param command
+     */
     public void whenPressed(ButtonType buttonType, CommandBase command) {
+        if (pilot == null) {
+            //DriverStation.reportWarning("TecbotController not found @ port #" + );
+            return;
+        }
         switch (buttonType) {
             case POV_0:
                 pov0CommandWhenPressed = command;
@@ -482,7 +582,14 @@ public class TecbotController {
         }
     }
 
+    /**
+     *  Set commands to be executed when certain buttons are released.
+     *
+     * @param buttonType
+     * @param command
+     */
     public void whenReleased(ButtonType buttonType, CommandBase command) {
+        if (pilot == null) return;
         switch (buttonType) {
             case POV_0:
                 pov0CommandWhenReleased = command;
@@ -503,19 +610,16 @@ public class TecbotController {
     }
 
     /**
-     * Constantly starts the given command while the button is held.
-     * <p>
-     * {@link Command#schedule(boolean)} will be called repeatedly while the button is held, and will
-     * be canceled when the button is released.  The command is set to be interruptible.
+     *  Set commands to be executed when certain buttons are held.
+     *  The command will be constantly scheduled.<br>
+     *  If using POV buttons, you must call {@link #run()}
+     *  periodically (e.g. calling pilot.run() in teleopPeriodic }
      *
-     * <strong>The command should always have the isFinished value as true, since it
-     * will be scheduled several times.</strong>
-     *
-     * @param command    the command to start
-     * @param buttonType the button type to refer to
-     * @return this button, so calls can be chained
+     * @param buttonType
+     * @param command
      */
     public void whileHeld(ButtonType buttonType, CommandBase command) {
+        if (pilot == null) return;
         switch (buttonType) {
             case POV_0:
                 pov0CommandWhileHeld = command;
@@ -541,14 +645,15 @@ public class TecbotController {
     public void run() {
         //sets currentPovAngle to POV angle from pilot
         currentPovAngle = pilot.getPOV();
+        //System.out.println(currentPovAngle);
         //sets current commands based on currentPovAngle
-        CommandBase currentPovWhenPressedCommand = getPovWhileHeldCommand(currentPovAngle);
-        //CommandBase currentPovWhenReleasedCommand = getPovWhileHeldCommand(currentPovAngle);
+        CommandBase currentPovWhenPressedCommand = getPovWhenPressedCommand(currentPovAngle);
+        //CommandBase currentPovWhenReleasedCommand = getPovWhenReleasedCommand(currentPovAngle);
         CommandBase currentPovWhileHeldCommand = getPovWhileHeldCommand(currentPovAngle);
 
         //sets previous commands based on previousPovAngle
-        CommandBase previousPovWhenPressedCommand = getPovWhileHeldCommand(previousPovAngle);
-        CommandBase previousPovWhenReleasedCommand = getPovWhileHeldCommand(previousPovAngle);
+        CommandBase previousPovWhenPressedCommand = getPovWhenPressedCommand(previousPovAngle);
+        CommandBase previousPovWhenReleasedCommand = getPovWhenReleasedCommand(previousPovAngle);
         CommandBase previousPovWhileHeldCommand = getPovWhileHeldCommand(previousPovAngle);
 
 
@@ -567,26 +672,24 @@ public class TecbotController {
                 currentPovWhenPressedCommand.schedule();
 
             /*
-            clears all previous commands, this a requirement
+            clears all previous commands, this is a requirement
             if from code a group command is manually scheduled
             and is going to be scheduled again.
-            This is not necessary for 'regular' buttons, since
-            that is automatically done by frc / wpilib libraries
             */
             clearGroupedCommands(
                     previousPovWhenPressedCommand,
                     previousPovWhenReleasedCommand,
-                    previousPovWhileHeldCommand
+                    previousPovWhileHeldCommand,
+                    currentPovWhenPressedCommand
             );
         }
         //this will just schedule the whileHeld command,
-        //which should have the isFinised true.
+        //which should have the isFinished true.
         //this command also has to be cleared since it will be called several times.
         if (currentPovWhileHeldCommand != null) {
             currentPovWhileHeldCommand.schedule();
             clearGroupedCommands(currentPovWhileHeldCommand);
         }
-
 
         previousPovAngle = currentPovAngle;
     }
@@ -707,6 +810,12 @@ public class TecbotController {
         }
     }
 
+    /**
+     *
+     * @param commandBases
+     * @return true if ALL commands are not null, and false
+     *          if one or more commands are null.
+     */
     private boolean notNullCommands(CommandBase... commandBases) {
         if (commandBases.length < 1) return false;
         boolean notNull = false;
@@ -715,6 +824,14 @@ public class TecbotController {
             else notNull = true;
         }
         return notNull;
+    }
+
+    public int getPilotPort() {
+        return pilotPort;
+    }
+
+    public void setPilotPort(int pilotPort) {
+        this.pilotPort = pilotPort;
     }
 
 }

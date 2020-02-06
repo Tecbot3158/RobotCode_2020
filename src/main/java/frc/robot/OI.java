@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.resources.TecbotController;
 
 /**
@@ -29,11 +30,31 @@ public class OI {
     public void configureButtonBindings() {
         //put here all
         pilot = new TecbotController(0);
-        pilot.whenPressed(TecbotController.ButtonType.X, RobotActionsCatalog.getInstance().allSystemsOff);
+        try {
+            pilot.whenPressed(TecbotController.ButtonType.X, RobotActionsCatalog.getInstance().allSystemsOff);
+            //pilot.whenPressed(TecbotController.ButtonType.POV_0, RobotActionsCatalog.getInstance().allSystemsOff);
+            pilot.whenReleased(TecbotController.ButtonType.POV_0, new TestWhenReleasedCommand());
+            pilot.whileHeld(TecbotController.ButtonType.POV_0, new TestWhileHeld());
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
 
     }
 
     public TecbotController getPilot() {
         return pilot;
+    }
+}
+
+class TestWhenReleasedCommand extends InstantCommand{
+    @Override
+    public void initialize(){
+        System.out.println("RELEASED");
+    }
+}
+class TestWhileHeld extends InstantCommand{
+    @Override
+    public void initialize(){
+        System.out.println("WHILE_HELD");
     }
 }
