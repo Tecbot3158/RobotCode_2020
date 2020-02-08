@@ -5,27 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.subsystems.shooter;
+package frc.robot.commands.subsystems.climber;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
-import frc.robot.subsystems.shooter.Shooter.ShooterPosition;
+import frc.robot.subsystems.climber.Climber;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class ShootingOff extends InstantCommand {
-    public ShootingOff() {
-        addRequirements(Robot.getRobotContainer().getShooter());
+public class ClimberDisengageGearsToggle extends InstantCommand {
 
+    private final Climber m_climber = Robot.getRobotContainer().getClimber();
+
+    public ClimberDisengageGearsToggle() {
         // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(m_climber);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        ShooterPosition position = ShooterPosition.OFF;
-        Robot.getRobotContainer().getShooter().setShootingSpeed(position);
-        Robot.getRobotContainer().getShooter().setAnglerDegrees(position);
+        m_climber.gearDisengagerToggle();
     }
 }

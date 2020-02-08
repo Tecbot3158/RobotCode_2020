@@ -5,37 +5,37 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.robotActions;
+package frc.robot.commands.robotActions.intakeTransport;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.subsystems.intakes.frontIntakes.FrontIntakeOff;
 import frc.robot.commands.subsystems.intakes.frontIntakes.FrontIntakeSolenoidOff;
-import frc.robot.commands.subsystems.intakes.rearIntakes.RearIntakeOff;
-import frc.robot.commands.subsystems.intakes.rearIntakes.RearIntakeSolenoidOff;
-import frc.robot.commands.subsystems.pctower.TransportationSystemCloseDeflector;
-import frc.robot.commands.subsystems.pctower.TransportationSystemOff;
+import frc.robot.commands.subsystems.intakes.rearIntakes.RearIntakeIn;
+import frc.robot.commands.subsystems.intakes.rearIntakes.RearIntakeSolenoidOn;
+import frc.robot.commands.subsystems.pctower.TransportationSystemForward;
+import frc.robot.commands.subsystems.pctower.TransportationSystemOpenDeflector;
 import frc.robot.commands.subsystems.shooter.ShooterOff;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class AllSystemsOff extends SequentialCommandGroup {
+public class RearIntakeAndTransport extends SequentialCommandGroup {
+
     /**
-     * <h2><strong>THIS COMMAND SHOULD BE CALLED FOR EVERY
-     * whenReleased() used button.</strong></h2>
-     * <h3><strong>ALL SYSTEMS OFF</strong></h3>
+     * <h3><strong>TRANSPORT active when Power Cell present in Rear
+     * INTAKE</strong></h3>
      * <ul>
      *
      * <li>Intakes:
      * <ul>
      * <li>Front intake on off mode, pneumatics off</li>
-     * <li>Rear intake on off mode, pneumatics off</li>
+     * <li>Rear intake on intake mode, pneumatics on</li>
      * </ul>
      * </li>
      *
      * <li>Power Cell Transportation System
      * <ul>
-     * <li>Off mode, deflector off</li>
+     * <li>Forward mode, deflector on</li>
      * </ul>
      * </li>
      *
@@ -47,25 +47,23 @@ public class AllSystemsOff extends SequentialCommandGroup {
      *
      * </ul>
      */
-    public AllSystemsOff() {
+    public RearIntakeAndTransport() {
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
         super(
                 /*
                 FI PNEUMATICS OFF
                 FI OFF MODE
-                RI PNEUMATICS OFF
-                RI OFF MODE
-                PCTS OFF, DEF OFF
+                RI PNEUMATICS ON
+                RI ON MODE
+                PCTS ON, DEF OFF
                 PCS OFF
                  */
-                new FrontIntakeSolenoidOff(),
-                new FrontIntakeOff(),
-                new RearIntakeSolenoidOff(),
-                new RearIntakeOff(),
-                new TransportationSystemOff(),
-                new TransportationSystemCloseDeflector(),
-                new ShooterOff()
+                new RearIntakeSolenoidOn(),
+                new RearIntakeIn(),
+                new TransportationSystemForward(),
+                new TransportationSystemOpenDeflector()
         );
+
     }
 }

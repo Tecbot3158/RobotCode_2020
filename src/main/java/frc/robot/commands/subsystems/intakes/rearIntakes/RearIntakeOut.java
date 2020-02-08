@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.subsystems.intakes.frontIntakes;
+package frc.robot.commands.subsystems.intakes.rearIntakes;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
@@ -13,15 +13,15 @@ import frc.robot.Robot;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class FrontIntakeReverse extends InstantCommand {
-  public FrontIntakeReverse() {
+public class RearIntakeOut extends InstantCommand {
+  public RearIntakeOut() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.getRobotContainer().getIntake());
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.getRobotContainer().getIntake().frontIntakeReverse();
-    addRequirements(Robot.getRobotContainer().getIntake());
+    Robot.getRobotContainer().getIntake().rearIntakeReverse();
   }
 }

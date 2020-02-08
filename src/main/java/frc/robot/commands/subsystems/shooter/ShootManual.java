@@ -9,30 +9,27 @@ package frc.robot.commands.subsystems.shooter;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
-import frc.robot.subsystems.shooter.Shooter.ShooterPosition;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class ShootingFromTrench extends InstantCommand {
-    double output, setpoint;
+public class ShootManual extends InstantCommand {
+    double manualSpeed;
+    double manualAngle;
 
-    public ShootingFromTrench() {
-        addRequirements(Robot.getRobotContainer().getShooter());
+    public ShootManual(double manualSpeed, double manualAngle) {
         // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(Robot.getRobotContainer().getShooter());
+
+        this.manualSpeed = manualSpeed;
+        this.manualAngle = manualAngle;
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-
-        ShooterPosition position = ShooterPosition.TRENCH;
-        Robot.getRobotContainer().getShooter().setShootingSpeed(position);
-        Robot.getRobotContainer().getShooter().setAnglerDegrees(position);
-        Robot.getRobotContainer().getShooter().periodic();
-        Robot.getRobotContainer().getShooter().enable();
-        Robot.getRobotContainer().getShooter().useOutput(output, setpoint);
-        Robot.getRobotContainer().getShooter().getMeasurement();
-
+        Robot.getRobotContainer().getShooter().setManualShooter(manualSpeed);
+        Robot.getRobotContainer().getShooter().setManualShooter(manualAngle);
     }
+
 }

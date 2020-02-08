@@ -5,54 +5,42 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.robotActions;
+package frc.robot.commands.robotActions.shootTransport;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.subsystems.pctower.TransportationSystemForward;
+import frc.robot.commands.subsystems.shooter.ShootFromTargetZone;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class FrontIntakeAndTransportOnly extends SequentialCommandGroup {
-
+public class ShootTargetZoneAndTransport extends SequentialCommandGroup {
     /**
-     * <h3><strong>TRANSPORT active when Power Cell present in Front
-     * INTAKE</strong></h3>
+     * <h3><strong>Shoot from Target Zone and Transport</strong></h3>
      * <ul>
      *
      * <li>Intakes:
      * <ul>
-     * <li>Front intake on intake mode, pneumatics on</li>
+     * <li>Front intake on off mode, pneumatics off</li>
      * <li>Rear intake on off mode, pneumatics off</li>
-     * </ul>
-     * </li>
+     * </ul></li>
      *
      * <li>Power Cell Transportation System
-     * <ul>
-     * <li>Forward mode, deflector on</li>
-     * </ul>
+     * <ul><li>forward mode, deflector off</li></ul>
      * </li>
      *
      * <li>Powercell shooter:
-     * <ul>
-     * <li>off</li>
-     * </ul>
+     * <ul><li>On position #INITATION_LINE</li></ul>
      * </li>
      *
      * </ul>
      */
-    public FrontIntakeAndTransportOnly() {
+    public ShootTargetZoneAndTransport() {
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
         super(
-                /*
-                FI PNEUMATICS ON
-                FI INTAKE MODE
-                RI PNEUMATICS OFF
-                RI OFF MODE
-                PCTS FORWARD, DEF ON
-                PCS OFF
-                 */
+                new ShootFromTargetZone(),
+                new TransportationSystemForward()
         );
-
     }
 }

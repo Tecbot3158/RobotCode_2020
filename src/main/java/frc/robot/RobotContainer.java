@@ -56,7 +56,8 @@ public class RobotContainer {
         tecbotSensors = new TecbotSensors();
         sharedMotors = new SharedMotors();
 
-        // Configure the button bindings
+        // configureButtonBindings() called after instantiating all subsystems and
+        // RobotContainer constructor.
     }
 
     /**
@@ -67,7 +68,7 @@ public class RobotContainer {
      */
     public void configureButtonBindings() {
         CommandScheduler.getInstance().setDefaultCommand(driveTrain, new DefaultDrive());
-        getOI().configureButtonBindings();
+        OI.getInstance().configureButtonBindings();
     }
 
 
@@ -83,10 +84,6 @@ public class RobotContainer {
 
     public DriveTrain getDriveTrain() {
         return driveTrain;
-    }
-
-    public OI getOI() {
-        return OI.getInstance();
     }
 
     public TecbotSensors getTecbotSensors() {

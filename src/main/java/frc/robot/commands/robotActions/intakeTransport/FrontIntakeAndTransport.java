@@ -5,24 +5,31 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.robotActions;
+package frc.robot.commands.robotActions.intakeTransport;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.subsystems.intakes.frontIntakes.FrontIntakeIn;
+import frc.robot.commands.subsystems.intakes.frontIntakes.FrontIntakeSolenoidOn;
+import frc.robot.commands.subsystems.intakes.rearIntakes.RearIntakeOff;
+import frc.robot.commands.subsystems.intakes.rearIntakes.RearIntakeSolenoidOff;
+import frc.robot.commands.subsystems.pctower.TransportationSystemForward;
+import frc.robot.commands.subsystems.pctower.TransportationSystemOpenDeflector;
+import frc.robot.commands.subsystems.shooter.ShooterOff;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class RearIntakeAndTransportOnly extends SequentialCommandGroup {
+public class FrontIntakeAndTransport extends SequentialCommandGroup {
 
     /**
-     * <h3><strong>TRANSPORT active when Power Cell present in Rear
+     * <h3><strong>TRANSPORT active when Power Cell present in Front
      * INTAKE</strong></h3>
      * <ul>
      *
      * <li>Intakes:
      * <ul>
-     * <li>Front intake on off mode, pneumatics off</li>
-     * <li>Rear intake on intake mode, pneumatics on</li>
+     * <li>Front intake on intake mode, pneumatics on</li>
+     * <li>Rear intake on off mode, pneumatics off</li>
      * </ul>
      * </li>
      *
@@ -34,24 +41,28 @@ public class RearIntakeAndTransportOnly extends SequentialCommandGroup {
      *
      * <li>Powercell shooter:
      * <ul>
-     * <li>On position #OFF</li>
+     * <li>off</li>
      * </ul>
      * </li>
      *
      * </ul>
      */
-    public RearIntakeAndTransportOnly() {
+    public FrontIntakeAndTransport() {
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
         super(
                 /*
-                FI PNEUMATICS OFF
-                FI OFF MODE
-                RI PNEUMATICS ON
-                RI ON MODE
-                PCTS ON, DEF OFF
+                FI PNEUMATICS ON
+                FI INTAKE MODE
+                RI PNEUMATICS OFF
+                RI OFF MODE
+                PCTS FORWARD, DEF ON
                 PCS OFF
                  */
+                new FrontIntakeSolenoidOn(),
+                new FrontIntakeIn(),
+                new TransportationSystemForward(),
+                new TransportationSystemOpenDeflector()
         );
 
     }

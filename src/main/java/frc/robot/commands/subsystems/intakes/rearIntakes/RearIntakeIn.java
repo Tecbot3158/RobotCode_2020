@@ -13,21 +13,20 @@ import frc.robot.Robot;
 /**
  * Add your docs here.
  */
-public class RearIntakeForward extends InstantCommand {
+public class RearIntakeIn extends InstantCommand {
     /**
      * Add your docs here.
      */
-    public RearIntakeForward() {
+    public RearIntakeIn() {
         super();
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+        addRequirements(Robot.getRobotContainer().getIntake());
     }
 
     // Called once when the command executes
     @Override
     public void initialize() {
         Robot.getRobotContainer().getIntake().rearIntakeForward();
-        addRequirements(Robot.getRobotContainer().getIntake());
     }
 
 

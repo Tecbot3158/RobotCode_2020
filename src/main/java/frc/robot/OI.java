@@ -30,31 +30,14 @@ public class OI {
     public void configureButtonBindings() {
         //put here all
         pilot = new TecbotController(0);
-        try {
-            pilot.whenPressed(TecbotController.ButtonType.X, RobotActionsCatalog.getInstance().allSystemsOff);
-            //pilot.whenPressed(TecbotController.ButtonType.POV_0, RobotActionsCatalog.getInstance().allSystemsOff);
-            pilot.whenReleased(TecbotController.ButtonType.POV_0, new TestWhenReleasedCommand());
-            pilot.whileHeld(TecbotController.ButtonType.POV_0, new TestWhileHeld());
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
 
+        pilot.whenPressed(TecbotController.ButtonType.X, RobotActionsCatalog.getInstance().getAllSystemsOff());
+        //pilot.whenPressed(TecbotController.ButtonType.POV_0, RobotActionsCatalog.getInstance().allSystemsOff);
+        //pilot.whenReleased(TecbotController.ButtonType.POV_0, new TestWhenReleasedCommand());
+        //pilot.whileHeld(TecbotController.ButtonType.POV_0, new TestWhileHeld());
     }
 
     public TecbotController getPilot() {
         return pilot;
-    }
-}
-
-class TestWhenReleasedCommand extends InstantCommand{
-    @Override
-    public void initialize(){
-        System.out.println("RELEASED");
-    }
-}
-class TestWhileHeld extends InstantCommand{
-    @Override
-    public void initialize(){
-        System.out.println("WHILE_HELD");
     }
 }

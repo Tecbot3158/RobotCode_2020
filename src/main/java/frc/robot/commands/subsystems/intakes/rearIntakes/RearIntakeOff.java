@@ -16,12 +16,12 @@ import frc.robot.Robot;
 public class RearIntakeOff extends InstantCommand {
   public RearIntakeOff() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.getRobotContainer().getIntake());
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     Robot.getRobotContainer().getIntake().rearIntakeOff();
-    addRequirements(Robot.getRobotContainer().getIntake());
   }
 }

@@ -5,27 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.subsystems.climber;
+package frc.robot.commands.subsystems.intakes.frontIntakes;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
-import frc.robot.subsystems.climber.Climber;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class DisengageGearsToggle extends InstantCommand {
+public class FrontIntakeOut extends InstantCommand {
+  public FrontIntakeOut() {
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.getRobotContainer().getIntake());
+  }
 
-    private final Climber m_climber = Robot.getRobotContainer().getClimber();
-
-    public DisengageGearsToggle() {
-        // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_climber);
-    }
-
-    // Called when the command is initially scheduled.
-    @Override
-    public void initialize() {
-        m_climber.gearDisengagerToggle();
-    }
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
+    Robot.getRobotContainer().getIntake().frontIntakeReverse();
+  }
 }

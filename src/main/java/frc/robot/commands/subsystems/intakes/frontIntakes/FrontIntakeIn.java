@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.subsystems.shooter;
+package frc.robot.commands.subsystems.intakes.frontIntakes;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
@@ -13,25 +13,15 @@ import frc.robot.Robot;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class ManualShooting extends InstantCommand {
-    double manualspeed;
-    double manualangle;
+public class FrontIntakeIn extends InstantCommand {
+  public FrontIntakeIn() {
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.getRobotContainer().getIntake());
+  }
 
-    public ManualShooting(double ManualSpeed, double ManualAngle) {
-        // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(Robot.getRobotContainer().getShooter());
-
-        manualspeed = ManualSpeed;
-        manualangle = ManualAngle;
-
-
-    }
-
-    // Called when the command is initially scheduled.
-    @Override
-    public void initialize() {
-        Robot.getRobotContainer().getShooter().setManualShooter(manualspeed);
-        Robot.getRobotContainer().getShooter().setManualShooter(manualangle);
-    }
-
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
+    Robot.getRobotContainer().getIntake().frontIntakeForward();
+  }
 }

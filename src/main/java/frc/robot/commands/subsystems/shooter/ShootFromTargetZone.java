@@ -14,10 +14,9 @@ import frc.robot.subsystems.shooter.Shooter.ShooterPosition;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class ShootingFromTargetZone extends InstantCommand {
-    double output, setpoint;
+public class ShootFromTargetZone extends InstantCommand {
 
-    public ShootingFromTargetZone() {
+    public ShootFromTargetZone() {
         addRequirements(Robot.getRobotContainer().getShooter());
         // Use addRequirements() here to declare subsystem dependencies.
     }
@@ -29,7 +28,5 @@ public class ShootingFromTargetZone extends InstantCommand {
         Robot.getRobotContainer().getShooter().setShootingSpeed(position);
         Robot.getRobotContainer().getShooter().setAnglerDegrees(position);
         Robot.getRobotContainer().getShooter().enable();
-        Robot.getRobotContainer().getShooter().useOutput(output, setpoint);
-        Robot.getRobotContainer().getShooter().getMeasurement();
     }
 }

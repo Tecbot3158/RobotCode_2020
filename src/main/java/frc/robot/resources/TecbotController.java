@@ -225,40 +225,25 @@ public class TecbotController {
         POV_0,
         POV_90,
         POV_180,
-        POV_270;
-
-        public static ButtonType get(int port) {
-            switch (port) {
-                case 1:
-                    return A;
-                case 2:
-                    return B;
-                case 3:
-                    return X;
-                case 4:
-                    return Y;
-                case 5:
-                    return LB;
-                case 6:
-                    return RB;
-                case 7:
-                    return BACK;
-                case 8:
-                    return START;
-                case 9:
-                    return LS;
-                case 10:
-                    return RS;
-                default:
-                    return null;
-            }
-        }
+        POV_270
     }
 
     private int pilotPort;
     private HashMap<ButtonType, JoystickButton> buttonHashMap;
 
     /**
+     * Creates new {@link TecbotController} with functionality on top of
+     * {@link Joystick}, such as:
+     * <ul>
+     *     <li>Detecting automatically the type of controller (PS4 or XBOX currently supported) and
+     *     will set rawButton ports if controller is not recognized.</li>
+     *     <li>using POV as individual buttons with whenReleased, whenPressed,
+     *     and whileHeld functionality. (currently supports 0°, 90°, 180°, and 270° angles.</li>
+     *     <li>buttons are already created with this object.</li>
+     *     <li>You can use methods such as {@link #getLeftAxisX()}, {@link #getLeftAxisY()},
+     *          {@link #getRightAxisX()}, {@link #getRightAxisY()}, and {@link #getRawAxis(int, boolean)}</li>
+     * </ul>
+     *
      * @param port The port that the controller has in the Driver Station.
      */
     public TecbotController(int port) {
@@ -270,7 +255,7 @@ public class TecbotController {
         if (joystickName.contains("wireless controller")) controllerType = TypeOfController.PS4;
         if (joystickName.contains("xbox")) controllerType = TypeOfController.XBOX;
 
-        if (joystickName == null) DriverStation.reportWarning("Joystick not found (Tecbot Controller)", true);
+        if (pilot == null) DriverStation.reportWarning("Joystick not found (Tecbot Controller)", true);
         if (controllerType != null) setButtons();
         else DriverStation.reportWarning("Controller not identified, some methods will return 0.", false);
         buttonHashMap = new HashMap<>();
@@ -387,7 +372,7 @@ public class TecbotController {
     /**
      * Returns value of given axis.
      *
-     * @param axis axis port in the controller.
+     * @param axis   axis port in the controller.
      * @param ground If true, it will correct the value according to the offset.
      *               Default value is 0.1, change it using {@link #setOffset(double)}
      * @return value of given axis.
@@ -552,14 +537,15 @@ public class TecbotController {
     }
 
     /**
-     *  Set commands to be executed when certain buttons are pressed.
+     * Set commands to be executed when certain buttons are pressed.
      *
      * @param buttonType this is the button which will be assigned the command
-     * @param command
+     * @param command    command to be assigned to button
      */
     public void whenPressed(ButtonType buttonType, CommandBase command) {
         if (pilot == null) {
-            //DriverStation.reportWarning("TecbotController not found @ port #" + );
+            DriverStation.reportWarning("TecbotController not found @ port #" + getPilotPort() +
+                    ". whenPressed() cancelled, command was not set.", true);
             return;
         }
         switch (buttonType) {
@@ -583,13 +569,17 @@ public class TecbotController {
     }
 
     /**
-     *  Set commands to be executed when certain buttons are released.
+     * Set commands to be executed when certain buttons are released.
      *
-     * @param buttonType
-     * @param command
+     * @param buttonType this is the button which will be assigned the command
+     * @param command    command to be assigned to button
      */
     public void whenReleased(ButtonType buttonType, CommandBase command) {
-        if (pilot == null) return;
+        if (pilot == null) {
+            DriverStation.reportWarning("TecbotController not found @ port #" + getPilotPort() +
+                    ". whenReleased() cancelled, command was not set.", true);
+            return;
+        }
         switch (buttonType) {
             case POV_0:
                 pov0CommandWhenReleased = command;
@@ -610,16 +600,20 @@ public class TecbotController {
     }
 
     /**
-     *  Set commands to be executed when certain buttons are held.
-     *  The command will be constantly scheduled.<br>
-     *  If using POV buttons, you must call {@link #run()}
-     *  periodically (e.g. calling pilot.run() in teleopPeriodic }
+     * Set commands to be executed when certain buttons are held.
+     * The command will be constantly scheduled.<br>
+     * If using POV buttons, you must call {@link #run()}
+     * periodically (e.g. calling pilot.run() in teleopPeriodic }
      *
-     * @param buttonType
-     * @param command
+     * @param buttonType this is the button which will be assigned the command
+     * @param command    command to be assigned to button
      */
     public void whileHeld(ButtonType buttonType, CommandBase command) {
-        if (pilot == null) return;
+        if (pilot == null) {
+            DriverStation.reportWarning("TecbotController not found @ port #" + getPilotPort() +
+                    ". whileHeld() cancelled, command was not set.", true);
+            return;
+        }
         switch (buttonType) {
             case POV_0:
                 pov0CommandWhileHeld = command;
@@ -643,6 +637,11 @@ public class TecbotController {
      * Must be called in teleop Periodic to set POV data.
      */
     public void run() {
+        if (pilot == null) {
+            DriverStation.reportWarning("TecbotController not found @ port #" + getPilotPort() +
+                    ". run() cancelled.", true);
+            return;
+        }
         //sets currentPovAngle to POV angle from pilot
         currentPovAngle = pilot.getPOV();
         //System.out.println(currentPovAngle);
@@ -811,25 +810,17 @@ public class TecbotController {
     }
 
     /**
-     *
-     * @param commandBases
-     * @return true if ALL commands are not null, and false
-     *          if one or more commands are null.
+     * @return Joystick object port
      */
-    private boolean notNullCommands(CommandBase... commandBases) {
-        if (commandBases.length < 1) return false;
-        boolean notNull = false;
-        for (CommandBase command : commandBases) {
-            if (commandBases == null) return false;
-            else notNull = true;
-        }
-        return notNull;
-    }
-
     public int getPilotPort() {
         return pilotPort;
     }
 
+    /**
+     * Sets Joystick object port
+     *
+     * @param pilotPort port
+     */
     public void setPilotPort(int pilotPort) {
         this.pilotPort = pilotPort;
     }

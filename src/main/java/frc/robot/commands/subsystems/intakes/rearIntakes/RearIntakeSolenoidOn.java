@@ -16,13 +16,13 @@ import frc.robot.Robot;
 public class RearIntakeSolenoidOn extends InstantCommand {
   public RearIntakeSolenoidOn() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.getRobotContainer().getIntake());
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     Robot.getRobotContainer().getIntake().rearIntakeSolenoidOn();
-    addRequirements(Robot.getRobotContainer().getIntake());
   }
 }
 
