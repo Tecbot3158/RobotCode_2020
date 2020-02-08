@@ -12,8 +12,8 @@ public class Math {
     /**
      * @return returns mathematical a mod b
      */
-    public static int module(double a, double b){
-        double mod = a%b;
+    public static int module(int a, int b){
+        int mod = a%b;
         if(mod < 0){
             mod += b;
         }
