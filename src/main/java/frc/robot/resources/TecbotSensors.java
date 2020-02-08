@@ -4,6 +4,7 @@ import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Robot;
@@ -33,6 +34,9 @@ public class TecbotSensors {
 
     }
 
+    /**
+     * Initializes all sensors.
+     */
     public void initializeAllSensors() {
 
         tecbotGyro = new Navx();
@@ -67,18 +71,33 @@ public class TecbotSensors {
 
     }
 
+    /**
+     * Must be called to update tecbotGyro data
+     */
     public void sensorsPeriodic() {
         tecbotGyro.run();
     }
 
+    /**
+     *
+     * @return {@link Navx} object of tecbotGyro
+     */
     public Navx getTecbotGyro() {
         return tecbotGyro;
     }
 
+    /**
+     *
+     * @return angle between -180 and 180.
+     */
     public double getYaw() {
         return tecbotGyro.getYaw();
     }
 
+    /**
+     *
+     * @return color sensor's current color as a {@link CurrentColor} enum.
+     */
     public CurrentColor getColor() {
         final ColorMatchResult match = colorMatcher.matchClosestColor(colorSensorV3.getColor());
 
@@ -95,6 +114,9 @@ public class TecbotSensors {
         }
     }
 
+    /**
+     * used for returning {@link #getColor()} state
+     */
     public enum CurrentColor {
         RED,
         GREEN,
@@ -103,7 +125,7 @@ public class TecbotSensors {
     }
 
     /**
-     * @return Raw value form selected encoder
+     * @return Raw value from selected encoder
      */
     public double getEncoderRaw(SubsystemType subsystem) {
         switch (subsystem) {
@@ -122,6 +144,9 @@ public class TecbotSensors {
         }
     }
 
+    /**
+     * subsystem type
+     */
     public enum SubsystemType {
         MIDDLE_CHASSIS, RIGHT_CHASSIS, LEFT_CHASSIS, SHOOTER
     }
