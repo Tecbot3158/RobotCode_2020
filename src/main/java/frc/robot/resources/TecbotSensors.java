@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.subsystems.intake.Intake;
 
 public class TecbotSensors {
 
@@ -96,32 +97,22 @@ public class TecbotSensors {
 
     /**
      *
-     * @return color sensor's current color as a {@link CurrentColor} enum.
+     * @return color sensor's current color as a {@link Intake.Color} enum.
      */
-    public CurrentColor getColor() {
+    public Intake.Color getColor() {
         final ColorMatchResult match = colorMatcher.matchClosestColor(colorSensorV3.getColor());
 
         if (match.color == K_BLUE_TARGET) {
-            return CurrentColor.BLUE;
+            return Intake.Color.BLUE;
         } else if (match.color == K_RED_TARGET) {
-            return CurrentColor.RED;
+            return Intake.Color.RED;
         } else if (match.color == K_GREEN_TARGET) {
-            return CurrentColor.GREEN;
+            return Intake.Color.GREEN;
         } else if (match.color == K_YELLOW_TARGET) {
-            return CurrentColor.YELLOW;
+            return Intake.Color.YELLOW;
         } else {
             return null;
         }
-    }
-
-    /**
-     * used for returning {@link #getColor()} state
-     */
-    public enum CurrentColor {
-        RED,
-        GREEN,
-        BLUE,
-        YELLOW
     }
 
     /**

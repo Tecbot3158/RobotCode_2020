@@ -54,6 +54,8 @@ public class RobotMap {
     public static boolean MIDDLE_CHASSIS_ENCODER_IS_INVERTED = false;
 
     public static int[] TRANSMISSION_PORT = {0, 1};
+    public static final DoubleSolenoid.Value TORQUE_TRANSMISSION = DoubleSolenoid.Value.kForward;
+    public static final DoubleSolenoid.Value SPEED_TRANSMISSION = DoubleSolenoid.Value.kReverse;
 
     public static int[] WHEEL_SOLENOID_PORTS = {6, 7};
     public static int[] MIDDLE_WHEEL_PORTS = {};
@@ -132,6 +134,8 @@ public class RobotMap {
 
     public static int[] FRONT_SOLENOIDS = {0, 1};
     public static int[] REAR_SOLENOIDS = {2, 3};
+
+    public static int servoPort = 0;
 
     /*
     Intake Subsystem ENDS

@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.robotActions.intakeTransport.RearIntakeAndShootBottomPort;
+import frc.robot.commands.subsystems.chassis.drivingModes.ChassisToggleTransmissionMode;
 import frc.robot.commands.subsystems.climber.ActivateShrekPower;
 import frc.robot.resources.TecbotController;
 
@@ -42,6 +43,8 @@ public class OI {
         pilot.whenReleased(TecbotController.ButtonType.RB, RobotActionsCatalog.getInstance().getAllSystemsOff());
 
         pilot.whenPressed(TecbotController.ButtonType.X, RobotActionsCatalog.getInstance().getAllSystemsOff());
+
+        pilot.whenPressed(TecbotController.ButtonType.START, new ChassisToggleTransmissionMode());
 
         //POV a.k.a. D-PAD
         pilot.whenPressed(TecbotController.ButtonType.POV_0, RobotActionsCatalog.getInstance().getShootFromTargetZone());

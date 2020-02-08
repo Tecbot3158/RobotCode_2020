@@ -8,10 +8,13 @@
 package frc.robot.subsystems.intake;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.resources.*;
 
@@ -22,6 +25,11 @@ public class Intake extends SubsystemBase {
 
     ArrayList<DoubleSolenoid> frontSolenoids;
     ArrayList<DoubleSolenoid> rearSolenoids;
+
+    static HashMap<Color, Integer> controlPanelColors;
+    static HashMap<Integer, Color> controlPanelIDs;
+
+    Servo sensorServo;
 
     /**
      * Creates a new Intake.
@@ -43,6 +51,19 @@ public class Intake extends SubsystemBase {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        controlPanelColors = new HashMap<>();
+        controlPanelColors.put(Color.RED, TecbotConstants.RED_ID);
+        controlPanelColors.put(Color.BLUE, TecbotConstants.BLUE_ID);
+        controlPanelColors.put(Color.GREEN, TecbotConstants.GREEN_ID);
+        controlPanelColors.put(Color.YELLOW, TecbotConstants.YELLOW_ID);
+
+        controlPanelIDs = new HashMap<>();
+        controlPanelIDs.put(TecbotConstants.RED_ID, Color.RED);
+        controlPanelIDs.put(TecbotConstants.BLUE_ID, Color.BLUE);
+        controlPanelIDs.put(TecbotConstants.GREEN_ID, Color.GREEN);
+        controlPanelIDs.put(TecbotConstants.YELLOW_ID, Color.YELLOW);
+
+        sensorServo = RobotConfigurator.buildServo(RobotMap.servoPort);
     }
 
     /* Front Intake */
@@ -106,6 +127,24 @@ public class Intake extends SubsystemBase {
         for (DoubleSolenoid m : frontSolenoids) {
             m.set(Value.kReverse);
         }
+    }
+
+    public void setServoPosition(int angle){
+        sensorServo.set(angle);
+    }
+    public double getServoPosition(){
+        return sensorServo.getAngle();
+    }
+
+    public enum Color {RED, GREEN, BLUE, YELLOW}
+
+    public static int getIDFromColor(Color color){
+
+        return controlPanelColors.get(color);
+    }
+
+    public static Color getColorFromID(int id){
+        return controlPanelIDs.get(id);
     }
 
     @Override

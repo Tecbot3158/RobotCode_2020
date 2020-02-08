@@ -9,33 +9,58 @@
 package frc.robot.commands.subsystems.controlPanel;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
+import frc.robot.subsystems.intake.Intake.Color;
 
 public class ExecuteRotationControl extends CommandBase {
   /**
    * Creates a new Rotation.
    */
+
+  Color initialColor;
+
+  // The color that the sensor saw in the last frame
+  Color lastColor;
+
+  //The amount of times that the initial color has been seen
+  int count;
+
   public ExecuteRotationControl() {
-    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.getRobotContainer().getIntake());
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    initialColor = Robot.getRobotContainer().getTecbotSensors().getColor();
+    lastColor = initialColor;
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    Color currentColor = Robot.getRobotContainer().getTecbotSensors().getColor();
+    Robot.getRobotContainer().getIntake().frontIntakeForward();
+    if(currentColor != lastColor){
+      if(currentColor == initialColor)
+        count ++;
+    }
+
+    if(count % 2 > 3){
+      Robot.getRobotContainer().getIntake().frontIntakeOff();
+    }
+
+    lastColor = currentColor;
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    Robot.getRobotContainer().getIntake().frontIntakeOff();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return count % 2 > 3;
   }
 }

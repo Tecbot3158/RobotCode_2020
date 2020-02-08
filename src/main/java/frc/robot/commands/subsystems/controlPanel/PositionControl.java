@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.fileTemplates;
+package frc.robot.commands.subsystems.controlPanel;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
@@ -19,5 +19,6 @@ public class PositionControl extends ParallelCommandGroup {
     public PositionControl() {
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());super();
+        super(new ExtendSensor(), new ExecutePositionControl(), new RetractSensor());
     }
 }

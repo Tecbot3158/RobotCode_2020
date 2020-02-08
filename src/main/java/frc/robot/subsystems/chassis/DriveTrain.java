@@ -25,9 +25,6 @@ public class DriveTrain extends SubsystemBase {
     DoubleSolenoid dragonFlyWheelSolenoid;
 
     DoubleSolenoid transmission;
-    boolean transmissionOn = false;
-
-
 
     public enum TransmissionMode {
         torque, speed
@@ -379,18 +376,13 @@ public class DriveTrain extends SubsystemBase {
         return (transmissionState);
     }
 
-    public boolean getTransmissionState() {
-        return transmissionOn;
-    }
 
     public void setTransmissionState(TransmissionMode mode) {
         transmissionState = mode;
         if (mode == TransmissionMode.torque) {
-            transmissionOn = true;
-            transmission.set(DoubleSolenoid.Value.kForward);
+            transmission.set(RobotMap.TORQUE_TRANSMISSION);
         } else {
-            transmissionOn = false;
-            transmission.set(DoubleSolenoid.Value.kReverse);
+            transmission.set(RobotMap.SPEED_TRANSMISSION);
         }
     }
 

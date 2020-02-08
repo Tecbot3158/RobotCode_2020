@@ -5,9 +5,11 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.fileTemplates;
+package frc.robot.commands.subsystems.controlPanel;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
+import frc.robot.resources.TecbotConstants;
 
 public class RetractSensor extends CommandBase {
     /**
@@ -20,6 +22,7 @@ public class RetractSensor extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        Robot.getRobotContainer().getIntake().setServoPosition(TecbotConstants.SENSOR_RETRACTED_ANGLE);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -35,6 +38,6 @@ public class RetractSensor extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return Robot.getRobotContainer().getIntake().getServoPosition() == TecbotConstants.SENSOR_RETRACTED_ANGLE;
     }
 }

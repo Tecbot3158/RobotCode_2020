@@ -9,6 +9,17 @@ public class Math {
         return java.lang.Math.max(mn, java.lang.Math.min(p, mx));
     }
 
+    /**
+     * @return returns mathematical a mod b
+     */
+    public static int module(double a, double b){
+        double mod = a%b;
+        if(mod < 0){
+            mod += b;
+        }
+        return mod;
+    }
+
     public static double max(double a, double b) {
         return java.lang.Math.max(a, b);
     }

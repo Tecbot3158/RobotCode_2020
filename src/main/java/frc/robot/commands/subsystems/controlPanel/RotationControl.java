@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.fileTemplates;
+package frc.robot.commands.subsystems.controlPanel;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
@@ -19,6 +19,6 @@ public class RotationControl extends SequentialCommandGroup {
     public RotationControl() {
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
-        super();
+        super(new ExtendSensor(), new PositionControl(), new RetractSensor());
     }
 }

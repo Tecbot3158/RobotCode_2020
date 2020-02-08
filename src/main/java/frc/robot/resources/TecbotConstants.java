@@ -94,6 +94,21 @@ public class TecbotConstants {
     public static final double REAR_INTAKE_SPEED = 0.8;
     //INTAKE ENDS
 
+    //CONTROL PANEL STARTS
+
+    //The ids assigned to the colors will be used to know in which order they are
+
+    public static final int RED_ID = 1;
+    public static final int GREEN_ID = 2;
+    public static final int BLUE_ID = 3;
+    public static final int YELLOW_ID = 4;
+
+    public static final int SENSOR_RETRACTED_ANGLE = 0;
+    public static final int SENSOR_EXTENDED_ANGLE = 0;
+
+
+    //CONTROL PANEL ENDS
+
     //TRANSPORTATION SYSTEMS STARTS
     public static double TRANSPORTATION_SYSTEM_POWER = 0.2;
     //TRANSPORTATION SYSTEMS ENDS
