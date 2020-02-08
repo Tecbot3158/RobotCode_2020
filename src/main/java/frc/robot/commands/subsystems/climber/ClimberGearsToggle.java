@@ -14,11 +14,11 @@ import frc.robot.subsystems.climber.Climber;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class ClimberDisengageGearsToggle extends InstantCommand {
+public class ClimberGearsToggle extends InstantCommand {
 
     private final Climber m_climber = Robot.getRobotContainer().getClimber();
 
-    public ClimberDisengageGearsToggle() {
+    public ClimberGearsToggle() {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(m_climber);
     }

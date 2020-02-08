@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.resources.RobotConfigurator;
@@ -14,6 +15,7 @@ import frc.robot.resources.TecbotSpeedController;
 import frc.robot.resources.TecbotSpeedController.TypeOfMotor;
 
 public class RobotMap {
+
 
     public static int[] LEFT_CHASSIS_PORTS = {2, 3};
     public static int[] RIGHT_CHASSIS_PORTS = {0, 1};
@@ -80,10 +82,21 @@ public class RobotMap {
     /*
      * CLIMBER STARTS
      */
-    public static int[] WINCH_PORTS = {12, 13};
-    public static int[] INVERTED_WINCH_PORTS = {0, 0};
+    //LEFT WINCH
+    public static int[] LEFT_WINCH_PORTS = {12};
+    public static int[] LEFT_INVERTED_WINCH_PORTS = {};
+    public static TecbotSpeedController.TypeOfMotor[] LEFT_WINCH_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
+
+    //RIGHT WINCH
+    public static final int[] RIGHT_WINCH_PORTS = {13};
+    public static final int[] RIGHT_INVERTED_WINCH_PORTS = {};
+    public static TecbotSpeedController.TypeOfMotor[] RIGHT_WINCH_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
+
     public static int[] GEAR_DISENGAGER_SOLENOID_PORTS = {4, 5};
-    public static TecbotSpeedController.TypeOfMotor[] WINCH_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
+    public static final DoubleSolenoid.Value ENGAGED_SHOOTER_GEAR = DoubleSolenoid.Value.kForward;
+    public static final DoubleSolenoid.Value DISENGAGED_SHOOTER_GEAR = DoubleSolenoid.Value.kReverse;
+
+    public static final int CLIMBER_LIMIT_SWITCH_PORT = 0;
     /*
      * CLIMBER ENDS
      */
@@ -92,7 +105,7 @@ public class RobotMap {
         SHOOTER STARTS
      */
     public static final int ANGLER_PORT = 5;
-    public static double MANUALSHOOT = 0.4;
+    public static double MANUAL_SHOOT = 0.4;
     public static boolean SHOOTER_ENCODER_IN_RIGHT_MOTOR = true;
     /*
         SHOOTER ENDS

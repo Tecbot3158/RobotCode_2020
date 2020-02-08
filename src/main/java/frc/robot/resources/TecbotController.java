@@ -229,7 +229,6 @@ public class TecbotController {
     }
 
     private int pilotPort;
-    private HashMap<ButtonType, JoystickButton> buttonHashMap;
 
     /**
      * Creates new {@link TecbotController} with functionality on top of
@@ -256,9 +255,9 @@ public class TecbotController {
         if (joystickName.contains("xbox")) controllerType = TypeOfController.XBOX;
 
         if (pilot == null) DriverStation.reportWarning("Joystick not found (Tecbot Controller)", true);
-        if (controllerType != null) setButtons();
-        else DriverStation.reportWarning("Controller not identified, some methods will return 0.", false);
-        buttonHashMap = new HashMap<>();
+        else setButtons();
+        if (controllerType == null && pilot != null)
+            DriverStation.reportWarning("Controller not identified, some methods will return 0.", false);
     }
 
     /**
@@ -446,7 +445,11 @@ public class TecbotController {
      * <br>Therefore, both triggers pressed will return 0.
      */
     public double getTriggers() {
-        if (pilot == null) return 0;
+        if (pilot == null) {
+            DriverStation.reportWarning("Controller not found @ port #" + getPilotPort()
+                    + ". Returning 0.", true);
+            return 0;
+        }
         double value;
         switch (controllerType) {
             case PS4:
@@ -460,7 +463,51 @@ public class TecbotController {
                 DriverStation.reportWarning("Could not get axis value from getTriggers(). Returned 0. Use getAxisValue() instead.", false);
                 break;
         }
-        return ground(value, offset);
+        return value;
+    }
+
+    /**
+     * @ return value between 0 and 1 for leftTrigger
+     */
+    public double getLeftTrigger() {
+        if (pilot == null) {
+            DriverStation.reportWarning("Controller not found @ port #" + getPilotPort()
+                    + ". Returning 0.", true);
+            return 0;
+        }
+        switch (controllerType) {
+            case XBOX:
+                return pilot.getRawAxis(portsTriggersXBOX[0]);
+            case PS4:
+                return (pilot.getRawAxis(portsTriggersPS4[0]) + 1) / 2;
+            default:
+                DriverStation.reportWarning("Could not recognize controller type. Returning 0.",
+                        false);
+                return 0;
+        }
+
+    }
+
+    /**
+     * @ return value between 0 and 1 for rightTrigger
+     */
+    public double getRightTrigger() {
+        if (pilot == null) {
+            DriverStation.reportWarning("Controller not found @ port #" + getPilotPort()
+                    + ". Returning 0.", true);
+            return 0;
+        }
+        switch (controllerType) {
+            case XBOX:
+                return pilot.getRawAxis(portsTriggersXBOX[1]);
+            case PS4:
+                return (pilot.getRawAxis(portsTriggersPS4[1]) + 1) / 2;
+            default:
+                DriverStation.reportWarning("Could not recognize controller type. Returning 0.",
+                        false);
+                return 0;
+        }
+
     }
 
     /**

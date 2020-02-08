@@ -19,9 +19,9 @@ public class SharedMotors {
      * @param speedRight speed for right motors
      * @param speedLeft  speed for left motors
      */
-    public void setAll(double speedRight, double speedLeft) {
-        rightSharedMotors.setAll(speedRight);
+    public void setAll(double speedLeft, double speedRight) {
         leftSharedMotors.setAll(speedLeft);
+        rightSharedMotors.setAll(speedRight);
     }
 
     public TecbotSpeedController getMotorWithEncoderRight() {

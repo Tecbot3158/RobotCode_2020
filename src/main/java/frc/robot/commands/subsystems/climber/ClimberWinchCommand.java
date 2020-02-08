@@ -17,10 +17,11 @@ public class ClimberWinchCommand extends CommandBase {
      */
 
     private final Climber m_climber = Robot.getRobotContainer().getClimber();
-    private double winchPower;
+    private double leftSpeed, rightSpeed;
 
-    public ClimberWinchCommand(double power) {
-        winchPower = power;
+    public ClimberWinchCommand(double leftSpeed, double rightSpeed) {
+        this.leftSpeed = leftSpeed;
+        this.rightSpeed = rightSpeed;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(m_climber);
     }
@@ -33,7 +34,7 @@ public class ClimberWinchCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_climber.setWinchSpeed(winchPower);
+        m_climber.setWinchSpeed(leftSpeed, rightSpeed);
     }
 
     // Called once the command ends or is interrupted.

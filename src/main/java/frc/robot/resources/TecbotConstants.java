@@ -21,6 +21,7 @@ public class TecbotConstants {
 
     public static final double K_DISTANCE_BETWEEN_WHEELS = .54;
     public static final double K_CHASSIS_WHEEL_DIAMETER = .34;
+
     public static int K_CHASSIS_TIC_PER_REVOLUTION = 30000;
     public static final double K_MIDDLE_WHEEL_DIAMETER = .34;
     public static int K_MIDDLE_WHEEL_TIC_PER_REVOLUTION = 30000;
@@ -67,6 +68,7 @@ public class TecbotConstants {
     // Meter * meters_to_encoder = encoder count
     public static double K_METERS_TO_ENCODER = (float) (30000 / (.2034 * Math.PI));
 
+    //SHOOTER STARTS
     public static final double TRENCH_SHOOTING_SPEED = 0;
     public static final double INITIATION_LINE_SHOOTING_SPEED = 0;
     public static final double TARGET_ZONE_SHOOTING_SPEED = 0;
@@ -81,9 +83,20 @@ public class TecbotConstants {
     public static final double K_SHOOTER_P = 0;
     public static final double K_SHOOTER_I = 0;
     public static final double K_SHOOTER_D = 0;
+    //SHOOTER ENDS
+
+    //CLIMBER STARTS
+    public static final double WINCH_SPEED = 1;
+    //CLIMBER ENDS
+
+    //INTAKE STARTS
     public static final double FRONT_INTAKE_SPEED = 0.8;
     public static final double REAR_INTAKE_SPEED = 0.8;
+    //INTAKE ENDS
 
-	public static double TRANSPORTATION_SYSTEM_POWER = 0.2;
+    //TRANSPORTATION SYSTEMS STARTS
+    public static double TRANSPORTATION_SYSTEM_POWER = 0.2;
+    //TRANSPORTATION SYSTEMS ENDS
+
 
 }

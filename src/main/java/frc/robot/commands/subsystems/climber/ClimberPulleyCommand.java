@@ -18,7 +18,7 @@ public class ClimberPulleyCommand extends CommandBase {
     private final Climber m_climber = Robot.getRobotContainer().getClimber();
     private double pulleyPowerRight, pulleyPowerLeft;
 
-    public ClimberPulleyCommand(double powerRight, double powerLeft) {
+    public ClimberPulleyCommand(double powerLeft, double powerRight) {
         pulleyPowerRight = powerRight;
         pulleyPowerLeft = powerLeft;
         // Use addRequirements() here to declare subsystem dependencies.
@@ -33,7 +33,7 @@ public class ClimberPulleyCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_climber.setPulleySpeed(pulleyPowerRight, pulleyPowerLeft);
+        m_climber.setPulleySpeed(pulleyPowerLeft, pulleyPowerRight);
     }
 
     // Called once the command ends or is interrupted.

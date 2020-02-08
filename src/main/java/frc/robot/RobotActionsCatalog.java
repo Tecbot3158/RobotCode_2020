@@ -1,6 +1,8 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.robotActions.AllSystemsOff;
+import frc.robot.commands.robotActions.TransportDeflectorOff;
 import frc.robot.commands.robotActions.intakeTransport.RearIntakeAndShootBottomPort;
 import frc.robot.commands.robotActions.intakeTransport.FrontIntakeAndTransport;
 import frc.robot.commands.robotActions.intakeTransport.IntakeFromFeederAndTransport;
@@ -9,6 +11,9 @@ import frc.robot.commands.robotActions.mixed.*;
 import frc.robot.commands.robotActions.shootTransport.ShootInitiationLineAndTransport;
 import frc.robot.commands.robotActions.shootTransport.ShootTargetZoneAndTransport;
 import frc.robot.commands.robotActions.shootTransport.ShootTrenchAndTransport;
+import frc.robot.commands.subsystems.shooter.ShootFromInitiationLine;
+import frc.robot.commands.subsystems.shooter.ShootFromTargetZone;
+import frc.robot.commands.subsystems.shooter.ShootFromTrench;
 
 public class RobotActionsCatalog {
     private static RobotActionsCatalog instance;
@@ -31,6 +36,12 @@ public class RobotActionsCatalog {
     private ShootInitiationLineAndTransport shootInitiationLineAndTransport;
     private ShootTargetZoneAndTransport shootTargetZoneAndTransport;
     private ShootTrenchAndTransport shootTrenchAndTransport;
+
+    private ShootFromTrench shootFromTrench;
+    private ShootFromInitiationLine shootFromInitiationLine;
+    private ShootFromTargetZone shootFromTargetZone;
+
+    private TransportDeflectorOff transportDeflectorOff;
 
 
     public RobotActionsCatalog() {
@@ -56,6 +67,13 @@ public class RobotActionsCatalog {
         shootInitiationLineAndTransport = new ShootInitiationLineAndTransport();
         shootTargetZoneAndTransport = new ShootTargetZoneAndTransport();
         shootTrenchAndTransport = new ShootTrenchAndTransport();
+
+        shootFromInitiationLine = new ShootFromInitiationLine();
+        shootFromTargetZone = new ShootFromTargetZone();
+        shootFromTrench = new ShootFromTrench();
+
+        transportDeflectorOff = new TransportDeflectorOff();
+
 
     }
 
@@ -118,5 +136,21 @@ public class RobotActionsCatalog {
 
     public ShootTrenchAndTransport getShootTrenchAndTransport() {
         return shootTrenchAndTransport;
+    }
+
+    public ShootFromTrench getShootFromTrench() {
+        return shootFromTrench;
+    }
+
+    public ShootFromInitiationLine getShootFromInitiationLine() {
+        return shootFromInitiationLine;
+    }
+
+    public ShootFromTargetZone getShootFromTargetZone() {
+        return shootFromTargetZone;
+    }
+
+    public TransportDeflectorOff getTransportDeflectorOff() {
+        return transportDeflectorOff;
     }
 }

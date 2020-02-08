@@ -3,6 +3,7 @@ package frc.robot.resources;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Robot;
@@ -24,6 +25,9 @@ public class TecbotSensors {
     private final Color K_GREEN_TARGET = ColorMatch.makeColor(0.197, 0.561, 0.240);
     private final Color K_RED_TARGET = ColorMatch.makeColor(0.561, 0.232, 0.114);
     private final Color K_YELLOW_TARGET = ColorMatch.makeColor(0.361, 0.524, 0.113);
+
+    //CLIMBER stuff
+    private DigitalInput climberLimitSwitch;
 
     public TecbotSensors() {
 
@@ -48,9 +52,9 @@ public class TecbotSensors {
         middleChassisEncoder = RobotConfigurator.buildEncoder
                 (Robot.getRobotContainer().getDriveTrain().getSpecificMotor(RobotMap.MIDDLE_CHASSIS_MOTOR_WITH_ENCODER)
                         , RobotMap.MIDDLE_WHEEL_ENCODER_PORTS[0], RobotMap.MIDDLE_WHEEL_ENCODER_PORTS[1]);
-        if(RobotMap.LEFT_CHASSIS_ENCODER_IS_INVERTED) leftChassisEncoder.setInverted(true);
-        if(RobotMap.RIGHT_CHASSIS_ENCODER_IS_INVERTED) rightChassisEncoder.setInverted(true);
-        if(RobotMap.MIDDLE_CHASSIS_ENCODER_IS_INVERTED) middleChassisEncoder.setInverted(true);
+        if (RobotMap.LEFT_CHASSIS_ENCODER_IS_INVERTED && leftChassisEncoder != null) leftChassisEncoder.setInverted(true);
+        if (RobotMap.RIGHT_CHASSIS_ENCODER_IS_INVERTED && rightChassisEncoder != null) rightChassisEncoder.setInverted(true);
+        if (RobotMap.MIDDLE_CHASSIS_ENCODER_IS_INVERTED && middleChassisEncoder != null) middleChassisEncoder.setInverted(true);
 
         colorSensorV3 = new ColorSensorV3(I2C_PORT_ONBOARD);
         colorMatcher = new ColorMatch();
@@ -58,6 +62,8 @@ public class TecbotSensors {
         colorMatcher.addColorMatch(K_GREEN_TARGET);
         colorMatcher.addColorMatch(K_RED_TARGET);
         colorMatcher.addColorMatch(K_YELLOW_TARGET);
+
+        climberLimitSwitch = new DigitalInput(RobotMap.CLIMBER_LIMIT_SWITCH_PORT);
 
     }
 
@@ -120,4 +126,10 @@ public class TecbotSensors {
         MIDDLE_CHASSIS, RIGHT_CHASSIS, LEFT_CHASSIS, SHOOTER
     }
 
+    /**
+     * @return raw limit switch value.
+     */
+    public boolean getClimberLimitSwitch() {
+        return climberLimitSwitch.get();
+    }
 }

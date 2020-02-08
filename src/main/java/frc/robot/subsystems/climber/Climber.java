@@ -9,7 +9,6 @@ package frc.robot.subsystems.climber;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -21,41 +20,64 @@ public class Climber extends SubsystemBase {
     /**
      * Creates a new Climber.
      */
-    TecbotMotorList winchMotors;
-    Solenoid gearDisengager;
+    TecbotMotorList leftWinchMotors;
+    TecbotMotorList rightWinchMotors;
+    DoubleSolenoid gearDisengager;
+    int xWhenPressedCount;
 
     public Climber() {
-        winchMotors = RobotConfigurator.buildMotorList(RobotMap.WINCH_PORTS, RobotMap.INVERTED_WINCH_PORTS, RobotMap.WINCH_MOTOR_TYPES);
-        //gearDisengager = RobotConfigurator.buildDoubleSolenoid(RobotMap.GEAR_DISENGAGER_SOLENOID_PORTS);
-        //gearDisengager = new Solenoid(8);
+
+        leftWinchMotors = RobotConfigurator.buildMotorList(RobotMap.LEFT_WINCH_PORTS, RobotMap.LEFT_INVERTED_WINCH_PORTS, RobotMap.LEFT_WINCH_MOTOR_TYPES);
+        rightWinchMotors = RobotConfigurator.buildMotorList(RobotMap.RIGHT_WINCH_PORTS, RobotMap.RIGHT_INVERTED_WINCH_PORTS, RobotMap.RIGHT_WINCH_MOTOR_TYPES);
+
+        gearDisengager = RobotConfigurator.buildDoubleSolenoid(RobotMap.GEAR_DISENGAGER_SOLENOID_PORTS);
+        xWhenPressedCount = 0;
 
     }
 
     public void gearDisengagerToggle() {
-        /*
         if (gearDisengager.get() == Value.kForward)
             gearDisengager.set(Value.kReverse);
         else
             gearDisengager.set(Value.kForward);
+    }
 
-         */
-        //gearDisengager.set(false);
+    public void engageGear() {
+        gearDisengager.set(RobotMap.ENGAGED_SHOOTER_GEAR);
+    }
+
+    public void disengageGear() {
+        gearDisengager.set(RobotMap.DISENGAGED_SHOOTER_GEAR);
     }
 
     /**
-     * @param winchPower Requires double for the speed for lifting the hook
+     * @param leftSpeed  Requires double for the speed for lifting the left hook
+     * @param rightSpeed Requires double for the speed for lifting the right hook
      */
-    public void setWinchSpeed(double winchPower) {
-        winchMotors.setAll(winchPower);
+    public void setWinchSpeed(double leftSpeed, double rightSpeed) {
+        leftWinchMotors.setAll(leftSpeed);
+        rightWinchMotors.setAll(rightSpeed);
     }
 
     /**
      * @param pulleyPowerRight Requires double for right pulley speed
      * @param pulleyPowerLeft  Requires double for left pulley speed
      */
-    public void setPulleySpeed(double pulleyPowerRight, double pulleyPowerLeft) {
+    public void setPulleySpeed(double pulleyPowerLeft, double pulleyPowerRight) {
         //reel, cannot do this if input is negative
-        Robot.getRobotContainer().getSharedMotors().setAll(Math.abs(pulleyPowerRight), Math.abs(pulleyPowerLeft));
+        Robot.getRobotContainer().getSharedMotors().setAll(Math.abs(pulleyPowerLeft), Math.abs(pulleyPowerRight));
+    }
+
+    public void addToXCounter() {
+        setxWhenPressedCount(getxWhenPressedCount() + 1);
+    }
+
+    public int getxWhenPressedCount() {
+        return xWhenPressedCount;
+    }
+
+    public void setxWhenPressedCount(int xWhenPressedCount) {
+        this.xWhenPressedCount = xWhenPressedCount;
     }
 
     @Override
