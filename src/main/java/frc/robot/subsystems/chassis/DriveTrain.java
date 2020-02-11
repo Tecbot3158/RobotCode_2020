@@ -68,7 +68,7 @@ public class DriveTrain extends SubsystemBase {
 
     public DriveTrain() {
 
-        transmission = new DoubleSolenoid(RobotMap.TRANSMISSION_PORT[0], RobotMap.TRANSMISSION_PORT[1]);
+        transmission = new DoubleSolenoid(RobotMap.TRANSMISSION_SOLENOID_PORT[0], RobotMap.TRANSMISSION_SOLENOID_PORT[1]);
 
         if(RobotMap.DRAGON_FLY_IS_AVAILABLE)
         dragonFlyWheelSolenoid = new DoubleSolenoid(RobotMap.WHEEL_SOLENOID_PORTS[0], RobotMap.WHEEL_SOLENOID_PORTS[1]);

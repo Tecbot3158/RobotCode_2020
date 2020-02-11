@@ -1,6 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.robotActions.AllSystemsOff;
 import frc.robot.commands.robotActions.TransportDeflectorOff;
 import frc.robot.commands.robotActions.intakeTransport.RearIntakeAndShootBottomPort;
@@ -27,7 +26,7 @@ public class RobotActionsCatalog {
 
     private RearIntakeShootTrenchTransport rearIntakeShootTrenchTransport;
     private RearIntakeShootTargetZoneTransport rearIntakeShootTargetZoneTransport;
-    private RearIntakeShootInititationLineTransport rearIntakeShootInititationLineTransport;
+    private RearIntakeShootInititationLineTransport rearIntakeShootInitiationLineTransport;
 
     private FrontIntakeShootTrenchTransport frontIntakeShootTrenchTransport;
     private FrontIntakeShootTargetZoneTransport frontIntakeShootTargetZoneTransport;
@@ -56,7 +55,7 @@ public class RobotActionsCatalog {
         //rear intake shoot
         rearIntakeShootTrenchTransport = new RearIntakeShootTrenchTransport();
         rearIntakeShootTargetZoneTransport = new RearIntakeShootTargetZoneTransport();
-        rearIntakeShootInititationLineTransport = new RearIntakeShootInititationLineTransport();
+        rearIntakeShootInitiationLineTransport = new RearIntakeShootInititationLineTransport();
 
         //front intake shoot
         frontIntakeShootTrenchTransport = new FrontIntakeShootTrenchTransport();
@@ -110,8 +109,8 @@ public class RobotActionsCatalog {
         return rearIntakeShootTargetZoneTransport;
     }
 
-    public RearIntakeShootInititationLineTransport getRearIntakeShootInititationLineTransport() {
-        return rearIntakeShootInititationLineTransport;
+    public RearIntakeShootInititationLineTransport getRearIntakeShootInitiationLineTransport() {
+        return rearIntakeShootInitiationLineTransport;
     }
 
     public FrontIntakeShootTrenchTransport getFrontIntakeShootTrenchTransport() {

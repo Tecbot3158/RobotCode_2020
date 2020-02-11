@@ -53,11 +53,11 @@ public class RobotMap {
     public static boolean RIGHT_CHASSIS_ENCODER_IS_INVERTED = false;
     public static boolean MIDDLE_CHASSIS_ENCODER_IS_INVERTED = false;
 
-    public static int[] TRANSMISSION_PORT = {0, 1};
+    public static int[] TRANSMISSION_SOLENOID_PORT = {9, 10};
     public static final DoubleSolenoid.Value TORQUE_TRANSMISSION = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value SPEED_TRANSMISSION = DoubleSolenoid.Value.kReverse;
 
-    public static int[] WHEEL_SOLENOID_PORTS = {6, 7};
+    public static int[] WHEEL_SOLENOID_PORTS = {0, 1};
     public static int[] MIDDLE_WHEEL_PORTS = {};
     public static int[] MIDDLE_WHEEL_INVERTED_MOTORS = {};
     public static TypeOfMotor[] MIDDLE_WHEEL_MOTOR_TYPES = {};
@@ -94,7 +94,7 @@ public class RobotMap {
     public static final int[] RIGHT_INVERTED_WINCH_PORTS = {};
     public static TecbotSpeedController.TypeOfMotor[] RIGHT_WINCH_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
 
-    public static int[] GEAR_DISENGAGER_SOLENOID_PORTS = {4, 5};
+    public static int[] GEAR_DISENGAGER_SOLENOID_PORTS = {2, 3};
     public static final DoubleSolenoid.Value ENGAGED_SHOOTER_GEAR = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value DISENGAGED_SHOOTER_GEAR = DoubleSolenoid.Value.kReverse;
 
@@ -132,8 +132,8 @@ public class RobotMap {
     public static TypeOfMotor[] REAR_INTAKE_MOTORS_TYPES = {TypeOfMotor.TALON_SRX};
 
 
-    public static int[] FRONT_SOLENOIDS = {0, 1};
-    public static int[] REAR_SOLENOIDS = {2, 3};
+    public static int[] FRONT_SOLENOIDS = {4, 5};
+    public static int[] REAR_SOLENOIDS = {6, 7};
 
     public static int servoPort = 0;
 
@@ -146,7 +146,7 @@ public class RobotMap {
     public static final TypeOfMotor[] TRANSPORTATION_SYSTEM_TYPE_OF_MOTORS = {TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX};
     public static final int[] TRANSPORTATION_SYSTEM_MOTOR_PORTS = {3, 4, 5, 6};
     public static final int[] TRANSPORTATION_SYSTEM_INVERTED_MOTOR_PORTS = {};
-    public static final int[] DEFLECTOR_SOLENOID = {4, 5};
+    public static final int[] DEFLECTOR_SOLENOID = {8, 9};
     /*
     TransportationSystem Subsystem ENDS
      */
