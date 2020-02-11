@@ -48,7 +48,7 @@ public class DriveTrain extends SubsystemBase {
 
     public enum DrivingMode {
         Default, Pivot, Mecanum, Swerve
-    };
+    }
 
     private DrivingMode currentDrivingMode = DrivingMode.Default;
 
@@ -57,7 +57,7 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public enum Side {
-        RIGHT, LEFT;
+        RIGHT, LEFT
     }
 
     // The desired angle when using PID
