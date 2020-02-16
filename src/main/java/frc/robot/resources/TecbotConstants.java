@@ -5,6 +5,9 @@ public class TecbotConstants {
     public static final double CHASSIS_TURN_MAX_DISTANCE = 20;
     public static final double CHASSIS_TURN_ARRIVE_OFFSET = 2;
 
+    public static final double CHASSIS_STRAIGHT_MAX_DISTANCE = 20;
+    public static final double CHASSIS_STRAIGHT_ARRIVE_OFFSET = 2;
+
     public static final double TURN_CORRECTION = .05;
     // The distance in angles that it needs to be from target in order to be
     // considered onTarget

@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.subsystems.chassis.autonomous;
+package frc.robot.commands.subsystems.chassis.autonomous.pid;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
@@ -31,6 +31,6 @@ public class PIDSetAngle extends InstantCommand {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.getRobotContainer().getDriveTrain().setPidAngleTarget(m_isDelta ? Robot.getRobotContainer().getTecbotSensors().getYaw() : 0 + m_angle);
+        Robot.getRobotContainer().getDriveTrain().setPidAngleTarget((m_isDelta ? Robot.getRobotContainer().getTecbotSensors().getYaw() : 0) + m_angle);
     }
 }

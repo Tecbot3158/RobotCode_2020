@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.subsystems.chassis.autonomous;
+package frc.robot.commands.subsystems.chassis.autonomous.pid;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 

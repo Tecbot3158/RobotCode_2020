@@ -68,23 +68,23 @@ public class DriveTrain extends SubsystemBase {
 
     public DriveTrain() {
 
-        transmission = new DoubleSolenoid(RobotMap.TRANSMISSION_SOLENOID_PORT[0], RobotMap.TRANSMISSION_SOLENOID_PORT[1]);
+        transmission = RobotConfigurator.buildDoubleSolenoid(RobotMap.TRANSMISSION_SOLENOID_PORTS);
 
-        if(RobotMap.DRAGON_FLY_IS_AVAILABLE)
-        dragonFlyWheelSolenoid = new DoubleSolenoid(RobotMap.WHEEL_SOLENOID_PORTS[0], RobotMap.WHEEL_SOLENOID_PORTS[1]);
+        if (RobotMap.DRAGON_FLY_IS_AVAILABLE)
+            dragonFlyWheelSolenoid = RobotConfigurator.buildDoubleSolenoid(RobotMap.WHEEL_SOLENOID_PORTS);
 
 
         if (RobotMap.LEFT_CHASSIS_PORTS.length != RobotMap.RIGHT_CHASSIS_PORTS.length)
             DriverStation.reportError("More motors in one side.", true);
 
-      leftMotors = RobotConfigurator.buildMotorList(RobotMap.LEFT_CHASSIS_PORTS,
-              RobotMap.LEFT_CHASSIS_INVERTED_MOTORS, RobotMap.LEFT_CHASSIS_MOTOR_TYPES);
+        leftMotors = RobotConfigurator.buildMotorList(RobotMap.LEFT_CHASSIS_PORTS,
+                RobotMap.LEFT_CHASSIS_INVERTED_MOTORS, RobotMap.LEFT_CHASSIS_MOTOR_TYPES);
 
-      rightMotors = RobotConfigurator.buildMotorList(RobotMap.RIGHT_CHASSIS_PORTS,
-              RobotMap.RIGHT_CHASSIS_INVERTED_MOTORS, RobotMap.RIGHT_CHASSIS_MOTOR_TYPES);
+        rightMotors = RobotConfigurator.buildMotorList(RobotMap.RIGHT_CHASSIS_PORTS,
+                RobotMap.RIGHT_CHASSIS_INVERTED_MOTORS, RobotMap.RIGHT_CHASSIS_MOTOR_TYPES);
 
-      middleMotors = RobotConfigurator.buildMotorList(RobotMap.MIDDLE_WHEEL_PORTS,
-              RobotMap.MIDDLE_WHEEL_INVERTED_MOTORS, RobotMap.MIDDLE_WHEEL_MOTOR_TYPES);
+        middleMotors = RobotConfigurator.buildMotorList(RobotMap.MIDDLE_WHEEL_PORTS,
+                RobotMap.MIDDLE_WHEEL_INVERTED_MOTORS, RobotMap.MIDDLE_WHEEL_MOTOR_TYPES);
     }
 
     /**
@@ -99,13 +99,13 @@ public class DriveTrain extends SubsystemBase {
 
         switch (currentDrivingMode) {
             case Default:
-                dragonFlyDrive(x,reverse?-1:1 *  y, middleWheel);
+                dragonFlyDrive(x, (reverse ? -1 : 1) * y, middleWheel);
                 break;
             case Pivot:
-                pivot(x, reverse?-1:1 * y);
+                pivot(x, (reverse ? -1 : 1) * y);
                 break;
             case Mecanum:
-                mecanumDrive(reverse?-1:1 * x, reverse?-1:1 * y, turn);
+                mecanumDrive((reverse ? -1 : 1) * x, (reverse ? -1 : 1) * y, turn);
                 break;
             case Swerve:
                 swerveMove(x, y, turn);
@@ -116,7 +116,7 @@ public class DriveTrain extends SubsystemBase {
 
     }
 
-    public void driveSide( Side side, double power) {
+    public void driveSide(Side side, double power) {
         switch (side) {
             case LEFT:
                 leftMotors.setAll(power);
@@ -128,7 +128,7 @@ public class DriveTrain extends SubsystemBase {
         }
     }
 
-    public void setMiddleWheel(double power){
+    public void setMiddleWheel(double power) {
         middleMotors.setAll(power);
     }
 
@@ -142,7 +142,7 @@ public class DriveTrain extends SubsystemBase {
         double leftPower = (turn + speed);
         double rightPower = -turn + speed;
 
-        tankDrive(leftPower,rightPower);
+        tankDrive(leftPower, rightPower);
     }
 
     public boolean turn(double target, double maxPower) {
@@ -168,21 +168,58 @@ public class DriveTrain extends SubsystemBase {
         return false;
     }
 
+    public boolean moveStraight(double target, double maxPower) {
+        maxPower = Math.clamp(maxPower, 0, 1);
+
+        double deltaEncoder = target - Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(TecbotSensors.SubsystemType.LEFT_CHASSIS);
+        double power = Math.clamp(deltaEncoder / TecbotConstants.CHASSIS_STRAIGHT_MAX_DISTANCE, -maxPower, maxPower);
+
+        double diffAbs = Math.abs(deltaEncoder);
+        if (diffAbs < TecbotConstants.CHASSIS_STRAIGHT_ARRIVE_OFFSET) {
+            stop();
+            return true;
+        } else {
+            drive(0, power);
+        }
+        return false;
+    }
+
+    public boolean moveStraight(double target, double maxPower, double targetAngle) {
+        maxPower = Math.clamp(maxPower, 0, 1);
+
+        double deltaEncoder = Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(TecbotSensors.SubsystemType.LEFT_CHASSIS) - target;
+        double power = Math.clamp(deltaEncoder / TecbotConstants.CHASSIS_STRAIGHT_MAX_DISTANCE, -maxPower, maxPower);
+
+        double deltaAngle = targetAngle - Robot.getRobotContainer().getTecbotSensors().getYaw();
+        double turnCorrection = deltaAngle * TecbotConstants.TURN_CORRECTION;
+
+        double diffAbs = Math.abs(deltaEncoder);
+        if (diffAbs < TecbotConstants.CHASSIS_STRAIGHT_ARRIVE_OFFSET) {
+            stop();
+            return true;
+        } else {
+            drive(turnCorrection, power);
+            return false;
+        }
+    }
+
     public void stop() {
         dragonFlyDrive(0, 0, 0);
     }
 
+    public enum WheelState {Lowered, Raised}
+
     /**
      * Rises or lowers the wheel.
      *
-     * @param state The desired state for the wheel, true for rising.
+     * @param state The desired state for the wheel.
      */
 
-    public void setDragonFlyWheelState(boolean state) {
-        if (state) {
-            dragonFlyWheelSolenoid.set(DoubleSolenoid.Value.kForward);
+    public void setDragonFlyWheelState(WheelState state) {
+        if (state == WheelState.Lowered) {
+            dragonFlyWheelSolenoid.set(RobotMap.LOWERED_WHEEL);
         } else {
-            dragonFlyWheelSolenoid.set(DoubleSolenoid.Value.kReverse);
+            dragonFlyWheelSolenoid.set(RobotMap.RAISED_WHEEL);
         }
     }
 
@@ -199,7 +236,7 @@ public class DriveTrain extends SubsystemBase {
      */
     public void dragonFlyDrive(double turn, double speed, double middleWheel) {
         setMiddleWheel(middleWheel);
-        drive(speed, turn);
+        drive(turn, speed);
     }
 
     /**
@@ -234,7 +271,7 @@ public class DriveTrain extends SubsystemBase {
             // This condition will happen once every time the robot enters mecanum drive.
             // Mecanum drive needs to be lowered. We need to lower the wheel once the robot
             // enters mecanum drive.
-            setDragonFlyWheelState(false);
+            setDragonFlyWheelState(WheelState.Lowered);
         }
         if (turn >= .1 || turn <= -.1)
             startingAngle = Robot.getRobotContainer().getTecbotSensors().getYaw();
@@ -289,6 +326,7 @@ public class DriveTrain extends SubsystemBase {
         double absoluteAngle = 0;
         if (y != 0) {
             absoluteAngle = Math.toDegrees(Math.atan(x / y));
+        } else {
             if (x > 0)
                 absoluteAngle = 90;
             if (x < 0)
@@ -304,29 +342,33 @@ public class DriveTrain extends SubsystemBase {
         // The angle at which the robot will move, considering its rotation.
         double relativeAngle = absoluteAngle - Robot.getRobotContainer().getTecbotSensors().getYaw();
         // The max power that will be given to the motors.
-        double speed = Math.sqrt((x * x) + (y * y));
+        double speed = Math.hypot(x,y);
 
         driveToAngle(relativeAngle, speed, turn);
 
     }
 
-    public void pidTurn(double output){
-        drive(output,0);
+    public void pidTurn(double output) {
+        drive(output, 0);
     }
-    public double getPidAngleTarget(){
+
+    public double getPidAngleTarget() {
         return pidAngleTarget;
     }
-    public void setPidAngleTarget(double target){
+
+    public void setPidAngleTarget(double target) {
         pidAngleTarget = target;
     }
 
-    public void moveStraightPID(double output){
-        drive((Robot.getRobotContainer().getTecbotSensors().getYaw()-pidAngleTarget)*TecbotConstants.TURN_CORRECTION, output);
+    public void moveStraightPID(double output) {
+        drive((Robot.getRobotContainer().getTecbotSensors().getYaw() - pidAngleTarget) * TecbotConstants.TURN_CORRECTION, output);
     }
-    public double getPidStraightTarget(){
+
+    public double getPidStraightTarget() {
         return pidStraightTarget;
     }
-    public void setPidStraightTarget(double target){
+
+    public void setPidStraightTarget(double target) {
         pidStraightTarget = target;
     }
 
@@ -335,7 +377,7 @@ public class DriveTrain extends SubsystemBase {
         if (state)
             currentDrivingMode = DrivingMode.Mecanum;
         else
-            currentDrivingMode = DrivingMode.Default;
+            setDefaultDrive();
     }
 
     public boolean isMovingMecanum() {
@@ -346,7 +388,7 @@ public class DriveTrain extends SubsystemBase {
         if (state)
             currentDrivingMode = DrivingMode.Swerve;
         else
-            currentDrivingMode = DrivingMode.Default;
+            setDefaultDrive();
     }
 
     public boolean isMovingSwerve() {
@@ -354,10 +396,12 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void setPivoting(boolean state) {
-        if (state)
+        if (state) {
             currentDrivingMode = DrivingMode.Pivot;
+            hasSetAngle = false;
+        }
         else
-            currentDrivingMode = DrivingMode.Default;
+            setDefaultDrive();
     }
 
     public boolean isPivoting() {
@@ -366,6 +410,7 @@ public class DriveTrain extends SubsystemBase {
 
     public void setDefaultDrive() {
         currentDrivingMode = DrivingMode.Default;
+        hasSetAngle = false;
     }
 
     public void setDrivingMode(DrivingMode mode) {
@@ -395,7 +440,7 @@ public class DriveTrain extends SubsystemBase {
 
     /**
      * Changes the driving axis configuration.
-     * 
+     *
      * @param reverse True means inverted driving.
      */
 
@@ -407,13 +452,13 @@ public class DriveTrain extends SubsystemBase {
         return reverse;
     }
 
-    public TecbotSpeedController getSpecificMotor(int port){
+    public TecbotSpeedController getSpecificMotor(int port) {
         TecbotSpeedController left = leftMotors.getSpecificMotor(port);
         TecbotSpeedController right = rightMotors.getSpecificMotor(port);
         TecbotSpeedController middle = rightMotors.getSpecificMotor(port);
 
-        if(left != null)return left;
-        else if(right != null) return right;
+        if (left != null) return left;
+        else if (right != null) return right;
         else return middle;
     }
 

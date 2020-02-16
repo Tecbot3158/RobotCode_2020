@@ -53,15 +53,17 @@ public class RobotMap {
     public static boolean RIGHT_CHASSIS_ENCODER_IS_INVERTED = false;
     public static boolean MIDDLE_CHASSIS_ENCODER_IS_INVERTED = false;
 
-    public static int[] TRANSMISSION_SOLENOID_PORT = {9, 10};
+    public static int[] TRANSMISSION_SOLENOID_PORTS = {9, 10};
     public static final DoubleSolenoid.Value TORQUE_TRANSMISSION = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value SPEED_TRANSMISSION = DoubleSolenoid.Value.kReverse;
 
-    public static int[] WHEEL_SOLENOID_PORTS = {0, 1};
     public static int[] MIDDLE_WHEEL_PORTS = {};
     public static int[] MIDDLE_WHEEL_INVERTED_MOTORS = {};
     public static TypeOfMotor[] MIDDLE_WHEEL_MOTOR_TYPES = {};
 
+    public static int[] WHEEL_SOLENOID_PORTS = {0, 1};
+    public static final DoubleSolenoid.Value LOWERED_WHEEL = DoubleSolenoid.Value.kForward;
+    public static final DoubleSolenoid.Value RAISED_WHEEL = DoubleSolenoid.Value.kReverse;
     public static boolean DRAGON_FLY_IS_AVAILABLE = true;
 
     /*

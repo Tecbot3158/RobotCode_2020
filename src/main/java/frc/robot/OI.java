@@ -47,19 +47,21 @@ public class OI {
         pilot.whenPressed(TecbotController.ButtonType.START, new ChassisToggleTransmissionMode());
 
         //POV a.k.a. D-PAD
-        pilot.whenPressed(TecbotController.ButtonType.POV_0, RobotActionsCatalog.getInstance().getShootFromTargetZone());
+        //pilot.whenPressed(TecbotController.ButtonType.POV_0, RobotActionsCatalog.getInstance().getShootFromTargetZone());
 
-        pilot.whenPressed(TecbotController.ButtonType.POV_90, RobotActionsCatalog.getInstance().getShootFromTrench());
+        //pilot.whenPressed(TecbotController.ButtonType.POV_90, RobotActionsCatalog.getInstance().getShootFromTrench());
 
-        pilot.whenPressed(TecbotController.ButtonType.POV_270, RobotActionsCatalog.getInstance().getShootFromInitiationLine());
+        //pilot.whenPressed(TecbotController.ButtonType.POV_270, RobotActionsCatalog.getInstance().getShootFromInitiationLine());
 
-        pilot.whenPressed(TecbotController.ButtonType.POV_180, RobotActionsCatalog.getInstance().getTransportDeflectorOff());
+        //pilot.whenPressed(TecbotController.ButtonType.POV_180, RobotActionsCatalog.getInstance().getTransportDeflectorOff());
+
+        pilot.whenPressed(TecbotController.ButtonType.POV_180, RobotActionsCatalog.getInstance().getNoPIDShootTrenchAndTransport());
 
         //PILOT ENDS
 
         //COPILOT STARTS
 
-        copilot.whileHeld(TecbotController.ButtonType.RB, RobotActionsCatalog.getInstance().getAllSystemsOff());
+        copilot.whileHeld(TecbotController.ButtonType.RB, RobotActionsCatalog.getInstance().getRearIntakeAndShootBottomPort());
         copilot.whenReleased(TecbotController.ButtonType.RB, RobotActionsCatalog.getInstance().getAllSystemsOff());
 
         copilot.whileHeld(TecbotController.ButtonType.B, RobotActionsCatalog.getInstance().getIntakeFromFeederAndTransport());

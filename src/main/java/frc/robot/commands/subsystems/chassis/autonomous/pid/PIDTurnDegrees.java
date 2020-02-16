@@ -5,18 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.subsystems.chassis.autonomous;
+package frc.robot.commands.subsystems.chassis.autonomous.pid;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class TurnDegrees extends ParallelCommandGroup {
+public class PIDTurnDegrees extends ParallelCommandGroup {
     /**
      * Creates a new ParallelCommandGroup.
      */
-    public TurnDegrees(double degrees) {
+    public PIDTurnDegrees(double degrees) {
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
         super(new PIDSetAngle(degrees, true), new PIDTurn());

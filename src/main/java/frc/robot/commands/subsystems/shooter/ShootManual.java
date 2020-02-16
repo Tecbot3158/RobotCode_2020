@@ -28,6 +28,7 @@ public class ShootManual extends InstantCommand {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        Robot.getRobotContainer().getShooter().disable();
         Robot.getRobotContainer().getShooter().setManualShooter(manualSpeed);
         Robot.getRobotContainer().getShooter().setManualShooter(manualAngle);
     }

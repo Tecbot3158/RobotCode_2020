@@ -15,6 +15,6 @@ public class LowerWheel extends InstantCommand {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.getRobotContainer().getDriveTrain().setDragonFlyWheelState(false);
+        Robot.getRobotContainer().getDriveTrain().setDragonFlyWheelState(true);
     }
 }

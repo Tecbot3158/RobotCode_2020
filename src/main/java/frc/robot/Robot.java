@@ -37,6 +37,7 @@ public class Robot extends TimedRobot {
         getRobotContainer().configureButtonBindings();
         getRobotContainer().getTecbotSensors().initializeAllSensors();
 
+
     }
 
     /**
@@ -102,7 +103,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        OI.getInstance().getPilot().run();
+OI.getInstance().getPilot().run();
     }
 
     @Override

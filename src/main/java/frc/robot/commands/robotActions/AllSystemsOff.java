@@ -14,6 +14,7 @@ import frc.robot.commands.subsystems.intakes.rearIntakes.RearIntakeOff;
 import frc.robot.commands.subsystems.intakes.rearIntakes.RearIntakeSolenoidOff;
 import frc.robot.commands.subsystems.pctower.TransportationSystemCloseDeflector;
 import frc.robot.commands.subsystems.pctower.TransportationSystemOff;
+import frc.robot.commands.subsystems.shooter.ShootManual;
 import frc.robot.commands.subsystems.shooter.ShooterOff;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -65,7 +66,8 @@ public class AllSystemsOff extends SequentialCommandGroup {
                 new RearIntakeOff(),
                 new TransportationSystemOff(),
                 new TransportationSystemCloseDeflector(),
-                new ShooterOff()
+                new ShooterOff(),
+                new ShootManual(0,0)
         );
     }
 }

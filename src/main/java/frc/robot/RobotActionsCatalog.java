@@ -7,6 +7,7 @@ import frc.robot.commands.robotActions.intakeTransport.FrontIntakeAndTransport;
 import frc.robot.commands.robotActions.intakeTransport.IntakeFromFeederAndTransport;
 import frc.robot.commands.robotActions.intakeTransport.RearIntakeAndTransport;
 import frc.robot.commands.robotActions.mixed.*;
+import frc.robot.commands.robotActions.shootTransport.NoPIDShootTrenchAndTransport;
 import frc.robot.commands.robotActions.shootTransport.ShootInitiationLineAndTransport;
 import frc.robot.commands.robotActions.shootTransport.ShootTargetZoneAndTransport;
 import frc.robot.commands.robotActions.shootTransport.ShootTrenchAndTransport;
@@ -35,6 +36,8 @@ public class RobotActionsCatalog {
     private ShootInitiationLineAndTransport shootInitiationLineAndTransport;
     private ShootTargetZoneAndTransport shootTargetZoneAndTransport;
     private ShootTrenchAndTransport shootTrenchAndTransport;
+
+    private NoPIDShootTrenchAndTransport noPIDShootTrenchAndTransport;
 
     private ShootFromTrench shootFromTrench;
     private ShootFromInitiationLine shootFromInitiationLine;
@@ -73,6 +76,7 @@ public class RobotActionsCatalog {
 
         transportDeflectorOff = new TransportDeflectorOff();
 
+        noPIDShootTrenchAndTransport = new NoPIDShootTrenchAndTransport();
 
     }
 
@@ -151,5 +155,9 @@ public class RobotActionsCatalog {
 
     public TransportDeflectorOff getTransportDeflectorOff() {
         return transportDeflectorOff;
+    }
+
+    public NoPIDShootTrenchAndTransport getNoPIDShootTrenchAndTransport() {
+        return noPIDShootTrenchAndTransport;
     }
 }
