@@ -17,11 +17,11 @@ import frc.robot.resources.TecbotSpeedController.TypeOfMotor;
 public class RobotMap {
 
 
-    public static int[] LEFT_CHASSIS_PORTS = {2, 3};
-    public static int[] RIGHT_CHASSIS_PORTS = {0, 1};
+    public static int[] LEFT_CHASSIS_PORTS = {4,3};
+    public static int[] RIGHT_CHASSIS_PORTS = {1,3};
 
-    public static TypeOfMotor[] LEFT_CHASSIS_MOTOR_TYPES = {TypeOfMotor.PWM_TALON_SRX, TypeOfMotor.SPARK};
-    public static TypeOfMotor[] RIGHT_CHASSIS_MOTOR_TYPES = {TypeOfMotor.PWM_TALON_SRX, TypeOfMotor.PWM_TALON_SRX};
+    public static TypeOfMotor[] LEFT_CHASSIS_MOTOR_TYPES = {TypeOfMotor.SPARK, TypeOfMotor.SPARK};
+    public static TypeOfMotor[] RIGHT_CHASSIS_MOTOR_TYPES = {TypeOfMotor.CAN_SPARK_BRUSHLESS, TypeOfMotor.CAN_SPARK_BRUSHLESS};
 
 
     /*
@@ -29,8 +29,8 @@ public class RobotMap {
      * indicate the speed controller port here, and put encoder ports in
      * config not set
      */
-    public static int LEFT_CHASSIS_MOTOR_WITH_ENCODER = RobotConfigurator.CONFIG_NOT_SET;
-    public static int RIGHT_CHASSIS_MOTOR_WITH_ENCODER = RobotConfigurator.CONFIG_NOT_SET;
+    public static int LEFT_CHASSIS_MOTOR_WITH_ENCODER = 5;
+    public static int RIGHT_CHASSIS_MOTOR_WITH_ENCODER = 1;
     public static int MIDDLE_CHASSIS_MOTOR_WITH_ENCODER = RobotConfigurator.CONFIG_NOT_SET;
 
     /*
@@ -53,15 +53,15 @@ public class RobotMap {
     public static boolean RIGHT_CHASSIS_ENCODER_IS_INVERTED = false;
     public static boolean MIDDLE_CHASSIS_ENCODER_IS_INVERTED = false;
 
-    public static int[] TRANSMISSION_SOLENOID_PORTS = {9, 10};
+    public static int[] TRANSMISSION_SOLENOID_PORTS = {1,2, 3};
     public static final DoubleSolenoid.Value TORQUE_TRANSMISSION = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value SPEED_TRANSMISSION = DoubleSolenoid.Value.kReverse;
 
-    public static int[] MIDDLE_WHEEL_PORTS = {};
+    public static int[] MIDDLE_WHEEL_PORTS = {2};
     public static int[] MIDDLE_WHEEL_INVERTED_MOTORS = {};
-    public static TypeOfMotor[] MIDDLE_WHEEL_MOTOR_TYPES = {};
+    public static TypeOfMotor[] MIDDLE_WHEEL_MOTOR_TYPES = {TypeOfMotor.CAN_SPARK_BRUSHLESS};
 
-    public static int[] WHEEL_SOLENOID_PORTS = {0, 1};
+    public static int[] WHEEL_SOLENOID_PORTS = {0, 0, 1};
     public static final DoubleSolenoid.Value LOWERED_WHEEL = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value RAISED_WHEEL = DoubleSolenoid.Value.kReverse;
     public static boolean DRAGON_FLY_IS_AVAILABLE = true;
@@ -89,14 +89,14 @@ public class RobotMap {
     //LEFT WINCH
     public static int[] LEFT_WINCH_PORTS = {12};
     public static int[] LEFT_INVERTED_WINCH_PORTS = {};
-    public static TecbotSpeedController.TypeOfMotor[] LEFT_WINCH_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
+    public static TecbotSpeedController.TypeOfMotor[] LEFT_WINCH_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX};
 
     //RIGHT WINCH
     public static final int[] RIGHT_WINCH_PORTS = {13};
     public static final int[] RIGHT_INVERTED_WINCH_PORTS = {};
-    public static TecbotSpeedController.TypeOfMotor[] RIGHT_WINCH_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX, TecbotSpeedController.TypeOfMotor.TALON_SRX};
+    public static TecbotSpeedController.TypeOfMotor[] RIGHT_WINCH_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX};
 
-    public static int[] GEAR_DISENGAGER_SOLENOID_PORTS = {2, 3};
+    public static int[] GEAR_DISENGAGER_SOLENOID_PORTS = {0, 2, 3};
     public static final DoubleSolenoid.Value ENGAGED_SHOOTER_GEAR = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value DISENGAGED_SHOOTER_GEAR = DoubleSolenoid.Value.kReverse;
 
@@ -134,8 +134,8 @@ public class RobotMap {
     public static TypeOfMotor[] REAR_INTAKE_MOTORS_TYPES = {TypeOfMotor.TALON_SRX};
 
 
-    public static int[] FRONT_SOLENOIDS = {4, 5};
-    public static int[] REAR_SOLENOIDS = {6, 7};
+    public static int[] FRONT_SOLENOIDS = {0, 4, 5};
+    public static int[] REAR_SOLENOIDS = {0, 6, 7};
 
     public static int servoPort = 0;
 
@@ -148,7 +148,7 @@ public class RobotMap {
     public static final TypeOfMotor[] TRANSPORTATION_SYSTEM_TYPE_OF_MOTORS = {TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX};
     public static final int[] TRANSPORTATION_SYSTEM_MOTOR_PORTS = {3, 4, 5, 6};
     public static final int[] TRANSPORTATION_SYSTEM_INVERTED_MOTOR_PORTS = {};
-    public static final int[] DEFLECTOR_SOLENOID = {8, 9};
+    public static final int[] DEFLECTOR_SOLENOID = {1,0,1};
     /*
     TransportationSystem Subsystem ENDS
      */

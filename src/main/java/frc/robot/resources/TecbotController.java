@@ -193,7 +193,7 @@ public class TecbotController {
      * {@link #getRightAxisY()}<br>
      * {@link #getRawAxis(int, boolean)}
      */
-    private double offset = 0.1;
+    private double offset = 0.2;
 
     /**
      * Controller Type that these (<br>
@@ -250,9 +250,10 @@ public class TecbotController {
         setPilotPort(port);
         pilot = new Joystick(getPilotPort());
         joystickName = pilot.getName().toLowerCase();
-        controllerType = null;
+
+        controllerType = TypeOfController.XBOX;
         if (joystickName.contains("wireless controller")) controllerType = TypeOfController.PS4;
-        if (joystickName.contains("xbox")) controllerType = TypeOfController.XBOX;
+        //if (joystickName.contains("xbox"))
 
         if (pilot == null) DriverStation.reportWarning("Joystick not found (Tecbot Controller)", true);
         else setButtons();
@@ -515,6 +516,9 @@ public class TecbotController {
      */
     private void setButtons() {
         List<JoystickButton> bs = new ArrayList<>();
+        if (controllerType==null) {
+
+        }
         switch (controllerType) {
             case XBOX:
                 for (int port : portsButtonsXBOX) {

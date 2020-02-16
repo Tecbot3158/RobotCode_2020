@@ -76,7 +76,7 @@ public class RobotConfigurator {
      * @return {@link DoubleSolenoid} new instance
      */
     public static DoubleSolenoid buildDoubleSolenoid(int[] ports) {
-        return new DoubleSolenoid(ports[0], ports[1]);
+        return new DoubleSolenoid(ports[0], ports[1], ports[2]);
     }
 
     /**
@@ -86,6 +86,7 @@ public class RobotConfigurator {
      * @return {@link Solenoid} new instance
      */
     public static Solenoid buildSingleSolenoid(int[] ports) {
+
         return new Solenoid(ports[0], ports[1]);
     }
 
