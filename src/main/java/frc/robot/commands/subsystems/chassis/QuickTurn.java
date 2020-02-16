@@ -10,6 +10,7 @@ package frc.robot.commands.subsystems.chassis;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.resources.TecbotConstants;
+import frc.robot.subsystems.chassis.DriveTrain;
 import frc.robot.subsystems.chassis.DriveTrain.DrivingMode;
 
 public class QuickTurn extends CommandBase {
@@ -23,7 +24,7 @@ public class QuickTurn extends CommandBase {
     double targetAngle;
 
     //Saves the wheel solenoid state before the beginning of the command in order to leave it like that at the end of it.
-    boolean initialWheelState;
+    DriveTrain.WheelState initialWheelState;
 
     //Saves the driving mode before the beginning of the command in order to leave it like that at the end of it.
     DrivingMode initialMode;
@@ -38,7 +39,7 @@ public class QuickTurn extends CommandBase {
         initialMode = Robot.getRobotContainer().getDriveTrain().getCurrentDrivingMode();
         initialWheelState = Robot.getRobotContainer().getDriveTrain().getDragonFlyWheelState();
 
-        Robot.getRobotContainer().getDriveTrain().setDragonFlyWheelState(false);
+        Robot.getRobotContainer().getDriveTrain().setDragonFlyWheelState(DriveTrain.WheelState.Lowered);
         onTarget = false;
         initialAngle = Robot.getRobotContainer().getTecbotSensors().getYaw();
         if(initialAngle >=0)

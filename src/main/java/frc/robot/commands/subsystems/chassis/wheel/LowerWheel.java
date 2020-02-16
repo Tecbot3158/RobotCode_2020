@@ -9,12 +9,13 @@ package frc.robot.commands.subsystems.chassis.wheel;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
+import frc.robot.subsystems.chassis.DriveTrain;
 
 public class LowerWheel extends InstantCommand {
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.getRobotContainer().getDriveTrain().setDragonFlyWheelState(true);
+        Robot.getRobotContainer().getDriveTrain().setDragonFlyWheelState(DriveTrain.WheelState.Lowered);
     }
 }

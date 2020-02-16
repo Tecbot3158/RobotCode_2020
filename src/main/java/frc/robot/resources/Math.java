@@ -64,6 +64,10 @@ public class Math {
         return java.lang.Math.sqrt(a);
     }
 
+    public static double pow(double a, double b){
+        return java.lang.Math.pow(a,b);
+    }
+
     /**
      * @param r Red value in a range from 0-1
      * @param g Green value in a range from 0-1

@@ -223,8 +223,15 @@ public class DriveTrain extends SubsystemBase {
         }
     }
 
-    public boolean getDragonFlyWheelState() {
+    public boolean getDragonFlySolenoid() {
         return (dragonFlyWheelSolenoid.get() == DoubleSolenoid.Value.kForward);
+    }
+    public WheelState getDragonFlyWheelState(){
+        if(dragonFlyWheelSolenoid.get() == RobotMap.RAISED_WHEEL){
+            return WheelState.Raised;
+        }else {
+            return WheelState.Lowered;
+        }
     }
 
     /**

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.resources.Math;
 import frc.robot.resources.TecbotConstants;
 import frc.robot.resources.TecbotSensors;
 import frc.robot.splines.CubicSpline;
@@ -350,7 +351,7 @@ public class SplineMove extends CommandBase {
         }
 
 
-        double axis = frc.robot.resources.Math.clamp(deltaAngle / 20, -1, 1);
+        double axis = Math.clamp(deltaAngle * TecbotConstants.SPLINE_TURN_CORRECTION, -1, 1);
         double power = targetPower;
         if (xPos > startReducingSpeedPoint) {
 
@@ -367,7 +368,7 @@ public class SplineMove extends CommandBase {
         }
 
         if (xPos < startSwervingPoint)
-            Robot.getRobotContainer().getDriveTrain().drive(power, -axis);
+            Robot.getRobotContainer().getDriveTrain().drive(axis, targetPower);
         else {
             double deltaFinalAngle = expectedFinalAngle - Robot.getRobotContainer().getTecbotSensors().getYaw();
             //Prevents robot from turning in the incorrect direction
