@@ -17,10 +17,10 @@ import frc.robot.resources.TecbotSpeedController.TypeOfMotor;
 public class RobotMap {
 
 
-    public static int[] LEFT_CHASSIS_PORTS = {4,3};
+    public static int[] LEFT_CHASSIS_PORTS = {17, 5};
     public static int[] RIGHT_CHASSIS_PORTS = {1,3};
 
-    public static TypeOfMotor[] LEFT_CHASSIS_MOTOR_TYPES = {TypeOfMotor.SPARK, TypeOfMotor.SPARK};
+    public static TypeOfMotor[] LEFT_CHASSIS_MOTOR_TYPES = { TypeOfMotor.CAN_SPARK_BRUSHLESS, TypeOfMotor.CAN_SPARK_BRUSHLESS};
     public static TypeOfMotor[] RIGHT_CHASSIS_MOTOR_TYPES = {TypeOfMotor.CAN_SPARK_BRUSHLESS, TypeOfMotor.CAN_SPARK_BRUSHLESS};
 
 
@@ -46,7 +46,7 @@ public class RobotMap {
      * If any of the motors of the chassis must be inverted,
      * indicate the port(s) in these arrays.
      */
-    public static int[] LEFT_CHASSIS_INVERTED_MOTORS = {};
+    public static int[] LEFT_CHASSIS_INVERTED_MOTORS = {17,5};
     public static int[] RIGHT_CHASSIS_INVERTED_MOTORS = {};
 
     public static boolean LEFT_CHASSIS_ENCODER_IS_INVERTED = true;
@@ -61,7 +61,7 @@ public class RobotMap {
     public static int[] MIDDLE_WHEEL_INVERTED_MOTORS = {};
     public static TypeOfMotor[] MIDDLE_WHEEL_MOTOR_TYPES = {TypeOfMotor.CAN_SPARK_BRUSHLESS};
 
-    public static int[] WHEEL_SOLENOID_PORTS = {0, 0, 1};
+    public static int[] WHEEL_SOLENOID_PORTS = {1, 0, 1};
     public static final DoubleSolenoid.Value LOWERED_WHEEL = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value RAISED_WHEEL = DoubleSolenoid.Value.kReverse;
     public static boolean DRAGON_FLY_IS_AVAILABLE = true;
@@ -148,7 +148,7 @@ public class RobotMap {
     public static final TypeOfMotor[] TRANSPORTATION_SYSTEM_TYPE_OF_MOTORS = {TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX};
     public static final int[] TRANSPORTATION_SYSTEM_MOTOR_PORTS = {3, 4, 5, 6};
     public static final int[] TRANSPORTATION_SYSTEM_INVERTED_MOTOR_PORTS = {};
-    public static final int[] DEFLECTOR_SOLENOID = {1,0,1};
+    public static final int[] DEFLECTOR_SOLENOID = {1,6,7};
     /*
     TransportationSystem Subsystem ENDS
      */
