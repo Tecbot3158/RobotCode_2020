@@ -193,7 +193,7 @@ public class TecbotController {
      * {@link #getRightAxisY()}<br>
      * {@link #getRawAxis(int, boolean)}
      */
-    private double offset = 0.2;
+    private double offset = 0.1;
 
     /**
      * Controller Type that these (<br>
