@@ -7,12 +7,12 @@ import frc.robot.resources.TecbotSpeedController;
 
 public class SharedMotors {
     public TecbotMotorList rightSharedMotors, leftSharedMotors;
-    private int encoderMotorRight = RobotMap.SHARED_RIGHT_MOTOR_WITH_ENCODER;
-    private int encoderMotorLeft = RobotMap.SHARED_LEFT_MOTOR_WITH_ENCODER;
+    private int encoderMotorRight = RobotMap.SHARED_MOTORS_RIGHT_ENCODER_MOTOR_PORT;
+    private int encoderMotorLeft = RobotMap.SHARED_MOTORS_LEFT_MOTOR_WITH_ENCODER;
 
     public SharedMotors() {
-        rightSharedMotors = RobotConfigurator.buildMotorList(RobotMap.SHARED_MOTORS_RIGHT_PORTS, RobotMap.INVERTED_SHARED_MOTORS_RIGHT, RobotMap.SHARED_RIGHT_MOTOR_TYPES);
-        leftSharedMotors = RobotConfigurator.buildMotorList(RobotMap.SHARED_MOTORS_LEFT_PORTS, RobotMap.INVERTED_SHARED_MOTORS_LEFT, RobotMap.SHARED_LEFT_MOTOR_TYPES);
+        rightSharedMotors = RobotConfigurator.buildMotorList(RobotMap.SHARED_MOTORS_RIGHT_PORTS, RobotMap.SHARED_MOTORS_RIGHT_INVERTED_MOTORS, RobotMap.SHARED_MOTORS_RIGHT_MOTOR_TYPES);
+        leftSharedMotors = RobotConfigurator.buildMotorList(RobotMap.SHARED_MOTORS_LEFT_PORTS, RobotMap.SHARED_MOTORS_LEFT_INVERTED_MOTORS, RobotMap.SHARED_MOTORS_LEFT_MOTOR_TYPES);
     }
 
     /**
@@ -25,10 +25,10 @@ public class SharedMotors {
     }
 
     public TecbotSpeedController getMotorWithEncoderRight() {
-        return (encoderMotorRight > 0) ? rightSharedMotors.getSpecificMotor(RobotMap.SHARED_RIGHT_MOTOR_WITH_ENCODER) : null;
+        return (encoderMotorRight > 0) ? rightSharedMotors.getSpecificMotor(RobotMap.SHARED_MOTORS_RIGHT_ENCODER_MOTOR_PORT) : null;
     }
 
     public TecbotSpeedController getMotorWithEncoderLeft() {
-        return (encoderMotorLeft > 0) ? leftSharedMotors.getSpecificMotor(RobotMap.SHARED_LEFT_MOTOR_WITH_ENCODER) : null;
+        return (encoderMotorLeft > 0) ? leftSharedMotors.getSpecificMotor(RobotMap.SHARED_MOTORS_LEFT_MOTOR_WITH_ENCODER) : null;
     }
 }

@@ -4,7 +4,6 @@ import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Robot;
@@ -49,17 +48,17 @@ public class TecbotSensors {
                 RobotMap.SHARED_MOTORS_LEFT_ENCODER_PORTS[1]);
 
         leftChassisEncoder = RobotConfigurator.buildEncoder
-                (Robot.getRobotContainer().getDriveTrain().getSpecificMotor(RobotMap.LEFT_CHASSIS_MOTOR_WITH_ENCODER),
-                        RobotMap.LEFT_CHASSIS_ENCODER_PORTS[0], RobotMap.LEFT_CHASSIS_ENCODER_PORTS[1]);
+                (Robot.getRobotContainer().getDriveTrain().getSpecificMotor(RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_MOTOR_WITH_ENCODER),
+                        RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_ENCODER_PORTS[0], RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_ENCODER_PORTS[1]);
         rightChassisEncoder = RobotConfigurator.buildEncoder
-                (Robot.getRobotContainer().getDriveTrain().getSpecificMotor(RobotMap.RIGHT_CHASSIS_MOTOR_WITH_ENCODER),
-                        RobotMap.RIGHT_CHASSIS_ENCODER_PORTS[0], RobotMap.RIGHT_CHASSIS_ENCODER_PORTS[1]);
+                (Robot.getRobotContainer().getDriveTrain().getSpecificMotor(RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_MOTOR_WITH_ENCODER),
+                        RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_ENCODER_PORTS[0], RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_ENCODER_PORTS[1]);
         middleChassisEncoder = RobotConfigurator.buildEncoder
-                (Robot.getRobotContainer().getDriveTrain().getSpecificMotor(RobotMap.MIDDLE_CHASSIS_MOTOR_WITH_ENCODER)
-                        , RobotMap.MIDDLE_WHEEL_ENCODER_PORTS[0], RobotMap.MIDDLE_WHEEL_ENCODER_PORTS[1]);
-        if (RobotMap.LEFT_CHASSIS_ENCODER_IS_INVERTED && leftChassisEncoder != null) leftChassisEncoder.setInverted(true);
-        if (RobotMap.RIGHT_CHASSIS_ENCODER_IS_INVERTED && rightChassisEncoder != null) rightChassisEncoder.setInverted(true);
-        if (RobotMap.MIDDLE_CHASSIS_ENCODER_IS_INVERTED && middleChassisEncoder != null) middleChassisEncoder.setInverted(true);
+                (Robot.getRobotContainer().getDriveTrain().getSpecificMotor(RobotMap.DRIVE_TRAIN_MIDDLE_CHASSIS_MOTOR_WITH_ENCODER)
+                        , RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_ENCODER_PORTS[0], RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_ENCODER_PORTS[1]);
+        if (RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_ENCODER_IS_INVERTED && leftChassisEncoder != null) leftChassisEncoder.setInverted(true);
+        if (RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_ENCODER_IS_INVERTED && rightChassisEncoder != null) rightChassisEncoder.setInverted(true);
+        if (RobotMap.DRIVE_TRAIN_MIDDLE_CHASSIS_ENCODER_IS_INVERTED && middleChassisEncoder != null) middleChassisEncoder.setInverted(true);
 
         colorSensorV3 = new ColorSensorV3(I2C_PORT_ONBOARD);
         colorMatcher = new ColorMatch();
@@ -128,8 +127,8 @@ public class TecbotSensors {
                 return middleChassisEncoder.getRaw();
             case SHOOTER:
                 return RobotMap.SHOOTER_ENCODER_IN_RIGHT_MOTOR ?
-                        rightChassisEncoder.getRaw() :
-                        leftChassisEncoder.getRaw();
+                        sharedMotorsRightEncoder.getRaw() :
+                        sharedMotorsLeftEncoder.getRaw();
             default:
                 return 0;
         }

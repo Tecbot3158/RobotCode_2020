@@ -27,10 +27,10 @@ public class Climber extends SubsystemBase {
 
     public Climber() {
 
-        leftWinchMotors = RobotConfigurator.buildMotorList(RobotMap.LEFT_WINCH_PORTS, RobotMap.LEFT_INVERTED_WINCH_PORTS, RobotMap.LEFT_WINCH_MOTOR_TYPES);
-        rightWinchMotors = RobotConfigurator.buildMotorList(RobotMap.RIGHT_WINCH_PORTS, RobotMap.RIGHT_INVERTED_WINCH_PORTS, RobotMap.RIGHT_WINCH_MOTOR_TYPES);
+        leftWinchMotors = RobotConfigurator.buildMotorList(RobotMap.CLIMBER_LEFT_WINCH_PORTS, RobotMap.CLIMBER_LEFT_INVERTED_WINCH_PORTS, RobotMap.CLIMBER_LEFT_WINCH_MOTOR_TYPES);
+        rightWinchMotors = RobotConfigurator.buildMotorList(RobotMap.CLIMBER_RIGHT_WINCH_PORTS, RobotMap.CLIMBER_RIGHT_INVERTED_WINCH_PORTS, RobotMap.CLIMBER_RIGHT_WINCH_MOTOR_TYPES);
 
-        gearDisengager = RobotConfigurator.buildDoubleSolenoid(RobotMap.GEAR_DISENGAGER_SOLENOID_PORTS);
+        gearDisengager = RobotConfigurator.buildDoubleSolenoid(RobotMap.CLIMBER_GEAR_DISENGAGER_SOLENOID_PORTS);
         xWhenPressedCount = 0;
 
     }
@@ -43,11 +43,11 @@ public class Climber extends SubsystemBase {
     }
 
     public void engageGear() {
-        gearDisengager.set(RobotMap.ENGAGED_SHOOTER_GEAR);
+        gearDisengager.set(RobotMap.CLIMBER_ENGAGED_SHOOTER_GEAR);
     }
 
     public void disengageGear() {
-        gearDisengager.set(RobotMap.DISENGAGED_SHOOTER_GEAR);
+        gearDisengager.set(RobotMap.CLIMBER_DISENGAGED_SHOOTER_GEAR);
     }
 
     /**

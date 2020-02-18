@@ -25,9 +25,9 @@ public class TecbotConstants {
     public static final double K_DISTANCE_BETWEEN_WHEELS = .54;
     public static final double K_CHASSIS_WHEEL_DIAMETER = .34;
 
-    public static int K_CHASSIS_TIC_PER_REVOLUTION = 30000;
+    public static final int K_CHASSIS_TIC_PER_REVOLUTION = 30000;
     public static final double K_MIDDLE_WHEEL_DIAMETER = .34;
-    public static int K_MIDDLE_WHEEL_TIC_PER_REVOLUTION = 30000;
+    public static final int K_MIDDLE_WHEEL_TIC_PER_REVOLUTION = 30000;
 
     // The equivalence between meters to encoder count
 
@@ -39,10 +39,10 @@ public class TecbotConstants {
     // encoderCount (1/tickPerRevolution)*wheelDiam * Pi = distance
     // Encoder to meters = 1/tickPerRevolution * wheelDiam * Pi
     // This one works only for the side wheels
-    public static double K_CHASSIS_ENCODER_TO_METERS = (1 / K_CHASSIS_TIC_PER_REVOLUTION) * K_CHASSIS_WHEEL_DIAMETER
+    public static final double K_CHASSIS_ENCODER_TO_METERS = (1 / K_CHASSIS_TIC_PER_REVOLUTION) * K_CHASSIS_WHEEL_DIAMETER
             * Math.PI;
     // This one works only for the middle wheel
-    public static double K_MIDDLE_WHEEL_ENCODER_TO_METERS = (1 / K_MIDDLE_WHEEL_TIC_PER_REVOLUTION)
+    public static final double K_MIDDLE_WHEEL_ENCODER_TO_METERS = (1 / K_MIDDLE_WHEEL_TIC_PER_REVOLUTION)
             * K_MIDDLE_WHEEL_TIC_PER_REVOLUTION * Math.PI;
 
     // K_METERS_TO_ENCODER * meters = encoderCount
@@ -52,9 +52,9 @@ public class TecbotConstants {
     // encoderCount = (distance * tickPerRevolution) / (wheel diam * pi)
 
     // This only works for chassis wheels
-    public static double K_CHASSIS_METERS_TO_ENCODER = (float) (K_CHASSIS_TIC_PER_REVOLUTION / (K_CHASSIS_WHEEL_DIAMETER * Math.PI));
+    public static final double K_CHASSIS_METERS_TO_ENCODER = (float) (K_CHASSIS_TIC_PER_REVOLUTION / (K_CHASSIS_WHEEL_DIAMETER * Math.PI));
     // This only works for the middle wheel
-    public static double K_MIDDLE_WHEEL_METERS_TO_ENCODER = (float) (K_MIDDLE_WHEEL_TIC_PER_REVOLUTION / (K_MIDDLE_WHEEL_DIAMETER * Math.PI));
+    public static final double K_MIDDLE_WHEEL_METERS_TO_ENCODER = (float) (K_MIDDLE_WHEEL_TIC_PER_REVOLUTION / (K_MIDDLE_WHEEL_DIAMETER * Math.PI));
 
 
     public static final double K_STRAIGHT_P = 0;
@@ -69,7 +69,7 @@ public class TecbotConstants {
 
     // The equivalence between meters to encoder count
     // Meter * meters_to_encoder = encoder count
-    public static double K_METERS_TO_ENCODER = (float) (30000 / (.2034 * Math.PI));
+    public static final double K_METERS_TO_ENCODER = (float) (30000 / (.2034 * Math.PI));
 
     //SHOOTER STARTS
     public static final double TRENCH_SHOOTING_SPEED = 0;
@@ -101,20 +101,19 @@ public class TecbotConstants {
 
     //The ids assigned to the colors will be used to know in which order they are
 
-    public static final int RED_ID = 1;
-    public static final int GREEN_ID = 2;
-    public static final int BLUE_ID = 3;
-    public static final int YELLOW_ID = 4;
+    public static final int CONTROL_PANEL_RED_ID = 1;
+    public static final int CONTROL_PANEL_GREEN_ID = 2;
+    public static final int CONTROL_PANEL_BLUE_ID = 3;
+    public static final int CONTROL_PANEL_YELLOW_ID = 4;
 
-    public static final int SENSOR_RETRACTED_ANGLE = 0;
-    public static final int SENSOR_EXTENDED_ANGLE = 0;
+    public static final int CONTROL_PANEL_SENSOR_RETRACTED_ANGLE = 0;
+    public static final int CONTROL_PANEL_SENSOR_EXTENDED_ANGLE = 0;
 
 
     //CONTROL PANEL ENDS
 
     //TRANSPORTATION SYSTEMS STARTS
-    public static double TRANSPORTATION_SYSTEM_POWER = 0.2;
+    public static final double TRANSPORTATION_SYSTEM_POWER = 0.2;
     //TRANSPORTATION SYSTEMS ENDS
-
 
 }

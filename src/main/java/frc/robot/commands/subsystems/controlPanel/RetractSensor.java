@@ -22,7 +22,7 @@ public class RetractSensor extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.getRobotContainer().getIntake().setServoPosition(TecbotConstants.SENSOR_RETRACTED_ANGLE);
+        Robot.getRobotContainer().getIntake().setServoPosition(TecbotConstants.CONTROL_PANEL_SENSOR_RETRACTED_ANGLE);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -38,6 +38,6 @@ public class RetractSensor extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Robot.getRobotContainer().getIntake().getServoPosition() == TecbotConstants.SENSOR_RETRACTED_ANGLE;
+        return Robot.getRobotContainer().getIntake().getServoPosition() == TecbotConstants.CONTROL_PANEL_SENSOR_RETRACTED_ANGLE;
     }
 }

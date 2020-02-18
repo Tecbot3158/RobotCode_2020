@@ -6,8 +6,6 @@
 package frc.robot.subsystems.shooter;
 
 
-import java.util.List;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -16,9 +14,6 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.resources.RobotConfigurator;
 import frc.robot.resources.TecbotConstants;
-import frc.robot.resources.TecbotEncoder;
-import frc.robot.resources.TecbotSensors;
-import frc.robot.resources.TecbotSpeedController;
 import frc.robot.resources.TecbotSensors.SubsystemType;
 
 
@@ -40,7 +35,7 @@ public class Shooter extends PIDSubsystem {
                         TecbotConstants.K_SHOOTER_D));
 
 
-        anglerServo = RobotConfigurator.buildServo(RobotMap.ANGLER_PORT);
+        anglerServo = RobotConfigurator.buildServo(RobotMap.SHOOTER_ANGLER_PORT);
 
 
     }

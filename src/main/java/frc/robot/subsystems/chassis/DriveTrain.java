@@ -69,23 +69,23 @@ public class DriveTrain extends SubsystemBase {
 
     public DriveTrain() {
 
-        transmission = RobotConfigurator.buildDoubleSolenoid(RobotMap.TRANSMISSION_SOLENOID_PORTS);
+        transmission = RobotConfigurator.buildDoubleSolenoid(RobotMap.DRIVE_TRAIN_TRANSMISSION_SOLENOID_PORTS);
 
-        if (RobotMap.DRAGON_FLY_IS_AVAILABLE)
-            dragonFlyWheelSolenoid = RobotConfigurator.buildDoubleSolenoid(RobotMap.WHEEL_SOLENOID_PORTS);
+        if (RobotMap.DRIVE_TRAIN_DRAGON_FLY_IS_AVAILABLE)
+            dragonFlyWheelSolenoid = RobotConfigurator.buildDoubleSolenoid(RobotMap.DRIVE_TRAIN_WHEEL_SOLENOID_PORTS);
 
 
-        if (RobotMap.LEFT_CHASSIS_PORTS.length != RobotMap.RIGHT_CHASSIS_PORTS.length)
+        if (RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_PORTS.length != RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_PORTS.length)
             DriverStation.reportError("More motors in one side.", true);
 
-        leftMotors = RobotConfigurator.buildMotorList(RobotMap.LEFT_CHASSIS_PORTS,
-                RobotMap.LEFT_CHASSIS_INVERTED_MOTORS, RobotMap.LEFT_CHASSIS_MOTOR_TYPES);
+        leftMotors = RobotConfigurator.buildMotorList(RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_PORTS,
+                RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_INVERTED_MOTORS, RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_MOTOR_TYPES);
 
-        rightMotors = RobotConfigurator.buildMotorList(RobotMap.RIGHT_CHASSIS_PORTS,
-                RobotMap.RIGHT_CHASSIS_INVERTED_MOTORS, RobotMap.RIGHT_CHASSIS_MOTOR_TYPES);
+        rightMotors = RobotConfigurator.buildMotorList(RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_PORTS,
+                RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_INVERTED_MOTORS, RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_MOTOR_TYPES);
 
-        middleMotors = RobotConfigurator.buildMotorList(RobotMap.MIDDLE_WHEEL_PORTS,
-                RobotMap.MIDDLE_WHEEL_INVERTED_MOTORS, RobotMap.MIDDLE_WHEEL_MOTOR_TYPES);
+        middleMotors = RobotConfigurator.buildMotorList(RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_PORTS,
+                RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_INVERTED_MOTORS, RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_MOTOR_TYPES);
     }
 
     /**
@@ -218,9 +218,9 @@ public class DriveTrain extends SubsystemBase {
 
     public void setDragonFlyWheelState(WheelState state) {
         if (state == WheelState.Lowered) {
-            dragonFlyWheelSolenoid.set(RobotMap.LOWERED_WHEEL);
+            dragonFlyWheelSolenoid.set(RobotMap.DRIVE_TRAIN_LOWERED_WHEEL);
         } else {
-            dragonFlyWheelSolenoid.set(RobotMap.RAISED_WHEEL);
+            dragonFlyWheelSolenoid.set(RobotMap.DRIVE_TRAIN_RAISED_WHEEL);
         }
     }
 
@@ -228,7 +228,7 @@ public class DriveTrain extends SubsystemBase {
         return (dragonFlyWheelSolenoid.get() == DoubleSolenoid.Value.kForward);
     }
     public WheelState getDragonFlyWheelState(){
-        if(dragonFlyWheelSolenoid.get() == RobotMap.RAISED_WHEEL){
+        if(dragonFlyWheelSolenoid.get() == RobotMap.DRIVE_TRAIN_RAISED_WHEEL){
             return WheelState.Raised;
         }else {
             return WheelState.Lowered;
@@ -433,9 +433,9 @@ public class DriveTrain extends SubsystemBase {
     public void setTransmissionState(TransmissionMode mode) {
         transmissionState = mode;
         if (mode == TransmissionMode.torque) {
-            transmission.set(RobotMap.TORQUE_TRANSMISSION);
+            transmission.set(RobotMap.DRIVE_TRAIN_TORQUE_TRANSMISSION);
         } else {
-            transmission.set(RobotMap.SPEED_TRANSMISSION);
+            transmission.set(RobotMap.DRIVE_TRAIN_SPEED_TRANSMISSION);
         }
     }
 
