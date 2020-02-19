@@ -4,6 +4,9 @@ import frc.robot.commands.robotActions.AllSystemsOff;
 import frc.robot.commands.robotActions.TransportDeflectorOff;
 import frc.robot.commands.robotActions.intakeTransport.*;
 import frc.robot.commands.robotActions.mixed.*;
+import frc.robot.commands.robotActions.shootCompensate.ShootFromInitiationLineCompensate;
+import frc.robot.commands.robotActions.shootCompensate.ShootFromTargetZoneCompensate;
+import frc.robot.commands.robotActions.shootCompensate.ShootFromTrenchCompensate;
 import frc.robot.commands.robotActions.shootTransport.NoPIDShootTrenchAndTransport;
 import frc.robot.commands.robotActions.shootTransport.ShootInitiationLineAndTransport;
 import frc.robot.commands.robotActions.shootTransport.ShootTargetZoneAndTransport;
@@ -48,6 +51,10 @@ public class RobotActionsCatalog {
 
     private TransportDeflectorOff transportDeflectorOff;
 
+    private ShootFromTrenchCompensate shootFromTrenchCompensate;
+    private ShootFromInitiationLineCompensate shootFromInitiationLineCompensate;
+    private ShootFromTargetZoneCompensate shootFromTargetZoneCompensate;
+
 
     public RobotActionsCatalog() {
 
@@ -80,6 +87,10 @@ public class RobotActionsCatalog {
         transportDeflectorOff = new TransportDeflectorOff();
 
         noPIDShootTrenchAndTransport = new NoPIDShootTrenchAndTransport();
+
+        shootFromTargetZoneCompensate = new ShootFromTargetZoneCompensate();
+        shootFromInitiationLineCompensate = new ShootFromInitiationLineCompensate();
+        shootFromTrench = new ShootFromTrench();
 
     }
 
@@ -170,5 +181,17 @@ public class RobotActionsCatalog {
 
     public IntakesAndTransportOff getIntakesAndTransportOff() {
         return intakesAndTransportOff;
+    }
+
+    public ShootFromTrenchCompensate getShootFromTrenchCompensate() {
+        return shootFromTrenchCompensate;
+    }
+
+    public ShootFromInitiationLineCompensate getShootFromInitiationLineCompensate() {
+        return shootFromInitiationLineCompensate;
+    }
+
+    public ShootFromTargetZoneCompensate getShootFromTargetZoneCompensate() {
+        return shootFromTargetZoneCompensate;
     }
 }

@@ -7,14 +7,10 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.commands.robotActions.intakeTransport.RearIntakeAndShootBottomPort;
 import frc.robot.commands.subsystems.chassis.QuickTurn;
 import frc.robot.commands.subsystems.chassis.drivingModes.ChassisSetDefaultDrive;
 import frc.robot.commands.subsystems.chassis.drivingModes.ChassisSetPivoting;
 import frc.robot.commands.subsystems.chassis.drivingModes.ChassisToggleTransmissionMode;
-import frc.robot.commands.subsystems.chassis.wheel.LowerWheel;
-import frc.robot.commands.subsystems.chassis.wheel.RiseWheel;
 import frc.robot.commands.subsystems.chassis.wheel.ToggleWheelPosition;
 import frc.robot.commands.subsystems.climber.ActivateShrekPower;
 import frc.robot.resources.TecbotController;
@@ -60,15 +56,21 @@ public class OI {
         pilot.whenPressed(TecbotController.ButtonType.START, new ChassisToggleTransmissionMode());
 
         //POV a.k.a. D-PAD
-        pilot.whenPressed(TecbotController.ButtonType.POV_0, RobotActionsCatalog.getInstance().getShootFromTargetZone());
+        //POV ^
+        //    |
+        pilot.whenPressed(TecbotController.ButtonType.POV_0, RobotActionsCatalog.getInstance().getShootFromTargetZoneCompensate());
 
-        pilot.whenPressed(TecbotController.ButtonType.POV_90, RobotActionsCatalog.getInstance().getShootFromTrench());
+        //POV -->
+        pilot.whenPressed(TecbotController.ButtonType.POV_90, RobotActionsCatalog.getInstance().getShootFromTrenchCompensate());
 
-        pilot.whenPressed(TecbotController.ButtonType.POV_270, RobotActionsCatalog.getInstance().getShootFromInitiationLine());
+        //POV <--
+        pilot.whenPressed(TecbotController.ButtonType.POV_270, RobotActionsCatalog.getInstance().getShootFromInitiationLineCompensate());
 
+        //POV |
+        //    ¿
         pilot.whenPressed(TecbotController.ButtonType.POV_180, RobotActionsCatalog.getInstance().getTransportDeflectorOff());
 
-       //pilot.whenPressed(TecbotController.ButtonType.POV_180, RobotActionsCatalog.getInstance().getNoPIDShootTrenchAndTransport());
+        // pilot.whenPressed(TecbotController.ButtonType.POV_180, RobotActionsCatalog.getInstance().getNoPIDShootTrenchAndTransport());
 
         //PILOT ENDS
 

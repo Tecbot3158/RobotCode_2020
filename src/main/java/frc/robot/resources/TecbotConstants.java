@@ -121,6 +121,7 @@ public class TecbotConstants {
 
     //TRANSPORTATION SYSTEMS STARTS
     public static final double TRANSPORTATION_SYSTEM_POWER = 0.2;
+    public static final double TRANSPORTATION_SYSTEM_REVERSE_TIME_COMPENSATION_IN_SECONDS = 0.5;
     //TRANSPORTATION SYSTEMS ENDS
 
     // JOYSTICK STARTS

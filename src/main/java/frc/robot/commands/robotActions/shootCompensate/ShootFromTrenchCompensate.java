@@ -5,46 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.robotActions.shootTransport;
+package frc.robot.commands.robotActions.shootCompensate;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.robotActions.CompensateForShooting;
-import frc.robot.commands.subsystems.pctower.TransportationSystemForward;
-import frc.robot.commands.subsystems.pctower.TransportationSystemReverse;
 import frc.robot.commands.subsystems.shooter.ShootFromTrench;
-import frc.robot.resources.TecbotConstants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class ShootTrenchAndTransport extends SequentialCommandGroup {
+public class ShootFromTrenchCompensate extends SequentialCommandGroup {
     /**
-     * <h3><strong>Shoot from Trench and Transport</strong></h3>
-     * <ul>
-     *
-     * <li>Intakes:
-     * <ul>
-     * <li>Front intake on off mode, pneumatics off</li>
-     * <li>Rear intake on off mode, pneumatics off</li>
-     * </ul></li>
-     *
-     * <li>Power Cell Transportation System
-     * <ul><li>forward mode, deflector off</li></ul>
-     * </li>
-     *
-     * <li>Powercell shooter:
-     * <ul><li>On position #INITATION_LINE</li></ul>
-     * </li>
-     *
-     * </ul>
+     * Creates a new Sequential_CommandGroup.
      */
-    public ShootTrenchAndTransport() {
+    public ShootFromTrenchCompensate() {
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
         super(
-                new ShootFromTrench(),
-                new TransportationSystemForward()
+                new CompensateForShooting(),
+                new ShootFromTrench()
         );
     }
 }

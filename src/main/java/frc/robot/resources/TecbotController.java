@@ -296,7 +296,8 @@ public class TecbotController {
 
     /**
      * This function will return the value of the Left Axis <i>Y</i>.
-     *  <br>Ranges from -1 to 1.
+     * <br>Ranges from -1 to 1.
+     *
      * @param speedRelease Set to true if a correction before the speed release point is needed.
      * @return The horizontal left axis, corrected if needed.
      */
@@ -318,7 +319,7 @@ public class TecbotController {
                 DriverStation.reportWarning("Could not get axis value from getLeftAxisX(). Returned 0. Returned 0. Use getAxisValue() instead.", false);
                 break;
         }
-        if(speedRelease) value = speedRelease(value);
+        if (speedRelease) value = speedRelease(value);
         return ground(value, getOffset());
     }
 
@@ -417,7 +418,7 @@ public class TecbotController {
      * In the following order:
      * <br>
      * <strong>
-     * <ol>
+     * <ul>
      *     <li>a</li>
      *     <li>b</li>
      *     <li>x</li>
@@ -428,7 +429,7 @@ public class TecbotController {
      *     <li><i>START</i></li>
      *     <li>LS</li>
      * <li>RS</li>
-     * </ol>
+     * </ul>
      * </strong>
      * <br>
      * The ports for the buttons in PS4 controller.
@@ -502,7 +503,7 @@ public class TecbotController {
     }
 
     /**
-     * @ return value between 0 and 1 for leftTrigger
+     * @return value between 0 and 1 for leftTrigger
      */
     public double getLeftTrigger() {
         if (pilot == null) {
@@ -524,7 +525,7 @@ public class TecbotController {
     }
 
     /**
-     * @ return value between 0 and 1 for rightTrigger
+     * @return value between 0 and 1 for rightTrigger
      */
     public double getRightTrigger() {
         if (pilot == null) {
@@ -550,7 +551,7 @@ public class TecbotController {
      */
     private void setButtons() {
         List<JoystickButton> bs = new ArrayList<>();
-        if (controllerType==null) {
+        if (controllerType == null) {
 
         }
         switch (controllerType) {
@@ -910,14 +911,15 @@ public class TecbotController {
         this.pilotPort = pilotPort;
     }
 
-    private double speedRelease(double value, double speedReleasePoint, double speedMultiplier){
-        if(value < speedReleasePoint){
+    private double speedRelease(double value, double speedReleasePoint, double speedMultiplier) {
+        if (value < speedReleasePoint) {
             return value * speedMultiplier;
-        }else {
+        } else {
             return value;
         }
     }
-    private double speedRelease(double value){
+
+    private double speedRelease(double value) {
         return speedRelease(value, TecbotConstants.JOYSTICK_SPEED_RELEASE_POINT,
                 TecbotConstants.JOYSTICK_SPEED_MULTIPLIER);
     }
