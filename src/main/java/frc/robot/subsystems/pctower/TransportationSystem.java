@@ -24,7 +24,7 @@ public class TransportationSystem extends SubsystemBase {
    * Creates a new Subsystem.
    */
   public TransportationSystem() {
-      solenoidDeflector = RobotConfigurator.buildDoubleSolenoid(RobotMap.DEFLECTOR_SOLENOID);
+      solenoidDeflector = RobotConfigurator.buildDoubleSolenoid(RobotMap.DEFLECTOR_SOLENOID_PORTS);
       transportationSystemMotors = RobotConfigurator.buildMotorList(RobotMap.TRANSPORTATION_SYSTEM_MOTOR_PORTS, RobotMap.TRANSPORTATION_SYSTEM_INVERTED_MOTOR_PORTS, RobotMap.TRANSPORTATION_SYSTEM_TYPE_OF_MOTORS);
   }
   
