@@ -292,10 +292,20 @@ public class DriveTrain extends SubsystemBase {
         } else if (deltaAngle < -180) {
             deltaAngle = -deltaAngle + 360;
         }
-        double correction = TecbotConstants.TURN_CORRECTION * deltaAngle;
 
-        double leftSide = TecbotConstants.MIDDLE_SIDES_CORRECTION * (y - correction + turn);
-        double rightSide = TecbotConstants.MIDDLE_SIDES_CORRECTION * (y + correction - turn);
+        double correction = TecbotConstants.TURN_CORRECTION * deltaAngle;
+        double leftSide = 0;
+        double rightSide = 0;
+
+        if(TecbotConstants.MIDDLE_SIDES_CORRECTION > 1){
+            x *= 1/TecbotConstants.MIDDLE_SIDES_CORRECTION;
+            leftSide = (y - correction + turn);
+            rightSide = (y + correction - turn);
+        }else{
+         leftSide = TecbotConstants.MIDDLE_SIDES_CORRECTION * (y - correction + turn);
+         rightSide = TecbotConstants.MIDDLE_SIDES_CORRECTION * (y + correction - turn);
+        }
+
 
         tankDrive(leftSide, rightSide);
         setMiddleWheel(x);

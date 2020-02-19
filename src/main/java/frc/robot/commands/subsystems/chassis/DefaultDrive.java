@@ -10,6 +10,7 @@ package frc.robot.commands.subsystems.chassis;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
 import frc.robot.Robot;
+import frc.robot.subsystems.chassis.DriveTrain;
 
 public class DefaultDrive extends CommandBase {
     /**
@@ -28,9 +29,12 @@ public class DefaultDrive extends CommandBase {
     @Override
     public void execute() {
         // left y
-        double y = -(OI.getInstance().getPilot().getLeftAxisY() );
+        double y = -(OI.getInstance().getPilot().getLeftAxisY());
         // left x
-        double x = (OI.getInstance().getPilot().getLeftAxisX() );
+        double x = (OI.getInstance().getPilot().getLeftAxisX());
+        if(Robot.getRobotContainer().getDriveTrain().getCurrentDrivingMode() == DriveTrain.DrivingMode.Default){
+         x = (OI.getInstance().getPilot().getLeftAxisX(true));
+        }
         // right x
         double turn = (OI.getInstance().getPilot().getRightAxisX());
         // Triggers

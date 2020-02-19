@@ -193,7 +193,7 @@ public class TecbotController {
      * {@link #getRightAxisY()}<br>
      * {@link #getRawAxis(int, boolean)}
      */
-    private double offset = 0.1;
+    private double offset = TecbotConstants.DEFAULT_JOYSTICK_OFFSET;
 
     /**
      * Controller Type that these (<br>
@@ -285,6 +285,34 @@ public class TecbotController {
                 DriverStation.reportWarning("Could not get axis value from getLeftAxisX(). Returned 0. Returned 0. Use getAxisValue() instead.", false);
                 break;
         }
+        return ground(value, getOffset());
+    }
+
+    /**
+     * This function will return the value of the Left Axis <i>Y</i>.
+     *  <br>Ranges from -1 to 1.
+     * @param speedRelease Set to true if a correction before the speed release point is needed.
+     * @return The horizontal left axis, corrected if needed.
+     */
+    public double getLeftAxisX(boolean speedRelease) {
+        if (pilot == null) {
+            DriverStation.reportWarning("Controller not found @ port #" + getPilotPort() + ".\nReturning 0", true);
+            return 0;
+        }
+        double value;
+        switch (controllerType) {
+            case PS4:
+                value = pilot.getRawAxis(portsJoysticksPS4[0]);
+                break;
+            case XBOX:
+                value = pilot.getRawAxis(portsJoystickXBOX[0]);
+                break;
+            default:
+                value = 0;
+                DriverStation.reportWarning("Could not get axis value from getLeftAxisX(). Returned 0. Returned 0. Use getAxisValue() instead.", false);
+                break;
+        }
+        if(speedRelease) value = speedRelease(value);
         return ground(value, getOffset());
     }
 
@@ -874,6 +902,18 @@ public class TecbotController {
      */
     public void setPilotPort(int pilotPort) {
         this.pilotPort = pilotPort;
+    }
+
+    private double speedRelease(double value, double speedReleasePoint, double speedMultiplier){
+        if(value < speedReleasePoint){
+            return value * speedMultiplier;
+        }else {
+            return value;
+        }
+    }
+    private double speedRelease(double value){
+        return speedRelease(value, TecbotConstants.JOYSTICK_SPEED_RELEASE_POINT,
+                TecbotConstants.JOYSTICK_SPEED_MULTIPLIER);
     }
 
 }
