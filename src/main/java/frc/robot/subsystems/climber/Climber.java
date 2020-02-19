@@ -80,6 +80,13 @@ public class Climber extends SubsystemBase {
         this.xWhenPressedCount = xWhenPressedCount;
     }
 
+    public TecbotMotorList getLeftWinchMotors(){
+        return leftWinchMotors;
+    }
+    public TecbotMotorList getRightWinchMotors(){
+        return rightWinchMotors;
+    }
+
     @Override
     public void periodic() {
         // This method will be called once per scheduler run

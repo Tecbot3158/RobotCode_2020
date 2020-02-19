@@ -92,6 +92,8 @@ public class RobotActionsCatalog {
         shootFromInitiationLineCompensate = new ShootFromInitiationLineCompensate();
         shootFromTrench = new ShootFromTrench();
 
+        intakesAndTransportOff = new IntakesAndTransportOff();
+
     }
 
     public static RobotActionsCatalog getInstance() {

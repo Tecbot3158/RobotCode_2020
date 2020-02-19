@@ -15,6 +15,8 @@ import frc.robot.resources.RobotConfigurator;
 import frc.robot.resources.TecbotConstants;
 import frc.robot.resources.TecbotMotorList;
 
+import java.util.List;
+
 
 public class TransportationSystem extends SubsystemBase {
     DoubleSolenoid solenoidDeflector; 
@@ -52,6 +54,10 @@ public class TransportationSystem extends SubsystemBase {
   public void openDeflector(){
     solenoidDeflector.set(Value.kReverse);
 }
+
+  public TecbotMotorList getMotors(){
+    return transportationSystemMotors;
+  }
 
   @Override
   public void periodic() {

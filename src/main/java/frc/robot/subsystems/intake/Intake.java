@@ -146,6 +146,14 @@ public class Intake extends SubsystemBase {
         return controlPanelIDs.get(id);
     }
 
+    public TecbotMotorList getFrontMotors() {
+        return frontMotors;
+    }
+
+    public TecbotMotorList getRearMotors() {
+        return rearMotors;
+    }
+
     @Override
     public void periodic() {
         // This method will be called once per scheduler run

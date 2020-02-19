@@ -77,4 +77,11 @@ public class TecbotMotorList {
     public TecbotSpeedController getSpecificMotor(int port){
         return motorsHashMap.get(port);
     }
+
+    public int size(){
+        return motors.size();
+    }
+    public List<TecbotSpeedController> getMotors(){
+        return motors;
+    }
 }

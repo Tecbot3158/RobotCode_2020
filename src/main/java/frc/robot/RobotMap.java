@@ -21,8 +21,8 @@ public class RobotMap {
      * CHASSIS / DRIVE TRAIN STARTS
      */
 
-    public static final int[] DRIVE_TRAIN_LEFT_CHASSIS_PORTS = {17, 5};
-    public static final int[] DRIVE_TRAIN_RIGHT_CHASSIS_PORTS = {1, 3};
+    public static final int[] DRIVE_TRAIN_LEFT_CHASSIS_PORTS = {1, 2};
+    public static final int[] DRIVE_TRAIN_RIGHT_CHASSIS_PORTS = {9, 10};
 
     public static final TypeOfMotor[] DRIVE_TRAIN_LEFT_CHASSIS_MOTOR_TYPES = {TypeOfMotor.CAN_SPARK_BRUSHLESS, TypeOfMotor.CAN_SPARK_BRUSHLESS};
     public static final TypeOfMotor[] DRIVE_TRAIN_RIGHT_CHASSIS_MOTOR_TYPES = {TypeOfMotor.CAN_SPARK_BRUSHLESS, TypeOfMotor.CAN_SPARK_BRUSHLESS};
@@ -33,8 +33,8 @@ public class RobotMap {
      * indicate the speed controller port here, and put encoder ports in
      * config not set
      */
-    public static final int DRIVE_TRAIN_LEFT_CHASSIS_MOTOR_WITH_ENCODER = 5;
-    public static final int DRIVE_TRAIN_RIGHT_CHASSIS_MOTOR_WITH_ENCODER = 1;
+    public static final int DRIVE_TRAIN_LEFT_CHASSIS_MOTOR_WITH_ENCODER = 1;
+    public static final int DRIVE_TRAIN_RIGHT_CHASSIS_MOTOR_WITH_ENCODER = 9;
     public static final int DRIVE_TRAIN_MIDDLE_CHASSIS_MOTOR_WITH_ENCODER = RobotConfigurator.CONFIG_NOT_SET;
 
     /*
@@ -50,7 +50,7 @@ public class RobotMap {
      * If any of the motors of the chassis must be inverted,
      * indicate the port(s) in these arrays.
      */
-    public static final int[] DRIVE_TRAIN_LEFT_CHASSIS_INVERTED_MOTORS = {17, 5};
+    public static final int[] DRIVE_TRAIN_LEFT_CHASSIS_INVERTED_MOTORS = {};
     public static final int[] DRIVE_TRAIN_RIGHT_CHASSIS_INVERTED_MOTORS = {};
 
     public static final boolean DRIVE_TRAIN_LEFT_CHASSIS_ENCODER_IS_INVERTED = true;
@@ -61,14 +61,14 @@ public class RobotMap {
     public static final DoubleSolenoid.Value DRIVE_TRAIN_TORQUE_TRANSMISSION = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value DRIVE_TRAIN_SPEED_TRANSMISSION = DoubleSolenoid.Value.kReverse;
 
-    public static final int[] DRIVE_TRAIN_MIDDLE_WHEEL_PORTS = {2};
+    public static final int[] DRIVE_TRAIN_MIDDLE_WHEEL_PORTS = {11};
     public static final int[] DRIVE_TRAIN_MIDDLE_WHEEL_INVERTED_MOTORS = {};
     public static final TypeOfMotor[] DRIVE_TRAIN_MIDDLE_WHEEL_MOTOR_TYPES = {TypeOfMotor.CAN_SPARK_BRUSHLESS};
 
     public static final int[] DRIVE_TRAIN_WHEEL_SOLENOID_PORTS = {1, 0, 1};
     public static final DoubleSolenoid.Value DRIVE_TRAIN_LOWERED_WHEEL = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value DRIVE_TRAIN_RAISED_WHEEL = DoubleSolenoid.Value.kReverse;
-    public static final boolean DRIVE_TRAIN_DRAGON_FLY_IS_AVAILABLE = true;
+    public static final boolean DRIVE_TRAIN_DRAGON_FLY_IS_AVAILABLE = false;
 
     /*
         CHASSIS / DRIVE TRAIN
@@ -119,7 +119,7 @@ public class RobotMap {
     public static final DoubleSolenoid.Value CLIMBER_ENGAGED_SHOOTER_GEAR = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value CLIMBER_DISENGAGED_SHOOTER_GEAR = DoubleSolenoid.Value.kReverse;
 
-    public static final int CLIMBER_LIMIT_SWITCH_PORT = 0;
+    public static final int CLIMBER_LIMIT_SWITCH_PORT = 2;
     /*
      * CLIMBER ENDS
      */
@@ -163,7 +163,7 @@ public class RobotMap {
     public static final int[] TRANSPORTATION_SYSTEM_INVERTED_MOTOR_PORTS = {};
     public static final int[] DEFLECTOR_SOLENOID_PORTS = {1, 6, 7};
     public static final int TRANSPORTATION_SYSTEM_INFRARED_INTAKE_SENSOR_PORT = 0;
-    public static final int TRANSPORTATION_SYSTEM_INFRARED_SHOOTER_SENSOR_PORT = 0;
+    public static final int TRANSPORTATION_SYSTEM_INFRARED_SHOOTER_SENSOR_PORT = 1;
     /*
     TransportationSystem Subsystem ENDS
      */
