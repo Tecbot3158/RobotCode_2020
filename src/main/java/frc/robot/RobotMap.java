@@ -60,6 +60,7 @@ public class RobotMap {
     public static final int[] DRIVE_TRAIN_TRANSMISSION_SOLENOID_PORTS = {1, 2, 3};
     public static final DoubleSolenoid.Value DRIVE_TRAIN_TORQUE_TRANSMISSION = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value DRIVE_TRAIN_SPEED_TRANSMISSION = DoubleSolenoid.Value.kReverse;
+    public static final boolean DRIVE_TRAIN_TRANSMISSION_AVAILABLE = true;
 
     public static final int[] DRIVE_TRAIN_MIDDLE_WHEEL_PORTS = {11};
     public static final int[] DRIVE_TRAIN_MIDDLE_WHEEL_INVERTED_MOTORS = {};

@@ -69,7 +69,8 @@ public class DriveTrain extends SubsystemBase {
 
     public DriveTrain() {
 
-        transmission = RobotConfigurator.buildDoubleSolenoid(RobotMap.DRIVE_TRAIN_TRANSMISSION_SOLENOID_PORTS);
+        if(RobotMap.DRIVE_TRAIN_TRANSMISSION_AVAILABLE)
+            transmission = RobotConfigurator.buildDoubleSolenoid(RobotMap.DRIVE_TRAIN_TRANSMISSION_SOLENOID_PORTS);
 
         if (RobotMap.DRIVE_TRAIN_DRAGON_FLY_IS_AVAILABLE)
             dragonFlyWheelSolenoid = RobotConfigurator.buildDoubleSolenoid(RobotMap.DRIVE_TRAIN_WHEEL_SOLENOID_PORTS);
@@ -217,6 +218,8 @@ public class DriveTrain extends SubsystemBase {
      */
 
     public void setDragonFlyWheelState(WheelState state) {
+        if(!RobotMap.DRIVE_TRAIN_DRAGON_FLY_IS_AVAILABLE)
+            return;
         if (state == WheelState.Lowered) {
             dragonFlyWheelSolenoid.set(RobotMap.DRIVE_TRAIN_LOWERED_WHEEL);
         } else {
@@ -225,9 +228,13 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public boolean getDragonFlySolenoid() {
+        if(!RobotMap.DRIVE_TRAIN_DRAGON_FLY_IS_AVAILABLE)
+            return false;
         return (dragonFlyWheelSolenoid.get() == DoubleSolenoid.Value.kForward);
     }
     public WheelState getDragonFlyWheelState(){
+        if(!RobotMap.DRIVE_TRAIN_DRAGON_FLY_IS_AVAILABLE)
+            return null;
         if(dragonFlyWheelSolenoid.get() == RobotMap.DRIVE_TRAIN_RAISED_WHEEL){
             return WheelState.Raised;
         }else {
