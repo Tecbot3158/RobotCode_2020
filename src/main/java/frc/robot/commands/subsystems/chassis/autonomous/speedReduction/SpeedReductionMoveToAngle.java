@@ -9,6 +9,9 @@ package frc.robot.commands.subsystems.chassis.autonomous;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.resources.Math;
+import frc.robot.resources.TecbotConstants;
+import frc.robot.resources.TecbotSensors;
 import frc.robot.subsystems.chassis.DriveTrain;
 
 public class SpeedReductionMoveToAngle extends CommandBase {
@@ -16,22 +19,37 @@ public class SpeedReductionMoveToAngle extends CommandBase {
      * Moves certain amount of meters to a certain local angle
      * using speed reduction control with DragonFly move.
      */
-    double meters, angle, maxPower, totalDistance;
+    double targetMeters, angle, maxPower, totalDistance;
+    double lastChassisCount, lastMiddleCount;
+
+    boolean onTarget;
     public SpeedReductionMoveToAngle(double meters, double angle, double maxPower) {
         addRequirements(Robot.getRobotContainer().getDriveTrain());
-        this.meters = meters;
+        this.targetMeters = meters;
         this.angle = angle;
         this.maxPower = maxPower;
         totalDistance = 0;
+        onTarget = false;
     }
 
     @Override
     public void initialize() {
         Robot.getRobotContainer().getDriveTrain().setDragonFlyWheelState(DriveTrain.WheelState.Lowered);
+        lastChassisCount = Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(TecbotSensors.SubsystemType.LEFT_CHASSIS);
+        lastMiddleCount = Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(TecbotSensors.SubsystemType.MIDDLE_CHASSIS);
     }
 
     @Override
     public void execute() {
+        Robot.getRobotContainer().getDriveTrain().driveToAngle(angle, maxPower, 0);
+
+        double currentChassisCount = Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(TecbotSensors.SubsystemType.LEFT_CHASSIS);
+        double currentMiddleCount = Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(TecbotSensors.SubsystemType.MIDDLE_CHASSIS);
+
+        double deltaDistanceChassis = TecbotConstants.K_CHASSIS_ENCODER_TO_METERS * (lastChassisCount - currentChassisCount);
+        double deltaMiddleChassis = TecbotConstants.K_MIDDLE_WHEEL_ENCODER_TO_METERS * (lastMiddleCount - currentMiddleCount);
+
+        totalDistance += Math.hypot(deltaDistanceChassis, deltaMiddleChassis);
 
     }
 
