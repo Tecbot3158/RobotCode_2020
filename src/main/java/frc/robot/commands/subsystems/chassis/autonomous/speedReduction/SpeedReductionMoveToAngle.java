@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.subsystems.chassis.autonomous;
+package frc.robot.commands.subsystems.chassis.autonomous.speedReduction;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
@@ -49,16 +49,25 @@ public class SpeedReductionMoveToAngle extends CommandBase {
         double deltaDistanceChassis = TecbotConstants.K_CHASSIS_ENCODER_TO_METERS * (lastChassisCount - currentChassisCount);
         double deltaMiddleChassis = TecbotConstants.K_MIDDLE_WHEEL_ENCODER_TO_METERS * (lastMiddleCount - currentMiddleCount);
 
+        double power = Math.clamp((targetMeters - totalDistance) / TecbotConstants.CHASSIS_SWERVE_MAX_DISTANCE
+                , -1, 1);
+
+        Robot.getRobotContainer().getDriveTrain().driveToAngle(angle, power, 0);
+
         totalDistance += Math.hypot(deltaDistanceChassis, deltaMiddleChassis);
+
+        if (Math.abs(targetMeters - totalDistance) <= TecbotConstants.CHASSIS_SWERVE_ARRIVE_OFFSET)
+            onTarget = true;
 
     }
 
     @Override
     public void end(boolean interrupted) {
+        Robot.getRobotContainer().getDriveTrain().stop();
     }
 
     @Override
     public boolean isFinished() {
-        return false;
+        return onTarget;
     }
 }

@@ -177,6 +177,11 @@ public class TecbotController {
      * etc.
      */
     private Joystick pilot;
+
+    /**
+     * Haptics object for controlling rumble effects.
+     */
+    private Haptics haptics;
     /**
      * {@link TypeOfController} enum object.
      */
@@ -259,6 +264,7 @@ public class TecbotController {
         else setButtons();
         if (controllerType == null && pilot != null)
             DriverStation.reportWarning("Controller not identified, some methods will return 0.", false);
+        haptics = new Haptics(pilot);
     }
 
     /**
@@ -915,5 +921,7 @@ public class TecbotController {
         return speedRelease(value, TecbotConstants.JOYSTICK_SPEED_RELEASE_POINT,
                 TecbotConstants.JOYSTICK_SPEED_MULTIPLIER);
     }
-
+    public Haptics getHaptics() {
+        return haptics;
+    }
 }

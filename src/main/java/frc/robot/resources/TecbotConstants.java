@@ -8,6 +8,12 @@ public class TecbotConstants {
     public static final double CHASSIS_STRAIGHT_MAX_DISTANCE = 20;
     public static final double CHASSIS_STRAIGHT_ARRIVE_OFFSET = 2;
 
+    // Constants used to calculate speed reduction control in swerve mode
+    // Units in meters
+    public static final double CHASSIS_SWERVE_MAX_DISTANCE = 20;
+    public static final double CHASSIS_SWERVE_ARRIVE_OFFSET = 2;
+
+
     public static final double TURN_CORRECTION = .05;
     // The distance in angles that it needs to be from target in order to be
     // considered onTarget
@@ -22,12 +28,13 @@ public class TecbotConstants {
     public static final double SPLINE_REDUCING_SPEED_CONSTANT = .8;
     public static final double SPLINE_TURN_CORRECTION = .05;
 
-    public static final double K_DISTANCE_BETWEEN_WHEELS = .54;
-    public static final double K_CHASSIS_WHEEL_DIAMETER = .34;
+    public static final double K_DISTANCE_BETWEEN_WHEELS = .53975;
 
-    public static final int K_CHASSIS_TIC_PER_REVOLUTION = 30000;
-    public static final double K_MIDDLE_WHEEL_DIAMETER = .34;
-    public static final int K_MIDDLE_WHEEL_TIC_PER_REVOLUTION = 30000;
+    public static final double K_CHASSIS_WHEEL_DIAMETER = .3048;
+    public static final double K_CHASSIS_TIC_PER_REVOLUTION = 8;
+
+    public static final double K_MIDDLE_WHEEL_DIAMETER = .2032;
+    public static final double K_MIDDLE_WHEEL_TIC_PER_REVOLUTION = 8.75;
 
     // The equivalence between meters to encoder count
 
