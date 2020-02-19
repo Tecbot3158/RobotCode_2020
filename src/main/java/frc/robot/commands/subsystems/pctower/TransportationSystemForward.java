@@ -16,7 +16,6 @@ import frc.robot.Robot;
 public class TransportationSystemForward extends InstantCommand {
 
     public TransportationSystemForward() {
-        addRequirements(Robot.getRobotContainer().getTransportationSystem());
     }
 
     // Called when the command is initially scheduled.

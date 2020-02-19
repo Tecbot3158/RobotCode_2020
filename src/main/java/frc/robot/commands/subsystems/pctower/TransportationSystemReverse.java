@@ -16,7 +16,6 @@ import frc.robot.Robot;
 public class TransportationSystemReverse extends InstantCommand {
 
     public TransportationSystemReverse() {
-        addRequirements(Robot.getRobotContainer().getTransportationSystem());
     }
 
     // Called when the command is initially scheduled.

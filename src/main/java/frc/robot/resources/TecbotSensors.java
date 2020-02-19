@@ -30,6 +30,13 @@ public class TecbotSensors {
     //CLIMBER stuff
     private DigitalInput climberLimitSwitch;
 
+
+    //power cell count
+    private DigitalInput infraredIntakeSensor, infraredShooterSensor;
+    private int currentPowerCellCount;
+    private boolean currentStateIntakeIRSensor, currentStateShooterIRSensor,
+            previousStateIntakeIRSensor, previousStateShooterIRSensor;
+
     public TecbotSensors() {
 
     }
@@ -56,9 +63,12 @@ public class TecbotSensors {
         middleChassisEncoder = RobotConfigurator.buildEncoder
                 (Robot.getRobotContainer().getDriveTrain().getSpecificMotor(RobotMap.DRIVE_TRAIN_MIDDLE_CHASSIS_MOTOR_WITH_ENCODER)
                         , RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_ENCODER_PORTS[0], RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_ENCODER_PORTS[1]);
-        if (RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_ENCODER_IS_INVERTED && leftChassisEncoder != null) leftChassisEncoder.setInverted(true);
-        if (RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_ENCODER_IS_INVERTED && rightChassisEncoder != null) rightChassisEncoder.setInverted(true);
-        if (RobotMap.DRIVE_TRAIN_MIDDLE_CHASSIS_ENCODER_IS_INVERTED && middleChassisEncoder != null) middleChassisEncoder.setInverted(true);
+        if (RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_ENCODER_IS_INVERTED && leftChassisEncoder != null)
+            leftChassisEncoder.setInverted(true);
+        if (RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_ENCODER_IS_INVERTED && rightChassisEncoder != null)
+            rightChassisEncoder.setInverted(true);
+        if (RobotMap.DRIVE_TRAIN_MIDDLE_CHASSIS_ENCODER_IS_INVERTED && middleChassisEncoder != null)
+            middleChassisEncoder.setInverted(true);
 
         colorSensorV3 = new ColorSensorV3(I2C_PORT_ONBOARD);
         colorMatcher = new ColorMatch();
@@ -69,17 +79,39 @@ public class TecbotSensors {
 
         climberLimitSwitch = new DigitalInput(RobotMap.CLIMBER_LIMIT_SWITCH_PORT);
 
+        infraredIntakeSensor = new DigitalInput(RobotMap.TRANSPORTATION_SYSTEM_INFRARED_INTAKE_SENSOR_PORT);
+        infraredShooterSensor = new DigitalInput(RobotMap.TRANSPORTATION_SYSTEM_INFRARED_SHOOTER_SENSOR_PORT);
+        setCurrentPowerCellCount(0);
+        currentStateIntakeIRSensor = false;
+        currentStateShooterIRSensor = false;
+        previousStateIntakeIRSensor = false;
+        previousStateShooterIRSensor = false;
     }
 
     /**
-     * Must be called to update tecbotGyro data
+     * Must be called to update tecbotGyro data and InfraRed sensors for
+     * Power cell counting.
      */
     public void sensorsPeriodic() {
         tecbotGyro.run();
+        currentStateIntakeIRSensor = powerCellPresentInIntake();
+        currentStateShooterIRSensor = powerCellPresentInShooter();
+
+        //change detected in intake (detected power cell and now is not present)
+        //if condition true, a power cell has gotten inside the transportation system.
+        if (previousStateIntakeIRSensor && !currentStateIntakeIRSensor)
+            addToPowerCellCount();
+
+        //change detected in shooter (detected power cell and now is not present)
+        //if condition true, a power cell has left the shooter
+        if (previousStateShooterIRSensor && !currentStateShooterIRSensor)
+            subtractFromPowerCellCount();
+
+        previousStateIntakeIRSensor = currentStateIntakeIRSensor;
+        previousStateShooterIRSensor = currentStateShooterIRSensor;
     }
 
     /**
-     *
      * @return {@link Navx} object of tecbotGyro
      */
     public Navx getTecbotGyro() {
@@ -87,7 +119,6 @@ public class TecbotSensors {
     }
 
     /**
-     *
      * @return angle between -180 and 180.
      */
     public double getYaw() {
@@ -95,7 +126,6 @@ public class TecbotSensors {
     }
 
     /**
-     *
      * @return color sensor's current color as a {@link Intake.Color} enum.
      */
     public Intake.Color getColor() {
@@ -146,5 +176,61 @@ public class TecbotSensors {
      */
     public boolean getClimberLimitSwitch() {
         return climberLimitSwitch.get();
+    }
+
+    /**
+     * @return current powerCellCount
+     */
+    public int getCurrentPowerCellCount() {
+        return this.currentPowerCellCount;
+    }
+
+    /**
+     * sets {@link #currentPowerCellCount}
+     *
+     * @param value value to set to powerCellCount
+     */
+    private void setCurrentPowerCellCount(int value) {
+        this.currentPowerCellCount = value;
+    }
+
+    public boolean powerCellPresentInIntake() {
+        return this.infraredIntakeSensor.get();
+    }
+
+    public boolean powerCellPresentInShooter() {
+        return this.infraredShooterSensor.get();
+    }
+
+    /**
+     * Adds 1 unit (POWER CELL) from {@link #currentPowerCellCount}
+     */
+    public void addToPowerCellCount() {
+        addToPowerCellCount(1);
+    }
+
+    /**
+     * Subtracts from {@link #currentPowerCellCount}
+     *
+     * @param value the value to add to {@link #currentPowerCellCount}
+     */
+    public void addToPowerCellCount(int value) {
+        this.setCurrentPowerCellCount((int) (getCurrentPowerCellCount() + Math.abs(value)));
+    }
+
+    /**
+     * Subtracts 1 unit (POWER CELL) from {@link #currentPowerCellCount}
+     */
+    public void subtractFromPowerCellCount() {
+        subtractFromPowerCellCount(1);
+    }
+
+    /**
+     * Subtracts from {@link #currentPowerCellCount}
+     *
+     * @param value positive value to subtract from the {@link #currentPowerCellCount}
+     */
+    public void subtractFromPowerCellCount(int value) {
+        this.setCurrentPowerCellCount((int) (getCurrentPowerCellCount() - Math.abs(value)));
     }
 }

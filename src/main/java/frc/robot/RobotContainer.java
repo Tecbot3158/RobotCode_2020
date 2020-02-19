@@ -53,9 +53,9 @@ public class RobotContainer {
         intake = new Intake();
         shooter = new Shooter();
         transportationSystem = new TransportationSystem();
-        tecbotSensors = new TecbotSensors();
-        // Remember that shared motors are the motors that belong to the climber and the shooter.
         sharedMotors = new SharedMotors();
+        // Remember that shared motors are the motors that belong to the climber and the shooter.
+        tecbotSensors = new TecbotSensors();
 
         // configureButtonBindings() called after instantiating all subsystems and
         // RobotContainer constructor.

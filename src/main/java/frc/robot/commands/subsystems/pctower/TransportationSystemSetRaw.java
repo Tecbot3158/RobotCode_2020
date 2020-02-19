@@ -18,7 +18,6 @@ public class TransportationSystemSetRaw extends InstantCommand {
     double speed;
 
     public TransportationSystemSetRaw(double speed) {
-        addRequirements(Robot.getRobotContainer().getTransportationSystem());
         this.speed = speed;
     }
 

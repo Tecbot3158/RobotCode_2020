@@ -16,7 +16,6 @@ import frc.robot.Robot;
 public class TransportationSystemCloseDeflector extends InstantCommand {
 
     public TransportationSystemCloseDeflector() {
-        addRequirements(Robot.getRobotContainer().getTransportationSystem());
     }
 
     // Called when the command is initially scheduled.

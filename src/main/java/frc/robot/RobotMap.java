@@ -162,6 +162,8 @@ public class RobotMap {
     public static final int[] TRANSPORTATION_SYSTEM_MOTOR_PORTS = {3, 4, 5, 6};
     public static final int[] TRANSPORTATION_SYSTEM_INVERTED_MOTOR_PORTS = {};
     public static final int[] DEFLECTOR_SOLENOID = {1, 6, 7};
+    public static final int TRANSPORTATION_SYSTEM_INFRARED_INTAKE_SENSOR_PORT = 0;
+    public static final int TRANSPORTATION_SYSTEM_INFRARED_SHOOTER_SENSOR_PORT = 0;
     /*
     TransportationSystem Subsystem ENDS
      */
