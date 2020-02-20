@@ -39,17 +39,11 @@ public class Intake extends SubsystemBase {
 
         rearMotors = RobotConfigurator.buildMotorList(RobotMap.REAR_INTAKE_MOTOR_PORTS, RobotMap.REAR_INTAKE_INVERTED_MOTOR_PORTS, RobotMap.REAR_INTAKE_MOTOR_TYPES);
 
-        try {
-            frontSolenoids.add(RobotConfigurator.buildDoubleSolenoid(RobotMap.FRONT_INTAKE_SOLENOIDS));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        frontSolenoids.add(RobotConfigurator.buildDoubleSolenoid(RobotMap.FRONT_INTAKE_LEFT_SOLENOID_PORTS));
+        frontSolenoids.add(RobotConfigurator.buildDoubleSolenoid(RobotMap.FRONT_INTAKE_RIGHT_SOLENOID_PORTS));
 
-        try {
-            rearSolenoids.add(RobotConfigurator.buildDoubleSolenoid(RobotMap.REAR_INTAKE_SOLENOIDS));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        rearSolenoids.add(RobotConfigurator.buildDoubleSolenoid(RobotMap.REAR_INTAKE_SOLENOIDS));
+
         controlPanelColors = new HashMap<>();
         controlPanelColors.put(Color.RED, TecbotConstants.CONTROL_PANEL_RED_ID);
         controlPanelColors.put(Color.BLUE, TecbotConstants.CONTROL_PANEL_BLUE_ID);
@@ -128,21 +122,22 @@ public class Intake extends SubsystemBase {
         }
     }
 
-    public void setServoPosition(int angle){
+    public void setServoPosition(int angle) {
         sensorServo.set(angle);
     }
-    public double getServoPosition(){
+
+    public double getServoPosition() {
         return sensorServo.getAngle();
     }
 
     public enum Color {RED, GREEN, BLUE, YELLOW}
 
-    public static int getIDFromColor(Color color){
+    public static int getIDFromColor(Color color) {
 
         return controlPanelColors.get(color);
     }
 
-    public static Color getColorFromID(int id){
+    public static Color getColorFromID(int id) {
         return controlPanelIDs.get(id);
     }
 

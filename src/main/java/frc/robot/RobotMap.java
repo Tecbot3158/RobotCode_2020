@@ -148,7 +148,8 @@ public class RobotMap {
     public static final TypeOfMotor[] REAR_INTAKE_MOTOR_TYPES = {TypeOfMotor.TALON_SRX};
 
 
-    public static final int[] FRONT_INTAKE_SOLENOIDS = {0, 4, 5};
+    public static final int[] FRONT_INTAKE_LEFT_SOLENOID_PORTS = {0, 4, 5};
+    public static final int[] FRONT_INTAKE_RIGHT_SOLENOID_PORTS = {0, 4, 5};
     public static final int[] REAR_INTAKE_SOLENOIDS = {0, 6, 7};
 
     public static final int COLOR_SENSOR_SERVO_PORT = 0;
