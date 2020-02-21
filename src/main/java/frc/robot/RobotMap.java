@@ -57,7 +57,7 @@ public class RobotMap {
     public static final boolean DRIVE_TRAIN_RIGHT_CHASSIS_ENCODER_IS_INVERTED = false;
     public static final boolean DRIVE_TRAIN_MIDDLE_CHASSIS_ENCODER_IS_INVERTED = false;
 
-    public static final int[] DRIVE_TRAIN_TRANSMISSION_SOLENOID_PORTS = {1, 2, 3};
+    public static final int[] DRIVE_TRAIN_TRANSMISSION_SOLENOID_PORTS = {1, 4, 5};
     public static final DoubleSolenoid.Value DRIVE_TRAIN_TORQUE_TRANSMISSION = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value DRIVE_TRAIN_SPEED_TRANSMISSION = DoubleSolenoid.Value.kReverse;
     public static final boolean DRIVE_TRAIN_TRANSMISSION_AVAILABLE = true;
@@ -66,7 +66,7 @@ public class RobotMap {
     public static final int[] DRIVE_TRAIN_MIDDLE_WHEEL_INVERTED_MOTORS = {};
     public static final TypeOfMotor[] DRIVE_TRAIN_MIDDLE_WHEEL_MOTOR_TYPES = {TypeOfMotor.CAN_SPARK_BRUSHLESS};
 
-    public static final int[] DRIVE_TRAIN_WHEEL_SOLENOID_PORTS = {1, 0, 1};
+    public static final int[] DRIVE_TRAIN_WHEEL_SOLENOID_PORTS = {1, 6, 7};
     public static final DoubleSolenoid.Value DRIVE_TRAIN_LOWERED_WHEEL = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value DRIVE_TRAIN_RAISED_WHEEL = DoubleSolenoid.Value.kReverse;
     public static final boolean DRIVE_TRAIN_DRAGON_FLY_IS_AVAILABLE = false;
@@ -78,10 +78,10 @@ public class RobotMap {
     /*
      * SHARED MOTORS STARTS
      */
-    public static final int[] SHARED_MOTORS_LEFT_PORTS = {7, 8};
-    public static final int[] SHARED_MOTORS_RIGHT_PORTS = {9, 10};
-    public static final int[] SHARED_MOTORS_LEFT_INVERTED_MOTORS = {0, 0};
-    public static final int[] SHARED_MOTORS_RIGHT_INVERTED_MOTORS = {0, 0};
+    public static final int[] SHARED_MOTORS_LEFT_PORTS = {5, 6};
+    public static final int[] SHARED_MOTORS_RIGHT_PORTS = {14, 12};
+    public static final int[] SHARED_MOTORS_LEFT_INVERTED_MOTORS = {};
+    public static final int[] SHARED_MOTORS_RIGHT_INVERTED_MOTORS = {14,12};
     // This integer will contain the motor port which the shooter encoder is connected to.
     public static final int SHARED_MOTORS_RIGHT_ENCODER_MOTOR_PORT = SHARED_MOTORS_RIGHT_PORTS[1];
     // This integer will contain the motor port which the shooter encoder is connected to.
@@ -116,7 +116,7 @@ public class RobotMap {
     public static final int[] CLIMBER_RIGHT_INVERTED_WINCH_PORTS = {};
     public static final TecbotSpeedController.TypeOfMotor[] CLIMBER_RIGHT_WINCH_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX};
 
-    public static final int[] CLIMBER_GEAR_DISENGAGER_SOLENOID_PORTS = {0, 2, 3};
+    public static final int[] CLIMBER_GEAR_DISENGAGER_SOLENOID_PORTS = {1, 0, 1};
     public static final DoubleSolenoid.Value CLIMBER_ENGAGED_SHOOTER_GEAR = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value CLIMBER_DISENGAGED_SHOOTER_GEAR = DoubleSolenoid.Value.kReverse;
 
@@ -148,9 +148,8 @@ public class RobotMap {
     public static final TypeOfMotor[] REAR_INTAKE_MOTOR_TYPES = {TypeOfMotor.TALON_SRX};
 
 
-    public static final int[] FRONT_INTAKE_LEFT_SOLENOID_PORTS = {0, 4, 5};
-    public static final int[] FRONT_INTAKE_RIGHT_SOLENOID_PORTS = {0, 4, 5};
-    public static final int[] REAR_INTAKE_SOLENOIDS = {0, 6, 7};
+    public static final int[] FRONT_INTAKE_SOLENOID_PORTS = {1, 2, 3};
+    public static final int[] REAR_INTAKE_SOLENOID_PORTS = {2, 4, 5};
 
     public static final int COLOR_SENSOR_SERVO_PORT = 0;
 

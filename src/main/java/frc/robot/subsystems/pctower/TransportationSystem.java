@@ -26,7 +26,7 @@ public class TransportationSystem extends SubsystemBase {
    * Creates a new Subsystem.
    */
   public TransportationSystem() {
-      solenoidDeflector = RobotConfigurator.buildDoubleSolenoid(RobotMap.DEFLECTOR_SOLENOID_PORTS);
+      //solenoidDeflector = RobotConfigurator.buildDoubleSolenoid(RobotMap.DEFLECTOR_SOLENOID_PORTS);
       transportationSystemMotors = RobotConfigurator.buildMotorList(RobotMap.TRANSPORTATION_SYSTEM_MOTOR_PORTS, RobotMap.TRANSPORTATION_SYSTEM_INVERTED_MOTOR_PORTS, RobotMap.TRANSPORTATION_SYSTEM_TYPE_OF_MOTORS);
   }
   
@@ -48,11 +48,11 @@ public class TransportationSystem extends SubsystemBase {
   }   
 
   public void closeDeflector(){
-    solenoidDeflector.set(Value.kForward);
+    //solenoidDeflector.set(Value.kForward);
   }
 
   public void openDeflector(){
-    solenoidDeflector.set(Value.kReverse);
+    //solenoidDeflector.set(Value.kReverse);
 }
 
   public TecbotMotorList getMotors(){

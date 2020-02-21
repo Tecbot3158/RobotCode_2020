@@ -35,7 +35,7 @@ public class Shooter extends PIDSubsystem {
                         TecbotConstants.K_SHOOTER_D));
 
 
-        anglerServo = RobotConfigurator.buildServo(RobotMap.SHOOTER_ANGLER_PORT);
+        //anglerServo = RobotConfigurator.buildServo(RobotMap.SHOOTER_ANGLER_PORT);
 
 
     }
@@ -43,7 +43,7 @@ public class Shooter extends PIDSubsystem {
     @Override
     public void useOutput(double output, double setpoint) {
         // Use the output here
-        anglerServo.setAngle(angle);
+        //anglerServo.setAngle(angle);
         shoot();
     }
 
@@ -116,6 +116,8 @@ public class Shooter extends PIDSubsystem {
                 DriverStation.reportError("The set angle isn´t possible", true);
 
         }
+
+
 
     }
 

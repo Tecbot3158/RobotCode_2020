@@ -39,10 +39,9 @@ public class Intake extends SubsystemBase {
 
         rearMotors = RobotConfigurator.buildMotorList(RobotMap.REAR_INTAKE_MOTOR_PORTS, RobotMap.REAR_INTAKE_INVERTED_MOTOR_PORTS, RobotMap.REAR_INTAKE_MOTOR_TYPES);
 
-        frontSolenoids.add(RobotConfigurator.buildDoubleSolenoid(RobotMap.FRONT_INTAKE_LEFT_SOLENOID_PORTS));
-        frontSolenoids.add(RobotConfigurator.buildDoubleSolenoid(RobotMap.FRONT_INTAKE_RIGHT_SOLENOID_PORTS));
+        frontSolenoids.add(RobotConfigurator.buildDoubleSolenoid(RobotMap.FRONT_INTAKE_SOLENOID_PORTS));
 
-        rearSolenoids.add(RobotConfigurator.buildDoubleSolenoid(RobotMap.REAR_INTAKE_SOLENOIDS));
+        rearSolenoids.add(RobotConfigurator.buildDoubleSolenoid(RobotMap.REAR_INTAKE_SOLENOID_PORTS));
 
         controlPanelColors = new HashMap<>();
         controlPanelColors.put(Color.RED, TecbotConstants.CONTROL_PANEL_RED_ID);
