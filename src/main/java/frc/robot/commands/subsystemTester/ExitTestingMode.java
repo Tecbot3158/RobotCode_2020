@@ -27,6 +27,7 @@ public class ExitTestingMode extends InstantCommand {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        OI.getInstance().getPilot().clearPOVCommands();
         OI.getInstance().configureButtonBindings();
     }
 }

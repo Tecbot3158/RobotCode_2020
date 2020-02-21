@@ -32,27 +32,26 @@ public class TestRightClimber extends CommandBase {
     public void initialize() {
         Robot.getRobotContainer().getShooter().disable();
         CommandScheduler.getInstance().clearButtons();
+        OI.getInstance().getPilot().clearPOVCommands();
         OI.getInstance().getPilot().whenPressed(TecbotController.ButtonType.B, new ClimberGearsToggle());
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if(Robot.currentMotorBeingTested < Robot.getRobotContainer().getSharedMotors().rightSharedMotors.size()) {
+        if (Robot.currentMotorBeingTested < Robot.getRobotContainer().getSharedMotors().rightSharedMotors.size()) {
             Robot.getRobotContainer().getSharedMotors().rightSharedMotors.getMotors().get(Robot.currentMotorBeingTested).set(
                     OI.getInstance().getPilot().getLeftTrigger()
             );
-        }
-        else {
+        } else {
             Robot.currentMotorBeingTested = 0;
         }
 
-        if(Robot.currentSecondMotorBeingTested < Robot.getRobotContainer().getClimber().getRightWinchMotors().size()) {
+        if (Robot.currentSecondMotorBeingTested < Robot.getRobotContainer().getClimber().getRightWinchMotors().size()) {
             Robot.getRobotContainer().getClimber().getRightWinchMotors().getMotors().get(Robot.currentMotorBeingTested).set(
                     OI.getInstance().getPilot().getRightTrigger()
             );
-        }
-        else {
+        } else {
             Robot.currentSecondMotorBeingTested = 0;
         }
     }

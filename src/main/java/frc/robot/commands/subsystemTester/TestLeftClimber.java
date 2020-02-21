@@ -32,6 +32,7 @@ public class TestLeftClimber extends CommandBase {
     public void initialize() {
         Robot.getRobotContainer().getShooter().disable();
         CommandScheduler.getInstance().clearButtons();
+        OI.getInstance().getPilot().clearPOVCommands();
         OI.getInstance().getPilot().whenPressed(TecbotController.ButtonType.B, new ClimberGearsToggle());
     }
 

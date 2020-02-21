@@ -923,7 +923,33 @@ public class TecbotController {
         return speedRelease(value, TecbotConstants.JOYSTICK_SPEED_RELEASE_POINT,
                 TecbotConstants.JOYSTICK_SPEED_MULTIPLIER);
     }
+
     public Haptics getHaptics() {
         return haptics;
+    }
+
+    /**
+     * clears ALL commands for POV
+     */
+    public void clearPOVCommands() {
+        //POV UP
+        pov0CommandWhenPressed = null;
+        pov0CommandWhileHeld = null;
+        pov0CommandWhenReleased = null;
+
+        //POV RIGHT
+        pov90CommandWhenPressed = null;
+        pov90CommandWhileHeld = null;
+        pov90CommandWhenReleased = null;
+
+        //POV DOWN
+        pov180CommandWhenPressed = null;
+        pov180CommandWhileHeld = null;
+        pov180CommandWhenReleased = null;
+
+        //POV LEFT
+        pov270CommandWhenPressed = null;
+        pov270CommandWhileHeld = null;
+        pov270CommandWhenReleased = null;
     }
 }

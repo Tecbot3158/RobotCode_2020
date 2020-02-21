@@ -62,7 +62,7 @@ public class RobotMap {
     public static final DoubleSolenoid.Value DRIVE_TRAIN_SPEED_TRANSMISSION = DoubleSolenoid.Value.kReverse;
     public static final boolean DRIVE_TRAIN_TRANSMISSION_AVAILABLE = true;
 
-    public static final int[] DRIVE_TRAIN_MIDDLE_WHEEL_PORTS = {11};
+    public static final int[] DRIVE_TRAIN_MIDDLE_WHEEL_PORT = {11};
     public static final int[] DRIVE_TRAIN_MIDDLE_WHEEL_INVERTED_MOTORS = {};
     public static final TypeOfMotor[] DRIVE_TRAIN_MIDDLE_WHEEL_MOTOR_TYPES = {TypeOfMotor.CAN_SPARK_BRUSHLESS};
 
@@ -81,7 +81,7 @@ public class RobotMap {
     public static final int[] SHARED_MOTORS_LEFT_PORTS = {5, 6};
     public static final int[] SHARED_MOTORS_RIGHT_PORTS = {14, 12};
     public static final int[] SHARED_MOTORS_LEFT_INVERTED_MOTORS = {};
-    public static final int[] SHARED_MOTORS_RIGHT_INVERTED_MOTORS = {14,12};
+    public static final int[] SHARED_MOTORS_RIGHT_INVERTED_MOTORS = {14, 12};
     // This integer will contain the motor port which the shooter encoder is connected to.
     public static final int SHARED_MOTORS_RIGHT_ENCODER_MOTOR_PORT = SHARED_MOTORS_RIGHT_PORTS[1];
     // This integer will contain the motor port which the shooter encoder is connected to.
@@ -107,7 +107,7 @@ public class RobotMap {
      * CLIMBER STARTS
      */
     //LEFT WINCH
-    public static final int[] CLIMBER_LEFT_WINCH_PORTS = {12};
+    public static final int[] CLIMBER_LEFT_WINCH_PORTS = {8};
     public static final int[] CLIMBER_LEFT_INVERTED_WINCH_PORTS = {};
     public static final TecbotSpeedController.TypeOfMotor[] CLIMBER_LEFT_WINCH_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX};
 
