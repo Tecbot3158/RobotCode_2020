@@ -40,6 +40,7 @@ public class TestClimber extends CommandBase {
     public void execute() {
         Robot.getRobotContainer().getClimber().setWinchSpeed(OI.getInstance().getPilot().getLeftAxisY(), OI.getInstance().getPilot().getRightAxisY());
         Robot.getRobotContainer().getClimber().setPulleySpeed(OI.getInstance().getPilot().getLeftTrigger(), OI.getInstance().getPilot().getRightTrigger());
+        System.out.println("Testing climber");
     }
 
     // Called once the command ends or is interrupted.
