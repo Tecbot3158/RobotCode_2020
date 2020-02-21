@@ -32,6 +32,7 @@ public class TestPCT extends CommandBase {
     public void initialize() {
         CommandScheduler.getInstance().clearButtons();
         Robot.getRobotContainer().getShooter().disable();
+        OI.getInstance().getPilot().clearPOVCommands();
         OI.getInstance().getPilot().whenPressed(TecbotController.ButtonType.B, new InstantCommand(Robot.getRobotContainer().getTransportationSystem() :: closeDeflector));
         OI.getInstance().getPilot().whenPressed(TecbotController.ButtonType.A, new InstantCommand(Robot.getRobotContainer().getTransportationSystem() :: openDeflector));
     }

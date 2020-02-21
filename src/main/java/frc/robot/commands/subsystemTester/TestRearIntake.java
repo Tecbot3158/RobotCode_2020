@@ -30,6 +30,8 @@ public class TestRearIntake extends CommandBase {
     public void initialize() {
         Robot.getRobotContainer().getShooter().disable();
         CommandScheduler.getInstance().clearButtons();
+        OI.getInstance().getPilot().clearPOVCommands();
+
     }
 
     // Called every time the scheduler runs while the command is scheduled.

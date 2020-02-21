@@ -85,7 +85,7 @@ public class DriveTrain extends SubsystemBase {
         rightMotors = RobotConfigurator.buildMotorList(RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_PORTS,
                 RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_INVERTED_MOTORS, RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_MOTOR_TYPES);
 
-        middleMotors = RobotConfigurator.buildMotorList(RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_PORTS,
+        middleMotors = RobotConfigurator.buildMotorList(RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_PORT,
                 RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_INVERTED_MOTORS, RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_MOTOR_TYPES);
     }
 

@@ -29,6 +29,7 @@ public class TestPCTSpecific extends CommandBase {
     @Override
     public void initialize() {
         CommandScheduler.getInstance().clearButtons();
+        OI.getInstance().getPilot().clearPOVCommands();
         Robot.getRobotContainer().getShooter().disable();
     }
 

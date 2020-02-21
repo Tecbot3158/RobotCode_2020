@@ -31,6 +31,7 @@ public class TestIntake extends CommandBase {
     @Override
     public void initialize() {
         CommandScheduler.getInstance().clearButtons();
+        OI.getInstance().getPilot().clearPOVCommands();
         OI.getInstance().getPilot().whenPressed(TecbotController.ButtonType.LB, new InstantCommand(Robot.getRobotContainer().getIntake()::rearIntakeSolenoidOn));
         OI.getInstance().getPilot().whenPressed(TecbotController.ButtonType.RB, new InstantCommand(Robot.getRobotContainer().getIntake()::frontIntakeSolenoidOn));
 
