@@ -7,14 +7,13 @@
 
 package frc.robot;
 
-import com.revrobotics.SparkMax;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.subsystemCommands.powerCellCounter.DefaultCommandPowerCellCounter;
 import frc.robot.commands.subsystemTester.*;
-import frc.robot.commands.subsystems.chassis.DefaultDrive;
-import frc.robot.resources.TecbotSensors;
+import frc.robot.commands.subsystemCommands.chassis.DefaultDrive;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -37,15 +36,19 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+        SmartDashboard.putNumber("servo", 0);
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         m_robotContainer = new RobotContainer();
-        CommandScheduler.getInstance().setDefaultCommand(getRobotContainer().getDriveTrain(), new DefaultDrive());
         getRobotContainer().configureButtonBindings();
         getRobotContainer().getTecbotSensors().initializeAllSensors();
 
-        getRobotContainer().getIntake().frontIntakeSolenoidOff();
-        getRobotContainer().getIntake().rearIntakeSolenoidOff();
+        CommandScheduler.getInstance().setDefaultCommand(getRobotContainer().getPowerCellCounter(), new DefaultCommandPowerCellCounter());
+        CommandScheduler.getInstance().setDefaultCommand(getRobotContainer().getDriveTrain(), new DefaultDrive());
+
+        Robot.getRobotContainer().getIntake().frontIntakeSolenoidOff();
+        Robot.getRobotContainer().getIntake().rearIntakeOff();
+
     }
 
     /**
@@ -62,7 +65,7 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
-       getRobotContainer().getTecbotSensors().sensorsPeriodic();
+        getRobotContainer().getTecbotSensors().sensorsPeriodic();
     }
 
     /**
@@ -111,8 +114,9 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+        CommandScheduler.getInstance().run();
         OI.getInstance().getPilot().run();
-        SmartDashboard.putNumber("Shooter rate",getRobotContainer().getTecbotSensors().getEncoder(TecbotSensors.SubsystemType.SHOOTER).getRate());
+
     }
 
     @Override
@@ -126,6 +130,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void testPeriodic() {
+        System.out.println(OI.getInstance().getPilot().getTriggers());
         CommandScheduler.getInstance().run();
         SmartDashboard.putData(new TestClimber());
         SmartDashboard.putData(new TestIntake());
@@ -141,6 +146,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData(new ChangeSecondCurrentMotor());
         SmartDashboard.putData(new TestLeftClimber());
         SmartDashboard.putData(new TestRightClimber());
+
+
     }
 
     public static RobotContainer getRobotContainer() {

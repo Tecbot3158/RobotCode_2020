@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.OI;
 import frc.robot.Robot;
-import frc.robot.commands.subsystems.climber.ClimberGearsToggle;
+import frc.robot.commands.subsystemCommands.climber.ClimberGearsToggle;
 import frc.robot.resources.TecbotController;
 
 public class TestClimber extends CommandBase {

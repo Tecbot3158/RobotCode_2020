@@ -8,13 +8,10 @@
 package frc.robot.commands.robotActions.mixed;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.subsystems.intakes.frontIntakes.FrontIntakeIn;
-import frc.robot.commands.subsystems.intakes.frontIntakes.FrontIntakeSolenoidOn;
-import frc.robot.commands.subsystems.intakes.rearIntakes.RearIntakeOff;
-import frc.robot.commands.subsystems.intakes.rearIntakes.RearIntakeSolenoidOff;
-import frc.robot.commands.subsystems.pctower.TransportationSystemCloseDeflector;
-import frc.robot.commands.subsystems.pctower.TransportationSystemForward;
-import frc.robot.commands.subsystems.shooter.ShootFromInitiationLine;
+import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeIn;
+import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSolenoidOn;
+import frc.robot.commands.subsystemCommands.pctower.TransportationSystemForward;
+import frc.robot.commands.subsystemCommands.shooter.ShootFromInitiationLine;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

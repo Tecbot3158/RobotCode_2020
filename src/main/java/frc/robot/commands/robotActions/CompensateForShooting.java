@@ -9,8 +9,8 @@ package frc.robot.commands.robotActions;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.subsystems.pctower.TransportationSystemOff;
-import frc.robot.commands.subsystems.pctower.TransportationSystemReverse;
+import frc.robot.commands.subsystemCommands.pctower.TransportationSystemOff;
+import frc.robot.commands.subsystemCommands.pctower.TransportationSystemReverse;
 import frc.robot.resources.TecbotConstants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more

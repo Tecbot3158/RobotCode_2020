@@ -7,11 +7,12 @@
 
 package frc.robot.commands.subsystemTester;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.OI;
 import frc.robot.Robot;
-import frc.robot.commands.subsystems.climber.ClimberGearsToggle;
+import frc.robot.commands.subsystemCommands.climber.ClimberGearsToggle;
 import frc.robot.resources.TecbotController;
 
 public class TestRightClimber extends CommandBase {
@@ -41,7 +42,7 @@ public class TestRightClimber extends CommandBase {
     public void execute() {
         if (Robot.currentMotorBeingTested < Robot.getRobotContainer().getSharedMotors().rightSharedMotors.size()) {
             Robot.getRobotContainer().getSharedMotors().rightSharedMotors.getMotors().get(Robot.currentMotorBeingTested).set(
-                    OI.getInstance().getPilot().getLeftTrigger()
+                    OI.getInstance().getPilot().getLeftAxisY()
             );
         } else {
             Robot.currentMotorBeingTested = 0;
@@ -49,11 +50,12 @@ public class TestRightClimber extends CommandBase {
 
         if (Robot.currentSecondMotorBeingTested < Robot.getRobotContainer().getClimber().getRightWinchMotors().size()) {
             Robot.getRobotContainer().getClimber().getRightWinchMotors().getMotors().get(Robot.currentMotorBeingTested).set(
-                    OI.getInstance().getPilot().getRightTrigger()
+                    OI.getInstance().getPilot().getTriggers()
             );
         } else {
             Robot.currentSecondMotorBeingTested = 0;
         }
+        SmartDashboard.putNumber("rightCLimber", OI.getInstance().getPilot().getTriggers());
     }
 
     // Called once the command ends or is interrupted.

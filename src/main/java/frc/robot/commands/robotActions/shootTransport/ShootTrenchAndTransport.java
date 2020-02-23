@@ -8,12 +8,8 @@
 package frc.robot.commands.robotActions.shootTransport;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.robotActions.CompensateForShooting;
-import frc.robot.commands.subsystems.pctower.TransportationSystemForward;
-import frc.robot.commands.subsystems.pctower.TransportationSystemReverse;
-import frc.robot.commands.subsystems.shooter.ShootFromTrench;
-import frc.robot.resources.TecbotConstants;
+import frc.robot.commands.subsystemCommands.pctower.TransportationSystemForward;
+import frc.robot.commands.subsystemCommands.shooter.ShootFromTrench;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

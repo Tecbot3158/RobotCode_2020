@@ -79,10 +79,15 @@ public class TecbotConstants {
     public static final double K_METERS_TO_ENCODER = (float) (30000 / (.2034 * Math.PI));
 
     //SHOOTER STARTS
-    public static final double TRENCH_SHOOTING_SPEED = 0;
-    public static final double INITIATION_LINE_SHOOTING_SPEED = 0;
-    public static final double TARGET_ZONE_SHOOTING_SPEED = 0;
+    public static final double SHOOTER_TRENCH_SHOOTING_SPEED = 0.9;
+    public static final double SHOOTER_INITIATION_LINE_SHOOTING_SPEED = 0.6;
+    public static final double SHOOTER_TARGET_ZONE_SHOOTING_SPEED = 0.5;
     public static final double SHOOTER_OFF = 0;
+
+    //POWER SH
+    public static final double TRENCH_SHOOTING_POWER = 0;
+    public static final double INITIATION_LINE_SHOOTING_POWER = 0;
+    public static final double TARGET_ZONE_SHOOTING_POWER = 0;
 
     //0 TO 1
     public static final double TRENCH_SHOOTING_ANGLE = 0;
@@ -90,9 +95,21 @@ public class TecbotConstants {
     public static final double TARGET_ZONE_SHOOTING_ANGLE = 0;
     public static final double SHOOTER_OFF_ANGLE = 0;
 
-    public static final double K_SHOOTER_P = 0;
+    public static final double K_SHOOTER_P = 1;
     public static final double K_SHOOTER_I = 0;
     public static final double K_SHOOTER_D = 0;
+
+
+    public static final double K_SHOOTER_FREE_RPS = 3390 / 60.0; // determined by santiaGo
+
+    // On a real robot the feedforward constants should be empirically determined; these are
+    // reasonable guesses.
+    public static final double KS_VOLTS = 0.1;
+    public static final double KV_VOLT_SECONDS_PER_ROTATION =
+            // Should have value 12V at free speed...
+            12.0 / K_SHOOTER_FREE_RPS;
+
+
     //SHOOTER ENDS
 
     //CLIMBER STARTS
@@ -100,8 +117,8 @@ public class TecbotConstants {
     //CLIMBER ENDS
 
     //INTAKE STARTS
-    public static final double FRONT_INTAKE_SPEED = 0.8;
-    public static final double REAR_INTAKE_SPEED = 0.8;
+    public static final double FRONT_INTAKE_SPEED = 1;
+    public static final double REAR_INTAKE_SPEED = 1;
     //INTAKE ENDS
 
     //CONTROL PANEL STARTS
@@ -113,20 +130,20 @@ public class TecbotConstants {
     public static final int CONTROL_PANEL_BLUE_ID = 3;
     public static final int CONTROL_PANEL_YELLOW_ID = 4;
 
-    public static final int CONTROL_PANEL_SENSOR_RETRACTED_ANGLE = 0;
-    public static final int CONTROL_PANEL_SENSOR_EXTENDED_ANGLE = 0;
+    public static final int CONTROL_PANEL_SENSOR_RETRACTED_ANGLE = 35;
+    public static final int CONTROL_PANEL_SENSOR_EXTENDED_ANGLE = 170;
 
 
     //CONTROL PANEL ENDS
 
     //TRANSPORTATION SYSTEMS STARTS
-    public static final double TRANSPORTATION_SYSTEM_POWER = 0.2;
-    public static final double TRANSPORTATION_SYSTEM_REVERSE_TIME_COMPENSATION_IN_SECONDS = 0.5;
+    public static final double TRANSPORTATION_SYSTEM_POWER = 0.4;
+    public static final double TRANSPORTATION_SYSTEM_REVERSE_TIME_COMPENSATION_IN_SECONDS = 0.25;
     //TRANSPORTATION SYSTEMS ENDS
 
     // JOYSTICK STARTS
     public static final double DEFAULT_JOYSTICK_OFFSET = .2;
-    public static final double JOYSTICK_SPEED_RELEASE_POINT  = .5;
+    public static final double JOYSTICK_SPEED_RELEASE_POINT = .5;
     public static final double JOYSTICK_SPEED_MULTIPLIER = .85;
     public static final boolean APPLY_SPEED_RELEASE_TO_LEFT_AXIS = true;
 

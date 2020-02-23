@@ -7,12 +7,10 @@
 
 package frc.robot.commands.robotActions.shootTransport;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.CommandGroupBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.subsystems.pctower.TransportationSystemSetRaw;
-import frc.robot.commands.subsystems.shooter.ShootManual;
+import frc.robot.commands.subsystemCommands.pctower.TransportationSystemSetRaw;
+import frc.robot.commands.subsystemCommands.shooter.ShootManual;
 
 public class NoPIDShootTrenchAndTransport extends SequentialCommandGroup {
     /**

@@ -267,6 +267,10 @@ public class TecbotController {
         haptics = new Haptics(pilot);
     }
 
+    public TypeOfController getControllerType() {
+        return controllerType;
+    }
+
     /**
      * This function will return the value of the Left Axis <i>Y</i>.
      * <br>Ranges from -1 to 1.
@@ -777,6 +781,9 @@ public class TecbotController {
         }
 
         previousPovAngle = currentPovAngle;
+
+        //System.out.println(currentPovWhenPressedCommand);
+        //System.out.println("POV direction -> " + currentPovAngle);
     }
 
     /**

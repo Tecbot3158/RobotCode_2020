@@ -17,11 +17,9 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import edu.wpi.first.wpilibj.*;
 
 /**
- * 
  * TecbotEncoder can be used to create almost any kind of encoder,
  * either linked to a TALON_SRX {@link TecbotSpeedController.TypeOfMotor}
  * or directly connected to the RoboRIO.
- * 
  */
 
 public class TecbotEncoder implements CounterBase {
@@ -199,10 +197,12 @@ public class TecbotEncoder implements CounterBase {
         talonEncoder.getTalonSRX().configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
 
     }
-    public void setInverted(boolean inverted){
+
+    public void setInverted(boolean inverted) {
         isInverted = inverted;
     }
-    public boolean isInverted(){
+
+    public boolean isInverted() {
         return isInverted;
     }
 

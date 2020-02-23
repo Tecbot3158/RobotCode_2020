@@ -7,12 +7,17 @@
 
 package frc.robot;
 
-import frc.robot.commands.subsystems.chassis.QuickTurn;
-import frc.robot.commands.subsystems.chassis.drivingModes.ChassisSetDefaultDrive;
-import frc.robot.commands.subsystems.chassis.drivingModes.ChassisSetPivoting;
-import frc.robot.commands.subsystems.chassis.drivingModes.ChassisToggleTransmissionMode;
-import frc.robot.commands.subsystems.chassis.wheel.ToggleWheelPosition;
-import frc.robot.commands.subsystems.climber.ActivateShrekPower;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.commands.robotActions.DisengageLosenRopeAndActivatePulleyMotors;
+import frc.robot.commands.subsystemCommands.chassis.QuickTurn;
+import frc.robot.commands.subsystemCommands.chassis.drivingModes.ChassisSetDefaultDrive;
+import frc.robot.commands.subsystemCommands.chassis.drivingModes.ChassisSetPivoting;
+import frc.robot.commands.subsystemCommands.chassis.drivingModes.ChassisToggleTransmissionMode;
+import frc.robot.commands.subsystemCommands.chassis.wheel.ToggleWheelPosition;
+import frc.robot.commands.subsystemCommands.climber.ActivateManualWinch;
+import frc.robot.commands.subsystemCommands.controlPanel.PositionServo;
+import frc.robot.commands.subsystemCommands.controlPanel.PositionServoToZero;
+import frc.robot.commands.subsystemCommands.shooter.ShootFromInitiationLine;
 import frc.robot.resources.TecbotController;
 
 /**
@@ -53,22 +58,30 @@ public class OI {
 
         pilot.whenPressed(TecbotController.ButtonType.Y, new QuickTurn());
 
+        pilot.whenPressed(TecbotController.ButtonType.BACK, new PositionServoToZero());
+
+        pilot.whenPressed(TecbotController.ButtonType.LS, new PositionServo());
+
         pilot.whenPressed(TecbotController.ButtonType.START, new ChassisToggleTransmissionMode());
 
         //POV a.k.a. D-PAD
         //POV ^
         //    |
-        pilot.whenPressed(TecbotController.ButtonType.POV_0, RobotActionsCatalog.getInstance().getShootFromTargetZoneCompensate());
+        pilot.whenPressed(TecbotController.ButtonType.POV_0, RobotActionsCatalog.getInstance().getShootFromInitiationLineCompensate());
 
         //POV -->
         pilot.whenPressed(TecbotController.ButtonType.POV_90, RobotActionsCatalog.getInstance().getShootFromTrenchCompensate());
 
         //POV <--
-        pilot.whenPressed(TecbotController.ButtonType.POV_270, RobotActionsCatalog.getInstance().getShootFromInitiationLineCompensate());
+        pilot.whenPressed(TecbotController.ButtonType.POV_270, RobotActionsCatalog.getInstance().getShootFromTargetZoneCompensate());
+        //pilot.whenPressed(TecbotController.ButtonType.POV_270, new ShootFromInitiationLine());
 
         //POV |
         //    ¿
-        pilot.whenPressed(TecbotController.ButtonType.POV_180, RobotActionsCatalog.getInstance().getTransportDeflectorOff());
+        pilot.whileHeld(TecbotController.ButtonType.POV_180, RobotActionsCatalog.getInstance().getFrontOutTakeAndTransport());
+        pilot.whenReleased(TecbotController.ButtonType.POV_180, RobotActionsCatalog.getInstance().getAllSystemsOff());
+
+        // pilot.whenPressed(TecbotController.ButtonType.POV_180, RobotActionsCatalog.getInstance().getTransportDeflectorOff());
 
         // pilot.whenPressed(TecbotController.ButtonType.POV_180, RobotActionsCatalog.getInstance().getNoPIDShootTrenchAndTransport());
 
@@ -82,7 +95,9 @@ public class OI {
         copilot.whileHeld(TecbotController.ButtonType.B, RobotActionsCatalog.getInstance().getIntakeFromFeederAndTransport());
         copilot.whenReleased(TecbotController.ButtonType.B, RobotActionsCatalog.getInstance().getAllSystemsOff());
 
-        copilot.whenPressed(TecbotController.ButtonType.X, new ActivateShrekPower());
+        copilot.whenPressed(TecbotController.ButtonType.X, new ActivateManualWinch());
+        copilot.whenPressed(TecbotController.ButtonType.Y, new DisengageLosenRopeAndActivatePulleyMotors());
+
 
         //COPILOT ENDS
     }

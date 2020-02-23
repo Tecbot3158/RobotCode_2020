@@ -9,10 +9,10 @@ package frc.robot.subsystems.shooter;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
-import frc.robot.resources.RobotConfigurator;
 import frc.robot.resources.TecbotConstants;
 import frc.robot.resources.TecbotSensors.SubsystemType;
 
@@ -20,6 +20,8 @@ import frc.robot.resources.TecbotSensors.SubsystemType;
 public class Shooter extends PIDSubsystem {
     Servo anglerServo;
 
+
+    SimpleMotorFeedforward feed;
 
     double speed;
     double angle;
@@ -34,6 +36,9 @@ public class Shooter extends PIDSubsystem {
                         TecbotConstants.K_SHOOTER_I,
                         TecbotConstants.K_SHOOTER_D));
 
+        feed = new SimpleMotorFeedforward(TecbotConstants.KS_VOLTS, TecbotConstants.KV_VOLT_SECONDS_PER_ROTATION);
+        getController().setTolerance(0.5);
+        // distance per pulse on encoder is 1/30,000 set directly on get trate
 
         //anglerServo = RobotConfigurator.buildServo(RobotMap.SHOOTER_ANGLER_PORT);
 
@@ -44,38 +49,47 @@ public class Shooter extends PIDSubsystem {
     public void useOutput(double output, double setpoint) {
         // Use the output here
         //anglerServo.setAngle(angle);
-        shoot(output);
+
+        //double power =  feed.calculate(setpoint);
+        //System.out.println("OUTPUT --> " + output + " // " + setpoint + " //  " + power);
+
+
+        // do not take PID into account, voltage is enough
+        shoot(speed);
     }
 
     @Override
     public double getMeasurement() {
         // Return the process variable measurement here
         //return Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(SubsystemType.SHOOTER);
-        return Robot.getRobotContainer().getTecbotSensors().getEncoder(SubsystemType.SHOOTER).getRate();
+        //System.out.println("-> encoder " +  Robot.getRobotContainer().getTecbotSensors().getEncoder(SubsystemType.SHOOTER).getRate() );
+
+        double rate = Robot.getRobotContainer().getTecbotSensors().getEncoder(SubsystemType.SHOOTER).getRate()/30000;
+        return rate;
 
     }
 
     public void shoot(double power) {
-        Robot.getRobotContainer().getSharedMotors().setAll(speed, speed);
+        Robot.getRobotContainer().getSharedMotors().setAll(power, power);
     }
 
     public void setShootingSpeed(ShooterPosition position) {
 
         switch (position) {
             case TRENCH:
-                speed = TecbotConstants.TRENCH_SHOOTING_SPEED;
+                speed = TecbotConstants.SHOOTER_TRENCH_SHOOTING_SPEED;
                 this.setSetpoint(speed);
 
                 break;
 
             case TARGET_ZONE:
-                speed = TecbotConstants.TARGET_ZONE_SHOOTING_SPEED;
+                speed = TecbotConstants.SHOOTER_TARGET_ZONE_SHOOTING_SPEED;
                 this.setSetpoint(speed);
 
                 break;
 
             case INITIATION_LINE:
-                speed = TecbotConstants.INITIATION_LINE_SHOOTING_SPEED;
+                speed = TecbotConstants.SHOOTER_INITIATION_LINE_SHOOTING_SPEED;
                 this.setSetpoint(speed);
 
                 break;

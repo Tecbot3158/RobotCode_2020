@@ -20,6 +20,7 @@ public class SharedMotors {
      * @param speedLeft  speed for left motors
      */
     public void setAll(double speedLeft, double speedRight) {
+        System.out.println("------------------ " + speedLeft);
         leftSharedMotors.setAll(speedLeft);
         rightSharedMotors.setAll(speedRight);
     }

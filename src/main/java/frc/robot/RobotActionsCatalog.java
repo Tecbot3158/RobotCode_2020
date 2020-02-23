@@ -4,21 +4,22 @@ import frc.robot.commands.robotActions.AllSystemsOff;
 import frc.robot.commands.robotActions.TransportDeflectorOff;
 import frc.robot.commands.robotActions.intakeTransport.*;
 import frc.robot.commands.robotActions.mixed.*;
-import frc.robot.commands.robotActions.shootCompensate.ShootFromInitiationLineCompensate;
-import frc.robot.commands.robotActions.shootCompensate.ShootFromTargetZoneCompensate;
-import frc.robot.commands.robotActions.shootCompensate.ShootFromTrenchCompensate;
+import frc.robot.commands.robotActions.shootCompensateAndTransport.ShootFromInitiationLineCompensate;
+import frc.robot.commands.robotActions.shootCompensateAndTransport.ShootFromTargetZoneCompensate;
+import frc.robot.commands.robotActions.shootCompensateAndTransport.ShootFromTrenchCompensate;
 import frc.robot.commands.robotActions.shootTransport.NoPIDShootTrenchAndTransport;
 import frc.robot.commands.robotActions.shootTransport.ShootInitiationLineAndTransport;
 import frc.robot.commands.robotActions.shootTransport.ShootTargetZoneAndTransport;
 import frc.robot.commands.robotActions.shootTransport.ShootTrenchAndTransport;
-import frc.robot.commands.subsystems.intakes.rearIntakes.RearIntakeOff;
-import frc.robot.commands.subsystems.shooter.ShootFromInitiationLine;
-import frc.robot.commands.subsystems.shooter.ShootFromTargetZone;
-import frc.robot.commands.subsystems.shooter.ShootFromTrench;
-import frc.robot.commands.subsystems.shooter.ShooterOff;
+import frc.robot.commands.subsystemCommands.shooter.ShootFromInitiationLine;
+import frc.robot.commands.subsystemCommands.shooter.ShootFromTargetZone;
+import frc.robot.commands.subsystemCommands.shooter.ShootFromTrench;
+import frc.robot.commands.subsystemCommands.shooter.ShooterOff;
 
 public class RobotActionsCatalog {
     private static RobotActionsCatalog instance;
+
+    private FrontOutTakeAndTransport frontOutTakeAndTransport;
 
     private AllSystemsOff allSystemsOff;
 
@@ -58,6 +59,8 @@ public class RobotActionsCatalog {
 
     public RobotActionsCatalog() {
 
+        frontOutTakeAndTransport = new FrontOutTakeAndTransport();
+
         allSystemsOff = new AllSystemsOff();
 
         frontIntakeAndTransport = new FrontIntakeAndTransport();
@@ -90,6 +93,7 @@ public class RobotActionsCatalog {
 
         shootFromTargetZoneCompensate = new ShootFromTargetZoneCompensate();
         shootFromInitiationLineCompensate = new ShootFromInitiationLineCompensate();
+        shootFromTrenchCompensate = new ShootFromTrenchCompensate();
         shootFromTrench = new ShootFromTrench();
 
         intakesAndTransportOff = new IntakesAndTransportOff();
@@ -195,5 +199,9 @@ public class RobotActionsCatalog {
 
     public ShootFromTargetZoneCompensate getShootFromTargetZoneCompensate() {
         return shootFromTargetZoneCompensate;
+    }
+
+    public FrontOutTakeAndTransport getFrontOutTakeAndTransport() {
+        return frontOutTakeAndTransport;
     }
 }

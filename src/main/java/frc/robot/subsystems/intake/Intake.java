@@ -35,6 +35,9 @@ public class Intake extends SubsystemBase {
      */
     public Intake() {
 
+        rearSolenoids = new ArrayList<>();
+        frontSolenoids = new ArrayList<>();
+
         frontMotors = RobotConfigurator.buildMotorList(RobotMap.FRONT_INTAKE_MOTOR_PORTS, RobotMap.FRONT_INTAKE_INVERTED_MOTOR_PORTS, RobotMap.FRONT_INTAKE_MOTOR_TYPES);
 
         rearMotors = RobotConfigurator.buildMotorList(RobotMap.REAR_INTAKE_MOTOR_PORTS, RobotMap.REAR_INTAKE_INVERTED_MOTOR_PORTS, RobotMap.REAR_INTAKE_MOTOR_TYPES);
@@ -64,7 +67,8 @@ public class Intake extends SubsystemBase {
     /* Front Intake */
 
     public void frontIntakeForward() {
-        frontMotors.setAll(TecbotConstants.FRONT_INTAKE_SPEED);
+        //frontMotors.setAll(TecbotConstants.FRONT_INTAKE_SPEED);
+        frontMotors.setAll(1);
     }
 
     public void frontIntakeOff() {
@@ -125,7 +129,7 @@ public class Intake extends SubsystemBase {
     }
 
     public void setServoPosition(int angle) {
-        sensorServo.set(angle);
+        sensorServo.setAngle(angle);
     }
 
     public double getServoPosition() {

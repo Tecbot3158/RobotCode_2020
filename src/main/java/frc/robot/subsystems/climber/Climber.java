@@ -9,6 +9,7 @@ package frc.robot.subsystems.climber;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -24,6 +25,9 @@ public class Climber extends SubsystemBase {
     TecbotMotorList rightWinchMotors;
     DoubleSolenoid gearDisengager;
     int xWhenPressedCount;
+    private boolean yCopilotPressedShrek = false;
+
+    public boolean shrekPowerHasBeenActivated = false;
 
     public Climber() {
 
@@ -60,16 +64,31 @@ public class Climber extends SubsystemBase {
     }
 
     /**
+     * @param leftWinchSpeed speed to set to the left winch motors.
+     */
+    public void setLeftWinchSpeed(double leftWinchSpeed) {
+        leftWinchMotors.setAll(leftWinchSpeed);
+    }
+
+    /**
+     * @param rightWinchSpeed speed to set to the left winch motors.
+     */
+    public void setRightWinchSpeed(double rightWinchSpeed) {
+        leftWinchMotors.setAll(rightWinchSpeed);
+    }
+
+    /**
      * @param pulleyPowerRight Requires double for right pulley speed
      * @param pulleyPowerLeft  Requires double for left pulley speed
      */
     public void setPulleySpeed(double pulleyPowerLeft, double pulleyPowerRight) {
         //reel, cannot do this if input is negative
-        Robot.getRobotContainer().getSharedMotors().setAll(Math.abs(pulleyPowerLeft), Math.abs(pulleyPowerRight));
+        Robot.getRobotContainer().getSharedMotors().setAll(pulleyPowerLeft, pulleyPowerRight);
     }
 
     public void addToXCounter() {
         setxWhenPressedCount(getxWhenPressedCount() + 1);
+        if (getxWhenPressedCount() == 2) shrekPowerHasBeenActivated = true;
     }
 
     public int getxWhenPressedCount() {
@@ -80,11 +99,33 @@ public class Climber extends SubsystemBase {
         this.xWhenPressedCount = xWhenPressedCount;
     }
 
-    public TecbotMotorList getLeftWinchMotors(){
+    public TecbotMotorList getLeftWinchMotors() {
         return leftWinchMotors;
     }
-    public TecbotMotorList getRightWinchMotors(){
+
+    public TecbotMotorList getRightWinchMotors() {
         return rightWinchMotors;
+    }
+
+    public boolean isyCopilotPressedShrek() {
+        return yCopilotPressedShrek;
+    }
+
+    public void setyCopilotPressedShrek(boolean yCopilotPressedShrek) {
+        this.yCopilotPressedShrek = yCopilotPressedShrek;
+    }
+
+    public void setTrueyCopilotPressed() {
+        setyCopilotPressedShrek(true);
+    }
+
+    public void resetXCounter() {
+        setxWhenPressedCount(0);
+    }
+
+    public void resetXCounterAfterTime(int seconds) {
+        Notifier starter = new Notifier(this::resetXCounter);
+        starter.startSingle(seconds);
     }
 
     @Override

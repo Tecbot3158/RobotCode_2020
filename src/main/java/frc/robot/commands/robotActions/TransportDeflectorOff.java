@@ -8,8 +8,8 @@
 package frc.robot.commands.robotActions;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.subsystems.pctower.TransportationSystemCloseDeflector;
-import frc.robot.commands.subsystems.pctower.TransportationSystemForward;
+import frc.robot.commands.subsystemCommands.pctower.TransportationSystemCloseDeflector;
+import frc.robot.commands.subsystemCommands.pctower.TransportationSystemForward;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

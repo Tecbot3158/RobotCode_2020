@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.subsystems.chassis.DefaultDrive;
+import frc.robot.commands.subsystemCommands.chassis.DefaultDrive;
 import frc.robot.resources.TecbotSensors;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SharedMotors;
@@ -20,6 +20,7 @@ import frc.robot.subsystems.chassis.DriveTrain;
 import frc.robot.subsystems.climber.Climber;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.pctower.TransportationSystem;
+import frc.robot.subsystems.powerCellCounter.PowerCellCounter;
 import frc.robot.subsystems.shooter.Shooter;
 
 /**
@@ -37,6 +38,7 @@ public class RobotContainer {
     private Intake intake;
     private Shooter shooter;
     private TransportationSystem transportationSystem;
+    private PowerCellCounter powerCellCounter;
     private TecbotSensors tecbotSensors;
 
     SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -55,7 +57,10 @@ public class RobotContainer {
         transportationSystem = new TransportationSystem();
         sharedMotors = new SharedMotors();
         // Remember that shared motors are the motors that belong to the climber and the shooter.
+
         tecbotSensors = new TecbotSensors();
+
+        powerCellCounter = new PowerCellCounter();
 
         // configureButtonBindings() called after instantiating all subsystems and
         // RobotContainer constructor.
@@ -109,5 +114,9 @@ public class RobotContainer {
 
     public TransportationSystem getTransportationSystem() {
         return transportationSystem;
+    }
+
+    public PowerCellCounter getPowerCellCounter() {
+        return powerCellCounter;
     }
 }

@@ -5,6 +5,7 @@ import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -28,14 +29,13 @@ public class TecbotSensors {
     private final Color K_YELLOW_TARGET = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
     //CLIMBER stuff
-    private DigitalInput climberLimitSwitch;
+    private DigitalInput climberLeftLimitSwitch;
+    private DigitalInput climberRightLimitSwitch;
 
 
     //power cell count
-    private DigitalInput infraredIntakeSensor, infraredShooterSensor;
-    private int currentPowerCellCount;
-    private boolean currentStateIntakeIRSensor, currentStateShooterIRSensor,
-            previousStateIntakeIRSensor, previousStateShooterIRSensor;
+    private InfraredSensor infraredFrontIntakeSensor, infraredRearIntakeSensor, infraredShooterSensor;
+
 
     public TecbotSensors() {
 
@@ -70,22 +70,25 @@ public class TecbotSensors {
         if (RobotMap.DRIVE_TRAIN_MIDDLE_CHASSIS_ENCODER_IS_INVERTED && middleChassisEncoder != null)
             middleChassisEncoder.setInverted(true);
 
-        colorSensorV3 = new ColorSensorV3(I2C_PORT_ONBOARD);
+        try {
+            //colorSensorV3 = new ColorSensorV3(I2C_PORT_ONBOARD);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         colorMatcher = new ColorMatch();
         colorMatcher.addColorMatch(K_BLUE_TARGET);
         colorMatcher.addColorMatch(K_GREEN_TARGET);
         colorMatcher.addColorMatch(K_RED_TARGET);
         colorMatcher.addColorMatch(K_YELLOW_TARGET);
 
-        climberLimitSwitch = new DigitalInput(RobotMap.CLIMBER_LIMIT_SWITCH_PORT);
+        climberLeftLimitSwitch = new DigitalInput(RobotMap.CLIMBER_LEFT_LIMIT_SWITCH_PORT);
+        climberRightLimitSwitch = new DigitalInput(RobotMap.CLIMBER_RIGHT_LIMIT_SWITCH_PORT);
 
-        infraredIntakeSensor = new DigitalInput(RobotMap.TRANSPORTATION_SYSTEM_INFRARED_INTAKE_SENSOR_PORT);
-        infraredShooterSensor = new DigitalInput(RobotMap.TRANSPORTATION_SYSTEM_INFRARED_SHOOTER_SENSOR_PORT);
-        setCurrentPowerCellCount(0);
-        currentStateIntakeIRSensor = false;
-        currentStateShooterIRSensor = false;
-        previousStateIntakeIRSensor = false;
-        previousStateShooterIRSensor = false;
+        infraredFrontIntakeSensor = new InfraredSensor(RobotMap.POWER_CELL_COUNTER_INFRARED_FRONT_INTAKE_SENSOR_PORT, RobotMap.POWER_CELL_COUNTER_INFRARED_INTAKE_SENSOR_MINIMUM_DISTANCE);
+        infraredRearIntakeSensor = new InfraredSensor(RobotMap.POWER_CELL_COUNTER_INFRARED_REAR_INTAKE_SENSOR_PORT, RobotMap.POWER_CELL_COUNTER_INFRARED_REAR_SENSOR_MINIMUM_DISTANCE);
+        infraredShooterSensor = new InfraredSensor(RobotMap.POWER_CELL_COUNTER_INFRARED_SHOOTER_SENSOR_PORT, RobotMap.POWER_CELL_COUNTER_INFRARED_SHOOTER_SENSOR_MINIMUM_DISTANCE);
+
+
     }
 
     /**
@@ -94,21 +97,16 @@ public class TecbotSensors {
      */
     public void sensorsPeriodic() {
         tecbotGyro.run();
-        currentStateIntakeIRSensor = powerCellPresentInIntake();
-        currentStateShooterIRSensor = powerCellPresentInShooter();
 
-        //change detected in intake (detected power cell and now is not present)
-        //if condition true, a power cell has gotten inside the transportation system.
-        if (previousStateIntakeIRSensor && !currentStateIntakeIRSensor)
-            addToPowerCellCount();
+        infraredShooterSensor.run();
+        infraredFrontIntakeSensor.run();
+        infraredRearIntakeSensor.run();
 
-        //change detected in shooter (detected power cell and now is not present)
-        //if condition true, a power cell has left the shooter
-        if (previousStateShooterIRSensor && !currentStateShooterIRSensor)
-            subtractFromPowerCellCount();
+        //SmartDashboard.putBoolean("IR shooter", infraredShooterSensor.get());
+        //infraredFrontIntakeSensor.debug();
+        infraredRearIntakeSensor.debug();
 
-        previousStateIntakeIRSensor = currentStateIntakeIRSensor;
-        previousStateShooterIRSensor = currentStateShooterIRSensor;
+
     }
 
     /**
@@ -191,63 +189,25 @@ public class TecbotSensors {
     /**
      * @return raw limit switch value.
      */
-    public boolean getClimberLimitSwitch() {
-        return climberLimitSwitch.get();
+    public boolean getClimberLeftLimitSwitch() {
+        return climberLeftLimitSwitch.get();
     }
 
-    /**
-     * @return current powerCellCount
-     */
-    public int getCurrentPowerCellCount() {
-        return this.currentPowerCellCount;
+    public boolean getCLimberRightLimitSwitch() {
+        return climberRightLimitSwitch.get();
     }
 
-    /**
-     * sets {@link #currentPowerCellCount}
-     *
-     * @param value value to set to powerCellCount
-     */
-    private void setCurrentPowerCellCount(int value) {
-        this.currentPowerCellCount = value;
+    public boolean getIRSensorStateFrontIntake() {
+        return infraredFrontIntakeSensor.get();
     }
 
-    public boolean powerCellPresentInIntake() {
-        return this.infraredIntakeSensor.get();
+    public boolean getIRSensorStateRearIntake() {
+        return infraredRearIntakeSensor.get();
     }
 
-    public boolean powerCellPresentInShooter() {
-        return this.infraredShooterSensor.get();
+    public boolean getIRSensorStateShooter() {
+        return infraredShooterSensor.get();
     }
 
-    /**
-     * Adds 1 unit (POWER CELL) from {@link #currentPowerCellCount}
-     */
-    public void addToPowerCellCount() {
-        addToPowerCellCount(1);
-    }
 
-    /**
-     * Subtracts from {@link #currentPowerCellCount}
-     *
-     * @param value the value to add to {@link #currentPowerCellCount}
-     */
-    public void addToPowerCellCount(int value) {
-        this.setCurrentPowerCellCount((int) (getCurrentPowerCellCount() + Math.abs(value)));
-    }
-
-    /**
-     * Subtracts 1 unit (POWER CELL) from {@link #currentPowerCellCount}
-     */
-    public void subtractFromPowerCellCount() {
-        subtractFromPowerCellCount(1);
-    }
-
-    /**
-     * Subtracts from {@link #currentPowerCellCount}
-     *
-     * @param value positive value to subtract from the {@link #currentPowerCellCount}
-     */
-    public void subtractFromPowerCellCount(int value) {
-        this.setCurrentPowerCellCount((int) (getCurrentPowerCellCount() - Math.abs(value)));
-    }
 }

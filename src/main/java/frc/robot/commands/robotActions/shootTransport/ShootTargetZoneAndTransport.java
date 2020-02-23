@@ -8,8 +8,8 @@
 package frc.robot.commands.robotActions.shootTransport;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.subsystems.pctower.TransportationSystemForward;
-import frc.robot.commands.subsystems.shooter.ShootFromTargetZone;
+import frc.robot.commands.subsystemCommands.pctower.TransportationSystemForward;
+import frc.robot.commands.subsystemCommands.shooter.ShootFromTargetZone;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

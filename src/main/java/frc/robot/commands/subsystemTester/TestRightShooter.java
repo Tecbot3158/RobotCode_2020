@@ -28,6 +28,7 @@ public class TestRightShooter extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        CommandScheduler.getInstance().cancelAll();
         Robot.getRobotContainer().getShooter().disable();
         CommandScheduler.getInstance().clearButtons();
         OI.getInstance().getPilot().clearPOVCommands();

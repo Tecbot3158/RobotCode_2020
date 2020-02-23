@@ -16,6 +16,14 @@ import frc.robot.resources.TecbotSpeedController.TypeOfMotor;
 
 public class RobotMap {
 
+    /*
+    PCM
+     */
+    private static final int PCM_1_PORT = 21;
+    private static final int PCM_2_PORT = 2;
+    /*
+    pcm ends
+     */
 
     /*
      * CHASSIS / DRIVE TRAIN STARTS
@@ -57,7 +65,7 @@ public class RobotMap {
     public static final boolean DRIVE_TRAIN_RIGHT_CHASSIS_ENCODER_IS_INVERTED = false;
     public static final boolean DRIVE_TRAIN_MIDDLE_CHASSIS_ENCODER_IS_INVERTED = false;
 
-    public static final int[] DRIVE_TRAIN_TRANSMISSION_SOLENOID_PORTS = {1, 4, 5};
+    public static final int[] DRIVE_TRAIN_TRANSMISSION_SOLENOID_PORTS = {PCM_1_PORT, 4, 5};
     public static final DoubleSolenoid.Value DRIVE_TRAIN_TORQUE_TRANSMISSION = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value DRIVE_TRAIN_SPEED_TRANSMISSION = DoubleSolenoid.Value.kReverse;
     public static final boolean DRIVE_TRAIN_TRANSMISSION_AVAILABLE = true;
@@ -66,10 +74,10 @@ public class RobotMap {
     public static final int[] DRIVE_TRAIN_MIDDLE_WHEEL_INVERTED_MOTORS = {};
     public static final TypeOfMotor[] DRIVE_TRAIN_MIDDLE_WHEEL_MOTOR_TYPES = {TypeOfMotor.CAN_SPARK_BRUSHLESS};
 
-    public static final int[] DRIVE_TRAIN_WHEEL_SOLENOID_PORTS = {1, 6, 7};
-    public static final DoubleSolenoid.Value DRIVE_TRAIN_LOWERED_WHEEL = DoubleSolenoid.Value.kForward;
-    public static final DoubleSolenoid.Value DRIVE_TRAIN_RAISED_WHEEL = DoubleSolenoid.Value.kReverse;
-    public static final boolean DRIVE_TRAIN_DRAGON_FLY_IS_AVAILABLE = false;
+    public static final int[] DRIVE_TRAIN_WHEEL_SOLENOID_PORTS = {PCM_1_PORT, 6, 7};
+    public static final DoubleSolenoid.Value DRIVE_TRAIN_LOWERED_WHEEL = DoubleSolenoid.Value.kReverse;
+    public static final DoubleSolenoid.Value DRIVE_TRAIN_RAISED_WHEEL = DoubleSolenoid.Value.kForward;
+    public static final boolean DRIVE_TRAIN_DRAGON_FLY_IS_AVAILABLE = true;
 
     /*
         CHASSIS / DRIVE TRAIN
@@ -116,11 +124,14 @@ public class RobotMap {
     public static final int[] CLIMBER_RIGHT_INVERTED_WINCH_PORTS = {};
     public static final TecbotSpeedController.TypeOfMotor[] CLIMBER_RIGHT_WINCH_MOTOR_TYPES = {TypeOfMotor.VICTOR_SPX};
 
-    public static final int[] CLIMBER_GEAR_DISENGAGER_SOLENOID_PORTS = {1, 0, 1};
+    public static final int[] CLIMBER_GEAR_DISENGAGER_SOLENOID_PORTS = {PCM_1_PORT, 0, 1};
     public static final DoubleSolenoid.Value CLIMBER_ENGAGED_SHOOTER_GEAR = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value CLIMBER_DISENGAGED_SHOOTER_GEAR = DoubleSolenoid.Value.kReverse;
 
-    public static final int CLIMBER_LIMIT_SWITCH_PORT = 2;
+    public static final int CLIMBER_LEFT_LIMIT_SWITCH_PORT = 9;
+    public static final int CLIMBER_RIGHT_LIMIT_SWITCH_PORT = 10;
+
+    public static final double CLIMBER_WINCH_SPEED = 0.20;
     /*
      * CLIMBER ENDS
      */
@@ -128,9 +139,11 @@ public class RobotMap {
     /*
         SHOOTER STARTS
      */
+
+    public static final boolean SHOOTER_PID_SHOOTER_IS_AVAILABLE = true;
     public static final int SHOOTER_ANGLER_PORT = 5;
     public static final double SHOOTER_MANUAL_SHOOT = 0.4;
-    public static final boolean SHOOTER_ENCODER_IN_RIGHT_MOTOR = true;
+    public static final boolean SHOOTER_ENCODER_IN_RIGHT_MOTOR = false;
     /*
         SHOOTER ENDS
      */
@@ -148,15 +161,15 @@ public class RobotMap {
     public static final TypeOfMotor[] REAR_INTAKE_MOTOR_TYPES = {TypeOfMotor.TALON_SRX};
 
 
-    public static final int[] FRONT_INTAKE_SOLENOID_PORTS = {1, 2, 3};
+    public static final int[] FRONT_INTAKE_SOLENOID_PORTS = {PCM_1_PORT, 2, 3};
     public static final DoubleSolenoid.Value LOWERED_FRONT_INTAKE = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value RAISED_FRONT_INTAKE = DoubleSolenoid.Value.kReverse;
 
-    public static final int[] REAR_INTAKE_SOLENOID_PORTS = {2, 4, 5};
+    public static final int[] REAR_INTAKE_SOLENOID_PORTS = {PCM_2_PORT, 4, 5};
     public static final DoubleSolenoid.Value LOWERED_REAR_INTAKE = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value RAISED_REAR_INTAKE = DoubleSolenoid.Value.kReverse;
 
-    public static final int COLOR_SENSOR_SERVO_PORT = 0;
+    public static final int COLOR_SENSOR_SERVO_PORT = 9;
 
     /*
     Intake Subsystem ENDS
@@ -165,12 +178,36 @@ public class RobotMap {
         TransportationSystem Subsystems
      */
     public static final TypeOfMotor[] TRANSPORTATION_SYSTEM_TYPE_OF_MOTORS = {TypeOfMotor.VICTOR_SPX, TypeOfMotor.VICTOR_SPX};
-    public static final int[] TRANSPORTATION_SYSTEM_MOTOR_PORTS = {7,15};
+    public static final int[] TRANSPORTATION_SYSTEM_MOTOR_PORTS = {7, 15};
     public static final int[] TRANSPORTATION_SYSTEM_INVERTED_MOTOR_PORTS = {15};
-    public static final int[] DEFLECTOR_SOLENOID_PORTS = {1, 6, 7};
-    public static final int TRANSPORTATION_SYSTEM_INFRARED_INTAKE_SENSOR_PORT = 0;
-    public static final int TRANSPORTATION_SYSTEM_INFRARED_SHOOTER_SENSOR_PORT = 1;
+    public static final int[] DEFLECTOR_SOLENOID_PORTS = {PCM_1_PORT, 6, 7};
+
     /*
     TransportationSystem Subsystem ENDS
+     */
+
+    /*
+     * Power Cell Counting STARTS
+     */
+    public static final int POWER_CELL_COUNTER_RED_DIGITAL_OUTPUT_PORT = 0;
+    public static final int POWER_CELL_COUNTER_GREEN_DIGITAL_OUTPUT_PORT = 1;
+    public static final int POWER_CELL_COUNTER_BLUE_DIGITAL_OUTPUT_PORT = 2;
+
+
+    //infrared sensors ports
+    public static final int POWER_CELL_COUNTER_INFRARED_FRONT_INTAKE_SENSOR_PORT = 2;
+    public static final int POWER_CELL_COUNTER_INFRARED_REAR_INTAKE_SENSOR_PORT = 1;
+    public static final int POWER_CELL_COUNTER_INFRARED_SHOOTER_SENSOR_PORT = 3;
+
+    //infrared sensors distances
+    public static final int POWER_CELL_COUNTER_INFRARED_INTAKE_SENSOR_MINIMUM_DISTANCE = 1200;
+    public static final int POWER_CELL_COUNTER_INFRARED_REAR_SENSOR_MINIMUM_DISTANCE = 1000;
+    public static final int POWER_CELL_COUNTER_INFRARED_SHOOTER_SENSOR_MINIMUM_DISTANCE = 1700;
+    public static final int POWER_CELL_COUNTER_RED_FLICKERING_FRAME_COUNT = 25;
+    public static final int POWER_CELL_COUNTER_GREEN_FLICKERING_FRAME_COUNT = 30;
+
+
+    /*
+    Power Cell Counting ENDS
      */
 }

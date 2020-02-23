@@ -16,8 +16,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.*;
@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj.*;
  * motor controllers you can check {@link TypeOfMotor}
  */
 public class TecbotSpeedController {
+
 
     public enum TypeOfMotor {
 
@@ -56,7 +57,7 @@ public class TecbotSpeedController {
 
             case TALON_SRX:
 
-                phoenixMotor = new TalonSRX(port);
+                phoenixMotor = new WPI_TalonSRX(port);
 
                 phoenixMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 
@@ -161,9 +162,9 @@ public class TecbotSpeedController {
 
     }
 
-    public TalonSRX getTalonSRX() {
+    public WPI_TalonSRX getTalonSRX() {
         if (motorToUse == TypeOfMotor.TALON_SRX)
-            return (TalonSRX) phoenixMotor;
+            return (WPI_TalonSRX) phoenixMotor;
         return null;
 
     }
@@ -174,7 +175,7 @@ public class TecbotSpeedController {
      */
     public void setBrakeMode(boolean doBrake) {
 
-        ((TalonSRX) phoenixMotor).setNeutralMode(doBrake ? NeutralMode.Brake : NeutralMode.Coast);
+        ((WPI_TalonSRX) phoenixMotor).setNeutralMode(doBrake ? NeutralMode.Brake : NeutralMode.Coast);
 
     }
 
