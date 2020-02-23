@@ -18,13 +18,7 @@ public class PowerCellCounter extends SubsystemBase {
      */
 
     private DigitalOutput red, green, blue;
-    private boolean previousStateFrontIntakeIRSensor = false,
-            previousStateRearIntakeIRSensor = false,
-            previousStateFrontRearIRSensor = false;
 
-    private boolean currentStateFrontIntakeIRSensor = false,
-            currentStateRearIntakeIRSensor = false,
-            currentStateFrontRearIRSensor = false;
 
     private int powerCellCount = 0;
 
@@ -72,6 +66,14 @@ public class PowerCellCounter extends SubsystemBase {
 
     public int getPowerCellCount() {
         return powerCellCount;
+    }
+
+    public void setPowerCellCount(int powerCellCount) {
+        this.powerCellCount = powerCellCount;
+    }
+
+    public void resetPowerCellCount(){
+        setPowerCellCount(0);
     }
 
 

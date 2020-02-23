@@ -38,7 +38,7 @@ public class TestFrontIntake extends CommandBase {
     public void execute() {
         if(Robot.currentMotorBeingTested < Robot.getRobotContainer().getIntake().getFrontMotors().size()) {
             Robot.getRobotContainer().getIntake().getFrontMotors().getMotors().get(Robot.currentMotorBeingTested).set(
-                    OI.getInstance().getPilot().getLeftTrigger()
+                    OI.getInstance().getPilot().getTriggers()
             );
         }
         else {

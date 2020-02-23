@@ -24,8 +24,8 @@ public class ShootFromTrenchCompensate extends SequentialCommandGroup {
         // super(new FooCommand(), new BarCommand());
         super(
                 new CompensateForShooting(),
-                new ShootFromTrench(),
-                new TransportationSystemForward()
+                new ShootFromTrench()
+                //new TransportationSystemForward()
         );
     }
 }

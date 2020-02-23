@@ -24,8 +24,8 @@ public class ShootFromInitiationLineCompensate extends SequentialCommandGroup {
         // super(new FooCommand(), new BarCommand());
         super(
                 new CompensateForShooting(),
-                new ShootFromInitiationLine(),
-                new TransportationSystemForward()
+                new ShootFromInitiationLine()
+               // new TransportationSystemForward()
         );
     }
 }

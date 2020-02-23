@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.commands.ResetGyro;
 import frc.robot.commands.robotActions.DisengageLosenRopeAndActivatePulleyMotors;
 import frc.robot.commands.subsystemCommands.chassis.QuickTurn;
 import frc.robot.commands.subsystemCommands.chassis.drivingModes.ChassisSetDefaultDrive;
@@ -17,6 +18,9 @@ import frc.robot.commands.subsystemCommands.chassis.wheel.ToggleWheelPosition;
 import frc.robot.commands.subsystemCommands.climber.ActivateManualWinch;
 import frc.robot.commands.subsystemCommands.controlPanel.PositionServo;
 import frc.robot.commands.subsystemCommands.controlPanel.PositionServoToZero;
+import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeOff;
+import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeOut;
+import frc.robot.commands.subsystemCommands.pctower.*;
 import frc.robot.commands.subsystemCommands.shooter.ShootFromInitiationLine;
 import frc.robot.resources.TecbotController;
 
@@ -43,8 +47,8 @@ public class OI {
         //PILOT STARTS
         //put here all
 
-        pilot.whileHeld(TecbotController.ButtonType.LB, RobotActionsCatalog.getInstance().getRearIntakeAndTransport());
-        pilot.whenReleased(TecbotController.ButtonType.LB, RobotActionsCatalog.getInstance().getIntakesAndTransportOff());
+        //pilot.whileHeld(TecbotController.ButtonType.LB, RobotActionsCatalog.getInstance().getRearIntakeAndTransport());
+        //pilot.whenReleased(TecbotController.ButtonType.LB, RobotActionsCatalog.getInstance().getIntakesAndTransportOff());
 
         pilot.whileHeld(TecbotController.ButtonType.RB, RobotActionsCatalog.getInstance().getFrontIntakeAndTransport());
         pilot.whenReleased(TecbotController.ButtonType.RB, RobotActionsCatalog.getInstance().getIntakesAndTransportOff());
@@ -78,8 +82,10 @@ public class OI {
 
         //POV |
         //    ¿
-        pilot.whileHeld(TecbotController.ButtonType.POV_180, RobotActionsCatalog.getInstance().getFrontOutTakeAndTransport());
-        pilot.whenReleased(TecbotController.ButtonType.POV_180, RobotActionsCatalog.getInstance().getAllSystemsOff());
+        //pilot.whileHeld(TecbotController.ButtonType.POV_180, RobotActionsCatalog.getInstance().getFrontOutTakeAndTransport());
+        pilot.whileHeld(TecbotController.ButtonType.POV_180, new TransportationSystemShootingSpeed());
+
+        //pilot.whenReleased(TecbotController.ButtonType.POV_180, RobotActionsCatalog.getInstance().getAllSystemsOff());
 
         // pilot.whenPressed(TecbotController.ButtonType.POV_180, RobotActionsCatalog.getInstance().getTransportDeflectorOff());
 
@@ -97,6 +103,13 @@ public class OI {
 
         copilot.whenPressed(TecbotController.ButtonType.X, new ActivateManualWinch());
         copilot.whenPressed(TecbotController.ButtonType.Y, new DisengageLosenRopeAndActivatePulleyMotors());
+
+        copilot.whenPressed(TecbotController.ButtonType.LB, new ResetGyro());
+
+        //copilot.whenPressed(TecbotController.ButtonType.B, new TransportationSystemReverse());
+        copilot.whenPressed(TecbotController.ButtonType.A, RobotActionsCatalog.getInstance().getFrontOutTakeAndTransport());
+        copilot.whenReleased(TecbotController.ButtonType.A, RobotActionsCatalog.getInstance().getIntakesAndTransportOff());
+        //copilot.whenReleased(TecbotController.ButtonType.B, new FrontIntakeOff());
 
 
         //COPILOT ENDS

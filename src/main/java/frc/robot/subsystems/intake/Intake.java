@@ -67,8 +67,8 @@ public class Intake extends SubsystemBase {
     /* Front Intake */
 
     public void frontIntakeForward() {
-        //frontMotors.setAll(TecbotConstants.FRONT_INTAKE_SPEED);
-        frontMotors.setAll(1);
+        frontMotors.setAll(TecbotConstants.FRONT_INTAKE_SPEED);
+        //frontMotors.setAll(1);
     }
 
     public void frontIntakeOff() {

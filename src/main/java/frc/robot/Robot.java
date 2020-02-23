@@ -7,10 +7,16 @@
 
 package frc.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeIn;
+import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeOff;
+import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeOut;
 import frc.robot.commands.subsystemCommands.powerCellCounter.DefaultCommandPowerCellCounter;
 import frc.robot.commands.subsystemTester.*;
 import frc.robot.commands.subsystemCommands.chassis.DefaultDrive;
@@ -43,6 +49,8 @@ public class Robot extends TimedRobot {
         getRobotContainer().configureButtonBindings();
         getRobotContainer().getTecbotSensors().initializeAllSensors();
 
+        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        camera.setResolution(640,480);
         CommandScheduler.getInstance().setDefaultCommand(getRobotContainer().getPowerCellCounter(), new DefaultCommandPowerCellCounter());
         CommandScheduler.getInstance().setDefaultCommand(getRobotContainer().getDriveTrain(), new DefaultDrive());
 
@@ -116,6 +124,7 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         CommandScheduler.getInstance().run();
         OI.getInstance().getPilot().run();
+        SmartDashboard.putNumber("gyro", getRobotContainer().getTecbotSensors().getYaw());
 
     }
 
@@ -123,6 +132,7 @@ public class Robot extends TimedRobot {
     public void testInit() {
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
+
     }
 
     /**
@@ -130,8 +140,9 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void testPeriodic() {
-        System.out.println(OI.getInstance().getPilot().getTriggers());
         CommandScheduler.getInstance().run();
+        /*
+        System.out.println(OI.getInstance().getPilot().getTriggers());
         SmartDashboard.putData(new TestClimber());
         SmartDashboard.putData(new TestIntake());
         SmartDashboard.putData(new TestPCT());
@@ -146,7 +157,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData(new ChangeSecondCurrentMotor());
         SmartDashboard.putData(new TestLeftClimber());
         SmartDashboard.putData(new TestRightClimber());
-
+        */
+        SmartDashboard.putData(RobotActionsCatalog.getInstance().getFrontOutTakeAndTransport());
 
     }
 

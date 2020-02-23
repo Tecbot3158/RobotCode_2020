@@ -23,7 +23,6 @@ public class FrontOutTakeAndTransport extends SequentialCommandGroup {
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
         super(
-                new FrontIntakeSolenoidOn(),
                 new FrontIntakeOut(),
                 new TransportationSystemReverse()
         );

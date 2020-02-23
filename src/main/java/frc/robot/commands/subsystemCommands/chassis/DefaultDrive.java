@@ -31,9 +31,9 @@ public class DefaultDrive extends CommandBase {
     @Override
     public void execute() {
         // left y
-        double y = Math.clamp(-(OI.getInstance().getPilot().getLeftAxisY()), -0.1, 0.1);
+        double y = Math.clamp(-(OI.getInstance().getPilot().getLeftAxisY()), -1, 1);
         // left x
-        double x = Math.clamp((OI.getInstance().getPilot().getLeftAxisX()), -0.1, 0.1);
+        double x = Math.clamp((OI.getInstance().getPilot().getLeftAxisX()), -1, 1);
         if (Robot.getRobotContainer().getDriveTrain().getCurrentDrivingMode() == DriveTrain.DrivingMode.Default) {
             x = (OI.getInstance().getPilot().getLeftAxisX(true));
         }

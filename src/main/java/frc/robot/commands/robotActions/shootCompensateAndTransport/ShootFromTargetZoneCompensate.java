@@ -24,8 +24,8 @@ public class ShootFromTargetZoneCompensate extends SequentialCommandGroup {
         // super(new FooCommand(), new BarCommand());
         super(
                 new CompensateForShooting(),
-                new ShootFromTargetZone(),
-                new TransportationSystemForward()
+                new ShootFromTargetZone()
+                //new TransportationSystemForward()
         );
     }
 }

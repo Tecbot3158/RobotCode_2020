@@ -45,7 +45,11 @@ public class TransportationSystem extends SubsystemBase {
 
   public void off(){
     transportationSystemMotors.setAll(0);
-  }   
+  }
+
+  public void setShootingSpeed(){
+    setRaw(TecbotConstants.TRANSPORTATION_SYSTEM_SHOOTING_POWER);
+  }
 
   public void closeDeflector(){
     //solenoidDeflector.set(Value.kForward);
