@@ -101,13 +101,12 @@ public class TecbotEncoder implements CounterBase {
         }
 
         if (talonEncoder != null) {
-            DriverStation.reportWarning("Theres no talon srx encoder with that ability... yet", true);
 
-            return 0;
+            return talonEncoder.getTalonSRX().getSelectedSensorVelocity();
 
         }
 
-        DriverStation.reportWarning("Theres no encoder instantiated", true);
+        DriverStation.reportWarning("There's no encoder instantiated", true);
 
         return 0.0;
 

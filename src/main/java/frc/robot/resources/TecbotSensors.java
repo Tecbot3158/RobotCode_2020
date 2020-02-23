@@ -164,6 +164,23 @@ public class TecbotSensors {
         }
     }
 
+    public TecbotEncoder getEncoder(SubsystemType subsystem){
+        switch (subsystem) {
+            case RIGHT_CHASSIS:
+                return rightChassisEncoder;
+            case LEFT_CHASSIS:
+                return leftChassisEncoder;
+            case MIDDLE_CHASSIS:
+                return middleChassisEncoder;
+            case SHOOTER:
+                return RobotMap.SHOOTER_ENCODER_IN_RIGHT_MOTOR ?
+                        sharedMotorsRightEncoder :
+                        sharedMotorsLeftEncoder;
+            default:
+                return null;
+        }
+    }
+
     /**
      * subsystem type
      */

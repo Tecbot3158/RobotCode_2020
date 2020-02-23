@@ -83,9 +83,9 @@ public class RobotMap {
     public static final int[] SHARED_MOTORS_LEFT_INVERTED_MOTORS = {};
     public static final int[] SHARED_MOTORS_RIGHT_INVERTED_MOTORS = {14, 12};
     // This integer will contain the motor port which the shooter encoder is connected to.
-    public static final int SHARED_MOTORS_RIGHT_ENCODER_MOTOR_PORT = SHARED_MOTORS_RIGHT_PORTS[1];
+    public static final int SHARED_MOTORS_RIGHT_ENCODER_MOTOR_PORT = RobotConfigurator.CONFIG_NOT_SET;
     // This integer will contain the motor port which the shooter encoder is connected to.
-    public static final int SHARED_MOTORS_LEFT_MOTOR_WITH_ENCODER = 0;
+    public static final int SHARED_MOTORS_LEFT_MOTOR_WITH_ENCODER = 5;
     /**
      * This is the port for the right shared motors encoder itself, in this case it is CONFIG_NOT_SET {@link RobotConfigurator},
      * since it is directly connected to a TalonSRX
@@ -108,13 +108,13 @@ public class RobotMap {
      */
     //LEFT WINCH
     public static final int[] CLIMBER_LEFT_WINCH_PORTS = {8};
-    public static final int[] CLIMBER_LEFT_INVERTED_WINCH_PORTS = {};
-    public static final TecbotSpeedController.TypeOfMotor[] CLIMBER_LEFT_WINCH_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX};
+    public static final int[] CLIMBER_LEFT_INVERTED_WINCH_PORTS = {8};
+    public static final TecbotSpeedController.TypeOfMotor[] CLIMBER_LEFT_WINCH_MOTOR_TYPES = {TypeOfMotor.VICTOR_SPX};
 
     //RIGHT WINCH
     public static final int[] CLIMBER_RIGHT_WINCH_PORTS = {13};
     public static final int[] CLIMBER_RIGHT_INVERTED_WINCH_PORTS = {};
-    public static final TecbotSpeedController.TypeOfMotor[] CLIMBER_RIGHT_WINCH_MOTOR_TYPES = {TecbotSpeedController.TypeOfMotor.TALON_SRX};
+    public static final TecbotSpeedController.TypeOfMotor[] CLIMBER_RIGHT_WINCH_MOTOR_TYPES = {TypeOfMotor.VICTOR_SPX};
 
     public static final int[] CLIMBER_GEAR_DISENGAGER_SOLENOID_PORTS = {1, 0, 1};
     public static final DoubleSolenoid.Value CLIMBER_ENGAGED_SHOOTER_GEAR = DoubleSolenoid.Value.kForward;
@@ -139,17 +139,22 @@ public class RobotMap {
      * Intake Subsystem
      *
      */
-    public static final int[] FRONT_INTAKE_MOTOR_PORTS = {1};
+    public static final int[] FRONT_INTAKE_MOTOR_PORTS = {3};
     public static final int[] FRONT_INTAKE_INVERTED_MOTOR_PORTS = {};
     public static final TypeOfMotor[] FRONT_INTAKE_MOTOR_TYPES = {TypeOfMotor.TALON_SRX};
 
-    public static final int[] REAR_INTAKE_MOTOR_PORTS = {0};
+    public static final int[] REAR_INTAKE_MOTOR_PORTS = {4};
     public static final int[] REAR_INTAKE_INVERTED_MOTOR_PORTS = {};
     public static final TypeOfMotor[] REAR_INTAKE_MOTOR_TYPES = {TypeOfMotor.TALON_SRX};
 
 
     public static final int[] FRONT_INTAKE_SOLENOID_PORTS = {1, 2, 3};
+    public static final DoubleSolenoid.Value LOWERED_FRONT_INTAKE = DoubleSolenoid.Value.kForward;
+    public static final DoubleSolenoid.Value RAISED_FRONT_INTAKE = DoubleSolenoid.Value.kReverse;
+
     public static final int[] REAR_INTAKE_SOLENOID_PORTS = {2, 4, 5};
+    public static final DoubleSolenoid.Value LOWERED_REAR_INTAKE = DoubleSolenoid.Value.kForward;
+    public static final DoubleSolenoid.Value RAISED_REAR_INTAKE = DoubleSolenoid.Value.kReverse;
 
     public static final int COLOR_SENSOR_SERVO_PORT = 0;
 
@@ -159,9 +164,9 @@ public class RobotMap {
     /*
         TransportationSystem Subsystems
      */
-    public static final TypeOfMotor[] TRANSPORTATION_SYSTEM_TYPE_OF_MOTORS = {TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX, TypeOfMotor.TALON_SRX};
-    public static final int[] TRANSPORTATION_SYSTEM_MOTOR_PORTS = {3, 4, 5, 6};
-    public static final int[] TRANSPORTATION_SYSTEM_INVERTED_MOTOR_PORTS = {};
+    public static final TypeOfMotor[] TRANSPORTATION_SYSTEM_TYPE_OF_MOTORS = {TypeOfMotor.VICTOR_SPX, TypeOfMotor.VICTOR_SPX};
+    public static final int[] TRANSPORTATION_SYSTEM_MOTOR_PORTS = {7,15};
+    public static final int[] TRANSPORTATION_SYSTEM_INVERTED_MOTOR_PORTS = {15};
     public static final int[] DEFLECTOR_SOLENOID_PORTS = {1, 6, 7};
     public static final int TRANSPORTATION_SYSTEM_INFRARED_INTAKE_SENSOR_PORT = 0;
     public static final int TRANSPORTATION_SYSTEM_INFRARED_SHOOTER_SENSOR_PORT = 1;

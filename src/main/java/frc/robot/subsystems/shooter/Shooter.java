@@ -44,18 +44,18 @@ public class Shooter extends PIDSubsystem {
     public void useOutput(double output, double setpoint) {
         // Use the output here
         //anglerServo.setAngle(angle);
-        shoot();
+        shoot(output);
     }
 
     @Override
     public double getMeasurement() {
         // Return the process variable measurement here
         //return Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(SubsystemType.SHOOTER);
-        return Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(SubsystemType.SHOOTER);
+        return Robot.getRobotContainer().getTecbotSensors().getEncoder(SubsystemType.SHOOTER).getRate();
 
     }
 
-    public void shoot() {
+    public void shoot(double power) {
         Robot.getRobotContainer().getSharedMotors().setAll(speed, speed);
     }
 

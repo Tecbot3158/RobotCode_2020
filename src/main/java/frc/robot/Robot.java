@@ -44,6 +44,8 @@ public class Robot extends TimedRobot {
         getRobotContainer().configureButtonBindings();
         getRobotContainer().getTecbotSensors().initializeAllSensors();
 
+        getRobotContainer().getIntake().frontIntakeSolenoidOff();
+        getRobotContainer().getIntake().rearIntakeSolenoidOff();
     }
 
     /**
@@ -110,6 +112,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         OI.getInstance().getPilot().run();
+        SmartDashboard.putNumber("Shooter rate",getRobotContainer().getTecbotSensors().getEncoder(TecbotSensors.SubsystemType.SHOOTER).getRate());
     }
 
     @Override

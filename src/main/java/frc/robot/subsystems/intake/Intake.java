@@ -39,6 +39,9 @@ public class Intake extends SubsystemBase {
 
         rearMotors = RobotConfigurator.buildMotorList(RobotMap.REAR_INTAKE_MOTOR_PORTS, RobotMap.REAR_INTAKE_INVERTED_MOTOR_PORTS, RobotMap.REAR_INTAKE_MOTOR_TYPES);
 
+        frontSolenoids = new ArrayList<>();
+        rearSolenoids = new ArrayList<>();
+
         frontSolenoids.add(RobotConfigurator.buildDoubleSolenoid(RobotMap.FRONT_INTAKE_SOLENOID_PORTS));
 
         rearSolenoids.add(RobotConfigurator.buildDoubleSolenoid(RobotMap.REAR_INTAKE_SOLENOID_PORTS));
@@ -98,26 +101,26 @@ public class Intake extends SubsystemBase {
 
     public void frontIntakeSolenoidOn() {
         for (DoubleSolenoid m : frontSolenoids) {
-            m.set(Value.kForward);
+            m.set(RobotMap.RAISED_FRONT_INTAKE);
         }
     }
 
     public void frontIntakeSolenoidOff() {
         for (DoubleSolenoid m : frontSolenoids) {
-            m.set(Value.kReverse);
+            m.set(RobotMap.LOWERED_FRONT_INTAKE);
         }
     }
     /* Rear Solenoids */
 
     public void rearIntakeSolenoidOn() {
-        for (DoubleSolenoid m : frontSolenoids) {
-            m.set(Value.kForward);
+        for (DoubleSolenoid m : rearSolenoids) {
+            m.set(RobotMap.RAISED_REAR_INTAKE);
         }
     }
 
     public void rearIntakeSolenoidOff() {
-        for (DoubleSolenoid m : frontSolenoids) {
-            m.set(Value.kReverse);
+        for (DoubleSolenoid m : rearSolenoids) {
+            m.set(RobotMap.LOWERED_REAR_INTAKE);
         }
     }
 
