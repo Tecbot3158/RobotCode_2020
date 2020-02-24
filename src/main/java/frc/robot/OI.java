@@ -23,6 +23,7 @@ import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeOut;
 import frc.robot.commands.subsystemCommands.pctower.*;
 import frc.robot.commands.subsystemCommands.shooter.ShootFromInitiationLine;
 import frc.robot.resources.TecbotController;
+import frc.robot.subsystems.intake.Intake;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -44,14 +45,19 @@ public class OI {
     }
 
     public void configureButtonBindings() {
+        Intake intakes = Robot.getRobotContainer().getIntake();
         //PILOT STARTS
         //put here all
 
         //pilot.whileHeld(TecbotController.ButtonType.LB, RobotActionsCatalog.getInstance().getRearIntakeAndTransport());
         //pilot.whenReleased(TecbotController.ButtonType.LB, RobotActionsCatalog.getInstance().getIntakesAndTransportOff());
 
-        pilot.whileHeld(TecbotController.ButtonType.RB, RobotActionsCatalog.getInstance().getFrontIntakeAndTransport());
-        pilot.whenReleased(TecbotController.ButtonType.RB, RobotActionsCatalog.getInstance().getIntakesAndTransportOff());
+        //pilot.whileHeld(TecbotController.ButtonType.RB, RobotActionsCatalog.getInstance().getFrontIntakeAndTransport());
+        //pilot.whenReleased(TecbotController.ButtonType.RB, RobotActionsCatalog.getInstance().getIntakesAndTransportOff());
+        pilot.whenPressed(TecbotController.ButtonType.RB, new InstantCommand(intakes::frontIntakeToggleSolenoid));
+
+        pilot.whenPressed(TecbotController.ButtonType.LB, new InstantCommand(intakes::rearIntakeToggleSolenoid));
+
 
         pilot.whenPressed(TecbotController.ButtonType.A, new ToggleWheelPosition());
 
@@ -83,7 +89,7 @@ public class OI {
         //POV |
         //    ¿
         //pilot.whileHeld(TecbotController.ButtonType.POV_180, RobotActionsCatalog.getInstance().getFrontOutTakeAndTransport());
-        pilot.whileHeld(TecbotController.ButtonType.POV_180, new TransportationSystemShootingSpeed());
+        pilot.whenPressed(TecbotController.ButtonType.POV_180, RobotActionsCatalog.getInstance().getTransportationSystemShootingSpeed());
 
         //pilot.whenReleased(TecbotController.ButtonType.POV_180, RobotActionsCatalog.getInstance().getAllSystemsOff());
 
@@ -95,11 +101,11 @@ public class OI {
 
         //COPILOT STARTS
 
-        copilot.whileHeld(TecbotController.ButtonType.RB, RobotActionsCatalog.getInstance().getRearIntakeAndShootBottomPort());
-        copilot.whenReleased(TecbotController.ButtonType.RB, RobotActionsCatalog.getInstance().getAllSystemsOff());
+        //copilot.whileHeld(TecbotController.ButtonType.RB, RobotActionsCatalog.getInstance().getRearIntakeAndShootBottomPort());
+        //copilot.whenReleased(TecbotController.ButtonType.RB, RobotActionsCatalog.getInstance().getAllSystemsOff());
 
-        copilot.whileHeld(TecbotController.ButtonType.B, RobotActionsCatalog.getInstance().getIntakeFromFeederAndTransport());
-        copilot.whenReleased(TecbotController.ButtonType.B, RobotActionsCatalog.getInstance().getAllSystemsOff());
+        //copilot.whileHeld(TecbotController.ButtonType.B, RobotActionsCatalog.getInstance().getIntakeFromFeederAndTransport());
+        //copilot.whenReleased(TecbotController.ButtonType.B, RobotActionsCatalog.getInstance().getAllSystemsOff());
 
         copilot.whenPressed(TecbotController.ButtonType.X, new ActivateManualWinch());
         copilot.whenPressed(TecbotController.ButtonType.Y, new DisengageLosenRopeAndActivatePulleyMotors());
@@ -107,8 +113,8 @@ public class OI {
         copilot.whenPressed(TecbotController.ButtonType.LB, new ResetGyro());
 
         //copilot.whenPressed(TecbotController.ButtonType.B, new TransportationSystemReverse());
-        copilot.whenPressed(TecbotController.ButtonType.A, RobotActionsCatalog.getInstance().getFrontOutTakeAndTransport());
-        copilot.whenReleased(TecbotController.ButtonType.A, RobotActionsCatalog.getInstance().getIntakesAndTransportOff());
+        //copilot.whenPressed(TecbotController.ButtonType.A, RobotActionsCatalog.getInstance().getFrontOutTakeAndTransport());
+        //copilot.whenReleased(TecbotController.ButtonType.A, RobotActionsCatalog.getInstance().getIntakesAndTransportOff());
         //copilot.whenReleased(TecbotController.ButtonType.B, new FrontIntakeOff());
 
 

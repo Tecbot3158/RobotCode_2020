@@ -19,52 +19,67 @@ import java.util.List;
 
 
 public class TransportationSystem extends SubsystemBase {
-    DoubleSolenoid solenoidDeflector; 
+    boolean isUsingPOV;
+    DoubleSolenoid solenoidDeflector;
     //Servo servoDeflector;
     TecbotMotorList transportationSystemMotors;
-  /**
-   * Creates a new Subsystem.
-   */
-  public TransportationSystem() {
-      //solenoidDeflector = RobotConfigurator.buildDoubleSolenoid(RobotMap.DEFLECTOR_SOLENOID_PORTS);
-      transportationSystemMotors = RobotConfigurator.buildMotorList(RobotMap.TRANSPORTATION_SYSTEM_MOTOR_PORTS, RobotMap.TRANSPORTATION_SYSTEM_INVERTED_MOTOR_PORTS, RobotMap.TRANSPORTATION_SYSTEM_TYPE_OF_MOTORS);
-  }
-  
-  public void setRaw(double speed){
-    transportationSystemMotors.setAll(speed);
-  }
+
+    /**
+     * Creates a new Subsystem.
+     */
+    public TransportationSystem() {
+        isUsingPOV = false;
+        //solenoidDeflector = RobotConfigurator.buildDoubleSolenoid(RobotMap.DEFLECTOR_SOLENOID_PORTS);
+        transportationSystemMotors = RobotConfigurator.buildMotorList(RobotMap.TRANSPORTATION_SYSTEM_MOTOR_PORTS, RobotMap.TRANSPORTATION_SYSTEM_INVERTED_MOTOR_PORTS, RobotMap.TRANSPORTATION_SYSTEM_TYPE_OF_MOTORS);
+    }
+
+    public void setRaw(double speed) {
+        transportationSystemMotors.setAll(speed);
+    }
 
 
-  public void forward(){
-    transportationSystemMotors.setAll(TecbotConstants.TRANSPORTATION_SYSTEM_POWER);
-  }
+    public void forward() {
+        transportationSystemMotors.setAll(TecbotConstants.TRANSPORTATION_SYSTEM_POWER);
+    }
 
-  public void reverse(){
-    transportationSystemMotors.setAll(-TecbotConstants.TRANSPORTATION_SYSTEM_POWER);
-  }
+    public void reverse() {
+        transportationSystemMotors.setAll(-TecbotConstants.TRANSPORTATION_SYSTEM_POWER);
+    }
 
-  public void off(){
-    transportationSystemMotors.setAll(0);
-  }
+    public void off() {
+        transportationSystemMotors.setAll(0);
+    }
 
-  public void setShootingSpeed(){
-    setRaw(TecbotConstants.TRANSPORTATION_SYSTEM_SHOOTING_POWER);
-  }
+    public void setShootingSpeed() {
+        setRaw(TecbotConstants.TRANSPORTATION_SYSTEM_SHOOTING_POWER);
+    }
 
-  public void closeDeflector(){
-    //solenoidDeflector.set(Value.kForward);
-  }
+    public void closeDeflector() {
+        //solenoidDeflector.set(Value.kForward);
+    }
 
-  public void openDeflector(){
-    //solenoidDeflector.set(Value.kReverse);
-}
+    public void openDeflector() {
+        //solenoidDeflector.set(Value.kReverse);
+    }
 
-  public TecbotMotorList getMotors(){
-    return transportationSystemMotors;
-  }
+    public TecbotMotorList getMotors() {
+        return transportationSystemMotors;
+    }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
+
+    public boolean isUsingPOV() {
+        return isUsingPOV;
+    }
+
+    public void setUsingPOV(boolean usingPOV) {
+        isUsingPOV = usingPOV;
+    }
+
+    public void setToFalseUsingPOV() {
+        setUsingPOV(false);
+    }
 }

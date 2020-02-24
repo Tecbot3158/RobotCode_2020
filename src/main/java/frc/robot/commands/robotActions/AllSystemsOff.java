@@ -7,7 +7,9 @@
 
 package frc.robot.commands.robotActions;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Robot;
 import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeOff;
 import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSolenoidOff;
 import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeOff;
@@ -60,14 +62,15 @@ public class AllSystemsOff extends SequentialCommandGroup {
                 PCTS OFF, DEF OFF
                 PCS OFF
                  */
-                new FrontIntakeSolenoidOff(),
+                //new FrontIntakeSolenoidOff(),
                 new FrontIntakeOff(),
-                new RearIntakeSolenoidOff(),
+                //new RearIntakeSolenoidOff(),
                 new RearIntakeOff(),
                 new TransportationSystemOff(),
                 new TransportationSystemCloseDeflector(),
                 new ShooterOff(),
-                new ShootManual(0,0)
+                new ShootManual(0, 0),
+                new InstantCommand(Robot.getRobotContainer().getTransportationSystem()::setToFalseUsingPOV)
         );
     }
 }

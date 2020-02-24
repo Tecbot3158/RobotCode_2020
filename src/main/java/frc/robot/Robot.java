@@ -13,13 +13,15 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeIn;
-import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeOff;
-import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeOut;
+import frc.robot.commands.subsystemCommands.intakes.DefaultCommandIntakes;
+import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSolenoidOn;
+import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeOff;
+import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeSolenoidOff;
+import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeSolenoidOn;
+import frc.robot.commands.subsystemCommands.pctower.DefaultCommandTransportationSystem;
 import frc.robot.commands.subsystemCommands.powerCellCounter.DefaultCommandPowerCellCounter;
-import frc.robot.commands.subsystemTester.*;
 import frc.robot.commands.subsystemCommands.chassis.DefaultDrive;
+import frc.robot.subsystems.chassis.DriveTrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -48,14 +50,22 @@ public class Robot extends TimedRobot {
         m_robotContainer = new RobotContainer();
         getRobotContainer().configureButtonBindings();
         getRobotContainer().getTecbotSensors().initializeAllSensors();
+        //getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(CANSparkMax.IdleMode.kBrake, RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_PORTS);
+        //getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(CANSparkMax.IdleMode.kBrake, RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_PORTS);
+        //getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(CANSparkMax.IdleMode.kCoast, RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_PORT);
 
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-        camera.setResolution(640,480);
+        camera.setResolution(640, 480);
+        System.out.println(CameraServer.getInstance().getServer().toString());
+
         CommandScheduler.getInstance().setDefaultCommand(getRobotContainer().getPowerCellCounter(), new DefaultCommandPowerCellCounter());
         CommandScheduler.getInstance().setDefaultCommand(getRobotContainer().getDriveTrain(), new DefaultDrive());
 
-        Robot.getRobotContainer().getIntake().frontIntakeSolenoidOff();
+        Robot.getRobotContainer().getIntake().frontIntakeSolenoidLowered();
         Robot.getRobotContainer().getIntake().rearIntakeOff();
+
+        CommandScheduler.getInstance().setDefaultCommand(getRobotContainer().getIntake(), new DefaultCommandIntakes());
+        CommandScheduler.getInstance().setDefaultCommand(getRobotContainer().getTransportationSystem(), new DefaultCommandTransportationSystem());
 
     }
 
@@ -108,6 +118,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+        //getRobotContainer().getDriveTrain().setOrientation(true);
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
@@ -125,6 +136,7 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
         OI.getInstance().getPilot().run();
         SmartDashboard.putNumber("gyro", getRobotContainer().getTecbotSensors().getYaw());
+        SmartDashboard.putBoolean("isSpeed", getRobotContainer().getDriveTrain().getTransmissionMode() == DriveTrain.TransmissionMode.speed);
 
     }
 
@@ -158,7 +170,9 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData(new TestLeftClimber());
         SmartDashboard.putData(new TestRightClimber());
         */
-        SmartDashboard.putData(RobotActionsCatalog.getInstance().getFrontOutTakeAndTransport());
+        //SmartDashboard.putData(RobotActionsCatalog.getInstance().getFrontOutTakeAndTransport());
+        SmartDashboard.putData(new RearIntakeSolenoidOn());
+        SmartDashboard.putData(new RearIntakeSolenoidOff());
 
     }
 

@@ -169,6 +169,13 @@ public class TecbotSpeedController {
 
     }
 
+    public CANSparkMax getCANSparkMax() {
+        if (motorToUse == TypeOfMotor.CAN_SPARK_BRUSHLESS || motorToUse == TypeOfMotor.CAN_SPARK_BRUSHED) {
+            return (CANSparkMax) frcMotor;
+        }
+        return null;
+    }
+
     /*
      * WARNING: this will only work with TALON SRX
      *

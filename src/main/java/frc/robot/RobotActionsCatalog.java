@@ -11,6 +11,7 @@ import frc.robot.commands.robotActions.shootTransport.NoPIDShootTrenchAndTranspo
 import frc.robot.commands.robotActions.shootTransport.ShootInitiationLineAndTransport;
 import frc.robot.commands.robotActions.shootTransport.ShootTargetZoneAndTransport;
 import frc.robot.commands.robotActions.shootTransport.ShootTrenchAndTransport;
+import frc.robot.commands.subsystemCommands.pctower.TransportationSystemShootingSpeed;
 import frc.robot.commands.subsystemCommands.shooter.ShootFromInitiationLine;
 import frc.robot.commands.subsystemCommands.shooter.ShootFromTargetZone;
 import frc.robot.commands.subsystemCommands.shooter.ShootFromTrench;
@@ -18,6 +19,8 @@ import frc.robot.commands.subsystemCommands.shooter.ShooterOff;
 
 public class RobotActionsCatalog {
     private static RobotActionsCatalog instance;
+
+    private TransportationSystemShootingSpeed transportationSystemShootingSpeed;
 
     private FrontOutTakeAndTransport frontOutTakeAndTransport;
 
@@ -58,6 +61,8 @@ public class RobotActionsCatalog {
 
 
     public RobotActionsCatalog() {
+
+        transportationSystemShootingSpeed = new TransportationSystemShootingSpeed();
 
         frontOutTakeAndTransport = new FrontOutTakeAndTransport();
 
@@ -203,5 +208,9 @@ public class RobotActionsCatalog {
 
     public FrontOutTakeAndTransport getFrontOutTakeAndTransport() {
         return frontOutTakeAndTransport;
+    }
+
+    public TransportationSystemShootingSpeed getTransportationSystemShootingSpeed() {
+        return transportationSystemShootingSpeed;
     }
 }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -28,6 +29,8 @@ public class Intake extends SubsystemBase {
     static HashMap<Color, Integer> controlPanelColors;
     static HashMap<Integer, Color> controlPanelIDs;
 
+    double rearSpeed = 0, frontSpeed = 0;
+
     Servo sensorServo;
 
     /**
@@ -41,9 +44,6 @@ public class Intake extends SubsystemBase {
         frontMotors = RobotConfigurator.buildMotorList(RobotMap.FRONT_INTAKE_MOTOR_PORTS, RobotMap.FRONT_INTAKE_INVERTED_MOTOR_PORTS, RobotMap.FRONT_INTAKE_MOTOR_TYPES);
 
         rearMotors = RobotConfigurator.buildMotorList(RobotMap.REAR_INTAKE_MOTOR_PORTS, RobotMap.REAR_INTAKE_INVERTED_MOTOR_PORTS, RobotMap.REAR_INTAKE_MOTOR_TYPES);
-
-        frontSolenoids = new ArrayList<>();
-        rearSolenoids = new ArrayList<>();
 
         frontSolenoids.add(RobotConfigurator.buildDoubleSolenoid(RobotMap.FRONT_INTAKE_SOLENOID_PORTS));
 
@@ -67,64 +67,96 @@ public class Intake extends SubsystemBase {
     /* Front Intake */
 
     public void frontIntakeForward() {
-        frontMotors.setAll(TecbotConstants.FRONT_INTAKE_SPEED);
+        frontSpeed = TecbotConstants.FRONT_INTAKE_SPEED;
+        frontMotors.setAll(frontSpeed);
         //frontMotors.setAll(1);
     }
 
     public void frontIntakeOff() {
-        frontMotors.setAll(0);
+        frontSpeed = 0;
+        frontMotors.setAll(frontSpeed);
     }
 
     public void frontIntakeReverse() {
-        frontMotors.setAll(-TecbotConstants.FRONT_INTAKE_SPEED);
+        frontSpeed = -TecbotConstants.FRONT_INTAKE_SPEED;
+        frontMotors.setAll(frontSpeed);
+    }
+
+    public void setRawFrontIntake(double speed) {
+        frontSpeed = speed;
+        frontMotors.setAll(frontSpeed);
     }
 
     /* Rear Intake */
 
     public void rearIntakeForward() {
-        rearMotors.setAll(TecbotConstants.REAR_INTAKE_SPEED);
+        rearSpeed = TecbotConstants.REAR_INTAKE_SPEED;
+        rearMotors.setAll(rearSpeed);
     }
 
     public void rearIntakeOff() {
-        rearMotors.setAll(0);
+        rearSpeed = 0;
+        rearMotors.setAll(rearSpeed);
     }
 
     public void rearIntakeReverse() {
-        rearMotors.setAll(-TecbotConstants.REAR_INTAKE_SPEED);
-    }
-
-    public void setRawFrontIntake(double speed) {
-        frontMotors.setAll(speed);
+        rearSpeed = -TecbotConstants.REAR_INTAKE_SPEED;
+        rearMotors.setAll(rearSpeed);
     }
 
     public void setRawRearIntake(double speed) {
-        rearMotors.setAll(speed);
+        rearSpeed = speed;
+        rearMotors.setAll(rearSpeed);
     }
 
     /* Front Solenoids */
 
-    public void frontIntakeSolenoidOn() {
-        for (DoubleSolenoid m : frontSolenoids) {
-            m.set(RobotMap.RAISED_FRONT_INTAKE);
+    public void frontIntakeToggleSolenoid() {
+        if (frontSolenoids.get(0).get() == RobotMap.FRONT_INTAKE_RAISED_SOLENOID_VALUE) {
+            for (DoubleSolenoid m : frontSolenoids) {
+                m.set(RobotMap.FRONT_INTAKE_LOWERED_SOLENOID_VALUE);
+            }
+        } else {
+            for (DoubleSolenoid m : frontSolenoids) {
+                m.set(RobotMap.FRONT_INTAKE_RAISED_SOLENOID_VALUE);
+            }
         }
     }
 
-    public void frontIntakeSolenoidOff() {
+    public void rearIntakeToggleSolenoid() {
+        if (rearSolenoids.get(0).get() == RobotMap.REAR_INTAKE_RAISED_SOLENOID_VALUE) {
+            for (DoubleSolenoid m : rearSolenoids) {
+                m.set(RobotMap.REAR_INTAKE_LOWERED_SOLENOID_VALUE);
+            }
+        } else {
+            for (DoubleSolenoid m : rearSolenoids) {
+                m.set(RobotMap.REAR_INTAKE_RAISED_SOLENOID_VALUE);
+            }
+        }
+    }
+
+    public void frontIntakeSolenoidRaised() {
         for (DoubleSolenoid m : frontSolenoids) {
-            m.set(RobotMap.LOWERED_FRONT_INTAKE);
+            m.set(RobotMap.FRONT_INTAKE_RAISED_SOLENOID_VALUE);
+        }
+    }
+
+    public void frontIntakeSolenoidLowered() {
+        for (DoubleSolenoid m : frontSolenoids) {
+            m.set(RobotMap.FRONT_INTAKE_LOWERED_SOLENOID_VALUE);
         }
     }
     /* Rear Solenoids */
 
-    public void rearIntakeSolenoidOn() {
+    public void rearIntakeSolenoidRaised() {
         for (DoubleSolenoid m : rearSolenoids) {
-            m.set(RobotMap.RAISED_REAR_INTAKE);
+            m.set(RobotMap.REAR_INTAKE_RAISED_SOLENOID_VALUE);
         }
     }
 
-    public void rearIntakeSolenoidOff() {
+    public void rearIntakeSolenoidLowered() {
         for (DoubleSolenoid m : rearSolenoids) {
-            m.set(RobotMap.LOWERED_REAR_INTAKE);
+            m.set(RobotMap.REAR_INTAKE_LOWERED_SOLENOID_VALUE);
         }
     }
 
@@ -158,5 +190,26 @@ public class Intake extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+    }
+
+    public Value getFrontIntakeSolenoidState() {
+        return frontSolenoids.get(0).get();
+    }
+
+    public Value getRearIntakeSolenoidState() {
+        return rearSolenoids.get(0).get();
+    }
+
+    public void debug(boolean frontIntake, boolean rearIntake) {
+
+        if (frontIntake) {
+            SmartDashboard.putBoolean("¬LOW FI", getFrontIntakeSolenoidState() == RobotMap.FRONT_INTAKE_LOWERED_SOLENOID_VALUE);
+            SmartDashboard.putNumber("~SPD FI", frontSpeed);
+
+        }
+        if (rearIntake) {
+            SmartDashboard.putBoolean("LOW RI¬", getFrontIntakeSolenoidState() == RobotMap.FRONT_INTAKE_LOWERED_SOLENOID_VALUE);
+            SmartDashboard.putNumber("SPD RI~", rearSpeed);
+        }
     }
 }

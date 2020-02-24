@@ -8,6 +8,7 @@
 package frc.robot.subsystems.chassis;
 
 
+import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,6 +17,8 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.resources.Math;
 import frc.robot.resources.*;
+
+import java.sql.Driver;
 
 public class DriveTrain extends SubsystemBase {
     // Motors
@@ -69,7 +72,7 @@ public class DriveTrain extends SubsystemBase {
 
     public DriveTrain() {
 
-        if(RobotMap.DRIVE_TRAIN_TRANSMISSION_AVAILABLE)
+        if (RobotMap.DRIVE_TRAIN_TRANSMISSION_AVAILABLE)
             transmission = RobotConfigurator.buildDoubleSolenoid(RobotMap.DRIVE_TRAIN_TRANSMISSION_SOLENOID_PORTS);
 
         if (RobotMap.DRIVE_TRAIN_DRAGON_FLY_IS_AVAILABLE)
@@ -218,7 +221,7 @@ public class DriveTrain extends SubsystemBase {
      */
 
     public void setDragonFlyWheelState(WheelState state) {
-        if(!RobotMap.DRIVE_TRAIN_DRAGON_FLY_IS_AVAILABLE)
+        if (!RobotMap.DRIVE_TRAIN_DRAGON_FLY_IS_AVAILABLE)
             return;
         if (state == WheelState.Lowered) {
             dragonFlyWheelSolenoid.set(RobotMap.DRIVE_TRAIN_LOWERED_WHEEL);
@@ -228,16 +231,17 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public boolean getDragonFlySolenoid() {
-        if(!RobotMap.DRIVE_TRAIN_DRAGON_FLY_IS_AVAILABLE)
+        if (!RobotMap.DRIVE_TRAIN_DRAGON_FLY_IS_AVAILABLE)
             return false;
         return (dragonFlyWheelSolenoid.get() == DoubleSolenoid.Value.kForward);
     }
-    public WheelState getDragonFlyWheelState(){
-        if(!RobotMap.DRIVE_TRAIN_DRAGON_FLY_IS_AVAILABLE)
+
+    public WheelState getDragonFlyWheelState() {
+        if (!RobotMap.DRIVE_TRAIN_DRAGON_FLY_IS_AVAILABLE)
             return null;
-        if(dragonFlyWheelSolenoid.get() == RobotMap.DRIVE_TRAIN_RAISED_WHEEL){
+        if (dragonFlyWheelSolenoid.get() == RobotMap.DRIVE_TRAIN_RAISED_WHEEL) {
             return WheelState.Raised;
-        }else {
+        } else {
             return WheelState.Lowered;
         }
     }
@@ -304,13 +308,13 @@ public class DriveTrain extends SubsystemBase {
         double leftSide = 0;
         double rightSide = 0;
 
-        if(TecbotConstants.MIDDLE_SIDES_CORRECTION > 1){
-            x *= 1/TecbotConstants.MIDDLE_SIDES_CORRECTION;
+        if (TecbotConstants.MIDDLE_SIDES_CORRECTION > 1) {
+            x *= 1 / TecbotConstants.MIDDLE_SIDES_CORRECTION;
             leftSide = (y - correction + turn);
             rightSide = (y + correction - turn);
-        }else{
-         leftSide = TecbotConstants.MIDDLE_SIDES_CORRECTION * (y - correction + turn);
-         rightSide = TecbotConstants.MIDDLE_SIDES_CORRECTION * (y + correction - turn);
+        } else {
+            leftSide = TecbotConstants.MIDDLE_SIDES_CORRECTION * (y - correction + turn);
+            rightSide = TecbotConstants.MIDDLE_SIDES_CORRECTION * (y + correction - turn);
         }
 
 
@@ -367,7 +371,7 @@ public class DriveTrain extends SubsystemBase {
         // The angle at which the robot will move, considering its rotation.
         double relativeAngle = absoluteAngle - Robot.getRobotContainer().getTecbotSensors().getYaw();
         // The max power that will be given to the motors.
-        double speed = Math.hypot(x,y);
+        double speed = Math.hypot(x, y);
 
         driveToAngle(relativeAngle, speed, turn);
 
@@ -424,8 +428,7 @@ public class DriveTrain extends SubsystemBase {
         if (state) {
             currentDrivingMode = DrivingMode.Pivot;
             hasSetAngle = false;
-        }
-        else
+        } else
             setDefaultDrive();
     }
 
@@ -464,9 +467,10 @@ public class DriveTrain extends SubsystemBase {
     }
 
     /**
-     * Changes the driving axis configuration.
+     * Changes the driving axis configuration:
+     * inverts <i>speed</i> (i.e. <strong>y axis</strong>)
      *
-     * @param reverse True means inverted driving.
+     * @param reverse If true, driving is inverted.
      */
 
     public void setOrientation(boolean reverse) {
@@ -485,6 +489,19 @@ public class DriveTrain extends SubsystemBase {
         if (left != null) return left;
         else if (right != null) return right;
         else return middle;
+    }
+
+    /**
+     * @param mode  {@link CANSparkMax.IdleMode} to set to specified motors
+     * @param ports motor ports to be set to given mode.
+     */
+    public void setCANSparkMaxMotorsState(CANSparkMax.IdleMode mode, int... ports) {
+        for (int i : ports) {
+            CANSparkMax canSparkMax = getSpecificMotor(i).getCANSparkMax();
+            if (canSparkMax != null)
+                canSparkMax.setIdleMode(mode);
+            else DriverStation.reportWarning("no can spark max found", false);
+        }
     }
 
 }

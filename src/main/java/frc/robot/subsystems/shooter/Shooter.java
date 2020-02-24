@@ -18,6 +18,7 @@ import frc.robot.resources.TecbotSensors.SubsystemType;
 
 
 public class Shooter extends PIDSubsystem {
+
     Servo anglerServo;
 
 
@@ -64,7 +65,7 @@ public class Shooter extends PIDSubsystem {
         //return Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(SubsystemType.SHOOTER);
         //System.out.println("-> encoder " +  Robot.getRobotContainer().getTecbotSensors().getEncoder(SubsystemType.SHOOTER).getRate() );
 
-        double rate = Robot.getRobotContainer().getTecbotSensors().getEncoder(SubsystemType.SHOOTER).getRate()/30000;
+        double rate = Robot.getRobotContainer().getTecbotSensors().getEncoder(SubsystemType.SHOOTER).getRate() / 30000;
         return rate;
 
     }
@@ -132,7 +133,6 @@ public class Shooter extends PIDSubsystem {
         }
 
 
-
     }
 
     public void setManualShooter(double manualSpeed) {
@@ -153,5 +153,10 @@ public class Shooter extends PIDSubsystem {
     public enum ShooterPosition {
         TRENCH, TARGET_ZONE, INITIATION_LINE, OFF
     }
+
+    public double getSpeed() {
+        return this.speed;
+    }
+
 
 }

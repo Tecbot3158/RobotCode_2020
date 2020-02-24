@@ -58,8 +58,8 @@ public class RobotMap {
      * If any of the motors of the chassis must be inverted,
      * indicate the port(s) in these arrays.
      */
-    public static final int[] DRIVE_TRAIN_LEFT_CHASSIS_INVERTED_MOTORS = {1,2};
-    public static final int[] DRIVE_TRAIN_RIGHT_CHASSIS_INVERTED_MOTORS = {9,10};
+    public static final int[] DRIVE_TRAIN_LEFT_CHASSIS_INVERTED_MOTORS = {1, 2};
+    public static final int[] DRIVE_TRAIN_RIGHT_CHASSIS_INVERTED_MOTORS = {9, 10};
 
     public static final boolean DRIVE_TRAIN_LEFT_CHASSIS_ENCODER_IS_INVERTED = true;
     public static final boolean DRIVE_TRAIN_RIGHT_CHASSIS_ENCODER_IS_INVERTED = false;
@@ -124,7 +124,7 @@ public class RobotMap {
     public static final int[] CLIMBER_RIGHT_INVERTED_WINCH_PORTS = {};
     public static final TecbotSpeedController.TypeOfMotor[] CLIMBER_RIGHT_WINCH_MOTOR_TYPES = {TypeOfMotor.VICTOR_SPX};
 
-    public static final int[] CLIMBER_GEAR_DISENGAGER_SOLENOID_PORTS = {PCM_1_PORT, 0, 1};
+    public static final int[] CLIMBER_GEAR_DISENGAGER_SOLENOID_PORTS = {PCM_2_PORT, 4, 5};
     public static final DoubleSolenoid.Value CLIMBER_ENGAGED_SHOOTER_GEAR = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value CLIMBER_DISENGAGED_SHOOTER_GEAR = DoubleSolenoid.Value.kReverse;
 
@@ -162,12 +162,12 @@ public class RobotMap {
 
 
     public static final int[] FRONT_INTAKE_SOLENOID_PORTS = {PCM_1_PORT, 2, 3};
-    public static final DoubleSolenoid.Value LOWERED_FRONT_INTAKE = DoubleSolenoid.Value.kForward;
-    public static final DoubleSolenoid.Value RAISED_FRONT_INTAKE = DoubleSolenoid.Value.kReverse;
+    public static final DoubleSolenoid.Value FRONT_INTAKE_LOWERED_SOLENOID_VALUE = DoubleSolenoid.Value.kForward;
+    public static final DoubleSolenoid.Value FRONT_INTAKE_RAISED_SOLENOID_VALUE = DoubleSolenoid.Value.kReverse;
 
-    public static final int[] REAR_INTAKE_SOLENOID_PORTS = {PCM_2_PORT, 4, 5};
-    public static final DoubleSolenoid.Value LOWERED_REAR_INTAKE = DoubleSolenoid.Value.kForward;
-    public static final DoubleSolenoid.Value RAISED_REAR_INTAKE = DoubleSolenoid.Value.kReverse;
+    public static final int[] REAR_INTAKE_SOLENOID_PORTS = {PCM_1_PORT, 0, 1};
+    public static final DoubleSolenoid.Value REAR_INTAKE_LOWERED_SOLENOID_VALUE = DoubleSolenoid.Value.kReverse;
+    public static final DoubleSolenoid.Value REAR_INTAKE_RAISED_SOLENOID_VALUE = DoubleSolenoid.Value.kForward;
 
     public static final int COLOR_SENSOR_SERVO_PORT = 9;
 

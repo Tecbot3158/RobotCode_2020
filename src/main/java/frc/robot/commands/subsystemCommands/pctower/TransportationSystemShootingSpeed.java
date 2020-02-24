@@ -16,12 +16,12 @@ import frc.robot.Robot;
 public class TransportationSystemShootingSpeed extends InstantCommand {
     public TransportationSystemShootingSpeed() {
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(Robot.getRobotContainer().getTransportationSystem());
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        Robot.getRobotContainer().getTransportationSystem().setUsingPOV(true);
         Robot.getRobotContainer().getTransportationSystem().setShootingSpeed();
     }
 }

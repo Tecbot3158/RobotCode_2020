@@ -79,9 +79,9 @@ public class TecbotConstants {
     public static final double K_METERS_TO_ENCODER = (float) (30000 / (.2034 * Math.PI));
 
     //SHOOTER STARTS
-    public static final double SHOOTER_TRENCH_SHOOTING_SPEED = 0.9;
-    public static final double SHOOTER_INITIATION_LINE_SHOOTING_SPEED = 0.6;
-    public static final double SHOOTER_TARGET_ZONE_SHOOTING_SPEED = 0.5;
+    public static final double SHOOTER_TRENCH_SHOOTING_SPEED = 0.97;
+    public static final double SHOOTER_INITIATION_LINE_SHOOTING_SPEED = 0.97;
+    public static final double SHOOTER_TARGET_ZONE_SHOOTING_SPEED = 0.97;
     public static final double SHOOTER_OFF = 0;
 
     //POWER SH
@@ -145,7 +145,7 @@ public class TecbotConstants {
     // JOYSTICK STARTS
     public static final double DEFAULT_JOYSTICK_OFFSET = .1;
     public static final double JOYSTICK_SPEED_RELEASE_POINT = .5;
-    public static final double JOYSTICK_SPEED_MULTIPLIER = .5;
+    public static final double JOYSTICK_SPEED_MULTIPLIER = .45;
     public static final boolean APPLY_SPEED_RELEASE_TO_LEFT_AXIS = true;
 
 }

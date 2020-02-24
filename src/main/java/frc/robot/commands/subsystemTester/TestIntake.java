@@ -32,11 +32,11 @@ public class TestIntake extends CommandBase {
     public void initialize() {
         CommandScheduler.getInstance().clearButtons();
         OI.getInstance().getPilot().clearPOVCommands();
-        OI.getInstance().getPilot().whenPressed(TecbotController.ButtonType.LB, new InstantCommand(Robot.getRobotContainer().getIntake()::rearIntakeSolenoidOn));
-        OI.getInstance().getPilot().whenPressed(TecbotController.ButtonType.RB, new InstantCommand(Robot.getRobotContainer().getIntake()::frontIntakeSolenoidOn));
+        OI.getInstance().getPilot().whenPressed(TecbotController.ButtonType.LB, new InstantCommand(Robot.getRobotContainer().getIntake()::rearIntakeSolenoidRaised));
+        OI.getInstance().getPilot().whenPressed(TecbotController.ButtonType.RB, new InstantCommand(Robot.getRobotContainer().getIntake()::frontIntakeSolenoidRaised));
 
-        OI.getInstance().getPilot().whenPressed(TecbotController.ButtonType.B, new InstantCommand(Robot.getRobotContainer().getIntake()::frontIntakeSolenoidOn));
-        OI.getInstance().getPilot().whenPressed(TecbotController.ButtonType.A, new InstantCommand(Robot.getRobotContainer().getIntake()::rearIntakeSolenoidOn));
+        OI.getInstance().getPilot().whenPressed(TecbotController.ButtonType.B, new InstantCommand(Robot.getRobotContainer().getIntake()::frontIntakeSolenoidRaised));
+        OI.getInstance().getPilot().whenPressed(TecbotController.ButtonType.A, new InstantCommand(Robot.getRobotContainer().getIntake()::rearIntakeSolenoidRaised));
 
     }
 

@@ -22,7 +22,7 @@ public class RearIntakeSolenoidOn extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.getRobotContainer().getIntake().rearIntakeSolenoidOn();
+    Robot.getRobotContainer().getIntake().rearIntakeSolenoidRaised();
   }
 }
 

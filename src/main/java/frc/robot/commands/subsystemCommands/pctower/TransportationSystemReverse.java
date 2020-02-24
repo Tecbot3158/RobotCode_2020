@@ -21,6 +21,7 @@ public class TransportationSystemReverse extends InstantCommand {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        Robot.getRobotContainer().getTransportationSystem().setUsingPOV(true);
         Robot.getRobotContainer().getTransportationSystem().reverse();
     }
 }
