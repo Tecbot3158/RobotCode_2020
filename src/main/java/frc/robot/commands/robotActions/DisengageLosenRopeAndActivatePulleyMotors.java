@@ -25,9 +25,10 @@ public class DisengageLosenRopeAndActivatePulleyMotors extends SequentialCommand
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
         super(
-                new CancelAllCommands(),
-                new ClimberDisengageGear(),
-                new LosenRopeForSpecificTime(),
+                //TODO uncomment these commands
+                //new CancelAllCommands()
+                //new ClimberDisengageGear(),
+                //new LosenRopeForSpecificTime(),
                 new SetPulleySpeedWithTriggers()
 
         );

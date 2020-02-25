@@ -7,7 +7,7 @@ public class InfraredSensor {
 
     private boolean isInverted = false;
     private AnalogInput analogInput;
-    private int objectMinimumDistance = 0;
+    private int objectMinimumDistance;
     private boolean objectPresent = false;
 
     /**
@@ -49,14 +49,9 @@ public class InfraredSensor {
      */
     public void run() {
         if (isInverted) {
-            if (analogInput.getValue() <= objectMinimumDistance)
-                objectPresent = true;
-            else objectPresent = false;
+            objectPresent = analogInput.getValue() <= objectMinimumDistance;
         } else {
-            if (analogInput.getValue() >= objectMinimumDistance)
-                objectPresent = true;
-            else
-                objectPresent = false;
+            objectPresent = analogInput.getValue() >= objectMinimumDistance;
         }
     }
 
@@ -98,8 +93,8 @@ public class InfraredSensor {
         isInverted = inverted;
     }
 
-    public void debug() {
-        SmartDashboard.putBoolean("state" + this.getClass().getName(), get());
-        SmartDashboard.putNumber("raw" + this.getClass().getName(), getRaw());
+    public void debug(String id) {
+        SmartDashboard.putBoolean(id + "state", get());
+        SmartDashboard.putNumber(id + "raw", getRaw());
     }
 }

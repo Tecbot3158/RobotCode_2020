@@ -497,10 +497,17 @@ public class DriveTrain extends SubsystemBase {
      */
     public void setCANSparkMaxMotorsState(CANSparkMax.IdleMode mode, int... ports) {
         for (int i : ports) {
-            CANSparkMax canSparkMax = getSpecificMotor(i).getCANSparkMax();
+            System.out.println(i);
+            CANSparkMax canSparkMax = null;
+            try {
+                canSparkMax = getSpecificMotor(i).getCANSparkMax();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                DriverStation.reportWarning("CAN Spark Max not found @" + ports + " ports.", true);
+            }
             if (canSparkMax != null)
                 canSparkMax.setIdleMode(mode);
-            else DriverStation.reportWarning("no can spark max found", false);
+            else DriverStation.reportWarning("no can spark max found", true);
         }
     }
 

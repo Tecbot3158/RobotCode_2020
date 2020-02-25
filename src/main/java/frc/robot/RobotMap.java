@@ -86,6 +86,12 @@ public class RobotMap {
     /*
      * SHARED MOTORS STARTS
      */
+    /*
+
+    public static final int[] SHARED_MOTORS_LEFT_PORTS = {5, 6};
+    public static final int[] SHARED_MOTORS_RIGHT_PORTS = {14, 12};
+     */
+
     public static final int[] SHARED_MOTORS_LEFT_PORTS = {5, 6};
     public static final int[] SHARED_MOTORS_RIGHT_PORTS = {14, 12};
     public static final int[] SHARED_MOTORS_LEFT_INVERTED_MOTORS = {};
@@ -115,13 +121,14 @@ public class RobotMap {
      * CLIMBER STARTS
      */
     //LEFT WINCH
+    //13 confirmed
     public static final int[] CLIMBER_LEFT_WINCH_PORTS = {8};
-    public static final int[] CLIMBER_LEFT_INVERTED_WINCH_PORTS = {8};
+    public static final int[] CLIMBER_LEFT_INVERTED_WINCH_PORTS = {};
     public static final TecbotSpeedController.TypeOfMotor[] CLIMBER_LEFT_WINCH_MOTOR_TYPES = {TypeOfMotor.VICTOR_SPX};
 
     //RIGHT WINCH
     public static final int[] CLIMBER_RIGHT_WINCH_PORTS = {13};
-    public static final int[] CLIMBER_RIGHT_INVERTED_WINCH_PORTS = {};
+    public static final int[] CLIMBER_RIGHT_INVERTED_WINCH_PORTS = {13};
     public static final TecbotSpeedController.TypeOfMotor[] CLIMBER_RIGHT_WINCH_MOTOR_TYPES = {TypeOfMotor.VICTOR_SPX};
 
     public static final int[] CLIMBER_GEAR_DISENGAGER_SOLENOID_PORTS = {PCM_2_PORT, 4, 5};
@@ -162,8 +169,8 @@ public class RobotMap {
 
 
     public static final int[] FRONT_INTAKE_SOLENOID_PORTS = {PCM_1_PORT, 2, 3};
-    public static final DoubleSolenoid.Value FRONT_INTAKE_LOWERED_SOLENOID_VALUE = DoubleSolenoid.Value.kForward;
-    public static final DoubleSolenoid.Value FRONT_INTAKE_RAISED_SOLENOID_VALUE = DoubleSolenoid.Value.kReverse;
+    public static final DoubleSolenoid.Value FRONT_INTAKE_LOWERED_SOLENOID_VALUE = DoubleSolenoid.Value.kReverse;
+    public static final DoubleSolenoid.Value FRONT_INTAKE_RAISED_SOLENOID_VALUE = DoubleSolenoid.Value.kForward;
 
     public static final int[] REAR_INTAKE_SOLENOID_PORTS = {PCM_1_PORT, 0, 1};
     public static final DoubleSolenoid.Value REAR_INTAKE_LOWERED_SOLENOID_VALUE = DoubleSolenoid.Value.kReverse;
@@ -198,6 +205,11 @@ public class RobotMap {
     public static final int POWER_CELL_COUNTER_INFRARED_FRONT_INTAKE_SENSOR_PORT = 2;
     public static final int POWER_CELL_COUNTER_INFRARED_REAR_INTAKE_SENSOR_PORT = 1;
     public static final int POWER_CELL_COUNTER_INFRARED_SHOOTER_SENSOR_PORT = 3;
+
+    //infrared sensor ports availability
+    public static final boolean POWER_CELL_COUNTER_IS_AVAILABLE_INFRARED_FRONT_INTAKE_SENSOR = true;
+    public static final boolean POWER_CELL_COUNTER_IS_AVAILABLE_INFRARED_REAR_INTAKE_SENSOR = false;
+    public static final boolean POWER_CELL_COUNTER_IS_AVAILABLE_INFRARED_SHOOTER_SENSOR = true;
 
     //infrared sensors distances
     public static final int POWER_CELL_COUNTER_INFRARED_INTAKE_SENSOR_MINIMUM_DISTANCE = 1200;

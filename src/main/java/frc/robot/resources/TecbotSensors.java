@@ -71,6 +71,7 @@ public class TecbotSensors {
             middleChassisEncoder.setInverted(true);
 
         try {
+            //TODO uncomment colorSensorV3 instantiation.
             //colorSensorV3 = new ColorSensorV3(I2C_PORT_ONBOARD);
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -104,7 +105,9 @@ public class TecbotSensors {
 
         //SmartDashboard.putBoolean("IR shooter", infraredShooterSensor.get());
         //infraredFrontIntakeSensor.debug();
-        infraredRearIntakeSensor.debug();
+        //infraredRearIntakeSensor.debug("RI");
+        infraredFrontIntakeSensor.debug("FI");
+        infraredShooterSensor.debug("SH");
 
 
     }
@@ -162,7 +165,7 @@ public class TecbotSensors {
         }
     }
 
-    public TecbotEncoder getEncoder(SubsystemType subsystem){
+    public TecbotEncoder getEncoder(SubsystemType subsystem) {
         switch (subsystem) {
             case RIGHT_CHASSIS:
                 return rightChassisEncoder;
@@ -190,23 +193,32 @@ public class TecbotSensors {
      * @return raw limit switch value.
      */
     public boolean getClimberLeftLimitSwitch() {
-        return climberLeftLimitSwitch.get();
+
+        //return climberLeftLimitSwitch.get();
+        return false;
     }
 
-    public boolean getCLimberRightLimitSwitch() {
-        return climberRightLimitSwitch.get();
+    public boolean getClimberRightLimitSwitch() {
+        return false;
+        //return climberRightLimitSwitch.get();
     }
 
     public boolean getIRSensorStateFrontIntake() {
-        return infraredFrontIntakeSensor.get();
+        if (RobotMap.POWER_CELL_COUNTER_IS_AVAILABLE_INFRARED_FRONT_INTAKE_SENSOR)
+            return infraredFrontIntakeSensor.get();
+        return false;
     }
 
     public boolean getIRSensorStateRearIntake() {
-        return infraredRearIntakeSensor.get();
+        if (RobotMap.POWER_CELL_COUNTER_IS_AVAILABLE_INFRARED_REAR_INTAKE_SENSOR)
+            return infraredRearIntakeSensor.get();
+        return false;
     }
 
     public boolean getIRSensorStateShooter() {
-        return infraredShooterSensor.get();
+        if (RobotMap.POWER_CELL_COUNTER_IS_AVAILABLE_INFRARED_SHOOTER_SENSOR)
+            return infraredShooterSensor.get();
+        return false;
     }
 
 

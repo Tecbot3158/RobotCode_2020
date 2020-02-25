@@ -37,14 +37,14 @@ public class DefaultCommandIntakes extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double frontSpeed = 0, rearSpeed = 0, copilotRightAxisY = copilot.getRightAxisY();
+        double frontSpeed, rearSpeed, copilotRightAxisY = copilot.getRightAxisY();
 
         frontSpeed = copilotRightAxisY;
         if (intakes.getRearIntakeSolenoidState() == RobotMap.REAR_INTAKE_LOWERED_SOLENOID_VALUE)
             rearSpeed = copilotRightAxisY;
 
         intakes.setRawFrontIntake(frontSpeed);
-        intakes.setRawRearIntake(rearSpeed);
+        //intakes.setRawRearIntake(rearSpeed);
 
         //if(intakes.getRearIntakeSolenoidState() == DoubleSolenoid.Value.kReverse)
         //  intakes.
