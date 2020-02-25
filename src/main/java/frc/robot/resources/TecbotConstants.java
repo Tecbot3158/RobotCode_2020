@@ -2,8 +2,11 @@ package frc.robot.resources;
 
 public class TecbotConstants {
 
-    public static final double CHASSIS_TURN_MAX_DISTANCE = 20;
-    public static final double CHASSIS_TURN_ARRIVE_OFFSET = 2;
+    // ﻿﻿﻿﻿﻿﻿ -3509.97021484375 ﻿
+    //  ﻿﻿﻿﻿﻿﻿ -3524.081787109375 ﻿
+
+    public static final double CHASSIS_TURN_MAX_DISTANCE = 90;
+    public static final double CHASSIS_TURN_ARRIVE_OFFSET = 10;
 
     public static final double CHASSIS_STRAIGHT_MAX_DISTANCE = 20;
     public static final double CHASSIS_STRAIGHT_ARRIVE_OFFSET = 2;
@@ -14,7 +17,7 @@ public class TecbotConstants {
     public static final double CHASSIS_SWERVE_ARRIVE_OFFSET = 2;
 
 
-    public static final double TURN_CORRECTION = .05;
+    public static final double TURN_CORRECTION = .01;
     // The distance in angles that it needs to be from target in order to be
     // considered onTarget
     public static final double QUICK_TURN_OFFSET = 20;
@@ -31,7 +34,7 @@ public class TecbotConstants {
     public static final double K_DISTANCE_BETWEEN_WHEELS = .53975;
 
     public static final double K_CHASSIS_WHEEL_DIAMETER = .3048;
-    public static final double K_CHASSIS_TIC_PER_REVOLUTION = 8;
+    public static final double K_CHASSIS_TIC_PER_REVOLUTION = 22;
 
     public static final double K_MIDDLE_WHEEL_DIAMETER = .2032;
     public static final double K_MIDDLE_WHEEL_TIC_PER_REVOLUTION = 8.75;

@@ -10,9 +10,14 @@ package frc.robot;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.autonomous.DR01D3K4;
+import frc.robot.commands.subsystemCommands.chassis.autonomous.speedReduction.SpeedReductionStraight;
+import frc.robot.commands.subsystemCommands.chassis.autonomous.speedReduction.SpeedReductionTurn;
 import frc.robot.commands.subsystemCommands.intakes.DefaultCommandIntakes;
 import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSolenoidOn;
 import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeOff;
@@ -37,6 +42,8 @@ public class Robot extends TimedRobot {
 
     public static int currentMotorBeingTested = 0;
     public static int currentSecondMotorBeingTested = 0;
+
+    private SendableChooser<Command> m_chooser = new SendableChooser<>();
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -67,6 +74,15 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().setDefaultCommand(getRobotContainer().getIntake(), new DefaultCommandIntakes());
         CommandScheduler.getInstance().setDefaultCommand(getRobotContainer().getTransportationSystem(), new DefaultCommandTransportationSystem());
 
+        getRobotContainer().getDriveTrain().getSpecificMotor(1).setBrakeMode(true);
+        getRobotContainer().getDriveTrain().getSpecificMotor(2).setBrakeMode(true);
+        getRobotContainer().getDriveTrain().getSpecificMotor(9).setBrakeMode(true);
+        getRobotContainer().getDriveTrain().getSpecificMotor(10).setBrakeMode(true);
+
+        m_chooser.addOption("Move 3 m", new SpeedReductionStraight(3,.75,0));
+        m_chooser.addOption("Rotate 90 degrees", new SpeedReductionTurn(90,.5));
+        m_chooser.addOption("El chido", new DR01D3K4());
+        SmartDashboard.putData("Auto Mode", m_chooser);
     }
 
     /**
@@ -102,7 +118,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        m_autonomousCommand = getRobotContainer().getAutonomousCommand();
+        m_autonomousCommand = m_chooser.getSelected();
         // schedule the autonomous command (example)
         if (m_autonomousCommand != null) {
             m_autonomousCommand.schedule();
@@ -137,7 +153,7 @@ public class Robot extends TimedRobot {
         OI.getInstance().getPilot().run();
         SmartDashboard.putNumber("gyro", getRobotContainer().getTecbotSensors().getYaw());
         SmartDashboard.putBoolean("isSpeed", getRobotContainer().getDriveTrain().getTransmissionMode() == DriveTrain.TransmissionMode.speed);
-
+        System.out.println(getRobotContainer().getDriveTrain().getSpecificMotor(1).getSparkEncPosition());
     }
 
     @Override

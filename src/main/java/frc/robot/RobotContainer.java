@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.subsystemCommands.chassis.DefaultDrive;
+import frc.robot.commands.subsystemCommands.chassis.autonomous.speedReduction.SpeedReductionStraight;
 import frc.robot.resources.TecbotSensors;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SharedMotors;
@@ -48,7 +49,6 @@ public class RobotContainer {
      * The container for the robot.  Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
-        SmartDashboard.putData("Auto Mode", m_chooser);
 
         driveTrain = new DriveTrain();
         climber = new Climber();
@@ -64,6 +64,7 @@ public class RobotContainer {
 
         // configureButtonBindings() called after instantiating all subsystems and
         // RobotContainer constructor.
+
     }
 
     /**

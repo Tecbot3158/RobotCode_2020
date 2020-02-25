@@ -120,7 +120,7 @@ public class TecbotEncoder implements CounterBase {
 
         if (talonEncoder != null) {
 
-            return isInverted ? -1 : 1 * talonEncoder.getEncPosition();
+            return (isInverted ? -1 : 1) * talonEncoder.getEncPosition();
 
         }
 
@@ -128,6 +128,12 @@ public class TecbotEncoder implements CounterBase {
 
         return 0;
 
+    }
+    public double getSparkRaw(){
+        if(talonEncoder != null)
+            return (isInverted() ? -1:1) *talonEncoder.getSparkEncPosition();
+        else
+            return 0;
     }
 
     public void setEncoderPosition(int value) {
@@ -192,10 +198,11 @@ public class TecbotEncoder implements CounterBase {
     }
 
     public void doDefaultSRXConfig() {
-        talonEncoder.getTalonSRX().configFactoryDefault();
-        talonEncoder.getTalonSRX().setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1);
-        talonEncoder.getTalonSRX().configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
-
+        if(talonEncoder.getType() == TecbotSpeedController.TypeOfMotor.TALON_SRX) {
+            talonEncoder.getTalonSRX().configFactoryDefault();
+            talonEncoder.getTalonSRX().setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1);
+            talonEncoder.getTalonSRX().configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+        }
     }
 
     public void setInverted(boolean inverted) {

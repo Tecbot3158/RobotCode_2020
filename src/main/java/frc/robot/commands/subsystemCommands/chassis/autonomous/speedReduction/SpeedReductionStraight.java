@@ -41,11 +41,14 @@ public class SpeedReductionStraight extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        System.out.println("target"+target);
+        System.out.println(Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(TecbotSensors.SubsystemType.LEFT_CHASSIS));
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        Robot.getRobotContainer().getDriveTrain().stop();
     }
 
     // Returns true when the command should end.

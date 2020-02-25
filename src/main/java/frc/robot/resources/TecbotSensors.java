@@ -148,11 +148,11 @@ public class TecbotSensors {
     public double getEncoderRaw(SubsystemType subsystem) {
         switch (subsystem) {
             case RIGHT_CHASSIS:
-                return rightChassisEncoder.getRaw();
+                return rightChassisEncoder.getSparkRaw();
             case LEFT_CHASSIS:
-                return leftChassisEncoder.getRaw();
+                return leftChassisEncoder.getSparkRaw();
             case MIDDLE_CHASSIS:
-                return middleChassisEncoder.getRaw();
+                return middleChassisEncoder.getSparkRaw();
             case SHOOTER:
                 return RobotMap.SHOOTER_ENCODER_IN_RIGHT_MOTOR ?
                         sharedMotorsRightEncoder.getRaw() :

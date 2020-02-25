@@ -44,7 +44,7 @@ public class RobotConfigurator {
     public static TecbotEncoder buildEncoder(TecbotSpeedController speedController, int a, int b) {
         if (speedController != null) {
 
-            if (speedController.getType() == TypeOfMotor.TALON_SRX)
+            if (speedController.getType() == TypeOfMotor.TALON_SRX || speedController.getType() == TypeOfMotor.CAN_SPARK_BRUSHLESS)
                 return new TecbotEncoder(speedController);
 
         }

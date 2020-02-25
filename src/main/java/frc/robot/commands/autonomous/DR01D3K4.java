@@ -27,18 +27,21 @@ public class DR01D3K4 extends SequentialCommandGroup {
     public DR01D3K4() {
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
-        super(new ShootFromInitiationLineCompensate(),
-                new WaitCommand(4),
-                new TransportationSystemShootingSpeed(),
-                new SpeedReductionTurn(0, .5),
-                RobotActionsCatalog.getInstance().getRearIntakeAndTransport(),
-                new SpeedReductionStraight(-3.4,.7,0),
-                RobotActionsCatalog.getInstance().getIntakesAndTransportOff(),
-                new SpeedReductionStraight(2.4,.7,0),
-                new SpeedReductionTurn(-15,.5),
-                new ShootFromTrenchCompensate(),
-                new WaitCommand(4),
-                new TransportationSystemShootingSpeed()
+        super(//new ShootFromInitiationLineCompensate(),
+                //new WaitCommand(4),
+                //new TransportationSystemShootingSpeed(),
+                new SpeedReductionTurn(180, .5)
+                //RobotActionsCatalog.getInstance().getRearIntakeAndTransport(),
+                , new WaitCommand(1),
+                new SpeedReductionStraight(3.4,.5,180),
+                new WaitCommand(1),
+                //RobotActionsCatalog.getInstance().getIntakesAndTransportOff(),
+                new SpeedReductionStraight(-2.4,.5,180),
+                new WaitCommand(1),
+                new SpeedReductionTurn(-15,.5)
+                //new ShootFromTrenchCompensate(),
+                //new WaitCommand(4),
+                //new TransportationSystemShootingSpeed()
         );
     }
 }

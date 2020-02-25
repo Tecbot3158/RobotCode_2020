@@ -154,7 +154,14 @@ public class DriveTrain extends SubsystemBase {
 
         maxPower = Math.clamp(maxPower, 0, 1);
 
-        double diffAngle = Robot.getRobotContainer().getTecbotSensors().getYaw() - target;
+        double diffAngle = target -Robot.getRobotContainer().getTecbotSensors().getYaw() ;
+
+        if (diffAngle > 180) {
+            diffAngle = diffAngle - 360;
+        } else if (diffAngle < -180) {
+            diffAngle = -diffAngle + 360;
+        }
+
 
         double turnPower = Math.clamp((diffAngle / TecbotConstants.CHASSIS_TURN_MAX_DISTANCE), -maxPower, maxPower);
 
@@ -164,7 +171,7 @@ public class DriveTrain extends SubsystemBase {
         SmartDashboard.putNumber("Difference Abs", diffAngle);
 
         if (diffAbsAngle >= TecbotConstants.CHASSIS_TURN_ARRIVE_OFFSET) {
-            drive(0, turnPower);
+            drive(turnPower, 0);
         }
         if (diffAbsAngle < TecbotConstants.CHASSIS_TURN_ARRIVE_OFFSET) {
             drive(0, 0);
@@ -192,12 +199,13 @@ public class DriveTrain extends SubsystemBase {
     public boolean moveStraight(double target, double maxPower, double targetAngle) {
         maxPower = Math.clamp(maxPower, 0, 1);
 
-        double deltaEncoder = Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(TecbotSensors.SubsystemType.LEFT_CHASSIS) - target;
+        double deltaEncoder = target - Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(TecbotSensors.SubsystemType.LEFT_CHASSIS) ;
         double power = Math.clamp(deltaEncoder / TecbotConstants.CHASSIS_STRAIGHT_MAX_DISTANCE, -maxPower, maxPower);
 
         double deltaAngle = targetAngle - Robot.getRobotContainer().getTecbotSensors().getYaw();
         double turnCorrection = deltaAngle * TecbotConstants.TURN_CORRECTION;
 
+        System.out.println("deltaAngle " + deltaAngle);
         double diffAbs = Math.abs(deltaEncoder);
         if (diffAbs < TecbotConstants.CHASSIS_STRAIGHT_ARRIVE_OFFSET) {
             stop();
