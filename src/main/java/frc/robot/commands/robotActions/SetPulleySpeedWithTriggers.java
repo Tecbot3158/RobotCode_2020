@@ -7,6 +7,7 @@
 
 package frc.robot.commands.robotActions;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
 import frc.robot.Robot;
@@ -23,14 +24,14 @@ public class SetPulleySpeedWithTriggers extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        SmartDashboard.putBoolean("PULLEY", true);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double leftJoystickY = OI.getInstance().getCopilot().getLeftAxisY();
         double rightJoystickY = OI.getInstance().getCopilot().getRightAxisY();
-        Robot.getRobotContainer().getClimber().setPulleySpeed(leftJoystickY, rightJoystickY);
+        Robot.getRobotContainer().getClimber().setPulleySpeed(rightJoystickY);
     }
 
     // Called once the command ends or is interrupted.

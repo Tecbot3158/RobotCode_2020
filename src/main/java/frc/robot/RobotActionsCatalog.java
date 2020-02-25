@@ -20,6 +20,8 @@ import frc.robot.commands.subsystemCommands.shooter.ShooterOff;
 public class RobotActionsCatalog {
     private static RobotActionsCatalog instance;
 
+
+
     private TransportationSystemShootingSpeed transportationSystemShootingSpeed;
 
     private FrontOutTakeAndTransport frontOutTakeAndTransport;

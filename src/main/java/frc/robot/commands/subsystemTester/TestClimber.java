@@ -40,7 +40,7 @@ public class TestClimber extends CommandBase {
     @Override
     public void execute() {
         Robot.getRobotContainer().getClimber().setWinchSpeed(OI.getInstance().getPilot().getLeftAxisY(), OI.getInstance().getPilot().getRightAxisY());
-        Robot.getRobotContainer().getClimber().setPulleySpeed(OI.getInstance().getPilot().getLeftTrigger(), OI.getInstance().getPilot().getRightTrigger());
+        Robot.getRobotContainer().getClimber().setPulleySpeed(OI.getInstance().getPilot().getTriggers());
         System.out.println("Testing climber");
     }
 

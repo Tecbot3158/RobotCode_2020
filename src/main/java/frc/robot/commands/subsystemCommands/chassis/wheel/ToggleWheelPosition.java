@@ -7,8 +7,10 @@
 
 package frc.robot.commands.subsystemCommands.chassis.wheel;
 
+import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 import frc.robot.subsystems.chassis.DriveTrain;
 
 public class ToggleWheelPosition extends InstantCommand {
@@ -17,9 +19,16 @@ public class ToggleWheelPosition extends InstantCommand {
 
     @Override
     public void initialize() {
-        if(Robot.getRobotContainer().getDriveTrain().getDragonFlyWheelState() == DriveTrain.WheelState.Lowered)
+        if (Robot.getRobotContainer().getDriveTrain().getDragonFlyWheelState() == DriveTrain.WheelState.Lowered) {
+            Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(CANSparkMax.IdleMode.kBrake, RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_PORT);
+            Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(CANSparkMax.IdleMode.kBrake, RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_PORTS);
+            Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(CANSparkMax.IdleMode.kBrake, RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_PORTS);
             Robot.getRobotContainer().getDriveTrain().setDragonFlyWheelState(DriveTrain.WheelState.Raised);
-        else{
+        } else {
+            Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(CANSparkMax.IdleMode.kCoast, RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_PORT);
+            Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(CANSparkMax.IdleMode.kCoast, RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_PORTS);
+            Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(CANSparkMax.IdleMode.kCoast, RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_PORTS);
+
             Robot.getRobotContainer().getDriveTrain().setDragonFlyWheelState(DriveTrain.WheelState.Lowered);
             Robot.getRobotContainer().getDriveTrain().setDefaultDrive();
         }

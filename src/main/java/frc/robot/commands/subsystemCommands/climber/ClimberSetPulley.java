@@ -16,11 +16,10 @@ public class ClimberSetPulley extends CommandBase {
      * Creates a new ClimberPulleyCommand.
      */
     private final Climber m_climber = Robot.getRobotContainer().getClimber();
-    private double pulleyPowerRight, pulleyPowerLeft;
+    private double pulleyPowerRight;
 
-    public ClimberSetPulley(double powerLeft, double powerRight) {
+    public ClimberSetPulley(double powerRight) {
         pulleyPowerRight = powerRight;
-        pulleyPowerLeft = powerLeft;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(m_climber);
     }
@@ -33,7 +32,7 @@ public class ClimberSetPulley extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_climber.setPulleySpeed(pulleyPowerLeft, pulleyPowerRight);
+        m_climber.setPulleySpeed(pulleyPowerRight);
     }
 
     // Called once the command ends or is interrupted.

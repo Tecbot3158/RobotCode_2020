@@ -82,9 +82,9 @@ public class TecbotConstants {
     public static final double K_METERS_TO_ENCODER = (float) (30000 / (.2034 * Math.PI));
 
     //SHOOTER STARTS
-    public static final double SHOOTER_TRENCH_SHOOTING_SPEED = 0.97;
+    public static final double SHOOTER_TRENCH_SHOOTING_SPEED = 0.75;
     public static final double SHOOTER_INITIATION_LINE_SHOOTING_SPEED = 0.97;
-    public static final double SHOOTER_TARGET_ZONE_SHOOTING_SPEED = 0.97;
+    public static final double SHOOTER_TARGET_ZONE_SHOOTING_SPEED = 0.75;
     public static final double SHOOTER_OFF = 0;
 
     //POWER SH

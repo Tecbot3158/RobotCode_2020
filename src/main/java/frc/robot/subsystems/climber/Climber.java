@@ -74,21 +74,20 @@ public class Climber extends SubsystemBase {
      * @param rightWinchSpeed speed to set to the left winch motors.
      */
     public void setRightWinchSpeed(double rightWinchSpeed) {
-        leftWinchMotors.setAll(rightWinchSpeed);
+        rightWinchMotors.setAll(rightWinchSpeed);
     }
 
     /**
-     * @param pulleyPowerRight Requires double for right pulley speed
-     * @param pulleyPowerLeft  Requires double for left pulley speed
+     * @param power  Requires double for pulley speed
      */
-    public void setPulleySpeed(double pulleyPowerLeft, double pulleyPowerRight) {
+    public void setPulleySpeed(double power) {
         //reel, cannot do this if input is negative
-        Robot.getRobotContainer().getSharedMotors().setAll(pulleyPowerLeft, pulleyPowerRight);
+        Robot.getRobotContainer().getSharedMotors().setAll(power, power);
     }
 
     public void addToXCounter() {
         setxWhenPressedCount(getxWhenPressedCount() + 1);
-        if (getxWhenPressedCount() == 2) shrekPowerHasBeenActivated = true;
+        //if (getxWhenPressedCount() == 2) shrekPowerHasBeenActivated = true;
     }
 
     public int getxWhenPressedCount() {

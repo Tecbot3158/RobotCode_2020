@@ -257,7 +257,8 @@ public class TecbotController {
         joystickName = pilot.getName().toLowerCase();
 
         controllerType = TypeOfController.XBOX;
-        if (joystickName.contains("wireless controller") && !joystickName.contains("xbox") ) controllerType = TypeOfController.PS4;
+        if (joystickName.contains("wireless controller") && !joystickName.contains("xbox"))
+            controllerType = TypeOfController.PS4;
         //if (joystickName.contains("xbox"))
 
         if (pilot == null) DriverStation.reportWarning("Joystick not found (Tecbot Controller)", true);
