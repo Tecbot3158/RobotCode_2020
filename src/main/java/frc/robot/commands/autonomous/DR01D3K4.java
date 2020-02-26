@@ -11,16 +11,18 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.robotActions.shootCompensateAndTransport.ShootFromInitiationLineCompensate;
 import frc.robot.commands.subsystemCommands.chassis.autonomous.speedReduction.SpeedReductionTurn;
+import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSolenoidLowered;
 import frc.robot.commands.subsystemCommands.pctower.TransportationSystemOff;
 import frc.robot.commands.subsystemCommands.pctower.TransportationSystemShootingSpeed;
 import frc.robot.commands.subsystemCommands.shooter.ShooterOff;
 
 public class DR01D3K4 extends SequentialCommandGroup {
     /**
-     * Creates a new Sequential_CommandGroup.
+     * 6 power cells auto.
      */
     public DR01D3K4() {
-        super(  new ShootFromInitiationLineCompensate(),
+        super(  new FrontIntakeSolenoidLowered(),
+                new ShootFromInitiationLineCompensate(),
                 new TransportationSystemShootingSpeed(),
                 new WaitCommand(3),
                 new TransportationSystemOff(),

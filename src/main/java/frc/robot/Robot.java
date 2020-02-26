@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import com.revrobotics.CANSparkMax;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -22,8 +21,6 @@ import frc.robot.commands.subsystemCommands.chassis.autonomous.speedReduction.Sp
 import frc.robot.commands.subsystemCommands.chassis.autonomous.speedReduction.SpeedReductionTurn;
 import frc.robot.commands.subsystemCommands.intakes.DefaultCommandIntakes;
 import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSetRaw;
-import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSolenoidOn;
-import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeOff;
 import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeSolenoidOff;
 import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeSolenoidOn;
 import frc.robot.commands.subsystemCommands.pctower.DefaultCommandTransportationSystem;
@@ -104,8 +101,6 @@ public class Robot extends TimedRobot {
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
         getRobotContainer().getTecbotSensors().sensorsPeriodic();
-        SmartDashboard.putNumber("gyro", getRobotContainer().getTecbotSensors().getYaw());
-        SmartDashboard.putBoolean("isSpeed", getRobotContainer().getDriveTrain().getTransmissionMode() == DriveTrain.TransmissionMode.speed);
     }
 
     /**
@@ -141,7 +136,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        SmartDashboard.putNumber("XCOUNT", getRobotContainer().getClimber().getxWhenPressedCount());
         SmartDashboard.putBoolean("PULLEY", false);
 
 
@@ -153,11 +147,6 @@ public class Robot extends TimedRobot {
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }
-
-
-        Robot.getRobotContainer().getIntake().frontIntakeSolenoidLowered();
-        Robot.getRobotContainer().getIntake().rearIntakeOff();
-
 
         getRobotContainer().getDriveTrain().setDefaultCommand(new DefaultDrive());
         getRobotContainer().getIntake().setDefaultCommand(new DefaultCommandIntakes());
@@ -175,6 +164,7 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
         OI.getInstance().getPilot().run();
         SmartDashboard.putNumber("gyro", getRobotContainer().getTecbotSensors().getYaw());
+        SmartDashboard.putBoolean("isSpeed", getRobotContainer().getDriveTrain().getTransmissionMode() == DriveTrain.TransmissionMode.speed);
 
 
     }

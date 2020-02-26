@@ -9,7 +9,7 @@ package frc.robot.commands.robotActions.mixed;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeIn;
-import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSolenoidOn;
+import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSolenoidRaised;
 import frc.robot.commands.subsystemCommands.pctower.TransportationSystemForward;
 import frc.robot.commands.subsystemCommands.shooter.ShootFromInitiationLine;
 
@@ -24,7 +24,7 @@ public class FrontIntakeShootInitiationLineTransport extends SequentialCommandGr
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
         super(
-                new FrontIntakeSolenoidOn(),
+                new FrontIntakeSolenoidRaised(),
                 new FrontIntakeIn(),
                 new ShootFromInitiationLine(),
                 new TransportationSystemForward()

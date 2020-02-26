@@ -9,7 +9,7 @@ package frc.robot.commands.robotActions;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeOff;
-import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSolenoidOn;
+import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSolenoidRaised;
 import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeOff;
 import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeSolenoidOn;
 import frc.robot.commands.subsystemCommands.pctower.TransportationSystemOff;
@@ -29,7 +29,7 @@ public class SetAllSystemsInClimbingMode extends SequentialCommandGroup {
 
                 //intakes
                 new FrontIntakeOff(),
-                new FrontIntakeSolenoidOn(),
+                new FrontIntakeSolenoidRaised(),
                 new RearIntakeOff(),
                 new RearIntakeSolenoidOn(),
 

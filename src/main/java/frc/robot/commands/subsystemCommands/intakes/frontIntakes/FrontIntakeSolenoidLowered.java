@@ -13,8 +13,8 @@ import frc.robot.Robot;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class FrontIntakeSolenoidOn extends InstantCommand {
-  public FrontIntakeSolenoidOn() {
+public class FrontIntakeSolenoidLowered extends InstantCommand {
+  public FrontIntakeSolenoidLowered() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.getRobotContainer().getIntake());
   }
@@ -22,6 +22,6 @@ public class FrontIntakeSolenoidOn extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.getRobotContainer().getIntake().frontIntakeSolenoidRaised();
+    Robot.getRobotContainer().getIntake().frontIntakeSolenoidLowered();
   }
 }

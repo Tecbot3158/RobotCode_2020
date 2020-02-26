@@ -9,7 +9,6 @@ package frc.robot.commands.robotActions.intakeTransport;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeOut;
-import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSolenoidOn;
 import frc.robot.commands.subsystemCommands.pctower.TransportationSystemReverse;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
