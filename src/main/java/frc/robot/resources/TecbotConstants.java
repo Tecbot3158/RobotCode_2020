@@ -141,7 +141,7 @@ public class TecbotConstants {
 
     //TRANSPORTATION SYSTEMS STARTS
     public static final double TRANSPORTATION_SYSTEM_POWER = 0.4;
-    public static final double TRANSPORTATION_SYSTEM_SHOOTING_POWER = 0.4;
+    public static final double TRANSPORTATION_SYSTEM_SHOOTING_POWER = 0.7;
     public static final double TRANSPORTATION_SYSTEM_REVERSE_TIME_COMPENSATION_IN_SECONDS = 0.25;
     //TRANSPORTATION SYSTEMS ENDS
 

@@ -182,7 +182,7 @@ public class TecbotSpeedController {
     }
 
     /*
-     * WARNING: this will only work with TALON SRX
+     * WARNING: this will only work with TALON SRX and Spark Max
      *
      */
     public void setBrakeMode(boolean doBrake) {

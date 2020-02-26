@@ -203,6 +203,12 @@ public class DriveTrain extends SubsystemBase {
         double power = Math.clamp(deltaEncoder / TecbotConstants.CHASSIS_STRAIGHT_MAX_DISTANCE, -maxPower, maxPower);
 
         double deltaAngle = targetAngle - Robot.getRobotContainer().getTecbotSensors().getYaw();
+        if (deltaAngle > 180) {
+            deltaAngle = deltaAngle - 360;
+        } else if (deltaAngle < -180) {
+            deltaAngle = -deltaAngle + 360;
+        }
+
         double turnCorrection = deltaAngle * TecbotConstants.TURN_CORRECTION;
 
         System.out.println("deltaAngle " + deltaAngle);
@@ -500,23 +506,17 @@ public class DriveTrain extends SubsystemBase {
     }
 
     /**
-     * @param mode  {@link CANSparkMax.IdleMode} to set to specified motors
+     * Warning: this will only work fot spark max
+     * @param doBreak True for setting the spark to brake
      * @param ports motor ports to be set to given mode.
      */
-    public void setCANSparkMaxMotorsState(CANSparkMax.IdleMode mode, int... ports) {
+    public void setCANSparkMaxMotorsState(boolean doBreak, int... ports) {
         for (int i : ports) {
             System.out.println(i);
-            CANSparkMax canSparkMax = null;
-            try {
-                canSparkMax = getSpecificMotor(i).getCANSparkMax();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-                DriverStation.reportWarning("CAN Spark Max not found @" + ports + " ports.", true);
+            TecbotSpeedController spark = getSpecificMotor(i);
+            if(spark != null){
+                spark.setBrakeMode(doBreak);
             }
-            if (canSparkMax != null)
-                canSparkMax.setIdleMode(mode);
-            else DriverStation.reportWarning("no can spark max found", true);
         }
     }
-
 }

@@ -11,15 +11,23 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.autonomous.CollectPowerCellsGoBackShoot;
+import frc.robot.commands.autonomous.DR01D3K4;
+import frc.robot.commands.subsystemCommands.chassis.autonomous.speedReduction.SpeedReductionStraight;
+import frc.robot.commands.subsystemCommands.chassis.autonomous.speedReduction.SpeedReductionTurn;
 import frc.robot.commands.subsystemCommands.intakes.DefaultCommandIntakes;
+import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSetRaw;
 import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSolenoidOn;
 import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeOff;
 import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeSolenoidOff;
 import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeSolenoidOn;
 import frc.robot.commands.subsystemCommands.pctower.DefaultCommandTransportationSystem;
+import frc.robot.commands.subsystemCommands.pctower.TransportationSystemSetRaw;
 import frc.robot.commands.subsystemCommands.powerCellCounter.DefaultCommandPowerCellCounter;
 import frc.robot.commands.subsystemCommands.chassis.DefaultDrive;
 import frc.robot.commands.subsystemTester.*;
@@ -40,6 +48,8 @@ public class Robot extends TimedRobot {
     public static int currentMotorBeingTested = 0;
     public static int currentSecondMotorBeingTested = 0;
 
+    SendableChooser<Command> m_chooser = new SendableChooser<>();
+
     /**
      * This function is run when the robot is first started up and should be used for any
      * initialization code.
@@ -53,17 +63,26 @@ public class Robot extends TimedRobot {
         m_robotContainer = new RobotContainer();
         //coast.
         if (RobotMap.DRIVE_TRAIN_DRAGON_FLY_IS_AVAILABLE)
-            getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(CANSparkMax.IdleMode.kCoast);
+            getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(false, RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_PORT);
 
         getRobotContainer().configureButtonBindings();
         getRobotContainer().getTecbotSensors().initializeAllSensors();
+        getRobotContainer().getTecbotSensors().getTecbotGyro().reset();
 
-        Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(CANSparkMax.IdleMode.kBrake, RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_PORT);
-        Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(CANSparkMax.IdleMode.kBrake, RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_PORTS);
-        Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(CANSparkMax.IdleMode.kBrake, RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_PORTS);
+        Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(true, RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_PORT);
+        Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(true, RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_PORTS);
+        Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(true, RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_PORTS);
 
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
         camera.setResolution(640, 480);
+
+        m_chooser.addOption("Move 3 m", new SpeedReductionStraight(3,.75,0));
+        m_chooser.addOption("Rotate 90 degrees", new SpeedReductionTurn(90,.5));
+        m_chooser.addOption("El chido", new DR01D3K4());
+        m_chooser.addOption("Collect, go back and shoot", new CollectPowerCellsGoBackShoot());
+        m_chooser.addOption("Transport", new SequentialCommandGroup(new FrontIntakeSetRaw(.75),
+                new TransportationSystemSetRaw(.5)));
+        SmartDashboard.putData("Auto Mode", m_chooser);
 
         //camera.setExposureManual(79);
 
@@ -106,7 +125,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         CommandScheduler.getInstance().run();
-        m_autonomousCommand = getRobotContainer().getAutonomousCommand();
+        m_autonomousCommand = m_chooser.getSelected();
         // schedule the autonomous command (example)
         if (m_autonomousCommand != null) {
             m_autonomousCommand.schedule();
@@ -144,6 +163,8 @@ public class Robot extends TimedRobot {
         getRobotContainer().getIntake().setDefaultCommand(new DefaultCommandIntakes());
         getRobotContainer().getTransportationSystem().setDefaultCommand(new DefaultCommandTransportationSystem());
         getRobotContainer().getPowerCellCounter().setDefaultCommand(new DefaultCommandPowerCellCounter());
+
+        RobotActionsCatalog.getInstance().getAllSystemsOff().schedule();
     }
 
     /**

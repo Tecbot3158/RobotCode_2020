@@ -20,14 +20,14 @@ public class ToggleWheelPosition extends InstantCommand {
     @Override
     public void initialize() {
         if (Robot.getRobotContainer().getDriveTrain().getDragonFlyWheelState() == DriveTrain.WheelState.Lowered) {
-            Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(CANSparkMax.IdleMode.kBrake, RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_PORT);
-            Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(CANSparkMax.IdleMode.kBrake, RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_PORTS);
-            Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(CANSparkMax.IdleMode.kBrake, RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_PORTS);
+            Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(true, RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_PORT);
+            Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(true, RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_PORTS);
+            Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(true, RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_PORTS);
             Robot.getRobotContainer().getDriveTrain().setDragonFlyWheelState(DriveTrain.WheelState.Raised);
         } else {
-            Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(CANSparkMax.IdleMode.kCoast, RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_PORT);
-            Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(CANSparkMax.IdleMode.kCoast, RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_PORTS);
-            Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(CANSparkMax.IdleMode.kCoast, RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_PORTS);
+            Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(false, RobotMap.DRIVE_TRAIN_MIDDLE_WHEEL_PORT);
+            Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(false, RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_PORTS);
+            Robot.getRobotContainer().getDriveTrain().setCANSparkMaxMotorsState(false, RobotMap.DRIVE_TRAIN_RIGHT_CHASSIS_PORTS);
 
             Robot.getRobotContainer().getDriveTrain().setDragonFlyWheelState(DriveTrain.WheelState.Lowered);
             Robot.getRobotContainer().getDriveTrain().setDefaultDrive();
