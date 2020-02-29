@@ -14,20 +14,27 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.autonomous.CollectPowerCellsGoBackShoot;
 import frc.robot.commands.autonomous.DR01D3K4;
+import frc.robot.commands.autonomous.SHOOT_3_PCs_N_MOVE;
+import frc.robot.commands.robotActions.ClimberLosenRopeForSpecificTime;
 import frc.robot.commands.subsystemCommands.chassis.autonomous.speedReduction.SpeedReductionStraight;
 import frc.robot.commands.subsystemCommands.chassis.autonomous.speedReduction.SpeedReductionTurn;
+import frc.robot.commands.subsystemCommands.chassis.drivingModes.ChassisSetSpeed;
+import frc.robot.commands.subsystemCommands.climber.ClimberDisengageGearClimbingMode;
+import frc.robot.commands.subsystemCommands.climber.ClimberEngageGearShooterMode;
 import frc.robot.commands.subsystemCommands.intakes.DefaultCommandIntakes;
 import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSetRaw;
-import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeSolenoidOff;
-import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeSolenoidOn;
+import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSolenoidLowered;
+import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSolenoidRaised;
 import frc.robot.commands.subsystemCommands.pctower.DefaultCommandTransportationSystem;
 import frc.robot.commands.subsystemCommands.pctower.TransportationSystemSetRaw;
 import frc.robot.commands.subsystemCommands.powerCellCounter.DefaultCommandPowerCellCounter;
 import frc.robot.commands.subsystemCommands.chassis.DefaultDrive;
 import frc.robot.commands.subsystemTester.*;
+import frc.robot.resources.TecbotConstants;
 import frc.robot.subsystems.chassis.DriveTrain;
 
 /**
@@ -73,12 +80,13 @@ public class Robot extends TimedRobot {
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
         camera.setResolution(640, 480);
 
-        m_chooser.addOption("Move 3 m", new SpeedReductionStraight(3,.75,0));
-        m_chooser.addOption("Rotate 90 degrees", new SpeedReductionTurn(90,.5));
+        m_chooser.addOption("Move 3 m", new SpeedReductionStraight(3, .75, 0));
+        m_chooser.addOption("Rotate 90 degrees", new SpeedReductionTurn(90, .5));
         m_chooser.addOption("El chido", new DR01D3K4());
         m_chooser.addOption("Collect, go back and shoot", new CollectPowerCellsGoBackShoot());
         m_chooser.addOption("Transport", new SequentialCommandGroup(new FrontIntakeSetRaw(.75),
                 new TransportationSystemSetRaw(.5)));
+        m_chooser.addOption("Shoot 3PCs n' Move", new SHOOT_3_PCs_N_MOVE());
         SmartDashboard.putData("Auto Mode", m_chooser);
 
         //camera.setExposureManual(79);
@@ -125,6 +133,7 @@ public class Robot extends TimedRobot {
         if (m_autonomousCommand != null) {
             m_autonomousCommand.schedule();
         }
+        new ChassisSetSpeed().schedule();
     }
 
     /**
@@ -152,6 +161,7 @@ public class Robot extends TimedRobot {
         getRobotContainer().getIntake().setDefaultCommand(new DefaultCommandIntakes());
         getRobotContainer().getTransportationSystem().setDefaultCommand(new DefaultCommandTransportationSystem());
         getRobotContainer().getPowerCellCounter().setDefaultCommand(new DefaultCommandPowerCellCounter());
+        new ClimberEngageGearShooterMode().schedule();
 
         RobotActionsCatalog.getInstance().getAllSystemsOff().schedule();
     }
@@ -165,7 +175,8 @@ public class Robot extends TimedRobot {
         OI.getInstance().getPilot().run();
         SmartDashboard.putNumber("gyro", getRobotContainer().getTecbotSensors().getYaw());
         SmartDashboard.putBoolean("isSpeed", getRobotContainer().getDriveTrain().getTransmissionMode() == DriveTrain.TransmissionMode.speed);
-
+        SmartDashboard.putString("DT_MODE", getRobotContainer().getDriveTrain().getCurrentDrivingMode().toString());
+        SmartDashboard.putNumber("x_count", getRobotContainer().getClimber().getxWhenPressedCount());
 
     }
 
@@ -174,16 +185,23 @@ public class Robot extends TimedRobot {
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
 
-    }
+        CommandScheduler.getInstance().clearButtons();
+        OI.getInstance().getPilot().clearPOVCommands();
 
-    /**
-     * This function is called periodically during test mode.
-     */
-    @Override
-    public void testPeriodic() {
-        CommandScheduler.getInstance().run();
+        new ClimberLosenRopeForSpecificTime().withTimeout(TecbotConstants.WINCH_LOOSEN_ROPE_DEFAULT_TIME);
 
-        System.out.println(OI.getInstance().getPilot().getTriggers());
+        SmartDashboard.putData(new ClimberDisengageGearClimbingMode());
+        SmartDashboard.putData(new ClimberEngageGearShooterMode());
+        double rightCopilotY = OI.getInstance().getCopilot().getRightAxisY();
+        SmartDashboard.putData(new TestClimber());
+        SmartDashboard.putData(new FrontIntakeSolenoidRaised());
+        SmartDashboard.putData(new FrontIntakeSolenoidLowered());
+        //SmartDashboard.putData(new InstantCommand(getRobotContainer));
+
+
+        /*
+
+        //System.out.println(OI.getInstance().getPilot().getTriggers());
         SmartDashboard.putData(new TestClimber());
         SmartDashboard.putData(new TestIntake());
         SmartDashboard.putData(new TestPCT());
@@ -200,8 +218,54 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData(new TestRightClimber());
 
         //SmartDashboard.putData(RobotActionsCatalog.getInstance().getFrontOutTakeAndTransport());
-        SmartDashboard.putData(new RearIntakeSolenoidOn());
-        SmartDashboard.putData(new RearIntakeSolenoidOff());
+        SmartDashboard.putData(new RearIntakeSolenoidRaised());
+        SmartDashboard.putData(new RearIntakeSolenoidLowered());
+
+        //solenoids
+
+        //DriveTrain
+        SmartDashboard.putData(new ChassisToggleTransmissionMode());
+        SmartDashboard.putNumberArray("DT_TRANSM", Math.convertIntArrayToDoubleArray(RobotMap.DRIVE_TRAIN_TRANSMISSION_SOLENOID_PORTS));
+        SmartDashboard.putData(new ToggleWheelPosition());
+        SmartDashboard.putNumberArray("DT_WHEEL", Math.convertIntArrayToDoubleArray(RobotMap.DRIVE_TRAIN_WHEEL_SOLENOID_PORTS));
+        SmartDashboard.putData(new ClimberDisengageGear());
+        SmartDashboard.putNumberArray("CL_GEARDIS", Math.convertIntArrayToDoubleArray(RobotMap.CLIMBER_GEAR_DISENGAGER_SOLENOID_PORTS));
+
+        //front intake
+        SmartDashboard.putData(new FrontIntakeSolenoidLowered());
+        SmartDashboard.putData(new FrontIntakeSolenoidRaised());
+        SmartDashboard.putNumberArray("FI_SOL", Math.convertIntArrayToDoubleArray(RobotMap.FRONT_INTAKE_SOLENOID_PORTS));
+
+        //rear intake
+        SmartDashboard.putData(new RearIntakeSolenoidRaised());
+        SmartDashboard.putData(new RearIntakeSolenoidLowered());
+        SmartDashboard.putNumberArray("RI_SOL", Math.convertIntArrayToDoubleArray(RobotMap.REAR_INTAKE_SOLENOID_PORTS));
+
+        OI.getInstance().getCopilot().whenPressed(TecbotController.ButtonType.X, new InstantCommand(getRobotContainer().getClimber()::addToXCounter));
+
+
+
+         */
+
+        /*
+        getRobotContainer().getDriveTrain().setDefaultCommand(new DefaultDrive());
+        getRobotContainer().getIntake().setDefaultCommand(new DefaultCommandIntakes());
+        getRobotContainer().getTransportationSystem().setDefaultCommand(new DefaultCommandTransportationSystem());
+        getRobotContainer().getPowerCellCounter().setDefaultCommand(new DefaultCommandPowerCellCounter());
+
+        RobotActionsCatalog.getInstance().getAllSystemsOff().schedule();
+
+         */
+    }
+
+    /**
+     * This function is called periodically during test mode.
+     */
+    @Override
+    public void testPeriodic() {
+        CommandScheduler.getInstance().run();
+
+        SmartDashboard.putNumber("XCOUNT", getRobotContainer().getClimber().getxWhenPressedCount());
 
 
     }

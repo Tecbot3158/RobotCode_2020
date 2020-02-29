@@ -208,7 +208,7 @@ public class TecbotController {
      * {@link #getRightAxisY()}
      * ) methods support.
      */
-    private enum TypeOfController {
+    public enum TypeOfController {
         PS4,
         XBOX
     }
@@ -257,9 +257,24 @@ public class TecbotController {
         joystickName = pilot.getName().toLowerCase();
 
         controllerType = TypeOfController.XBOX;
-        if (joystickName.contains("wireless controller") && !joystickName.contains("xbox"))
-            controllerType = TypeOfController.PS4;
+        //if (joystickName.contains("wireless controller") && !joystickName.contains("xbox"))
+        //    controllerType = TypeOfController.PS4;
         //if (joystickName.contains("xbox"))
+
+        if (pilot == null) DriverStation.reportWarning("Joystick not found (Tecbot Controller)", true);
+        else setButtons();
+        if (controllerType == null && pilot != null)
+            DriverStation.reportWarning("Controller not identified, some methods will return 0.", false);
+        haptics = new Haptics(pilot);
+    }
+
+    public TecbotController(int port, TypeOfController typeOfController) {
+
+        setPilotPort(port);
+        pilot = new Joystick(getPilotPort());
+        joystickName = pilot.getName().toLowerCase();
+
+        controllerType = typeOfController;
 
         if (pilot == null) DriverStation.reportWarning("Joystick not found (Tecbot Controller)", true);
         else setButtons();
@@ -766,12 +781,14 @@ public class TecbotController {
             if from code a group command is manually scheduled
             and is going to be scheduled again.
             */
+
+            /*
             clearGroupedCommands(
                     previousPovWhenPressedCommand,
                     previousPovWhenReleasedCommand,
                     previousPovWhileHeldCommand,
                     currentPovWhenPressedCommand
-            );
+            );*/
         }
         //this will just schedule the whileHeld command,
         //which should have the isFinished true.

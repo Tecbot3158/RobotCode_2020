@@ -24,7 +24,7 @@ public class Intake extends SubsystemBase {
     TecbotMotorList rearMotors;
 
     ArrayList<DoubleSolenoid> frontSolenoids;
-    ArrayList<DoubleSolenoid> rearSolenoids;
+    private ArrayList<DoubleSolenoid> rearSolenoids;
 
     static HashMap<Color, Integer> controlPanelColors;
     static HashMap<Integer, Color> controlPanelIDs;
@@ -43,11 +43,11 @@ public class Intake extends SubsystemBase {
 
         frontMotors = RobotConfigurator.buildMotorList(RobotMap.FRONT_INTAKE_MOTOR_PORTS, RobotMap.FRONT_INTAKE_INVERTED_MOTOR_PORTS, RobotMap.FRONT_INTAKE_MOTOR_TYPES);
 
-        rearMotors = RobotConfigurator.buildMotorList(RobotMap.REAR_INTAKE_MOTOR_PORTS, RobotMap.REAR_INTAKE_INVERTED_MOTOR_PORTS, RobotMap.REAR_INTAKE_MOTOR_TYPES);
+        //rearMotors = RobotConfigurator.buildMotorList(RobotMap.REAR_INTAKE_MOTOR_PORTS, RobotMap.REAR_INTAKE_INVERTED_MOTOR_PORTS, RobotMap.REAR_INTAKE_MOTOR_TYPES);
 
         frontSolenoids.add(RobotConfigurator.buildDoubleSolenoid(RobotMap.FRONT_INTAKE_SOLENOID_PORTS));
 
-        rearSolenoids.add(RobotConfigurator.buildDoubleSolenoid(RobotMap.REAR_INTAKE_SOLENOID_PORTS));
+        //rearSolenoids.add(RobotConfigurator.buildDoubleSolenoid(RobotMap.REAR_INTAKE_SOLENOID_PORTS));
 
         controlPanelColors = new HashMap<>();
         controlPanelColors.put(Color.RED, TecbotConstants.CONTROL_PANEL_RED_ID);
@@ -91,22 +91,22 @@ public class Intake extends SubsystemBase {
 
     public void rearIntakeForward() {
         rearSpeed = TecbotConstants.REAR_INTAKE_SPEED;
-        rearMotors.setAll(rearSpeed);
+        //rearMotors.setAll(rearSpeed);
     }
 
     public void rearIntakeOff() {
         rearSpeed = 0;
-        rearMotors.setAll(rearSpeed);
+        //rearMotors.setAll(rearSpeed);
     }
 
     public void rearIntakeReverse() {
         rearSpeed = -TecbotConstants.REAR_INTAKE_SPEED;
-        rearMotors.setAll(rearSpeed);
+        //rearMotors.setAll(rearSpeed);
     }
 
     public void setRawRearIntake(double speed) {
         rearSpeed = speed;
-        rearMotors.setAll(rearSpeed);
+        //rearMotors.setAll(rearSpeed);
     }
 
     /* Front Solenoids */
@@ -197,7 +197,8 @@ public class Intake extends SubsystemBase {
     }
 
     public Value getRearIntakeSolenoidState() {
-        return rearSolenoids.get(0).get();
+        //return rearSoleno ids.get(0).get();
+        return Value.kForward;
     }
 
     public void debug(boolean frontIntake, boolean rearIntake) {

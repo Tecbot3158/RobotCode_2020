@@ -7,16 +7,15 @@
 
 package frc.robot.commands.robotActions;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.OI;
 import frc.robot.Robot;
+import frc.robot.resources.TecbotConstants;
 
-public class SetPulleySpeedWithTriggers extends CommandBase {
+public class ClimberLosenRopeForSpecificTime extends CommandBase {
     /**
      * Creates a new Command.
      */
-    public SetPulleySpeedWithTriggers() {
+    public ClimberLosenRopeForSpecificTime() {
         // Use addRequirements() here to declare subsystem dependencies.
 
         // Use addRequirements() here to declare subsystem dependencies.
@@ -28,19 +27,24 @@ public class SetPulleySpeedWithTriggers extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        SmartDashboard.putBoolean("PULLEY", true);
+        Robot.getRobotContainer().getClimber().setWinchSpeed(TecbotConstants.WINCH_LOOSEN_ROPE_DEFAULT_SPEED, TecbotConstants.WINCH_LOOSEN_ROPE_DEFAULT_SPEED);
+
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double rightJoystickYCopilot = OI.getInstance().getCopilot().getRightAxisY();
-        Robot.getRobotContainer().getClimber().setPulleySpeed(rightJoystickYCopilot);
+
+
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        Robot.getRobotContainer().getClimber().setWinchSpeed(0, 0);
+        System.out.println("setting winch motors to 0");
+        System.out.println("-----------------");
+
     }
 
     // Returns true when the command should end.

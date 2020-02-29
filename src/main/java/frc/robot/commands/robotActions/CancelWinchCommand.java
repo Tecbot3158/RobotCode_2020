@@ -5,23 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.subsystemCommands.climber;
+package frc.robot.commands.robotActions;
 
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.Robot;
+import frc.robot.RobotActionsCatalog;
 
-public class ClimberEngageGear extends InstantCommand {
-    /**
-     * Creates a new Command.
-     */
-    public ClimberEngageGear() {
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+public class CancelWinchCommand extends InstantCommand {
+    public CancelWinchCommand() {
         // Use addRequirements() here to declare subsystem dependencies.
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.getRobotContainer().getClimber().engageGear();
+        RobotActionsCatalog.getInstance().getAddToXAndActivateManualWinch().cancel();
     }
-
 }

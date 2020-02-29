@@ -78,7 +78,7 @@ public class Climber extends SubsystemBase {
     }
 
     /**
-     * @param power  Requires double for pulley speed
+     * @param power Requires double for pulley speed
      */
     public void setPulleySpeed(double power) {
         //reel, cannot do this if input is negative
@@ -86,7 +86,9 @@ public class Climber extends SubsystemBase {
     }
 
     public void addToXCounter() {
-        setxWhenPressedCount(getxWhenPressedCount() + 1);
+        this.xWhenPressedCount++;
+        System.out.println("X +++++++++++++++++++ ");
+        System.out.println("x --> " + xWhenPressedCount);
         //if (getxWhenPressedCount() == 2) shrekPowerHasBeenActivated = true;
     }
 

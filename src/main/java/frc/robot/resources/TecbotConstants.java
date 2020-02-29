@@ -81,11 +81,23 @@ public class TecbotConstants {
     // Meter * meters_to_encoder = encoder count
     public static final double K_METERS_TO_ENCODER = (float) (30000 / (.2034 * Math.PI));
 
-    //SHOOTER STARTS
+    //SHOOTER
+    /*
+
     public static final double SHOOTER_TRENCH_SHOOTING_SPEED = 0.75;
     public static final double SHOOTER_INITIATION_LINE_SHOOTING_SPEED = 0.97;
     public static final double SHOOTER_TARGET_ZONE_SHOOTING_SPEED = 0.75;
+     */
+    //used to be 0.75
+    public static final double SHOOTER_TRENCH_SHOOTING_SPEED = 0.75;
+    //used to be 0.97
+    public static final double SHOOTER_INITIATION_LINE_SHOOTING_SPEED = 0.97;
+    //used to be 0.75
+    public static final double SHOOTER_TARGET_ZONE_SHOOTING_SPEED = 0.75;
     public static final double SHOOTER_OFF = 0;
+
+    public static final double SHOOTER_AUTONOMOUS_SPEED_DR01D3K4 = 0.85;
+    public static final double SHOOTER_AUTONOMOUS_SPEED_SHOOT_3PCs_N_MOVE = 0.79;
 
     //POWER SH
     public static final double TRENCH_SHOOTING_POWER = 0;
@@ -117,6 +129,8 @@ public class TecbotConstants {
 
     //CLIMBER STARTS
     public static final double WINCH_SPEED = 1;
+    public static final double WINCH_LOOSEN_ROPE_DEFAULT_SPEED = 0.5;
+    public static final double WINCH_LOOSEN_ROPE_DEFAULT_TIME = 0.20;
     //CLIMBER ENDS
 
     //INTAKE STARTS
@@ -142,7 +156,7 @@ public class TecbotConstants {
     //TRANSPORTATION SYSTEMS STARTS
     public static final double TRANSPORTATION_SYSTEM_POWER = 0.4;
     public static final double TRANSPORTATION_SYSTEM_SHOOTING_POWER = 0.7;
-    public static final double TRANSPORTATION_SYSTEM_REVERSE_TIME_COMPENSATION_IN_SECONDS = 0.25;
+    public static final double TRANSPORTATION_SYSTEM_REVERSE_TIME_COMPENSATION_IN_SECONDS = 0.5;
     //TRANSPORTATION SYSTEMS ENDS
 
     // JOYSTICK STARTS

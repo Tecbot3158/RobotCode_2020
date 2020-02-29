@@ -9,14 +9,13 @@ package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.robotActions.shootCompensateAndTransport.ShootFromInitiationLineCompensate;
+import frc.robot.commands.robotActions.shootCompensateAndTransport.ShootRawCompensate;
 import frc.robot.commands.subsystemCommands.chassis.autonomous.speedReduction.SpeedReductionStraight;
 import frc.robot.commands.subsystemCommands.chassis.autonomous.speedReduction.SpeedReductionTurn;
-import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeIn;
 import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSetRaw;
-import frc.robot.commands.subsystemCommands.pctower.TransportationSystemForward;
 import frc.robot.commands.subsystemCommands.pctower.TransportationSystemSetRaw;
 import frc.robot.commands.subsystemCommands.pctower.TransportationSystemShootingSpeed;
+import frc.robot.resources.TecbotConstants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -30,12 +29,13 @@ public class CollectPowerCellsGoBackShoot extends SequentialCommandGroup {
         // super(new FooCommand(), new BarCommand());
         super(
                 new FrontIntakeSetRaw(.75),
-                new TransportationSystemSetRaw(.4),
-                new SpeedReductionStraight(6.2,.4,180),
-                new SpeedReductionStraight(-4.9, .8,180),
-                new SpeedReductionTurn(-40,.5),
+                new TransportationSystemSetRaw(.45),
+                new SpeedReductionStraight(6.2, .4, 180),
+                new SpeedReductionStraight(-4.9, .8, 180),
+                new SpeedReductionTurn(-40, .5),
                 new WaitCommand(.5),
-                new ShootFromInitiationLineCompensate(),
+                //new ShootFromInitiationLineCompensate(),
+                new ShootRawCompensate(TecbotConstants.SHOOTER_AUTONOMOUS_SPEED_DR01D3K4),
                 new TransportationSystemShootingSpeed()
         );
     }

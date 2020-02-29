@@ -9,7 +9,7 @@ package frc.robot.commands.robotActions.mixed;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeIn;
-import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeSolenoidOn;
+import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeSolenoidRaised;
 import frc.robot.commands.subsystemCommands.pctower.TransportationSystemForward;
 import frc.robot.commands.subsystemCommands.shooter.ShootFromTargetZone;
 
@@ -24,7 +24,7 @@ public class RearIntakeShootTargetZoneTransport extends SequentialCommandGroup {
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
         super(
-                new RearIntakeSolenoidOn(),
+                new RearIntakeSolenoidRaised(),
                 new RearIntakeIn(),
                 new ShootFromTargetZone(),
                 new TransportationSystemForward()

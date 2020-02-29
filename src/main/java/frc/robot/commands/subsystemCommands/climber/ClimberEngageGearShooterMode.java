@@ -5,21 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.robotActions.shootTransport;
+package frc.robot.commands.subsystemCommands.climber;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.subsystemCommands.pctower.TransportationSystemSetRaw;
-import frc.robot.commands.subsystemCommands.shooter.ShootRaw;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Robot;
 
-public class NoPIDShootTrenchAndTransport extends SequentialCommandGroup {
+public class ClimberEngageGearShooterMode extends InstantCommand {
     /**
      * Creates a new Command.
      */
-    public NoPIDShootTrenchAndTransport() {
+    public ClimberEngageGearShooterMode() {
         // Use addRequirements() here to declare subsystem dependencies.
-            super(new TransportationSystemSetRaw(-.5),new ShootRaw(.9),new WaitCommand(0.5),
-                    new TransportationSystemSetRaw(1));
+    }
+
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+        Robot.getRobotContainer().getClimber().engageGear();
     }
 
 }

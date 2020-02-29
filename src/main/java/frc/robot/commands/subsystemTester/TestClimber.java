@@ -39,9 +39,11 @@ public class TestClimber extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        Robot.getRobotContainer().getClimber().setWinchSpeed(OI.getInstance().getPilot().getLeftAxisY(), OI.getInstance().getPilot().getRightAxisY());
-        Robot.getRobotContainer().getClimber().setPulleySpeed(OI.getInstance().getPilot().getTriggers());
-        System.out.println("Testing climber");
+        //Robot.getRobotContainer().getClimber().setWinchSpeed(OI.getInstance().getPilot().getLeftAxisY(), OI.getInstance().getPilot().getRightAxisY());
+        //obot.getRobotContainer().getClimber().setPulleySpeed(OI.getInstance().getPilot().getTriggers());
+        //System.out.println("Testing climber");
+        double y = OI.getInstance().getCopilot().getRightAxisY();
+        Robot.getRobotContainer().getClimber().setPulleySpeed(y);
     }
 
     // Called once the command ends or is interrupted.

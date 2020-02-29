@@ -5,22 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.subsystemCommands.climber;
+package frc.robot.commands.robotActions.shootCompensateAndTransport;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.Robot;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.robotActions.CompensateForShooting;
+import frc.robot.commands.subsystemCommands.shooter.ShootRaw;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class ClimberDisengageGear extends InstantCommand {
-    public ClimberDisengageGear() {
-        // Use addRequirements() here to declare subsystem dependencies.
-    }
-
-    // Called when the command is initially scheduled.
-    @Override
-    public void initialize() {
-        Robot.getRobotContainer().getClimber().disengageGear();
+public class ShootRawCompensate extends SequentialCommandGroup {
+    /**
+     * Creates a new Sequential_CommandGroup.
+     */
+    public ShootRawCompensate(double speed) {
+        // Add your commands in the super() call, e.g.
+        // super(new FooCommand(), new BarCommand());
+        super(
+                new CompensateForShooting(),
+                new ShootRaw(speed)
+        );
     }
 }

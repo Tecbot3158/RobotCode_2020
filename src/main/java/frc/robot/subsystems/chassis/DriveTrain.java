@@ -154,7 +154,7 @@ public class DriveTrain extends SubsystemBase {
 
         maxPower = Math.clamp(maxPower, 0, 1);
 
-        double diffAngle = target -Robot.getRobotContainer().getTecbotSensors().getYaw() ;
+        double diffAngle = target - Robot.getRobotContainer().getTecbotSensors().getYaw();
 
         if (diffAngle > 180) {
             diffAngle = diffAngle - 360;
@@ -199,7 +199,7 @@ public class DriveTrain extends SubsystemBase {
     public boolean moveStraight(double target, double maxPower, double targetAngle) {
         maxPower = Math.clamp(maxPower, 0, 1);
 
-        double deltaEncoder = target - Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(TecbotSensors.SubsystemType.LEFT_CHASSIS) ;
+        double deltaEncoder = target - Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(TecbotSensors.SubsystemType.LEFT_CHASSIS);
         double power = Math.clamp(deltaEncoder / TecbotConstants.CHASSIS_STRAIGHT_MAX_DISTANCE, -maxPower, maxPower);
 
         double deltaAngle = targetAngle - Robot.getRobotContainer().getTecbotSensors().getYaw();
@@ -355,6 +355,10 @@ public class DriveTrain extends SubsystemBase {
         mecanumDrive(x, y, turn);
     }
 
+    public void driveToAngleTwoPointO() {
+        driveToAngle(45, 0.1, 0);
+    }
+
     /**
      * This method uses field orientated drive to make the robot move a certain
      * value in x and a certain value in y while turning.
@@ -417,9 +421,10 @@ public class DriveTrain extends SubsystemBase {
 
 
     public void setMecanumDrive(boolean state) {
-        if (state)
+        if (state) {
             currentDrivingMode = DrivingMode.Mecanum;
-        else
+            setDragonFlyWheelState(WheelState.Lowered);
+        } else
             setDefaultDrive();
     }
 
@@ -428,9 +433,10 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void setSwerveDrive(boolean state) {
-        if (state)
+        if (state) {
+            setDragonFlyWheelState(WheelState.Lowered);
             currentDrivingMode = DrivingMode.Swerve;
-        else
+        } else
             setDefaultDrive();
     }
 
@@ -507,14 +513,15 @@ public class DriveTrain extends SubsystemBase {
 
     /**
      * Warning: this will only work fot spark max
+     *
      * @param doBreak True for setting the spark to brake
-     * @param ports motor ports to be set to given mode.
+     * @param ports   motor ports to be set to given mode.
      */
     public void setCANSparkMaxMotorsState(boolean doBreak, int... ports) {
         for (int i : ports) {
             System.out.println(i);
             TecbotSpeedController spark = getSpecificMotor(i);
-            if(spark != null){
+            if (spark != null) {
                 spark.setBrakeMode(doBreak);
             }
         }

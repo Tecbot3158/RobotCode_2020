@@ -12,9 +12,9 @@ public class Math {
     /**
      * @return returns mathematical a mod b
      */
-    public static int module(int a, int b){
-        int mod = a%b;
-        if(mod < 0){
+    public static int module(int a, int b) {
+        int mod = a % b;
+        if (mod < 0) {
             mod += b;
         }
         return mod;
@@ -64,8 +64,8 @@ public class Math {
         return java.lang.Math.sqrt(a);
     }
 
-    public static double pow(double a, double b){
-        return java.lang.Math.pow(a,b);
+    public static double pow(double a, double b) {
+        return java.lang.Math.pow(a, b);
     }
 
     /**
@@ -93,5 +93,13 @@ public class Math {
             return 0;
         }
         return input;
+    }
+
+    public static double[] convertIntArrayToDoubleArray(int[] source) {
+        double[] destinationArray = new double[source.length];
+        for (int i = 0; i < source.length; i++) {
+            destinationArray[i] = source[i];
+        }
+        return destinationArray;
     }
 }

@@ -37,14 +37,14 @@ public class TestRearIntake extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if(Robot.currentMotorBeingTested < Robot.getRobotContainer().getIntake().getRearMotors().size()) {
+        /*if(Robot.currentMotorBeingTested < Robot.getRobotContainer().getIntake().getRearMotors().size()) {
             Robot.getRobotContainer().getIntake().getRearMotors().getMotors().get(Robot.currentMotorBeingTested).set(
                     OI.getInstance().getPilot().getLeftTrigger()
             );
         }
         else {
             Robot.currentMotorBeingTested = 0;
-        }
+        }*/
     }
 
     // Called once the command ends or is interrupted.

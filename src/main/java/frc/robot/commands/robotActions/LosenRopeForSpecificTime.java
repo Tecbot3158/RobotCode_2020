@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotMap;
 import frc.robot.commands.subsystemCommands.climber.ClimberSetRawWinch;
+import frc.robot.resources.TecbotConstants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -23,8 +24,8 @@ public class LosenRopeForSpecificTime extends SequentialCommandGroup {
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
         super(
-                new ClimberSetRawWinch(-RobotMap.CLIMBER_WINCH_SPEED, -RobotMap.CLIMBER_WINCH_SPEED),
-                new WaitCommand(3),
+                new ClimberSetRawWinch(TecbotConstants.WINCH_LOOSEN_ROPE_DEFAULT_SPEED, TecbotConstants.WINCH_LOOSEN_ROPE_DEFAULT_SPEED),
+                new WaitCommand(TecbotConstants.WINCH_LOOSEN_ROPE_DEFAULT_TIME),
                 new ClimberSetRawWinch(0, 0)
         );
     }

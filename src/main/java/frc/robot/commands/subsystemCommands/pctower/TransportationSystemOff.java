@@ -10,6 +10,8 @@ package frc.robot.commands.subsystemCommands.pctower;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
 
+import java.util.Date;
+
 /**
  * An example command that uses an example subsystem.
  */
@@ -21,6 +23,7 @@ public class TransportationSystemOff extends InstantCommand {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        System.out.println(new Date());
         Robot.getRobotContainer().getTransportationSystem().setUsingPOV(false);
         Robot.getRobotContainer().getTransportationSystem().off();
     }

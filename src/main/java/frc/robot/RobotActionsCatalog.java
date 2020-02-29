@@ -1,5 +1,6 @@
 package frc.robot;
 
+import frc.robot.commands.robotActions.AddToXAndActivateManualWinch;
 import frc.robot.commands.robotActions.AllSystemsOff;
 import frc.robot.commands.robotActions.TransportDeflectorOff;
 import frc.robot.commands.robotActions.intakeTransport.*;
@@ -20,7 +21,7 @@ import frc.robot.commands.subsystemCommands.shooter.ShooterOff;
 public class RobotActionsCatalog {
     private static RobotActionsCatalog instance;
 
-
+    private AddToXAndActivateManualWinch addToXAndActivateManualWinch;
 
     private TransportationSystemShootingSpeed transportationSystemShootingSpeed;
 
@@ -36,7 +37,6 @@ public class RobotActionsCatalog {
     private RearIntakeShootTrenchTransport rearIntakeShootTrenchTransport;
     private RearIntakeShootTargetZoneTransport rearIntakeShootTargetZoneTransport;
     private RearIntakeShootInititationLineTransport rearIntakeShootInitiationLineTransport;
-
 
     private FrontIntakeShootTrenchTransport frontIntakeShootTrenchTransport;
     private FrontIntakeShootTargetZoneTransport frontIntakeShootTargetZoneTransport;
@@ -63,6 +63,7 @@ public class RobotActionsCatalog {
 
 
     public RobotActionsCatalog() {
+        addToXAndActivateManualWinch = new AddToXAndActivateManualWinch();
 
         transportationSystemShootingSpeed = new TransportationSystemShootingSpeed();
 
@@ -214,5 +215,9 @@ public class RobotActionsCatalog {
 
     public TransportationSystemShootingSpeed getTransportationSystemShootingSpeed() {
         return transportationSystemShootingSpeed;
+    }
+
+    public AddToXAndActivateManualWinch getAddToXAndActivateManualWinch() {
+        return addToXAndActivateManualWinch;
     }
 }

@@ -40,8 +40,8 @@ public class DefaultCommandIntakes extends CommandBase {
         double frontSpeed, rearSpeed, copilotRightAxisY = copilot.getRightAxisY();
 
         frontSpeed = copilotRightAxisY;
-        if (intakes.getRearIntakeSolenoidState() == RobotMap.REAR_INTAKE_LOWERED_SOLENOID_VALUE)
-            rearSpeed = copilotRightAxisY;
+        //if (intakes.getRearIntakeSolenoidState() == RobotMap.REAR_INTAKE_LOWERED_SOLENOID_VALUE)
+            //    rearSpeed = copilotRightAxisY;
 
         intakes.setRawFrontIntake(frontSpeed);
         //intakes.setRawRearIntake(rearSpeed);

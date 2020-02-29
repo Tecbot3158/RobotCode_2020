@@ -18,15 +18,20 @@ public class ActivateManualWinch extends CommandBase {
      */
     public ActivateManualWinch() {
         // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(Robot.getRobotContainer().getTransportationSystem());
+        addRequirements(Robot.getRobotContainer().getIntake());
         addRequirements(Robot.getRobotContainer().getClimber());
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        Robot.getRobotContainer().getTransportationSystem().setUsingPOV(true);
         //if (Robot.getRobotContainer().getClimber().getxWhenPressedCount() < 2)
+        //if (Robot.getRobotContainer().getClimber().getxWhenPressedCount() < 2) {
         System.out.println("x is less than 2.");
-        Robot.getRobotContainer().getClimber().addToXCounter();
+        SmartDashboard.putBoolean("CLIMB", true);
+        //}
         //Robot.getRobotContainer().getClimber().resetXCounterAfterTime(2);
         //else Robot.getRobotContainer().getClimber().disengageGear();
     }
@@ -34,16 +39,17 @@ public class ActivateManualWinch extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+
         System.out.println("MANUAL WINCH ---");
-        SmartDashboard.putBoolean("CLIMB", true);
 
         boolean climberLeftLimitSwitchState = Robot.getRobotContainer().getTecbotSensors().getClimberLeftLimitSwitch(),
                 climberRightLimitSwitchState = Robot.getRobotContainer().getTecbotSensors().getClimberRightLimitSwitch();
 
-        double leftJoystickY = OI.getInstance().getCopilot().getLeftAxisY(),
-                rightJoystickY = OI.getInstance().getCopilot().getRightAxisY();
+        double leftJoystickY = -OI.getInstance().getCopilot().getLeftAxisY(),
+                rightJoystickY = -OI.getInstance().getCopilot().getRightAxisY();
 
         SmartDashboard.putNumber("LY", leftJoystickY);
+        SmartDashboard.putNumber("RY", rightJoystickY);
         //SmartDashboard.putNumber("LY", );
 
         //controlling winch speed
@@ -70,7 +76,8 @@ public class ActivateManualWinch extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        //return Robot.getRobotContainer().getClimber().getxWhenPressedCount() < 2 && !Robot.getRobotContainer().getClimber().shrekPowerHasBeenActivated;
         return false;
+        //return Robot.getRobotContainer().getClimber().getxWhenPressedCount() < 2;
+
     }
 }

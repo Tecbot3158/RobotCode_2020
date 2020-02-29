@@ -135,11 +135,11 @@ public class TecbotSpeedController {
         return 0;
 
     }
+
     public double getSparkEncPosition() {
         if (motorToUse == TypeOfMotor.CAN_SPARK_BRUSHLESS) {
             return ((CANSparkMax) frcMotor).getEncoder().getPosition();
-        }
-        else
+        } else
             return 0;
     }
 
@@ -187,10 +187,10 @@ public class TecbotSpeedController {
      */
     public void setBrakeMode(boolean doBrake) {
 
-        if(phoenixMotor != null)
-        ((WPI_TalonSRX) phoenixMotor).setNeutralMode(doBrake ? NeutralMode.Brake : NeutralMode.Coast);
-        if(frcMotor != null)
-        ((CANSparkMax) frcMotor).setIdleMode(doBrake ? CANSparkMax.IdleMode.kBrake : CANSparkMax.IdleMode.kCoast);
+        if (phoenixMotor != null)
+            ((WPI_TalonSRX) phoenixMotor).setNeutralMode(doBrake ? NeutralMode.Brake : NeutralMode.Coast);
+        if (frcMotor != null)
+            ((CANSparkMax) frcMotor).setIdleMode(doBrake ? CANSparkMax.IdleMode.kBrake : CANSparkMax.IdleMode.kCoast);
 
     }
 

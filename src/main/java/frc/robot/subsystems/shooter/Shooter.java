@@ -65,7 +65,8 @@ public class Shooter extends PIDSubsystem {
         //return Robot.getRobotContainer().getTecbotSensors().getEncoderRaw(SubsystemType.SHOOTER);
         //System.out.println("-> encoder " +  Robot.getRobotContainer().getTecbotSensors().getEncoder(SubsystemType.SHOOTER).getRate() );
 
-        double rate = Robot.getRobotContainer().getTecbotSensors().getEncoder(SubsystemType.SHOOTER).getRate() / 30000;
+        //double rate = Robot.getRobotContainer().getTecbotSensors().getEncoder(SubsystemType.SHOOTER).getRate() / 30000;
+        double rate = 0;
         return rate;
 
     }

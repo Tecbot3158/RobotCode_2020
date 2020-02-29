@@ -71,7 +71,8 @@ public class RobotMap {
     public static final boolean DRIVE_TRAIN_TRANSMISSION_AVAILABLE = true;
 
     public static final int[] DRIVE_TRAIN_MIDDLE_WHEEL_PORT = {11};
-    public static final int[] DRIVE_TRAIN_MIDDLE_WHEEL_INVERTED_MOTORS = {11};
+    //before mechanical change the wheel was inverted.
+    public static final int[] DRIVE_TRAIN_MIDDLE_WHEEL_INVERTED_MOTORS = {};
     public static final TypeOfMotor[] DRIVE_TRAIN_MIDDLE_WHEEL_MOTOR_TYPES = {TypeOfMotor.CAN_SPARK_BRUSHLESS};
 
     public static final int[] DRIVE_TRAIN_WHEEL_SOLENOID_PORTS = {PCM_1_PORT, 6, 7};
@@ -131,7 +132,7 @@ public class RobotMap {
     public static final int[] CLIMBER_RIGHT_INVERTED_WINCH_PORTS = {13};
     public static final TecbotSpeedController.TypeOfMotor[] CLIMBER_RIGHT_WINCH_MOTOR_TYPES = {TypeOfMotor.VICTOR_SPX};
 
-    public static final int[] CLIMBER_GEAR_DISENGAGER_SOLENOID_PORTS = {PCM_2_PORT, 4, 5};
+    public static final int[] CLIMBER_GEAR_DISENGAGER_SOLENOID_PORTS = {PCM_1_PORT, 0, 1};
     public static final DoubleSolenoid.Value CLIMBER_ENGAGED_SHOOTER_GEAR = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value CLIMBER_DISENGAGED_SHOOTER_GEAR = DoubleSolenoid.Value.kReverse;
 

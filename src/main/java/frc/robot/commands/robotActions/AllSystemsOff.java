@@ -14,7 +14,7 @@ import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeOff;
 import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeOff;
 import frc.robot.commands.subsystemCommands.pctower.TransportationSystemCloseDeflector;
 import frc.robot.commands.subsystemCommands.pctower.TransportationSystemOff;
-import frc.robot.commands.subsystemCommands.shooter.ShootManual;
+import frc.robot.commands.subsystemCommands.shooter.ShootRaw;
 import frc.robot.commands.subsystemCommands.shooter.ShooterOff;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -67,7 +67,7 @@ public class AllSystemsOff extends SequentialCommandGroup {
                 new TransportationSystemOff(),
                 new TransportationSystemCloseDeflector(),
                 new ShooterOff(),
-                new ShootManual(0, 0),
+                new ShootRaw(0),
                 new InstantCommand(Robot.getRobotContainer().getTransportationSystem()::setToFalseUsingPOV)
         );
     }

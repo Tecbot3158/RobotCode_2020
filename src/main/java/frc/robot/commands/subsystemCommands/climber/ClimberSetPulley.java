@@ -18,8 +18,8 @@ public class ClimberSetPulley extends CommandBase {
     private final Climber m_climber = Robot.getRobotContainer().getClimber();
     private double pulleyPowerRight;
 
-    public ClimberSetPulley(double powerRight) {
-        pulleyPowerRight = powerRight;
+    public ClimberSetPulley(double power) {
+        pulleyPowerRight = power;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(m_climber);
     }

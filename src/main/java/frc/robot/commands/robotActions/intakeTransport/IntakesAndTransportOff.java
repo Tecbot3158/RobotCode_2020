@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeOff;
 import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSolenoidLowered;
 import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeOff;
-import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeSolenoidOff;
+import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeSolenoidLowered;
 import frc.robot.commands.subsystemCommands.pctower.TransportationSystemCloseDeflector;
 import frc.robot.commands.subsystemCommands.pctower.TransportationSystemOff;
 
@@ -23,7 +23,7 @@ public class IntakesAndTransportOff extends SequentialCommandGroup {
         super(
                 new FrontIntakeOff(),
                 new RearIntakeOff(),
-                new RearIntakeSolenoidOff(),
+                new RearIntakeSolenoidLowered(),
                 new FrontIntakeSolenoidLowered(),
                 new TransportationSystemOff(),
                 new TransportationSystemCloseDeflector()

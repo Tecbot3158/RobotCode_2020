@@ -5,22 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.robotActions;
+package frc.robot.commands.subsystemCommands.intakes.rearIntakes;
 
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Robot;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class CancelAllCommands extends InstantCommand {
-    public CancelAllCommands() {
-        // Use addRequirements() here to declare subsystem dependencies.
-    }
+public class RearIntakeSolenoidLowered extends InstantCommand {
+  public RearIntakeSolenoidLowered() {
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.getRobotContainer().getIntake());
+  }
 
-    // Called when the command is initially scheduled.
-    @Override
-    public void initialize() {
-        CommandScheduler.getInstance().cancelAll();
-    }
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
+    //Robot.getRobotContainer().getIntake().rearIntakeSolenoidLowered();
+  }
 }

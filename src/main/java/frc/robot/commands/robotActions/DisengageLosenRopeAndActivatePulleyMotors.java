@@ -7,12 +7,9 @@
 
 package frc.robot.commands.robotActions;
 
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Robot;
-import frc.robot.commands.subsystemCommands.climber.ClimberDisengageGear;
-import frc.robot.commands.subsystemCommands.climber.ClimberSetPulley;
+import frc.robot.commands.subsystemCommands.climber.ClimberDisengageGearClimbingMode;
+import frc.robot.resources.TecbotConstants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -26,11 +23,11 @@ public class DisengageLosenRopeAndActivatePulleyMotors extends SequentialCommand
         // super(new FooCommand(), new BarCommand());
         super(
                 //TODO uncomment these commands
-                //new CancelAllCommands()
-                //new ClimberDisengageGear(),
+                new CancelWinchCommand(),
+                new ClimberDisengageGearClimbingMode(),
+                new ClimberLosenRopeForSpecificTime().withTimeout(TecbotConstants.WINCH_LOOSEN_ROPE_DEFAULT_TIME),
                 //new LosenRopeForSpecificTime(),
                 new SetPulleySpeedWithTriggers()
-
         );
     }
 }

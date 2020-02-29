@@ -7,37 +7,26 @@
 
 package frc.robot.commands.robotActions;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeOff;
-import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSolenoidLowered;
-import frc.robot.commands.subsystemCommands.intakes.frontIntakes.FrontIntakeSolenoidRaised;
-import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeOff;
-import frc.robot.commands.subsystemCommands.intakes.rearIntakes.RearIntakeSolenoidRaised;
-import frc.robot.commands.subsystemCommands.pctower.TransportationSystemOff;
-import frc.robot.commands.subsystemCommands.shooter.ShooterOff;
+import frc.robot.Robot;
+import frc.robot.commands.subsystemCommands.climber.ActivateManualWinch;
+import frc.robot.subsystems.climber.Climber;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class SetAllSystemsInClimbingMode extends SequentialCommandGroup {
+public class AddToXAndActivateManualWinch extends SequentialCommandGroup {
     /**
      * Creates a new Sequential_CommandGroup.
      */
-    public SetAllSystemsInClimbingMode() {
+    public AddToXAndActivateManualWinch() {
         // Add your commands in the super() call, e.g.
         // super(new FooCommand(), new BarCommand());
         super(
-
-                //intakes
-                new FrontIntakeOff(),
-                new FrontIntakeSolenoidLowered(),
-                //new RearIntakeOff(),
-                //new RearIntakeSolenoidRaised(),
-
-                new ShooterOff(),
-
-                new TransportationSystemOff()
-
+                new SetAllSystemsInClimbingMode(),
+                new InstantCommand(Robot.getRobotContainer().getClimber()::addToXCounter),
+                new ActivateManualWinch()
         );
     }
 }

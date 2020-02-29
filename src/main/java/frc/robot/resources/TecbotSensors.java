@@ -47,13 +47,13 @@ public class TecbotSensors {
     public void initializeAllSensors() {
 
         tecbotGyro = new Navx();
-        sharedMotorsRightEncoder = RobotConfigurator.buildEncoder(Robot.getRobotContainer().getSharedMotors().getMotorWithEncoderRight(),
+        /*sharedMotorsRightEncoder = RobotConfigurator.buildEncoder(Robot.getRobotContainer().getSharedMotors().getMotorWithEncoderRight(),
                 RobotMap.SHARED_MOTORS_RIGHT_ENCODER_PORTS[0],
-                RobotMap.SHARED_MOTORS_RIGHT_ENCODER_PORTS[1]);
-        sharedMotorsLeftEncoder = RobotConfigurator.buildEncoder(Robot.getRobotContainer().getSharedMotors().getMotorWithEncoderLeft(),
+                RobotMap.SHARED_MOTORS_RIGHT_ENCODER_PORTS[1]);*/
+        /*sharedMotorsLeftEncoder = RobotConfigurator.buildEncoder(Robot.getRobotContainer().getSharedMotors().getMotorWithEncoderLeft(),
                 RobotMap.SHARED_MOTORS_LEFT_ENCODER_PORTS[0],
                 RobotMap.SHARED_MOTORS_LEFT_ENCODER_PORTS[1]);
-
+*/
         leftChassisEncoder = RobotConfigurator.buildEncoder
                 (Robot.getRobotContainer().getDriveTrain().getSpecificMotor(RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_MOTOR_WITH_ENCODER),
                         RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_ENCODER_PORTS[0], RobotMap.DRIVE_TRAIN_LEFT_CHASSIS_ENCODER_PORTS[1]);
@@ -158,8 +158,11 @@ public class TecbotSensors {
                 return middleChassisEncoder.getSparkRaw();
             case SHOOTER:
                 return RobotMap.SHOOTER_ENCODER_IN_RIGHT_MOTOR ?
-                        sharedMotorsRightEncoder.getRaw() :
-                        sharedMotorsLeftEncoder.getRaw();
+                        //sharedMotorsRightEncoder.getRaw() :
+                        0:
+                        0;
+                        //
+            // sharedMotorsLeftEncoder.getRaw();
             default:
                 return 0;
         }
