@@ -82,7 +82,7 @@ public class Robot extends TimedRobot {
 
         m_chooser.addOption("Move 3 m", new SpeedReductionStraight(3, .75, 0));
         m_chooser.addOption("Rotate 90 degrees", new SpeedReductionTurn(90, .5));
-        m_chooser.addOption("El chido", new DR01D3K4());
+        m_chooser.setDefaultOption("El chido", new DR01D3K4());
         m_chooser.addOption("Collect, go back and shoot", new CollectPowerCellsGoBackShoot());
         m_chooser.addOption("Transport", new SequentialCommandGroup(new FrontIntakeSetRaw(.75),
                 new TransportationSystemSetRaw(.5)));
@@ -200,8 +200,8 @@ public class Robot extends TimedRobot {
 
 
         /*
+        +
 
-        //System.out.println(OI.getInstance().getPilot().getTriggers());
         SmartDashboard.putData(new TestClimber());
         SmartDashboard.putData(new TestIntake());
         SmartDashboard.putData(new TestPCT());

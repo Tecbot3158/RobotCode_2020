@@ -270,9 +270,7 @@ public class TecbotController {
 
     public TecbotController(int port, TypeOfController typeOfController) {
 
-        setPilotPort(port);
-        pilot = new Joystick(getPilotPort());
-        joystickName = pilot.getName().toLowerCase();
+        pilot = new Joystick(port);
 
         controllerType = typeOfController;
 
@@ -309,10 +307,10 @@ public class TecbotController {
             default:
                 value = 0;
                 DriverStation.reportWarning("Could not get axis value from getLeftAxisX(). Returned 0. Returned 0. Use getAxisValue() instead.", false);
-                break;
-        }
+            break;
+}
         return ground(value, getOffset());
-    }
+                }
 
     /**
      * This function will return the value of the Left Axis <i>Y</i>.
@@ -367,6 +365,28 @@ public class TecbotController {
                 DriverStation.reportWarning("Could not get axis value from getLeftAxisY(). Returned 0. Returned 0. Use getAxisValue() instead.", false);
                 break;
         }
+        return ground(value, getOffset());
+    }
+
+    public double getLeftAxisY(boolean speedRelease) {
+        if (pilot == null) {
+            DriverStation.reportWarning("Controller not found @ port #" + getPilotPort() + ".\nReturning 0", true);
+            return 0;
+        }
+        double value;
+        switch (controllerType) {
+            case PS4:
+                value = pilot.getRawAxis(portsJoysticksPS4[1]);
+                break;
+            case XBOX:
+                value = pilot.getRawAxis(portsJoystickXBOX[1]);
+                break;
+            default:
+                value = 0;
+                DriverStation.reportWarning("Could not get axis value from getLeftAxisY(). Returned 0. Returned 0. Use getAxisValue() instead.", false);
+                break;
+        }
+        if (speedRelease) value = speedRelease(value);
         return ground(value, getOffset());
     }
 

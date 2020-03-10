@@ -33,9 +33,7 @@ public class SetAllSystemsInClimbingMode extends SequentialCommandGroup {
                 new FrontIntakeSolenoidLowered(),
                 //new RearIntakeOff(),
                 //new RearIntakeSolenoidRaised(),
-
                 new ShooterOff(),
-
                 new TransportationSystemOff()
 
         );

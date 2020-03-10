@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.ResetGyro;
+import frc.robot.commands.robotActions.DisengageLosenRopeAndActivatePulleyMotors;
 import frc.robot.commands.subsystemCommands.chassis.QuickTurn;
 import frc.robot.commands.subsystemCommands.chassis.drivingModes.*;
 import frc.robot.commands.subsystemCommands.chassis.wheel.ToggleWheelPosition;
@@ -25,7 +26,7 @@ public class OI {
     TecbotController pilot, copilot;
 
     public OI() {
-        pilot = new TecbotController(0, TecbotController.TypeOfController.PS4);
+        pilot = new TecbotController(0, TecbotController.TypeOfController.XBOX);
         copilot = new TecbotController(1, TecbotController.TypeOfController.PS4);
 
     }
@@ -50,21 +51,21 @@ public class OI {
         pilot.whenPressed(TecbotController.ButtonType.LB, new InstantCommand(intakes::rearIntakeToggleSolenoid));
 
 
-        pilot.whenPressed(TecbotController.ButtonType.A, new ToggleWheelPosition());
+        //pilot.whenPressed(TecbotController.ButtonType.A, new ToggleWheelPosition());
 
         pilot.whenPressed(TecbotController.ButtonType.B, new ChassisSetPivoting());
         pilot.whenReleased(TecbotController.ButtonType.B, new ChassisSetDefaultDrive());
 
         pilot.whenPressed(TecbotController.ButtonType.X, RobotActionsCatalog.getInstance().getAllSystemsOff());
 
-        pilot.whenPressed(TecbotController.ButtonType.Y, new QuickTurn());
+        //pilot.whenPressed(TecbotController.ButtonType.Y, new QuickTurn());
 
-        pilot.whenPressed(TecbotController.ButtonType.BACK, new PositionServoToZero());
+        //pilot.whenPressed(TecbotController.ButtonType.BACK, new PositionServoToZero());
 
         //pilot.whenPressed(TecbotController.ButtonType.LS, new PositionServo());
-        pilot.whenPressed(TecbotController.ButtonType.LS, new ToggleMecanum());
+        //pilot.whenPressed(TecbotController.ButtonType.LS, new ToggleMecanum());
 
-        pilot.whenPressed(TecbotController.ButtonType.RS, new ToggleSwerve());
+        //pilot.whenPressed(TecbotController.ButtonType.RS, new ToggleSwerve());
 
         pilot.whenPressed(TecbotController.ButtonType.START, new ChassisToggleTransmissionMode());
 
@@ -97,7 +98,7 @@ public class OI {
 
          */
         //CLIMBING STARTS
-        //copilot.whenPressed(TecbotController.ButtonType.START, RobotActionsCatalog.getInstance().getAddToXAndActivateManualWinch());
+        copilot.whenPressed(TecbotController.ButtonType.START, RobotActionsCatalog.getInstance().getAddToXAndActivateManualWinch());
 
         //copilot.whenPressed(TecbotController.ButtonType.BACK, new DisengageLosenRopeAndActivatePulleyMotors());
         /*CLIMBING ENDS.

@@ -29,7 +29,6 @@ public class ActivateManualWinch extends CommandBase {
         Robot.getRobotContainer().getTransportationSystem().setUsingPOV(true);
         //if (Robot.getRobotContainer().getClimber().getxWhenPressedCount() < 2)
         //if (Robot.getRobotContainer().getClimber().getxWhenPressedCount() < 2) {
-        System.out.println("x is less than 2.");
         SmartDashboard.putBoolean("CLIMB", true);
         //}
         //Robot.getRobotContainer().getClimber().resetXCounterAfterTime(2);

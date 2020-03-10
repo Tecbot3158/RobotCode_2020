@@ -171,7 +171,7 @@ public class DriveTrain extends SubsystemBase {
         SmartDashboard.putNumber("Difference Abs", diffAngle);
 
         if (diffAbsAngle >= TecbotConstants.CHASSIS_TURN_ARRIVE_OFFSET) {
-            drive(turnPower, 0);
+            drive(0, turnPower);
         }
         if (diffAbsAngle < TecbotConstants.CHASSIS_TURN_ARRIVE_OFFSET) {
             drive(0, 0);
@@ -191,7 +191,7 @@ public class DriveTrain extends SubsystemBase {
             stop();
             return true;
         } else {
-            drive(0, power);
+            drive(power, 0);
         }
         return false;
     }
@@ -217,7 +217,7 @@ public class DriveTrain extends SubsystemBase {
             stop();
             return true;
         } else {
-            drive(turnCorrection, power);
+            drive(power, turnCorrection);
             return false;
         }
     }
